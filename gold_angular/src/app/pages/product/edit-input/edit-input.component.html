@@ -1,0 +1,7 @@
+<div *ngIf='!editMode' (click)='editMode=true' class='cell'>{{ data.opening_balance }}</div>
+<input
+  *ngIf='editMode'
+  (focusout)="onFocusOut()"
+
+  [(ngModel)]='data.opening_balance' class='cellInput'
+  appAutofocus type='number' (keydown.enter)='test()' (focusout)="editMode=false">
