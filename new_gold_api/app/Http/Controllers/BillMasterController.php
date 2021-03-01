@@ -19,7 +19,6 @@ class BillMasterController extends Controller
     {
 
         $newData = ($request->json()->all());
-//        $master=(object)($newData['master']);
         $master = $newData['master'];
         $details = $newData['details'];
 
@@ -48,7 +47,6 @@ class BillMasterController extends Controller
             $customVoucher->prefix = 'BILL';
             $customVoucher->save();
         }
-
 
         try {
             $result = new BillMaster();

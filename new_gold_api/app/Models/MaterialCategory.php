@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class MaterialCategory extends Model
 {
-    use HasFactory;
+    public function materials()
+    {
+        return $this->hasMany('App\Models\Material');
+    }
 }

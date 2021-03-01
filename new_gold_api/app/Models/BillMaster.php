@@ -7,5 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class BillMaster extends Model
 {
-    use HasFactory;
+    public function getCustomer(){
+        return $this->belongsTo('App\Models\User;','customer_id');
+
+    }
+
+    public function getBills(){
+        return $this->hasMany('App\Models\BillMaster;','bill_master_id');
+    }
 }

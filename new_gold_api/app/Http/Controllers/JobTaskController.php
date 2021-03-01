@@ -34,8 +34,6 @@ class JobTaskController extends Controller
             ->where('job_masters.status_id','=',1)
             ->get();
 
-
-
         return response()->json(['success'=>1,'data'=>$data], 200,[],JSON_NUMERIC_CHECK);
 
     }
@@ -52,10 +50,7 @@ class JobTaskController extends Controller
             ->where('job_masters.status_id','=',100)
             ->get();
 
-
-
         return response()->json(['success'=>1,'data'=>$data], 200,[],JSON_NUMERIC_CHECK);
-
     }
 
 
@@ -88,7 +83,6 @@ class JobTaskController extends Controller
             ->where('job_details.job_master_id','=',$data->id)
             ->get();
 
-
         return response()->json(['success'=>1,'data'=> $result], 200,[],JSON_NUMERIC_CHECK);
     }
 
@@ -120,7 +114,6 @@ class JobTaskController extends Controller
             ->get();
 
         return response()->json(['success'=>1,'data'=> $result], 200,[],JSON_NUMERIC_CHECK);
-
     }
 
 
@@ -134,8 +127,6 @@ class JobTaskController extends Controller
             ->join('products','order_details.product_id','=','products.id')
             ->where('job_masters.id','=',$id)
             ->first();
-
-
 
         return response()->json(['success'=>1,'data'=>$data], 200,[],JSON_NUMERIC_CHECK);
     }
@@ -155,19 +146,6 @@ class JobTaskController extends Controller
 
         return response()->json(['success'=>1,'data'=>$result], 200,[],JSON_NUMERIC_CHECK);
 
-
-//        $table1 = DB::table('job_details')
-//                      ->where('job_details.job_master_id', $id);
-//
-//
-//        $result = DB::table('job_tasks')->select('job_tasks.id','job_tasks.task_name',DB::raw("count(table1.job_task_id) as badgeValue"))
-//            ->leftJoinSub($table1, 'table1', function ($join) {
-//                $join->on('job_tasks.id', '=', 'table1.job_task_id');
-//            })
-//            ->groupBy( 'table1.job_task_id','job_tasks.id')
-//            ->get();
-//
-//        return response()->json(['success'=>1,'data'=>$result], 200,[],JSON_NUMERIC_CHECK);
     }
 
     /**

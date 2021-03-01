@@ -83,10 +83,7 @@ class JobMasterController extends Controller
                 ->first();
         }
         return response()->json(['success'=>1,'data'=> $jobData], 200);
-//        }
-//        return response()->json(['success'=>1,'data'=> $jobMaster], 200);
     }
-
 
     public function updateGrossWeight(Request $request)
     {
@@ -97,8 +94,6 @@ class JobMasterController extends Controller
         $jobMaster->gross_weight = $inputJobMaster->gross_weight;
         $jobMaster->update();
         if($jobMaster){
-//            $jobMaster = new JobMaster();
-//            $jobMaster = JobMaster::find($inputJobMaster->id);
             $jobMaster->status_id =100;
             $jobMaster->update();
 
@@ -166,50 +161,6 @@ class JobMasterController extends Controller
         $result1 = collect($queryResult);
 
         $result2 = BillAdjustment::select()->get();
-
-//        $result3 = array(
-//                        array("task_name"=>"Gold",
-//                            "id"=>1,
-//                            "submit"=>$result1[0]->material_submitted,
-//                            "return"=>abs($result1[1]->material_submitted),
-//                            "total"=> $result1[0]->material_submitted + $result1[1]->material_submitted,
-//                            "valueTaken"=> 100,
-//                            "rate" => $result1[0]->rate,
-//                            "quantity" => $result1[0]->quantity,
-//                            "mv" => $result1[0]->mv,
-//                            "p_loss" => $result1[0]->p_loss
-//                        ),
-//                        array("task_name"=>"Dal",
-//                            "id"=>2,
-//                            "submit"=>$result1[2]->material_submitted,
-//                            "return"=>abs($result1[3]->material_submitted),
-//                            "total"=> $result1[2]->material_submitted + $result1[3]->material_submitted,
-//                            "valueTaken"=> 100
-//
-//                        ),
-//                        array("task_name"=>"Pan",
-//                            "id"=>3,
-//                            "submit"=>$result1[4]->material_submitted,
-//                            "return"=>abs($result1[5]->material_submitted),
-//                            "total"=> (($result1[4]->material_submitted + $result1[5]->material_submitted) * $result2[0]->value)/100,
-//                            "valueTaken"=>$result2[0]->value
-//                        ),
-//                        array("task_name"=>"Nitric",
-//                            "id"=>4,
-//                            "submit"=> 0,
-//                            "return"=>abs($result1[6]->material_submitted),
-//                            "total"=> abs(($result1[6]->material_submitted * $result2[1]->value)/100),
-//                            "valueTaken"=>$result2[1]->value
-//                        ),
-//                        array("task_name"=>"Bronze",
-//                            "id"=>5,
-//                            "submit"=> $result1[7]->material_submitted,
-//                            "return"=> 0,
-//                            "total"=> $result1[7]->material_submitted,
-//                            "valueTaken"=> 100
-//                        ),
-//        );
-
 
         $result3 = array(
             array("task_name"=>"Gold",
