@@ -499,6 +499,7 @@ export class StockBillComponent implements OnInit {
     // return this.agentData[0] ;
   }
   ViewBill(){
+    console.log(this.selectedCustomerData);
     this.billView = false;
     const date =  this.date.getFullYear() + '-' + (this.date.getMonth() + 1) + '-' + this.date.getDate();
     this.selectedCustomerData.bill_date = date;

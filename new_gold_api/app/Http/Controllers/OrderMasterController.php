@@ -114,9 +114,6 @@ class OrderMasterController extends Controller
             }
 
             if($orderMaster){
-//                $data = CustomerToAgents::select()->where('customer_id',$orderMaster->person_id)->where('agent_id',$orderMaster->agent_id)->first();
-//                if(!$data) {
-
                 $CustomerToAgent = CustomerToAgents::where('customer_id',$orderMaster->person_id)->first();
                 if(!$CustomerToAgent){
                     $CustomerToAgent = new CustomerToAgents();
@@ -124,8 +121,6 @@ class OrderMasterController extends Controller
                     $CustomerToAgent->agent_id = $orderMaster->agent_id;
                     $CustomerToAgent->save();
                 }
-
-//                }
             }
 
             DB::commit();

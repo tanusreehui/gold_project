@@ -51,11 +51,11 @@ class MaterialTransactionMasterController extends Controller
     public function getEmployees()
     {
         $data = User::select()
-            ->where('person_type_id',2)
-            ->orWhere('person_type_id',3)
-            ->orWhere('person_type_id',4)
-            ->orWhere('person_type_id',5)
-            ->orWhere('person_type_id',6)
+            ->where('user_type_id',2)
+            ->orWhere('user_type_id',3)
+            ->orWhere('user_type_id',4)
+            ->orWhere('user_type_id',5)
+            ->orWhere('user_type_id',6)
             ->get();
         return  response()->json(['success'=>1,'data'=>$data],200,[],JSON_NUMERIC_CHECK);
     }
