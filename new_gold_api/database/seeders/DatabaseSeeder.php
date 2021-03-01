@@ -6,6 +6,7 @@ namespace Database\Seeders;
 //use App\Models\Ledger;
 //use App\Models\Unit;
 //use App\Models\VoucherType;
+use App\Models\Model\Person;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\UserType;
@@ -44,6 +45,11 @@ class DatabaseSeeder extends Seeder
         StatusType::create(['id'=>100, 'name'=>'Finished']);
 //        StatusType::create(['id'=>101, 'name'=>'Bill Created']);
         StatusType::create(['id'=>102, 'name'=>'Stock Created']);
+
+
+        //bill_adjustments  table data
+        BillAdjustment::create(['name'=>'pan', 'value'=>40,'comment'=>'40% of pan value taken']);
+        BillAdjustment::create(['name'=>'nitric', 'value'=>96,'comment'=>'96% of nitric value taken']);
 
         //job_tasks table data
         JobTask::create(['task_name'=>'Gold Submit']);
@@ -291,6 +297,33 @@ class DatabaseSeeder extends Seeder
         User::create(['user_name'=>'kk Ghosh','mobile1'=>'9836444972','mobile2'=>'','email'=>'bangle3022@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>11,'customer_category_id'=>3]);
         User::create(['user_name'=>'abcd Ghosh','mobile1'=>'9836444972','mobile2'=>'','email'=>'bangle3033@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>11,'customer_category_id'=>3]);
         User::create(['user_name'=>'ffgh Ghosh','mobile1'=>'9836444972','mobile2'=>'','email'=>'bangle3404@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>11,'customer_category_id'=>3]);
+
+
+
+        //people table data
+
+        Person::create(['user_name'=>'Counter Agent','mobile1'=>'9836444451','mobile2'=>'','email'=>'bangle396@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>7]);
+        Person::create(['user_name'=>'Abishek Basak','mobile1'=>'9836444451','mobile2'=>'','email'=>'bangle39612@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>7]);
+        Person::create(['user_name'=>'Sudip Roy','mobile1'=>'9836444451','mobile2'=>'','email'=>'bangle396002@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>7]);
+        Person::create(['user_name'=>'Bijon Dey','mobile1'=>'9836444451','mobile2'=>'','email'=>'bangle39611@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>7]);
+
+
+        Person::create(['user_name'=>'Rik Roy','mobile1'=>'9836444451','mobile2'=>'','email'=>'bangle39600@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>2]);
+        Person::create(['user_name'=>'Abijit Basak','mobile1'=>'9836444451','mobile2'=>'','email'=>'bangle39612000@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>3]);
+        Person::create(['user_name'=>'Sudipto Roy','mobile1'=>'9836444451','mobile2'=>'','email'=>'bangle39600005@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>4]);
+        Person::create(['user_name'=>'Bijit Dey','mobile1'=>'9836444451','mobile2'=>'','email'=>'bangle3961100@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>5]);
+        Person::create(['user_name'=>'Prodip Ghosh','mobile1'=>'9836444785','mobile2'=>'','email'=>'bangle3710@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>6]);
+
+        Person::create(['user_name'=>'Pushpendu Roy','mobile1'=>'9836444426','mobile2'=>'','email'=>'bangle376@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>8]);
+        Person::create(['user_name'=>'Pushpendu Ghosh','mobile1'=>'9836444785','mobile2'=>'','email'=>'bangle375@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>10,'customer_category_id'=>2]);
+
+        Person::create(['user_name'=>'Joy Ghosh','mobile1'=>'9836444972','mobile2'=>'','email'=>'bangle322@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>11,'customer_category_id'=>3]);
+        Person::create(['user_name'=>'Erik Ghosh','mobile1'=>'9836444972','mobile2'=>'','email'=>'bangle333@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>11,'customer_category_id'=>3]);
+        Person::create(['user_name'=>'Tuhin Ghosh','mobile1'=>'9836444972','mobile2'=>'','email'=>'bangle344@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>11,'customer_category_id'=>3]);
+
+        Person::create(['user_name'=>'kk Ghosh','mobile1'=>'9836444972','mobile2'=>'','email'=>'bangle3022@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>11,'customer_category_id'=>3]);
+        Person::create(['user_name'=>'abcd Ghosh','mobile1'=>'9836444972','mobile2'=>'','email'=>'bangle3033@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>11,'customer_category_id'=>3]);
+        Person::create(['user_name'=>'ffgh Ghosh','mobile1'=>'9836444972','mobile2'=>'','email'=>'bangle3404@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>11,'customer_category_id'=>3]);
 
 //        php artisan db:seed --class=ProductSeeder
     }

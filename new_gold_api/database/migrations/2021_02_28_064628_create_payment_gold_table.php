@@ -19,10 +19,10 @@ class CreatePaymentGoldTable extends Migration
             $table->String('transaction_id', 100)->nullable(false);
 
             $table->bigInteger('person_id')->unsigned();
-            $table ->foreign('person_id')->references('id')->on('users');
+            $table ->foreign('person_id')->references('id')->on('people');
 
             $table->bigInteger('agent_id')->unsigned();
-            $table ->foreign('agent_id')->references('id')->on('users');
+            $table ->foreign('agent_id')->references('id')->on('people');
 
             $table->bigInteger('user_id')->unsigned();
             $table ->foreign('user_id')->references('id')->on('users');

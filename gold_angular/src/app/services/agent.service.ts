@@ -40,11 +40,11 @@ export class AgentService {
 
     this.agentForm = new FormGroup({
       id : new FormControl(null),
-      person_name : new FormControl(null, [Validators.required, Validators.maxLength(20), Validators.minLength(4)]),
+      user_name : new FormControl(null, [Validators.required, Validators.maxLength(20), Validators.minLength(4)]),
       email : new FormControl(null, [Validators.required, Validators.email]),
       mobile1 : new FormControl('+91', [Validators.maxLength(13)]),
       mobile2 : new FormControl('+91', [Validators.maxLength(13)]),
-      person_type_id : new FormControl(10),
+      user_type_id: new FormControl(10),
       customer_category_id : new FormControl(2),
       address1 : new FormControl(null),
       address2 : new FormControl(null),

@@ -13,10 +13,10 @@ class CreateAllProceduresAndFunctions extends Migration
      */
     public function up()
     {
-//        DB::unprepared('DROP PROCEDURE IF EXISTS getUsers;
-//                        CREATE PROCEDURE getUsers()
+//        DB::unprepared('DROP PROCEDURE IF EXISTS getpeople;
+//                        CREATE PROCEDURE getpeople()
 //                        BEGIN
-//                            SELECT * FROM users;
+//                            SELECT * FROM people;
 //                        END');
 
 
@@ -35,7 +35,7 @@ class CreateAllProceduresAndFunctions extends Migration
 //                            select total_gold_received,(total_gold - total_gold_received) as gold_due,(total_LC - total_lc_received) as cash_due ,total_lc_received, person_id, total_submitted, gold_returned, gold_submitted, total_gold, total_amount, total_LC from
 //                            (select sum(gold_receiveds.gold_received) as total_gold_received,table5.total_lc_received, table5.person_id, table5.total_submitted, table5.gold_returned, table5.gold_submitted, table5.total_amount, table5.total_gold, table5.total_LC from
 //                            (select sum(lc_receiveds.lc_received) as total_lc_received ,table4.person_id,table4.total_submitted,table4.gold_returned,table4.gold_submitted,table4.total_amount, table4.total_gold, table4.total_LC from
-//                            (select table3.person_id,table3.total_submitted,table3.gold_returned,table3.gold_submitted,table3.total_amount,(users.opening_balance_LC + table3.total_amount) as total_LC,(users.opening_balance_Gold + table3.total_submitted) as total_gold from
+//                            (select table3.person_id,table3.total_submitted,table3.gold_returned,table3.gold_submitted,table3.total_amount,(people.opening_balance_LC + table3.total_amount) as total_LC,(people.opening_balance_Gold + table3.total_submitted) as total_gold from
 //                            (select table2.person_id,table2.total_submitted,table2.gold_returned,table2.gold_submitted, sum(order_details.quantity *order_details.price) as total_amount from
 //                            (select table1.person_id,(table1.gold_submitted + sum(job_details.material_quantity)) as total_submitted,sum(job_details.material_quantity) as gold_returned, table1.gold_submitted from
 //                            (select order_masters.person_id,sum(job_details.material_quantity)as gold_submitted from job_details
@@ -51,7 +51,7 @@ class CreateAllProceduresAndFunctions extends Migration
 //                            inner join order_masters on order_masters.person_id = table2.person_id
 //                            inner join order_details on order_details.order_master_id = order_masters.id
 //                            group by table2.person_id,table2.total_submitted,table2.gold_returned,table2.gold_submitted) as table3
-//                            inner join users on table3.person_id = users.id) as table4
+//                            inner join people on table3.person_id = people.id) as table4
 //                            inner join lc_receiveds on table4.person_id = lc_receiveds.customer_id
 //                            group by table4.person_id,table4.total_submitted,table4.gold_returned,table4.gold_submitted,table4.total_amount, table4.total_gold, table4.total_LC) as table5
 //                            inner join gold_receiveds on table5.person_id = gold_receiveds.customer_id
@@ -182,10 +182,10 @@ class CreateAllProceduresAndFunctions extends Migration
 //                  where job_masters.id=param_job_master_id;
 //
 //
-//                  select (users.mv * order_details.quantity) into temp_total_mv from  job_masters
+//                  select (people.mv * order_details.quantity) into temp_total_mv from  job_masters
 //                  inner join order_details ON order_details.id = job_masters.order_details_id
 //                  inner join order_masters ON order_masters.id = order_details.order_master_id
-//                  inner join users ON users.id = order_masters.person_id
+//                  inner join people ON people.id = order_masters.person_id
 //                  where job_masters.id = param_job_master_id;
 //
 //
@@ -207,7 +207,7 @@ class CreateAllProceduresAndFunctions extends Migration
 //
 //
 //
-//                    select stocks.id,stocks.gold, stocks.agent_id , stocks.amount, stocks.in_stock,stocks.quantity, stocks.gross_weight,stocks.material_id,products.model_number,stocks.job_master_id,order_details.size,users.id as person_id,
+//                    select stocks.id,stocks.gold, stocks.agent_id , stocks.amount, stocks.in_stock,stocks.quantity, stocks.gross_weight,stocks.material_id,products.model_number,stocks.job_master_id,order_details.size,people.id as person_id,
 //                    concat( conv(SUBSTRING(tag, 5,5),10,16),'-' ,
 //                    conv(SUBSTRING_INDEX(SUBSTRING_INDEX(tag,'-',-2), '-',1),10,16),'-',
 //                    SUBSTRING_INDEX(tag,'-',-1)) as tag
@@ -215,7 +215,7 @@ class CreateAllProceduresAndFunctions extends Migration
 //                    inner join job_masters ON job_masters.id = stocks.job_master_id
 //                    inner join order_details ON order_details.id = job_masters.order_details_id
 //                    inner join order_masters ON order_masters.id = order_details.order_master_id
-//                    inner join users ON users.id = order_masters.person_id
+//                    inner join people ON people.id = order_masters.person_id
 //                    inner join products ON products.id = order_details.product_id;
 //
 //                    END;'
@@ -257,10 +257,10 @@ class CreateAllProceduresAndFunctions extends Migration
                   where job_masters.id=param_job_master_id;
 
 
-                  select (users.mv * order_details.quantity) into temp_total_mv from  job_masters
+                  select (people.mv * order_details.quantity) into temp_total_mv from  job_masters
                   inner join order_details ON order_details.id = job_masters.order_details_id
                   inner join order_masters ON order_masters.id = order_details.order_master_id
-                  inner join users ON users.id = order_masters.person_id
+                  inner join people ON people.id = order_masters.person_id
                   where job_masters.id = param_job_master_id;
 
 
@@ -281,7 +281,7 @@ class CreateAllProceduresAndFunctions extends Migration
 
 
 
-                    select stocks.id,stocks.gold, stocks.agent_id , stocks.amount, stocks.in_stock,stocks.quantity, stocks.gross_weight,stocks.material_id,products.model_number,stocks.job_master_id,order_details.size,users.id as person_id,
+                    select stocks.id,stocks.gold, stocks.agent_id , stocks.amount, stocks.in_stock,stocks.quantity, stocks.gross_weight,stocks.material_id,products.model_number,stocks.job_master_id,order_details.size,people.id as person_id,
                     concat( conv(SUBSTRING(tag, 5,5),10,16),\'-\' ,
                     conv(SUBSTRING_INDEX(SUBSTRING_INDEX(tag,\'-\',-2), \'-\',1),10,16),\'-\',
                     SUBSTRING_INDEX(tag,\'-\',-1)) as tag
@@ -289,7 +289,7 @@ class CreateAllProceduresAndFunctions extends Migration
                     inner join job_masters ON job_masters.id = stocks.job_master_id
                     inner join order_details ON order_details.id = job_masters.order_details_id
                     inner join order_masters ON order_masters.id = order_details.order_master_id
-                    inner join users ON users.id = order_masters.person_id
+                    inner join people ON people.id = order_masters.person_id
                     inner join products ON products.id = order_details.product_id
                     where stocks.in_stock=1;
 
@@ -418,7 +418,7 @@ class CreateAllProceduresAndFunctions extends Migration
 
                        DECLARE temp_opening_balance_gold double;
 
-                       select users.opening_balance_Gold into temp_opening_balance_gold  from users where id = param_customer_id;
+                       select people.opening_balance_Gold into temp_opening_balance_gold  from people where id = param_customer_id;
 
                        IF temp_opening_balance_gold IS NULL THEN
                        RETURN 0;
@@ -434,7 +434,7 @@ class CreateAllProceduresAndFunctions extends Migration
 
                       DECLARE temp_opening_balance_LC double;
 
-                      select users.opening_balance_LC into temp_opening_balance_LC  from users where id = param_customer_id;
+                      select people.opening_balance_LC into temp_opening_balance_LC  from people where id = param_customer_id;
 
                       IF temp_opening_balance_LC IS NULL THEN
                           RETURN 0;
@@ -689,8 +689,8 @@ class CreateAllProceduresAndFunctions extends Migration
                                    FROM material_transaction_details x join material_transaction_details y
                                    on x.employee_id <> y.employee_id
                                    inner join material_transaction_masters ON material_transaction_masters.id = x.transaction_masters_id
-                                   inner join users as user1 on  user1.id = x.employee_id
-                                   inner join users as user2 on  user2.id = y.employee_id
+                                   inner join people as user1 on  user1.id = x.employee_id
+                                   inner join people as user2 on  user2.id = y.employee_id
                                    inner join transaction_types ON transaction_types.id = material_transaction_masters.transaction_type_id
                                    inner join materials ON materials.id = material_transaction_masters.material_id
                                    where x.employee_id = param_employee_id

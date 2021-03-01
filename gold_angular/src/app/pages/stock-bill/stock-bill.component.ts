@@ -43,6 +43,8 @@ export class StockBillComponent implements OnInit {
   date = new Date();
 
   mv: number;
+  discount: number;
+  discountPercentage: number;
 
   page: number;
   pageSize: number;
@@ -139,6 +141,7 @@ export class StockBillComponent implements OnInit {
     this.totalGold = 0;
     this.totalQuantity = 0;
     this.totalCost = 0;
+    this.discount = 0;
 
 
 
@@ -175,7 +178,7 @@ export class StockBillComponent implements OnInit {
           this.totalGold = 0;
           this.totalQuantity = 0;
           this.totalCost = 0;
-          // console.log(stockBillContainer);
+          console.log(stockBillContainer);
           if  (stockBillContainer.stockBillDetailsData != null) {
             this.billDetailsData = stockBillContainer.stockBillDetailsData;
             for (let i = 0; i < this.billDetailsData.length; i++ ){
@@ -191,8 +194,10 @@ export class StockBillComponent implements OnInit {
 
           if (stockBillContainer.stockBillCustomer){
             this.selectedCustomerData =  stockBillContainer.stockBillCustomer;
+            this.discountPercentage = this.selectedCustomerData.discount;
           }else{
             this.selectedCustomerData = this.customerData[0];
+            this.discountPercentage = this.selectedCustomerData.discount;
           }
 
 
@@ -210,6 +215,7 @@ export class StockBillComponent implements OnInit {
         this.customerData = customers;
         this.selectedCustomerData = this.customerData[0];
         // this.selectedCustomerData.bill_date = '2010-11-02';
+        this.discountPercentage = this.selectedCustomerData.discount;
         this.selectedCustomerData.bill_date = this.date.getFullYear() + '-' + (this.date.getMonth() + 1) + '-' + this.date.getDate();
         // console.log(formatDate(this.date.getDate(), 'yyyy-MM-dd', 'en'));
         // this.selectedCustomerData.bill_date = this. datepipe. transform(this.date, 'yyyy-MM-dd');
@@ -248,6 +254,7 @@ export class StockBillComponent implements OnInit {
   }
 
   stockSelectionForBill(item) {
+    console.log(item);
     const index = this.billDetailsData.findIndex(x => x.id === item.id);
     if (index === -1){
 
@@ -264,8 +271,16 @@ export class StockBillComponent implements OnInit {
       this.totalQuantity = this.totalQuantity + Number(item.quantity);
       this.totalCost = this.totalCost + item.amount;
 
+
+
+      this.discount = (this.discountPercentage / 100) * this.totalCost;
+      this.totalCost = this.totalCost - this.discount;
+
+
+
+
       this.billDetailsData.push(item);
-      // console.log(this.billDetailsData);
+
       item.isSet = true;
     }
 
@@ -290,6 +305,7 @@ export class StockBillComponent implements OnInit {
         stockBillDetailsData: this.billDetailsData,
         stockBillCustomer: this.selectedCustomerData,
       };
+    console.log(this.stockBillContainer);
     this.storage.set('stockBillContainer', this.stockBillContainer).subscribe(() => {
     });
   }

@@ -20,7 +20,7 @@ class CreateStocksTable extends Migration
             $table ->foreign('job_master_id')->references('id')->on('job_masters');
 
             $table->bigInteger('agent_id')->unsigned()->default(2);
-            $table ->foreign('agent_id')->references('id')->on('users');
+            $table ->foreign('agent_id')->references('id')->on('people');
 
             $table->string('tag')->nullable(false);
             $table->string('size')->nullable(false);

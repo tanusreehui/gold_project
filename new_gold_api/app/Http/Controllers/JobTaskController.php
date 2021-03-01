@@ -24,11 +24,11 @@ class JobTaskController extends Controller
     }
     public function getSavedJobs()
     {
-        $data=JobMaster::select('users.user_name','job_masters.id','job_masters.date','job_masters.status_id','job_masters.job_number','job_masters.order_details_id','job_masters.karigarh_id','job_masters.date','order_details.quantity','order_details.size','order_details.material_id','order_details.product_id','order_details.p_loss','products.model_number','order_masters.order_number','order_masters.date_of_delivery','materials.material_name','products.model_number')
+        $data=JobMaster::select('people.user_name','job_masters.id','job_masters.date','job_masters.status_id','job_masters.job_number','job_masters.order_details_id','job_masters.karigarh_id','job_masters.date','order_details.quantity','order_details.size','order_details.material_id','order_details.product_id','order_details.p_loss','products.model_number','order_masters.order_number','order_masters.date_of_delivery','materials.material_name','products.model_number')
             ->join('order_details','job_masters.order_details_id','order_details.id')
             ->join('materials','order_details.material_id','materials.id')
             ->join('order_masters','order_details.order_master_id','=','order_masters.id')
-            ->join('users','users.id','=','order_masters.person_id')
+            ->join('people','people.id','=','order_masters.person_id')
             ->join('products','order_details.product_id','=','products.id')
             ->where('order_details.status_id','=',1)
             ->where('job_masters.status_id','=',1)
@@ -42,11 +42,11 @@ class JobTaskController extends Controller
 
     public function getFinishedJobs()
     {
-        $data=JobMaster::select('users.user_name','job_masters.date','job_masters.id','job_masters.status_id','job_masters.job_number','job_masters.order_details_id','job_masters.karigarh_id','job_masters.date','job_masters.status_id','job_masters.bill_created','order_details.quantity','order_details.size','order_details.material_id','order_details.product_id','order_details.p_loss','products.model_number','order_masters.order_number','order_masters.date_of_delivery','materials.material_name','products.model_number')
+        $data=JobMaster::select('people.user_name','job_masters.date','job_masters.id','job_masters.status_id','job_masters.job_number','job_masters.order_details_id','job_masters.karigarh_id','job_masters.date','job_masters.status_id','job_masters.bill_created','order_details.quantity','order_details.size','order_details.material_id','order_details.product_id','order_details.p_loss','products.model_number','order_masters.order_number','order_masters.date_of_delivery','materials.material_name','products.model_number')
             ->join('order_details','job_masters.order_details_id','order_details.id')
             ->join('materials','order_details.material_id','materials.id')
             ->join('order_masters','order_details.order_master_id','=','order_masters.id')
-            ->join('users','users.id','=','order_masters.person_id')
+            ->join('people','people.id','=','order_masters.person_id')
             ->join('products','order_details.product_id','=','products.id')
             ->where('order_details.status_id','=',100)
             ->where('job_masters.status_id','=',100)
@@ -81,9 +81,9 @@ class JobTaskController extends Controller
         $input=$request->json()->all();
         $data=(object)($input['data']);
 
-        $result = JobDetail:: select('job_details.id','job_details.job_master_id','job_details.employee_id','job_details.material_id','job_details.job_task_id','users.user_name','job_tasks.task_name',DB::Raw("abs(material_quantity) as material_quantity"),DB::raw("TIME(job_details.created_at) as time"),DB::raw(" DATE_FORMAT(job_details.created_at, \"%M %d %Y\") as date"))
+        $result = JobDetail:: select('job_details.id','job_details.job_master_id','job_details.employee_id','job_details.material_id','job_details.job_task_id','people.user_name','job_tasks.task_name',DB::Raw("abs(material_quantity) as material_quantity"),DB::raw("TIME(job_details.created_at) as time"),DB::raw(" DATE_FORMAT(job_details.created_at, \"%M %d %Y\") as date"))
             ->join('job_tasks','job_details.job_task_id','job_tasks.id')
-            ->join('users','job_details.employee_id','users.id')
+            ->join('people','job_details.employee_id','people.id')
             ->where('job_details.job_task_id','=',$data->job_Task_id)
             ->where('job_details.job_master_id','=',$data->id)
             ->get();
@@ -112,9 +112,9 @@ class JobTaskController extends Controller
     public function getAllTransactions($id){
 
 
-        $result = JobDetail::select(DB::raw("abs(job_details.material_quantity)  as material_quantity"),DB::raw("TIME(job_details.created_at) as time"),DB::raw(" DATE_FORMAT(job_details.created_at, \"%M %d %Y\") as date"),'job_tasks.task_name', 'job_tasks.id', 'job_details.job_master_id','job_details.created_at','users.user_name')
+        $result = JobDetail::select(DB::raw("abs(job_details.material_quantity)  as material_quantity"),DB::raw("TIME(job_details.created_at) as time"),DB::raw(" DATE_FORMAT(job_details.created_at, \"%M %d %Y\") as date"),'job_tasks.task_name', 'job_tasks.id', 'job_details.job_master_id','job_details.created_at','people.user_name')
             ->join('job_tasks','job_details.job_task_id','=','job_tasks.id')
-            ->join('users','job_details.employee_id','users.id')
+            ->join('people','job_details.employee_id','people.id')
             ->where('job_details.job_master_id','=',$id)
             ->orderBy('job_details.created_at')
             ->get();
@@ -126,11 +126,11 @@ class JobTaskController extends Controller
 
     public function getOneJobData($id)
     {
-        $data=JobMaster::select('order_details.approx_gold','users.user_name','job_masters.id','job_masters.status_id','job_masters.job_number','job_masters.order_details_id','job_masters.karigarh_id','job_masters.date','order_details.quantity','order_details.size','order_details.material_id','order_details.product_id','order_details.p_loss','products.model_number','order_masters.order_number','order_masters.date_of_delivery','materials.material_name')
+        $data=JobMaster::select('order_details.approx_gold','people.user_name','job_masters.id','job_masters.status_id','job_masters.job_number','job_masters.order_details_id','job_masters.karigarh_id','job_masters.date','order_details.quantity','order_details.size','order_details.material_id','order_details.product_id','order_details.p_loss','products.model_number','order_masters.order_number','order_masters.date_of_delivery','materials.material_name')
             ->join('order_details','job_masters.order_details_id','order_details.id')
             ->join('materials','order_details.material_id','materials.id')
             ->join('order_masters','order_details.order_master_id','=','order_masters.id')
-            ->join('users','users.id','=','order_masters.person_id')
+            ->join('people','people.id','=','order_masters.person_id')
             ->join('products','order_details.product_id','=','products.id')
             ->where('job_masters.id','=',$id)
             ->first();

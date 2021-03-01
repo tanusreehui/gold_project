@@ -86,10 +86,10 @@ class StockController extends Controller
     }
 
     public function getRecordByJobMasterId($id){
-        $record = OrderDetail::select(DB::raw("order_details.id as order_details_id"),'users.mv','job_masters.job_number',DB::raw("job_masters.id as job_master_id"),DB::raw("concat(products.model_number,'-',products.product_name,'-',job_masters.job_number) as order_name"),'order_details.price','order_details.approx_gold','order_details.size','order_details.quantity','order_details.product_id','products.model_number','products.product_name','order_masters.person_id','order_masters.agent_id','order_masters.order_number','users.user_name','job_masters.status_id','job_masters.bill_created','job_masters.gross_weight','job_details.material_id','job_details.job_task_id')
+        $record = OrderDetail::select(DB::raw("order_details.id as order_details_id"),'people.mv','job_masters.job_number',DB::raw("job_masters.id as job_master_id"),DB::raw("concat(products.model_number,'-',products.product_name,'-',job_masters.job_number) as order_name"),'order_details.price','order_details.approx_gold','order_details.size','order_details.quantity','order_details.product_id','products.model_number','products.product_name','order_masters.person_id','order_masters.agent_id','order_masters.order_number','people.user_name','job_masters.status_id','job_masters.bill_created','job_masters.gross_weight','job_details.material_id','job_details.job_task_id')
             ->join('products','products.id','=','order_details.product_id')
             ->join('order_masters','order_masters.id','=','order_details.order_master_id')
-            ->join('users','users.id','=','order_masters.person_id')
+            ->join('people','people.id','=','order_masters.person_id')
             ->join('job_masters','job_masters.order_details_id','=','order_details.id')
             ->join('job_details','job_details.job_master_id','=','job_masters.id')
             ->where('job_masters.id',$id)

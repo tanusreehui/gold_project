@@ -88,9 +88,8 @@ export class StockComponent implements OnInit {
             this.totalGold =  response.data.data.toFixed(3);
             this.jobMasterContainer = {
               jobMasterData: this.jobMasterData,
-              totalGold: this.totalGold
+              totalGold: (Number)(this.totalGold)
             };
-
             this.stockForm.patchValue({
               user_name: this.jobMasterContainer.jobMasterData[0].user_name,
               job_number: this.jobMasterContainer.jobMasterData[0].job_number,
@@ -108,6 +107,7 @@ export class StockComponent implements OnInit {
               amount: this.jobMasterContainer.jobMasterData[0].price * this.jobMasterContainer.jobMasterData[0].quantity,
               agent_id: this.jobMasterContainer.jobMasterData[0].agent_id,
             });
+            
           });
 
         });

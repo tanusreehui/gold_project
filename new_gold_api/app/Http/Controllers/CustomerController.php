@@ -6,6 +6,7 @@ use App\Models\BillDetail;
 use App\Models\CustomVoucher;
 use App\Models\Material;
 use App\Models\MaterialTransactionDetail;
+use App\Models\Model\Person;
 use App\Models\OrderDetail;
 use App\Models\OrderMaster;
 use App\Models\JobMaster;
@@ -24,7 +25,7 @@ class CustomerController extends Controller
     public function index()
     {
 //        $customers = PersonType::find(10)->people;
-        $query = User::select('id',
+        $query = Person::select('id',
             'user_name',
             'user_type_id',
             'email',
@@ -59,7 +60,7 @@ class CustomerController extends Controller
     {
 
 //        return $request;
-        $customer = new User();
+        $customer = new Person();
         $customer->user_name = $request->input('user_name');
         $customer->email = $request->input('email');
         $customer->password = "81dc9bdb52d04dc20036dbd8313ed055";
@@ -89,7 +90,7 @@ class CustomerController extends Controller
 
     public function updateCustomer($id, Request $request)
     {
-        $customer = User::find($id);
+        $customer = Person::find($id);
         if ($request->input('user_name')) {
             $customer->user_name = $request->input('user_name');
         }
@@ -152,7 +153,7 @@ class CustomerController extends Controller
 
     public function deleteCustomer($id)
     {
-        $res = User::destroy($id);
+        $res = Person::destroy($id);
         if ($res) {
             return response()->json(['success' => 1, 'message' => 'Deleted'], 200, [], JSON_NUMERIC_CHECK);
         } else {
@@ -181,10 +182,10 @@ class CustomerController extends Controller
     public function getDetails(Request $request)
     {
         $input = ($request->json()->all());
-        $data = OrderMaster::select(DB::raw(" distinct order_masters.order_number"), 'order_masters.id', 'users.user_name')
+        $data = OrderMaster::select(DB::raw(" distinct order_masters.order_number"), 'order_masters.id', 'people.user_name')
             ->join('order_details', 'order_details.order_master_id', '=', 'order_masters.id')
             ->join('job_masters', 'job_masters.order_details_id', '=', 'order_details.id')
-            ->join('users', 'order_masters.person_id', '=', 'users.id')
+            ->join('people', 'order_masters.person_id', '=', 'people.id')
             ->where('order_details.bill_created','=',0)
             ->where('order_masters.person_id', '=', $input)
             ->get();
@@ -194,10 +195,10 @@ class CustomerController extends Controller
     public function getCompletedBIllDetails(Request $request)
     {
         $input = ($request->json()->all());
-        $data = OrderMaster::select(DB::raw(" distinct order_masters.order_number"), 'order_masters.id', 'users.user_name')
+        $data = OrderMaster::select(DB::raw(" distinct order_masters.order_number"), 'order_masters.id', 'people.user_name')
             ->join('order_details', 'order_details.order_master_id', '=', 'order_masters.id')
             ->join('job_masters', 'job_masters.order_details_id', '=', 'order_details.id')
-            ->join('users', 'order_masters.person_id', '=', 'users.id')
+            ->join('people', 'order_masters.person_id', '=', 'people.id')
             ->where('order_details.bill_created','=',1)
             ->where('order_masters.person_id', '=', $input)
             ->get();
@@ -207,15 +208,15 @@ class CustomerController extends Controller
     public function getFinishedJobData(Request $request)
     {
         $input = ($request->json()->all());
-        $data = JobMaster::select(DB::raw('order_masters.id as order_master_id'),'rates.price','products.model_number', DB::raw('karigarh.user_name as karigarh_name'), DB::raw('users.id as customer_id'), DB::raw('karigarh.id as karigarh_id'),'users.mv','users.customer_category_id', 'order_masters.order_number', 'order_masters.date_of_order', 'order_masters.agent_id','job_masters.gross_weight', 'products.model_number', 'order_details.size', 'order_details.quantity','order_details.material_id', 'order_details.price','order_details.discount','order_masters.date_of_order', 'job_masters.job_number', 'users.user_name', 'users.address1', 'users.mobile1', 'users.state', 'users.po', 'users.area', 'users.city', 'users.pin', 'job_masters.id','job_masters.status_id', DB::raw("if(job_masters.status_id = 100,'COMPLETED',if(job_masters.status_id = 102,'STOCK CREATED','WORK IN PROGRESS')) as status"))
-            ->join('users as karigarh', 'job_masters.karigarh_id', '=', 'karigarh.id')
+        $data = JobMaster::select(DB::raw('order_masters.id as order_master_id'),'rates.price','products.model_number', DB::raw('karigarh.user_name as karigarh_name'), DB::raw('people.id as customer_id'), DB::raw('karigarh.id as karigarh_id'),'people.mv','people.customer_category_id', 'order_masters.order_number', 'order_masters.date_of_order', 'order_masters.agent_id','job_masters.gross_weight', 'products.model_number', 'order_details.size', 'order_details.quantity','order_details.material_id', 'order_details.price','order_details.discount','order_masters.date_of_order', 'job_masters.job_number', 'people.user_name', 'people.address1', 'people.mobile1', 'people.state', 'people.po', 'people.area', 'people.city', 'people.pin', 'job_masters.id','job_masters.status_id', DB::raw("if(job_masters.status_id = 100,'COMPLETED',if(job_masters.status_id = 102,'STOCK CREATED','WORK IN PROGRESS')) as status"))
+            ->join('people as karigarh', 'job_masters.karigarh_id', '=', 'karigarh.id')
             ->join('order_details', 'job_masters.order_details_id', '=', 'order_details.id')
             ->join('order_masters', 'order_details.order_master_id', '=', 'order_masters.id')
             ->join('products', 'order_details.product_id', '=', 'products.id')
-            ->join('users', 'order_masters.person_id', '=', 'users.id')
+            ->join('people', 'order_masters.person_id', '=', 'people.id')
             ->join('rates', function($join){
                 $join->on('rates.price_code_id', '=', 'products.price_code_id');
-                $join->on('rates.customer_category_id','=', 'users.customer_category_id');
+                $join->on('rates.customer_category_id','=', 'people.customer_category_id');
             })
 //            ->where('job_masters.bill_created','=',0)
             ->where('job_masters.bill_created','=',0)
@@ -278,8 +279,8 @@ class CustomerController extends Controller
 
     public function finishedJobsCustomers()
     {
-        $result = OrderMaster::select('users.user_name', 'users.id')
-            ->join('users', 'order_masters.person_id', '=', 'users.id')
+        $result = OrderMaster::select('people.user_name', 'people.id')
+            ->join('people', 'order_masters.person_id', '=', 'people.id')
             ->join('order_details', 'order_details.order_master_id', '=', 'order_masters.id')
             ->where('order_details.bill_created','=',0)
             ->where('order_details.status_id','=',100)
@@ -290,8 +291,8 @@ class CustomerController extends Controller
 
     public function completedBillCustomers()
     {
-        $result = OrderMaster::select('users.user_name', 'users.id')
-            ->join('users', 'order_masters.person_id', '=', 'users.id')
+        $result = OrderMaster::select('people.user_name', 'people.id')
+            ->join('people', 'order_masters.person_id', '=', 'people.id')
             ->join('bill_masters', 'bill_masters.order_master_id', '=', 'order_masters.id')
             ->join('order_details', 'order_details.order_master_id', '=', 'order_masters.id')
             ->where('order_details.bill_created','=',1)
@@ -308,18 +309,18 @@ class CustomerController extends Controller
     }
 
     public function showCompletedBills($id){
-        $data = BillDetail::select('users.id','bill_details.bill_master_id','bill_details.job_master_id','bill_details.tag'
+        $data = BillDetail::select('people.id','bill_details.bill_master_id','bill_details.job_master_id','bill_details.tag'
             ,'bill_details.model_number','bill_details.size','bill_details.gross_weight','bill_details.material_id',
             'bill_details.ginnie','bill_details.rate','bill_details.pure_gold','bill_details.quantity','bill_details.mv'
             ,'bill_masters.bill_number','bill_masters.bill_date','bill_masters.order_master_id','bill_masters.agent_id'
-            ,'order_details.discount','job_masters.job_number','users.user_name','users.address1','users.address2'
-            ,'users.state','users.po','users.area','users.city','users.pin','order_masters.date_of_order','order_masters.order_number')
+            ,'order_details.discount','job_masters.job_number','people.user_name','people.address1','people.address2'
+            ,'people.state','people.po','people.area','people.city','people.pin','order_masters.date_of_order','order_masters.order_number')
                 ->join('bill_masters', 'bill_masters.id', '=', 'bill_details.bill_master_id')
                 ->join('job_masters', 'job_masters.id', '=', 'bill_details.job_master_id')
-                ->join('users as karigarh', 'job_masters.karigarh_id', '=', 'karigarh.id')
+                ->join('people as karigarh', 'job_masters.karigarh_id', '=', 'karigarh.id')
                 ->join('order_details', 'order_details.id', '=', 'job_masters.order_details_id')
                 ->join('order_masters', 'order_masters.id', '=', 'order_details.order_master_id')
-                ->join('users', 'users.id', '=', 'order_masters.person_id')
+                ->join('people', 'people.id', '=', 'order_masters.person_id')
                 ->where('bill_details.bill_master_id',$id)
                 ->get();
         return response()->json(['success'=>1,'data'=>$data],200,[],JSON_NUMERIC_CHECK);
@@ -329,7 +330,7 @@ class CustomerController extends Controller
 //    public function getFinishedJobData(Request $request)
 //    {
 //        $input = ($request->json()->all());
-//        $data = JobMaster::select(DB::raw('order_masters.id as order_master_id'),'rates.price', DB::raw('karigarh.user_name as karigarh_name'), DB::raw('users.id as customer_id'), DB::raw('karigarh.id as karigarh_id'),'users.mv','users.customer_category_id', 'order_masters.order_number', 'order_masters.date_of_order', 'order_masters.agent_id','job_masters.gross_weight', 'products.model_number', 'order_details.size', 'order_details.quantity','order_details.material_id', 'order_details.price','order_details.discount','order_masters.date_of_order', 'job_masters.job_number', 'users.user_name', 'users.address1', 'users.mobile1', 'rates.customer_category_id','users.state', 'users.po', 'users.area', 'users.city', 'users.pin', 'job_masters.id','job_masters.status_id', DB::raw("if(job_masters.status_id = 100,'COMPLETED',if(job_masters.status_id = 102,'STOCK CREATED','WORK IN PROGRESS')) as status"))
+//        $data = JobMaster::select(DB::raw('order_masters.id as order_master_id'),'rates.price', DB::raw('karigarh.user_name as karigarh_name'), DB::raw('people.id as customer_id'), DB::raw('karigarh.id as karigarh_id'),'users.mv','users.customer_category_id', 'order_masters.order_number', 'order_masters.date_of_order', 'order_masters.agent_id','job_masters.gross_weight', 'products.model_number', 'order_details.size', 'order_details.quantity','order_details.material_id', 'order_details.price','order_details.discount','order_masters.date_of_order', 'job_masters.job_number', 'users.user_name', 'users.address1', 'users.mobile1', 'rates.customer_category_id','users.state', 'users.po', 'users.area', 'users.city', 'users.pin', 'job_masters.id','job_masters.status_id', DB::raw("if(job_masters.status_id = 100,'COMPLETED',if(job_masters.status_id = 102,'STOCK CREATED','WORK IN PROGRESS')) as status"))
 //            ->join('users as karigarh', 'job_masters.karigarh_id', '=', 'karigarh.id')
 //            ->join('order_details', 'job_masters.order_details_id', '=', 'order_details.id')
 //            ->join('order_masters', 'order_details.order_master_id', '=', 'order_masters.id')
@@ -345,9 +346,9 @@ class CustomerController extends Controller
 
   public function getEmployeeMaterial(){
 
-        $test1 =  User::select('id','user_name')
-                 ->where('user_type_id','!=',9)
-                 ->where('user_type_id','!=',10)
+        $test1 =  Person::select('id','Person_name')
+                 ->where('Person_type_id','!=',9)
+                 ->where('Person_type_id','!=',10)
                  ->get();
 
 
@@ -358,7 +359,7 @@ class CustomerController extends Controller
         $newArray = [];
         for($i=0; $i<count($test1); $i++){
             for($j=0; $j<count($test2); $j++){
-                $result=DB::select('SELECT get_employee_balance(?,?) as employee_balance,? as material_name, ? as user_name',array($i,$test2[$j]->id,$test2[$j]->material_name,$test1[$i]->user_name))[0];
+                $result=DB::select('SELECT get_employee_balance(?,?) as employee_balance,? as material_name, ? as Person_name',array($i,$test2[$j]->id,$test2[$j]->material_name,$test1[$i]->user_name))[0];
                 array_push($newArray,$result);
             }
         }
@@ -371,11 +372,11 @@ class CustomerController extends Controller
   }
   public function testGetEmployeeMaterial(){
 
-        $result = DB::table('users')
-                ->select('users.id','users.user_name','materials.material_name','users.user_type_id',DB::raw("get_employee_balance(users.id, materials.id) as employee_balance"))
+        $result = DB::table('people')
+                ->select('people.id','people.user_name','materials.material_name','people.user_type_id',DB::raw("get_employee_balance(people.id, materials.id) as employee_balance"))
                 ->crossJoin('materials')
-                ->where('users.user_type_id','<>',9)
-                ->where('users.user_type_id','<>',10)
+                ->where('people.user_type_id','<>',9)
+                ->where('people.user_type_id','<>',10)
                 ->where('materials.main_material_id',0)
                 ->get();
 
@@ -518,7 +519,7 @@ class CustomerController extends Controller
 //            ->first();
 
         $data1 = (array) DB::table('users')
-            ->select('users.opening_balance_LC as cash_received','users.opening_balance_Gold as gold_received','users.created_at','users.opening_balance_LC as LC_balance','users.opening_balance_Gold as gold_balance' ,DB::raw("if(users.opening_balance_Gold,'Opening Balance','Opening Balance') as statement"),DB::raw("if(users.opening_balance_Gold,'--','--') as reference_number"))
+            ->select('people.opening_balance_LC as cash_received','people.opening_balance_Gold as gold_received','people.created_at','people.opening_balance_LC as LC_balance','people.opening_balance_Gold as gold_balance' ,DB::raw("if(people.opening_balance_Gold,'Opening Balance','Opening Balance') as statement"),DB::raw("if(people.opening_balance_Gold,'--','--') as reference_number"))
             ->where('id',$id)
             ->first();
 
@@ -604,7 +605,7 @@ class CustomerController extends Controller
 
         //type-1
         $result = User::select()
-                  ->join('bill_masters','bill_masters.customer_id','=','users.id')
+                  ->join('bill_masters','bill_masters.customer_id','=','people.id')
                   ->get();
         return response()->json(['success'=>300,'result'=>$result],200,[],JSON_NUMERIC_CHECK);
 
@@ -612,22 +613,22 @@ class CustomerController extends Controller
 
         $result1 = User::select()
                    ->join('customer_categories',function ($join){
-                      $join->on('customer_categories.id','=','users.customer_category_id') ;
+                      $join->on('customer_categories.id','=','people.customer_category_id') ;
                    })
                    ->get();
 
         //type-3
 
-        $result2 = DB::table('users')
+        $result2 = DB::table('people')
                    ->select()
-                   ->join('customer_categories','customer_categories.id','=','users.customer_category_id')
+                   ->join('customer_categories','customer_categories.id','=','people.customer_category_id')
                    ->get();
 
         //type-4
 
-        $result3=DB::table('users')
+        $result3=DB::table('people')
                  ->join('customer_categories',function($join){
-                     $join->on('customer_categories.id','=','users.customer_category_id');
+                     $join->on('customer_categories.id','=','people.customer_category_id');
                 })
                 ->get();
 

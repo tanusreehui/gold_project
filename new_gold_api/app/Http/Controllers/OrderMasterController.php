@@ -8,6 +8,7 @@ use App\Models\CustomerToAgents;
 use App\Models\CustomVoucher;
 use App\Models\OrderDetail;
 use App\Models\User;
+use App\Models\Model\Person;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\OrderDetailController;
@@ -88,7 +89,7 @@ class OrderMasterController extends Controller
             $orderMaster->date_of_delivery=$inputOrderMaster->delivery_date;
             $orderMaster->save();
 
-            $data=User::select('user_name')->where('id',$inputOrderMaster->customer_id)->first();
+            $data=Person::select('user_name')->where('id',$inputOrderMaster->customer_id)->first();
             $orderMaster->customer_name = $data->user_name;
 
             $data=User::select('user_name')->where('id',$inputOrderMaster->agent_id)->first();

@@ -27,7 +27,7 @@ class CreateBillMastersTable extends Migration
 //            $table ->foreign('karigarh_id')->references('id')->on('users');
 
             $table->bigInteger('customer_id')->unsigned();
-            $table ->foreign('customer_id')->references('id')->on('users');
+            $table ->foreign('customer_id')->references('id')->on('people');
 
             $table->bigInteger('agent_id')->unsigned();
             $table ->foreign('agent_id')->references('id')->on('users');

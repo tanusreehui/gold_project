@@ -18,7 +18,7 @@ class CreateOrderMastersTable extends Migration
             $table->string('order_number')->unique();
 
             $table->bigInteger('person_id')->unsigned();
-            $table ->foreign('person_id')->references('id')->on('users');
+            $table ->foreign('person_id')->references('id')->on('people');
 
             $table->bigInteger('agent_id')->unsigned();
             $table ->foreign('agent_id')->references('id')->on('users');

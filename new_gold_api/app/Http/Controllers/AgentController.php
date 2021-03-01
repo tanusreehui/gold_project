@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CustomerToAgents;
+use App\Models\Model\Person;
 use App\Models\User;
 //use DemeterChain\C;
 use Illuminate\Http\Request;
@@ -22,7 +23,7 @@ class AgentController extends Controller
 
     public function saveAgent(Request $request){
 //        $newData = (object)($request->json()->all());
-        $agent = new User();
+        $agent = new Person();
         $agent->user_name = $request->input('user_name');
         $agent->email = $request->input('email');
         $agent->password = "81dc9bdb52d04dc20036dbd8313ed055";
@@ -44,7 +45,7 @@ class AgentController extends Controller
     }
 
     public function updateAgent($id,Request $request){
-        $agent = User::find($id);
+        $agent = Person::find($id);
         if ($request->input('user_name')) {
             $agent->user_name = $request->input('user_name');
         }
@@ -103,7 +104,7 @@ class AgentController extends Controller
     }
 
     public function deleteAgent($id){
-        $data = User::find($id);
+        $data = Person::find($id);
         $data->delete();
         return response()->json(['success' => 1, 'data' => $data], 200,[],JSON_NUMERIC_CHECK);
     }

@@ -19,7 +19,7 @@ class CreateJobDetailsTable extends Migration
             $table ->foreign('job_master_id')->references('id')->on('job_masters');
 
             $table->bigInteger('employee_id')->unsigned();
-            $table ->foreign('employee_id')->references('id')->on('users');
+            $table ->foreign('employee_id')->references('id')->on('people');
 
             $table->bigInteger('material_id')->unsigned();
             $table ->foreign('material_id')->references('id')->on('materials');
