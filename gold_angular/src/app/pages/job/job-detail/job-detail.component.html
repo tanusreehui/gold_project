@@ -1,0 +1,167 @@
+<div fxLayout.xs="column" fxLayout="row" fxLayoutAlign="space-between stretch" fxFlexFill id="jobDetail-div">
+  <div fxLayout="row" fxFlex="40" class="mr-1" id ="jobBill-div">
+    <div fxLayout="column" fxFlex="20" ></div>
+    <div fxLayout="column" fxFlex="60" style="background-color: white" id="bill-div" >
+      <div class="row">
+        <div class="col">
+          <button
+            mat-stroked-button
+            [printStyle]="printDivStyle"
+            printSectionId="printDiv"
+            ngxPrint ><mat-icon>print</mat-icon>
+            Print with transaction
+          </button>
+        </div>
+        <div class="col">
+          <button
+            mat-stroked-button
+            [printStyle]="printDivStyle"
+            printSectionId="printSummery"
+            ngxPrint ><mat-icon>print</mat-icon>
+            Print without transaction
+          </button>
+        </div>
+      </div>
+    <div id="printDiv">
+      <div id="printSummery">
+      <mat-card class="ml-2 mt-2">
+        <div class="form-container">
+          <div class="container" *ngIf="oneJobData" fxLayout="column" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
+            <label style="text-align: center"><b>Job ID : {{oneJobData.job_number}}</b></label>
+            <label>Challan No : &nbsp;{{oneJobData.order_number}}</label>
+            <label>Date : &nbsp;{{oneJobData.date}}&nbsp;&nbsp; DD : {{oneJobData.date_of_delivery}} </label>
+            <label>Model : &nbsp;<b>{{oneJobData.model_number}}</b>&nbsp;&nbsp; Pcs : <b>{{oneJobData.quantity}}</b>&nbsp;&nbsp;Size :<b>{{oneJobData.size}}</b></label>
+            <table style=""  *ngIf="totalData">
+              <tbody>
+              <tr>
+                <td colspan="2" class="col-6">Thokai :</td>
+                <td colspan="2" class="col-6">Tonch : {{oneJobData.material_name}}</td>
+              </tr>
+              <tr>
+                <td colspan="2" class="col-6">Ring W. :</td>
+                <td colspan="2" class="col-6">A Wt. : {{oneJobData.approx_gold.toFixed(3)}}</td>
+              </tr>
+              <tr>
+                <td colspan="2" class="col-6">Mina :</td>
+                <td colspan="2" class="col-6">Forming :</td>
+              </tr>
+              <tr>
+                <td colspan="2" class="col-6">M.C. :</td>
+                <td colspan="2" class="col-6">Gold : {{tempTotalData[0] ? tempTotalData[0].toFixed(3) : 0}} </td>
+              </tr>
+              <tr>
+                <td colspan="2" class="col-6">H.M.C :</td>
+                <td colspan="2" class="col-6">RGW- :{{tempTotalData[1] ? tempTotalData[1].toFixed(3) : 0}}</td>
+              </tr>
+              <tr>
+                <td colspan="2" class="col-6">H.C. :</td>
+                <td colspan="2" class="col-6">PWt. :</td>
+              </tr>
+              <tr>
+                <td colspan="2" class="col-6">Polish :</td>
+                <td colspan="2" class="col-6">NGR- : {{tempTotalData[6] ? tempTotalData[6].toFixed(3) : 0}}</td>
+              </tr>
+              <tr>
+                <td colspan="2" class="col-6">Dal: {{tempTotalData[2] ? tempTotalData[2].toFixed(3) : 0}}</td>
+                <td colspan="2" class="col-6">Pan+ : {{tempTotalData[4] ? tempTotalData[4].toFixed(3) : 0}}</td>
+              </tr>
+
+              <tr>
+                <td colspan="2" class="col-6">DalR-: {{tempTotalData[3] ? tempTotalData[3].toFixed(3) : 0}}</td>
+                <td colspan="2" class="col-6">PanR- : {{tempTotalData[5] ? tempTotalData[5].toFixed(3) : 0}}</td>
+              </tr>
+
+              <tr>
+                <td colspan="2" class="col-6">Bnz : {{tempTotalData[7] ? tempTotalData[7].toFixed(3) : 0}}</td>
+                <td colspan="2" class="col-6">PLoss+ :{{oneJobData.p_loss}}</td>
+              </tr>
+              <tr>
+                <td colspan="2" class="col-6">Bati No :</td>
+                <td colspan="2" class="col-6">FG Wt. : {{FGWt.toFixed(3)}}</td>
+              </tr>
+              <tr>
+                <td colspan="2" class="col-6"></td>
+                <td colspan="2" class="col-6">B. Wt. : {{totalData[0].gross_weight}}</td>
+              </tr>
+              </tbody>
+            </table>
+            <label>Karigarh :<b>{{karigarhName}}</b> </label>
+            <label>User : {{userData.personName}}</label>
+            <label>POS :</label>
+            <label>Time :</label>
+            <br><br><br>
+          </div>
+        </div>
+      </mat-card>
+      </div>
+      <div *ngIf="jobTransactionData?.length" class="col-12">
+        <div id ="job-transaction-table-div">
+          <table class="table" style="" id="my-table">
+            <thead>
+            <tr>
+              <th colspan="2">SL. NO</th>
+              <th colspan="6">Statement For Transaction</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of jobTransactionData ; let indexOfelement = index;">
+              <td colspan="2">{{indexOfelement+1}}</td>
+              <td colspan="6">{{item.material_quantity.toFixed(3)}}gm {{item.task_name}}ed by {{item.person_name}} on {{item.date}} at {{item.time}} &nbsp;&nbsp;&nbsp;{{((indexOfelement+1)==1)? "[JOB STARTED]": " "}}</td>
+            </tr>
+<!--            <tr [hidden]="!(jobTransactionData.length === 0)">-->
+            <tr *ngIf="!jobTransactionData?.length">
+
+              <td colspan="2"> </td>
+              <td colspan="6">NO TRANSACTION TO SHOW</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    </div>
+
+
+  </div>
+
+  <div fxLayout="column" fxFlex="60" class="mr-1" id ="jobTask-div" style="background-color: #e8af0a" *ngIf="oneJobData">
+<!--    <div class="m-2">-->
+<!--      <button type="button"  class="btn btn-warning" [hidden]="oneJobData.status_id==100" [routerLink]="['./goldReturn']">Gold Return</button>-->
+<!--      <button type="button"  class="btn btn-primary" [hidden]="oneJobData.status_id==100" [routerLink]="['./dalSubmit']">Dal Submit</button>-->
+<!--      <button type="button" class="btn btn-warning"  [hidden]="oneJobData.status_id==100" [routerLink]="['./bronzeSubmit']">Bronze Submit</button>-->
+<!--      <button type="button" class="btn btn-primary"  [hidden]="oneJobData.status_id==100" [routerLink]="['./panSubmit']">Pan Submit</button>-->
+<!--      <button type="button" class="btn btn-warning"  [hidden]="oneJobData.status_id==100" [routerLink]="['./panReturn']">Pan Return</button>-->
+<!--      <button type="button" class="btn btn-primary"  [hidden]="oneJobData.status_id==100" [routerLink]="['./dalReturn']">Dal Return</button>-->
+<!--      <button type="button" class="btn btn-warning"  [hidden]="oneJobData.status_id==100" [routerLink]="['./goldSubmit']">Gold Submit</button>-->
+<!--      <button type="button" class="btn btn-primary"  [hidden]="oneJobData.status_id==100" [routerLink]="['./nitricReturn']">Nitric Return</button>-->
+<!--      <button type="button" class="btn btn-warning" [routerLink]="['./job_finish']">Finish</button>-->
+<!--      <button type="button" class="btn btn-primary"  [hidden]="oneJobData.status_id==100"   [routerLink]="['./job_transaction']">Details</button>-->
+<!--    </div>-->
+
+    <div class="m-2" *ngIf="true"  >
+      <button mat-raised-button class="btn btn-warning ml-2 mt-1 mb-1"[matBadge] = "goldRetBadge"  matBadgePosition="above before" [disabled] = this.btnControl [hidden]="oneJobData.status_id==100" [routerLink]="['./goldReturn']">Gold Return</button>
+      <button mat-raised-button class="btn btn-primary ml-2 mt-1 mb-1" [matBadge] = "dalSendBadge"  matBadgePosition="above before" [disabled] = this.btnControl [hidden]="oneJobData.status_id==100" [routerLink]="['./dalSubmit']">Dal Submit</button>
+      <button mat-raised-button class="btn btn-warning ml-2 mt-1 mb-1" [matBadge] = "BronzeSendBadge"  matBadgePosition="above before" [disabled] = this.btnControl [hidden]="oneJobData.status_id==100" [routerLink]="['./bronzeSubmit']">Bronze Submit</button>
+      <button mat-raised-button class="btn btn-primary ml-2 mt-1 mb-1" [matBadge] = "panSendBadge"  matBadgePosition="above before" [disabled] = this.btnControl [hidden]="oneJobData.status_id==100" [routerLink]="['./panSubmit']">Pan Submit</button>
+      <button mat-raised-button class="btn btn-warning ml-2 mt-1 mb-1" [matBadge] = "panRetBadge"  matBadgePosition="above before" [disabled] = this.btnControl [hidden]="oneJobData.status_id==100" [routerLink]="['./panReturn']">Pan Return</button>
+      <button mat-raised-button class="btn btn-primary ml-2 mt-1 mb-1" [matBadge] = "dalRetBadge" matBadgePosition="above before" [disabled] = this.btnControl [hidden]="oneJobData.status_id==100" [routerLink]="['./dalReturn']">Dal Return</button>
+      <button mat-raised-button class="btn btn-warning ml-2 mt-1 mb-1" [matBadge] = "goldSendBadge" matBadgePosition="above before" [disabled] = this.btnControl [hidden]="oneJobData.status_id==100" [routerLink]="['./goldSubmit']">Gold Submit</button>
+      <button mat-raised-button class="btn btn-primary ml-2 mt-1 mb-1" [matBadge] = "nitricRetBadge"  matBadgePosition="above before" [disabled] = this.btnControl [hidden]="oneJobData.status_id==100" [routerLink]="['./nitricReturn']">Nitric Return</button>
+<!--      <button type="button" class="btn btn-warning" [disabled] = this.btnControl [hidden]="oneJobData.status_id==100" [routerLink]="['./job_finish']">Finish</button>-->
+      <button mat-raised-button class="btn btn-warning ml-2 mt-1 mb-1" [matBadge]="finshBadgeValue" matBadgePosition="above before" [disabled] = this.btnControl [hidden]="oneJobData.status_id==100" [routerLink]="['./job_finish']">Finish</button>
+    </div>
+<!--    this is used to change the detail button look-->
+    <div class="example-button-row">
+      <a mat-fab [routerLink]="['./job_transaction']">Details</a>
+    </div>
+<!--    <button type="button" class="btn btn-primary" [routerLink]="['./job_transaction']">Details</button>-->
+    <div>
+      <router-outlet ></router-outlet>
+    </div>
+
+<!--    <div>-->
+<!--      <pre>{{totalData | json}}</pre>-->
+<!--    </div>-->
+  </div>
+
+</div>

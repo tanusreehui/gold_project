@@ -1,0 +1,33 @@
+<div fxLayout.xs="column" [hidden]="disableDetails" fxLayout="row" fxLayoutAlign="space-between stretch" fxFlexFill >
+  <div  fxFlex="100" class="col" *ngIf="orderDetails" id ="bill-orderDetails-div">
+    <table class="table"  *ngIf="orderDetails.length != 0">
+      <thead>
+      <tr>
+        <th>SL No.</th>
+        <th>Customer Name</th>
+        <th>Order Number</th>
+        <th>Job Details</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr  *ngFor="let data of orderDetails; let indexOfelement = index" >
+        <td>{{indexOfelement+1}}</td>
+        <td>{{data.user_name | uppercase}}</td>
+        <td >{{data.order_number}}</td>
+        <td>
+          <button  mat-icon-button color="primary" aria-label="Open Details" style="text-align: center" [routerLink]="['./bill_jobMaster_details',data.id]" (click)="disablePage()">
+            <mat-icon>forward</mat-icon>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <div *ngIf="orderDetails.length == 0">
+      <h1 style="text-align: center; margin: 10px">NO JOB PLACED</h1>
+    </div>
+  </div>
+</div>
+<div [hidden]="!disableDetails">
+  <router-outlet></router-outlet>
+</div>
+

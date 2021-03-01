@@ -1,0 +1,137 @@
+<div fxLayout.xs="column"  fxLayout="row" fxLayoutAlign="space-between stretch" fxFlexFill id ="bill-jobMaster-div" >
+  <div  fxFlex="100" class="col" *ngIf="finishedJobData" [hidden]="showBill" id ="show-bill-jobMaster-div" >
+    <table class="table">
+      <thead>
+      <tr>
+        <th style="text-align: center">SL No.</th>
+        <th style="text-align: center">Job Number</th>
+        <th style="text-align: center">Karigarh Name</th>
+        <th style="text-align: center">Model Number</th>
+        <th style="text-align: center">Status</th>
+        <th style="text-align: center">Create Bill</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr  *ngFor="let data of finishedJobData; let indexOfelement = index" >
+        <td style="text-align: center">{{indexOfelement+1}}</td>
+        <td  style="text-align: center">{{data.job_number}}</td>
+        <td style="text-align: center">{{data.karigarh_name | uppercase}}</td>
+        <td style="text-align: center">{{data.model_number}}</td>
+        <td style="text-align: center">{{data.status}}</td>
+        <td [hidden]="data.status_id != 100" style="text-align: center">
+          <input type="checkbox" name="nameOfChoice" (click)="selectionForBill(data)" [disabled]="data.status_id != 100" >
+        </td>
+        <td [hidden]="data.status_id == 100" style="text-align: center">
+          <button mat-icon-button color="primary" [disabled]="true"><mat-icon>close</mat-icon></button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <div  style="text-align: center">
+      <button class="btn btn-primary" aria-label=" Generate Bill" [disabled]="billDetailsData.length==0" (click)="generateBill()" >
+        Generate Bill
+      </button>
+      <br>
+      <br>
+    </div>
+  </div>
+  <div class="container" id="bill-div" [hidden]="!showBill">
+    <div style="text-align: right">
+      <button class="btn-primary"
+        mat-stroked-button
+        [printStyle]="printDivStyle"
+        printSectionId="printBillDiv"
+        ngxPrint ><mat-icon>print</mat-icon>
+      </button>
+    </div>
+    <div id="printBillDiv">
+      <div style="align-content: center; text-align: center">
+        <h2 style="text-align: center; font-weight:bold">SRIKRISHNA BANGLE JEWELLERY WORKSHOP</h2><br>
+        <label style="font-size: 13px ">সোনার পাত বসান ব্রোঞ্জ চুরি</label><br>
+        <label style="font-size: 13px ">Sewli,P.O- S.T.P , (Baro Kanthaliya),Barrackpore,Dist:- North 24 Parganas,Kol-121</label><br>
+        <label style="font-size: 11px">contact:- 033 2535 3727 , 2535 7777 , 2535 2222 ,Mob: - 9836444999 ,email: bangle312@gmail.com</label><br>
+        <hr>
+        <label style="text-align: center ;">Received the following materials along with design in good condition for manufacturing of Bangles against labour charges only </label>
+        <hr>
+      </div>
+    <div fxLayout="row" *ngIf="billMasterData" style="justify-content: space-between">
+      <div class="col-4">
+        <label>Customer Name & Address : </label><br>
+          <label style="font-size: larger">{{billMasterData.personName}}</label><br>
+          <label>{{billMasterData.address1}}</label><br>
+          <label>{{billMasterData.city}}&nbsp;&nbsp;{{billMasterData.area}}</label><br>
+          <label>pin code:&nbsp;{{billMasterData.pin}}</label><br>
+          <label>{{billMasterData.po}}</label><br>
+          <label>{{billMasterData.mobile1}}</label><br>
+      </div>
+      <div class="col-4"></div>
+      <div class="col-4"><br>
+        <label>Bill Number : {{billMasterData.billNumber}}</label><br>
+        <label>Bill Date : {{billMasterData.billDate}}</label><br>
+        <label>Order Number :</label><br>
+        <label>Order Date :</label><br>
+      </div>
+    </div><br> <br>
+    <table id="bill-detail-table"  class="table">
+      <thead>
+      <tr>
+        <th>SL No.</th>
+        <th>Job Tag</th>
+        <th>Model</th>
+        <th>Size</th>
+        <th>Gross Weight</th>
+        <th>Gold 92.00g</th>
+        <th>Pure Gold</th>
+        <th>Quantity</th>
+        <th>L.C. Rs.</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr  *ngFor="let data of billDetailsData; let indexOfelement = index" >
+        <td>{{indexOfelement+1}}</td>
+        <td >{{data.job_number}}</td>
+        <td>{{data.model_number}}</td>
+        <td>{{data.size}}</td>
+        <td style="padding: 2px; text-align: right">{{data.gross_weight}}</td>
+        <td style="padding: 2px; text-align: right">{{data.total}}</td>
+        <td style="padding: 2px; text-align: right">{{data.pure_gold}}</td>
+        <td style="padding: 2px; text-align: right">{{data.quantity}}</td>
+        <td style="padding: 2px; text-align: right">{{data.cost | currency:"&#8377;"}}</td>
+      </tr>
+<!--      <hr>-->
+      <tr style=" border-top : 1px solid black; border-collapse: collapse">
+        <td></td>
+        <td></td>
+        <td *ngIf=discount>Discount</td>
+        <td></td>
+        <td></td>
+        <td style="padding: 2px;"></td>
+        <td style="padding: 2px;"></td>
+        <td *ngIf=discount style="padding: 2px; text-align: right">({{discountPercentage}}%)</td>
+        <td *ngIf=discount style="padding: 2px; text-align: right"> - {{discount | currency:"&#8377;"}} </td>
+      </tr>
+      <tr style=" border-top : 1px solid black; border-collapse: collapse">
+        <td></td>
+        <td></td>
+        <td>Total</td>
+        <td></td>
+        <td></td>
+        <td style="padding: 2px; text-align: right">{{total92Gold.toFixed(3)}} g</td>
+        <td style="padding: 2px; text-align: right">{{totalGold.toFixed(3)}} g</td>
+        <td style="padding: 2px; text-align: right">{{totalQuantity}}</td>
+        <td style="padding: 2px; text-align: right">{{totalCost | currency:"&#8377;"}}</td>
+      </tr>
+      </tbody>
+    </table>
+      <div class="ml-2" *ngIf="totalCost">Amount in Word: Rupees {{convert(totalCost)}} only</div>
+      <br><br>
+      <div style="text-align: right">
+        <label style="text-align:right ; margin-right: 7px; font-size: small ;">Party signature with stamp, Date & Time</label><br>
+        <label style="text-align:right ; margin-right: 7px; font-size: smaller">Received goods as per requirement &  in good condition</label>
+      </div>
+      <br>
+      <br>
+      <p style="text-align:left ; margin-right: 7px; font-size: smaller">শর্তাবলী: - আপনার যাবতীয় লেনদেন ও দেনাপাওনা সম্পূর্ণ ভাবে প্রোপরাইটার শ্রী বিবেকানন্দ ঘোষ এর সাথে সম্পর্ক যুক্ত |</p>
+    </div>
+  </div>
+</div>

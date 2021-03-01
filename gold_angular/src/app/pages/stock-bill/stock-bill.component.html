@@ -1,0 +1,358 @@
+<div style="background-color: #d9dd9b" [hidden]="!billView">
+  <mat-card style="background-color: #e8c50e; padding: 0px" >
+    <mat-card style="background-color: lightgray; padding: 0px;" class="d-flex" >
+
+      <div class="col-8">
+        <div *ngIf="stockList.length === 0" style="text-align: center; font-weight: bold ; font-size: xx-large ; padding-top: 50px">
+          NO DATA IN STOCK
+        </div>
+        <div *ngIf="stockList.length > 0" style="padding-top: 10px">
+          <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="30px" fxLayoutGap.xs="0">
+            <mat-form-field class="example-full-width" style="padding-top: 12px">
+              <input matInput placeholder="Search Tag..." [(ngModel)]="searchTag" name="search" type="text" autofocus>
+            </mat-form-field>
+            <ng-select [items]="agentData" fxFlex="40"  bindLabel="user_name"  [(ngModel)]="selectedAgentData"  placeholder="Select Agent" (change)="getStockListByAgentName(selectedAgentData)">
+            </ng-select>
+
+
+            <!--          <mat-form-field class="example-full-width">-->
+            <!--            <input matInput placeholder="Items per page" [(ngModel)]="pageSize" name="PageSize" type="text">-->
+            <!--          </mat-form-field>-->
+            <!--        </div>-->
+            &nbsp;&nbsp;&nbsp;
+            <!--        <div>-->
+            <!--          <mat-form-field  class ="col-4" *ngIf="agentData">-->
+<!--            <mat-form-field  class ="col-4" *ngIf="agentData[0]">-->
+
+<!--              <mat-label>Select Agent</mat-label>-->
+<!--              &lt;!&ndash;            <mat-select [(ngModel)]="agentData[0].id">&ndash;&gt;-->
+<!--              <mat-select [value]="agentData[0].id">-->
+<!--                &lt;!&ndash;            <mat-select [value]="defaultAgentSelection()">&ndash;&gt;-->
+<!--                <mat-option *ngFor="let agent of agentData"  [value]="agent.id" (blur)="getStockListByAgentName(agent)" >-->
+<!--                  {{agent.user_name}}-->
+<!--                </mat-option>-->
+<!--              </mat-select>-->
+<!--            </mat-form-field>-->
+<!--            <div class="container material" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">-->
+<!--&lt;!&ndash;              <ng-select [items]="agentData" fxFlex="100"  bindLabel="user_name"  [(ngModel)]="selectedAgentData"  placeholder="Select Agent" (change)="getStockListByAgentName(selectedAgentData)">&ndash;&gt;-->
+<!--&lt;!&ndash;              </ng-select>&ndash;&gt;-->
+<!--            </div>-->
+
+          </div>
+          <table class="table table-hover" *ngIf="tempStockList ">
+            <thead style="background-color: lightslategray">
+            <th style="text-align: center">SL NO.</th>
+            <th style="text-align: center">Tag</th>
+            <th style="text-align: center">Model Name</th>
+            <th style="text-align: center">Size</th>
+            <th style="text-align: center">Gold</th>
+            <th style="text-align: center">Gross Weight</th>
+            <th style="text-align: center">Amount</th>
+            <th style="text-align: center">Quantity</th>
+            <th style="text-align: center">Send To Bill</th>
+            </thead>
+            <tbody>
+            <tr *ngFor="let indexOfElement = index; let item of tempStockList |filter: searchTag | paginate: { itemsPerPage: pageSize, currentPage: p }; ">
+              <td>{{indexOfElement+1}}</td>
+              <td>{{item.tag | uppercase}}</td>
+              <td>{{item.model_number}}</td>
+              <td>{{item.size}}</td>
+              <td  style="text-align: right">{{item.gold}}</td>
+              <td  style="text-align: right">{{item.gross_weight}}</td>
+              <td  style="text-align: right">{{item.amount}}</td>
+              <td  style="text-align: right">{{item.quantity}}</td>
+              <td style="text-align: center">
+                <button mat-icon-button color="primary" aria-label="" [disabled]="item.isSet" (click)="stockSelectionForBill(item)" >
+                  <mat-icon>add</mat-icon>
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <div fxLayout.xs="column" fxLayout="column" fxFlexFill>
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            <pagination-controls  id="some_id"
+                                  (pageChange)="p=($event)"
+                                  maxSize="10"
+                                  directionLinks="true"
+                                  autoHide="true"
+                                  responsive="true"
+                                  previousLabel="Previous"
+                                  nextLabel="Next"
+                                  screenReaderPaginationLabel="Pagination"
+                                  screenReaderPageLabel="page"
+                                  screenReaderCurrentLabel="You're on page">
+            </pagination-controls>
+          </div>
+        </div>
+
+
+<!--        <table class="table table-hover">-->
+<!--          <thead style="background-color: lightslategray">-->
+<!--          <th>SL NO.</th>-->
+<!--          <th>Tag</th>-->
+<!--          <th>Model Name</th>-->
+<!--          <th>Size</th>-->
+<!--          <th>Gold</th>-->
+<!--          <th>Gross Weight</th>-->
+<!--          <th>Amount</th>-->
+<!--          <th>Quantity</th>-->
+<!--          <th>Add For Billing</th>-->
+<!--          </thead>-->
+<!--          <tbody>-->
+<!--          <tr *ngFor="let indexOfElement = index; let item of stockList |filter: searchTag ">-->
+<!--            <td>{{indexOfElement+1}}</td>-->
+<!--            <td>{{item.tag | uppercase}}</td>-->
+<!--            <td>{{item.model_number}}</td>-->
+<!--            <td>{{item.size}}</td>-->
+<!--            <td>{{item.gold}}</td>-->
+<!--            <td>{{item.gross_weight}}</td>-->
+<!--            <td>{{item.amount}}</td>-->
+<!--            <td>{{item.quantity}}</td>-->
+<!--            <td style="text-align: center">-->
+<!--              <button mat-icon-button color="primary" aria-label="" [disabled]="item.isSet" (click)="stockSelectionForBill(item)" >-->
+<!--                <mat-icon>add</mat-icon>-->
+<!--              </button>-->
+<!--            </td>-->
+<!--          </tr>-->
+<!--          </tbody>-->
+<!--        </table>-->
+
+      </div>
+      <div class="col-4" style="text-align: center; background-color: #d9dd9b; padding-top: 10px">
+          <h2>Stock Bill Entry</h2>
+          <div class="container" fxLayout="column" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
+            <!--          <mat-form-field *ngIf="customerData">-->
+<!--            <mat-form-field *ngIf="selectedCustomerData">-->
+<!--              <mat-label>Customer</mat-label>-->
+<!--              &lt;!&ndash;            <mat-select [(ngModel)]="selectedCustomerData.id">&ndash;&gt;-->
+<!--              <mat-select [(ngModel)]="selectedCustomerData.id">-->
+<!--                <mat-option *ngFor="let customer of customerData" [value]="customer.id" (blur)="customerSelected(customer)" >-->
+<!--                  {{customer.user_name}}-->
+<!--                </mat-option>-->
+<!--              </mat-select>-->
+<!--            </mat-form-field>-->
+
+            <div class="container material" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
+<!--              <ng-select [items]="customerData" fxFlex="100"  bindLabel="user_name" (change)="customerSelected(selectedCustomerData)" [ngModel]="selectedCustomerData.user_name"  placeholder="Select Customer">-->
+<!--              </ng-select>-->
+              <ng-select [items]="customerData" fxFlex="100"  bindLabel="user_name"  [(ngModel)]="selectedCustomerData"  (change)="customerSelected(selectedCustomerData)" placeholder="Select Customer">
+              </ng-select>
+            </div>
+
+<!--            <mat-form-field fxFlex="30" *ngIf="selectedCustomerData">-->
+<!--              <mat-label> Stock Bill Date</mat-label>-->
+<!--              &lt;!&ndash;            <input matInput [(ngModel)]="date"&ndash;&gt;-->
+<!--              &lt;!&ndash;                   [(ngModel)]="selectedCustomerData.bill_date"&ndash;&gt;-->
+<!--              <input matInput [(ngModel)]="date"-->
+<!--                     (ngModelChange)="selectDate(selectedCustomerData.bill_date)"-->
+<!--                     [matDatepicker]="picker1"-->
+<!--                     [min]="minDate"-->
+<!--                     [max]="maxDate">-->
+<!--              <mat-datepicker-toggle matSuffix [for]="picker1">-->
+<!--                <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>-->
+<!--              </mat-datepicker-toggle>-->
+<!--              <mat-datepicker #picker1></mat-datepicker>-->
+<!--            </mat-form-field>-->
+            <!--          {{selectedCustomerData.bill_date}}-->
+            <mat-form-field fxFlex="30" *ngIf="selectedCustomerData">
+              <mat-label> Stock Bill Date</mat-label>
+              <!--            <input matInput [(ngModel)]="date"-->
+              <!--                   [(ngModel)]="selectedCustomerData.bill_date"-->
+              <input matInput [(ngModel)]="date"
+                     [matDatepicker]="picker1"
+                     [min]="minDate"
+                     [max]="maxDate">
+              <mat-datepicker-toggle matSuffix [for]="picker1">
+                <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+              </mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+
+
+          </div>
+          <div *ngIf="billDetailsData.length === 0">
+            <h1 style="color: darkred ; font-family: 'Berlin Sans FB';"><i>NO DATA</i> </h1>
+          </div>
+          <!--        <div *ngIf="!stockBillContainer">-->
+          <!--          <h4>No Entry </h4>-->
+          <!--        </div>-->
+          <div  *ngIf="billDetailsData.length>0">
+            <!--        <div>-->
+            <table class="table table-hover">
+              <thead style="background-color: lightslategray">
+              <th>SL NO.</th>
+              <th>Tag</th>
+              <th>Model Number</th>
+              <th>Delete</th>
+
+              </thead>
+              <tbody>
+              <tr *ngFor="let indexOfElement = index; let item of billDetailsData">
+                <td>{{indexOfElement+1}}</td>
+                <td>{{item.tag | uppercase}}</td>
+                <td style="text-align: center">{{item.model_number}}</td>
+                <td>
+                  <button mat-icon-button color="accent" aria-label="" (click)="removeFromStockBillEntry(item)" >
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+            <!--          <button class="btn badge-info" (click)="stockBillGenerate()">Generate Bill</button>-->
+            <button class="btn badge-info" (click)="ViewBill()">View  Bill</button>&nbsp;&nbsp;&nbsp;
+            <button class="btn badge-info" (click)="clearStorage()">clear Storage</button>
+            <!--          <button class="btn badge-info" (click)="testLoop()">test</button>-->
+
+          </div>
+        </div>
+    </mat-card>
+  </mat-card>
+</div>
+
+
+
+
+
+
+
+
+<div [hidden]="billView" style="background-color: white">
+
+<!--  <div  fxLayout.xs="column"  fxLayout="row" fxLayoutAlign="space-between stretch" fxFlexFill id ="completed-bill-div" >-->
+<!--    <div  fxFlex="100" class="col" id ="show-billNumber-div" >-->
+<!--      <table class="table">-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--          <th>SL No.</th>-->
+<!--          <th>Bill Number</th>-->
+<!--          <th>Status</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <tr  *ngFor="let data of finishedBillData; let indexOfelement = index" >-->
+<!--          <td>{{indexOfelement+1}}</td>-->
+<!--          <td>{{data.bill_number}}</td>-->
+<!--          <td><button  class="btn btn-primary" (click)="getBillDetails(data.id)">View Bill</button></td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--      </table>-->
+<!--    </div>-->
+
+    <div>
+      <mat-card style="background-color:#d9dd9b">
+        <div   class="container" id="bill-div" *ngIf="billDetailsData.length != 0" style="background-color: white; width: 80%">
+          <div (click)="backBtn()">
+            <button mat-stroked-button class="btn btn-info">
+              <mat-icon>navigate_before</mat-icon>
+              Back
+            </button>
+          </div>
+          <div style="text-align: right " [hidden]="!billMasterData.bill_number">
+            <button
+              mat-stroked-button
+              class="btn-primary"
+              [printStyle]="printDivStyle"
+              printSectionId="printBillDiv"
+              ngxPrint ><mat-icon>print</mat-icon>
+            </button>
+          </div>
+          <div id="printBillDiv">
+            <div style="align-content: center; text-align: center">
+              <h2 style="text-align: center; font-weight:bold">SRIKRISHNA BANGLE JEWELLERY WORKSHOP</h2>
+              <label style="font-weight: bold ; font-size: 13px ">সোনার পাত বসান ব্রোঞ্জ চুরি</label><br><br>
+              <label style="font-weight: bold ; font-size: 13px ">Sewli,P.O- S.T.P , (Baro Kanthaliya),Barrackpore,Dist:- North 24 Parganas,Kol-121</label><br>
+              <label style="font-weight: bold ; font-size: 11px">contact:- 033 2535 3727 , 2535 7777 , 2535 2222 ,Mob: - 9836444999 ,email: bangle312@gmail.com</label><br>
+              <hr>
+              <label style="text-align: center ; font-weight: bold ;">Received the following materials along with design in good condition for manufacturing of Bangles against labour charges only </label>
+              <hr>
+            </div>
+
+            <div fxLayout="row" *ngIf="billDetailsData.length" style="justify-content: space-between">
+              <div class="col-4">
+                <label>Customer Name & Address : </label><br>
+                <label style="font-weight: bolder; font-size: larger">{{selectedCustomerData.user_name}}</label><br>
+                <label>{{selectedCustomerData.address1}}</label><br>
+                <label>{{selectedCustomerData.city}} &nbsp;,&nbsp;{{selectedCustomerData.area}}</label><br>
+                <label>pin code:-&nbsp;{{selectedCustomerData.pin}}</label><br>
+                <label>PO:&nbsp;{{selectedCustomerData.po}}</label><br>
+                <label>{{selectedCustomerData.mobile1}}</label><br>
+              </div>
+              <div class="col-4"></div>
+              <div class="col-4"><br>
+<!--                <pre>{{billMasterData.billNumber | json }}</pre>-->
+<!--                <label><b>Bill Number : {{(billMasterData.bill_number !== undefined)? billMasterData.billNumber : ' '}}</b></label><br>-->
+                <label><b>Bill Number : {{billMasterData.bill_number}}</b></label><br>
+<!--                <label><b>Bill Number : hfghf </b></label><br>-->
+                <label><b>Bill Date : {{selectedCustomerData.bill_date | date :  "dd.MM.y"}}</b></label><br>
+                <label>Order Number :</label><br>
+                <label>Order Date :</label><br>
+              </div>
+            </div><br> <br>
+
+            <table id="bill-detail-table" class="table table-bordered">
+              <thead>
+              <tr>
+                <th>SL No.</th>
+                <th>Job Tag</th>
+                <th>Model</th>
+                <th>Size</th>
+                <th>Gross Weight</th>
+                <th>Gold 92.00g</th>
+                <th>Pure Gold</th>
+                <th>Quantity</th>
+                <th>L.C. Rs.</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr  *ngFor="let data of billDetailsData; let indexOfelement = index" >
+                <td>{{indexOfelement+1}}</td>
+                <td >{{data.tag}}</td>
+                <td>{{data.model_number}}</td>
+                <td>{{data.size}}</td>
+                <td style="padding: 2px; text-align: right">{{data.gross_weight}}</td>
+                <td style="padding: 2px; text-align: right">{{data.total}}</td>
+                <td style="padding: 2px; text-align: right">{{data.pure_gold}}</td>
+                <td style="padding: 2px; text-align: right">{{data.quantity}}</td>
+                <td style="padding: 2px; text-align: right">{{data.amount | currency:"&#8377;"}}</td>
+              </tr>
+              <hr>
+              <tr style=" border-top : 1px solid black; border-collapse: collapse">
+                <td></td>
+                <td></td>
+                <td><b>Total</b></td>
+                <td></td>
+                <td></td>
+                <td style="padding: 2px; text-align: right"><b>{{total92Gold.toFixed(3)}} g</b></td>
+                <td style="padding: 2px; text-align: right"><b>{{totalGold.toFixed(3)}} g</b></td>
+                <td style="padding: 2px; text-align: right"><b>{{totalQuantity}}</b></td>
+                <td style="padding: 2px; text-align: right"> <b>{{totalCost | currency:"&#8377;"}}</b></td>
+              </tr>
+              </tbody>
+            </table>
+            <br><br>
+            <div class="ml-2" *ngIf="totalCost"><b>Amount in Word:</b> Rupees {{convert(totalCost)}} only</div>
+            <br><br>
+            <div style="text-align: right">
+              <label style="text-align:right ; margin-right: 7px; font-size: small ; font-weight: bold">Party signature with stamp, Date & Time</label><br>
+              <label style="text-align:right ; margin-right: 7px; font-size: smaller">Received goods as per requirement &  in good condition</label>
+            </div>
+            <br>
+            <br>
+            <p style="text-align:left ; margin-right: 7px; font-size: smaller">শর্তাবলী: - আপনার যাবতীয় লেনদেন ও দেনাপাওনা সম্পূর্ণ ভাবে প্রোপরাইটার শ্রী বিবেকানন্দ ঘোষ এর সাথে সম্পর্ক যুক্ত |</p>
+          </div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div style="text-align: center" [hidden]="billMasterData.bill_number">
+            <button   mat-stroked-button class="btn btn-info " (click)="stockBillGenerate()">Save</button>
+            <br><br><br>
+          </div>
+
+        </div>
+      </mat-card>
+    </div>
+
+  </div>
+

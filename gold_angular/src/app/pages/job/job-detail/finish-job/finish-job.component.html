@@ -1,0 +1,22 @@
+<div>
+  <mat-card class="ml-2 mt-2">
+    <div class="form-container">
+      <form [formGroup] = jobMasterForm>
+        <div class="container" fxLayout="column" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
+          <div class="container" fxLayout="row">
+            <h2 class="m-3">Gross Weight</h2>
+          </div>
+          <div class="container" fxLayout="row">
+            <mat-form-field class="col-2">
+              <input matInput type="text" placeholder="Gross Weight" (change)="material_quantity_decimal()" formControlName="gross_weight">
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+      <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end" fxLayoutGap="10px" fxLayoutGap.xs="0" >
+        <button mat-button  mat-stroked-button class="btn btn-primary" (click)="onSubmit()"  [disabled]="!isSubmitEnabled">Save</button><br><br><br>
+      </div>
+    </div>
+  </mat-card>
+</div>
+
