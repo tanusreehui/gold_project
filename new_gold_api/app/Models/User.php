@@ -27,7 +27,7 @@ class User extends Authenticatable
         'mobile1',
         'mobile2',
         'customer_category_id',
-        'person_type_id',
+        'user_type_id',
         'address1',
         'address2',
         'state',
