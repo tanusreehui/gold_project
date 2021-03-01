@@ -50,7 +50,7 @@ export class CustomerService implements OnDestroy{
       email : new FormControl(null, [Validators.required, Validators.email]),
       mobile1 : new FormControl('+91', [Validators.maxLength(13)]),
       mobile2 : new FormControl('+91', [Validators.maxLength(13)]),
-      person_type_id : new FormControl(10),
+      user_type_id : new FormControl(10),
       customer_category_id : new FormControl(2),
       address1 : new FormControl(null),
       address2 : new FormControl(null),
