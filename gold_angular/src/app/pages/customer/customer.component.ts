@@ -46,7 +46,7 @@ export class CustomerComponent implements OnInit {
   }
 
   onSubmit() {
-    // console.log(this.customerForm.value);
+    console.log(this.customerForm.value);
     this.customerService.saveCustomer(this.customerForm.value).subscribe((response: {success: number, data: Customer}) => {
       if (response.data){
         console.log(response.data);
@@ -70,6 +70,7 @@ export class CustomerComponent implements OnInit {
 
   clearCustomerForm() {
     this.customerForm.reset();
+    this.customerForm.patchValue({user_type_id : 10, customer_category_id : 2});
   }
 
   // this function will update the customer

@@ -64,11 +64,14 @@ class RateController extends Controller
             ->where('id','=',$rate->customer_category_id)
             ->get())[0] -> customer_category_name;
 
+
+
         $rate->price_code_name = (PriceCode::select('price_code_name')
             ->where('id','=',$rate->price_code_id)
             ->get())[0] -> price_code_name;
 
         return response()->json(['success'=>1,'data'=>$rate], 200);
+
     }
 
     /**

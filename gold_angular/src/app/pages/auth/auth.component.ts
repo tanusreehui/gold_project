@@ -41,7 +41,7 @@ export class AuthComponent implements OnInit {
       if (response.user.user_type_id === 1){
         this.router.navigate(['/owner']);
       }else if (response.user.user_type_id === 8){
-        this.router.navigate(['/worker']);
+        this.router.navigate(['/owner']);
       }else{
         this.router.navigate(['/owner']);
       }

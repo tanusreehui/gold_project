@@ -8,7 +8,7 @@ use App\Models\CustomerToAgents;
 use App\Models\CustomVoucher;
 use App\Models\OrderDetail;
 use App\Models\User;
-use App\Models\Model\Person;
+use App\Models\Person;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\OrderDetailController;
@@ -18,8 +18,8 @@ class OrderMasterController extends Controller
     public function index()
     {
         $data=OrderMaster::select('order_masters.id','order_masters.person_id','order_masters.date_of_order','order_masters.date_of_delivery','order_masters.order_number',DB::raw('customer.user_name as customer_name'),DB::raw('customer.id as customer_id'),DB::raw('agent.id as agent_id'),DB::raw('agent.user_name as agent_name'))
-            ->join('users as customer', 'customer.id', '=', 'order_masters.person_id')
-            ->join('users as agent', 'agent.id', '=', 'order_masters.agent_id')
+            ->join('people as customer', 'customer.id', '=', 'order_masters.person_id')
+            ->join('people as agent', 'agent.id', '=', 'order_masters.agent_id')
             ->get();
         return response()->json(['success'=>1,'data'=>$data], 200,[],JSON_NUMERIC_CHECK);
     }

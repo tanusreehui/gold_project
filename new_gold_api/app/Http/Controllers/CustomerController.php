@@ -6,7 +6,7 @@ use App\Models\BillDetail;
 use App\Models\CustomVoucher;
 use App\Models\Material;
 use App\Models\MaterialTransactionDetail;
-use App\Models\Model\Person;
+use App\Models\Person;
 use App\Models\OrderDetail;
 use App\Models\OrderMaster;
 use App\Models\JobMaster;

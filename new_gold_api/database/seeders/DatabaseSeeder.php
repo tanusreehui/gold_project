@@ -6,7 +6,7 @@ namespace Database\Seeders;
 //use App\Models\Ledger;
 //use App\Models\Unit;
 //use App\Models\VoucherType;
-use App\Models\Model\Person;
+use App\Models\Person;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\UserType;
@@ -22,6 +22,7 @@ use App\Models\MaterialCategory;
 use App\Models\Material;
 use App\Models\Rate;
 use App\Models\ProductCategory;
+use App\Models\BillAdjustment;
 
 class DatabaseSeeder extends Seeder
 {

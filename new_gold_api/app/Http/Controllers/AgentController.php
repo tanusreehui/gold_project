@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\CustomerToAgents;
-use App\Models\Model\Person;
+use App\Models\Person;
 use App\Models\User;
-//use DemeterChain\C;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -15,8 +14,8 @@ class AgentController extends Controller
 {
     public function index()
     {
-        $agents = UserType::find(7)->people;
-//        $agents =
+//        $agents = UserType::find(7)->people;
+        $agents = Person::select()->where('user_type_id',7)->get();
         return response()->json(['success'=>1,'data'=>$agents], 200,[],JSON_NUMERIC_CHECK);
 
     }

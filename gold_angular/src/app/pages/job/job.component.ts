@@ -128,7 +128,8 @@ export class JobComponent implements OnInit {
                 this.orderDetails[index].status_id = 1;
                 this.jobMasterForm.reset();
                 this.jobDetailsForm.reset();
-                this.jobService.getSavedJobsUpdateListener().subscribe();
+                // this.jobService.getSavedJobsUpdateListener().subscribe();
+                this.jobService.getUpdatedSavedJob();
                 Swal.fire(
                   'Saved!',
                   'Order has been sent to job',

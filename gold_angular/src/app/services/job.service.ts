@@ -117,6 +117,15 @@ export class JobService {
       });
   }
 
+  getUpdatedSavedJob(){
+    this.http.get(GlobalVariable.BASE_API_URL + '/savedJobs')
+      .subscribe((response: {success: number, data: JobMaster[]}) => {
+        const {data} = response;
+        this.savedJobsList = data;
+        this.savedJobsSub.next([...this.savedJobsList]);
+      });
+
+  }
 
   saveJob(){
     // tslint:disable-next-line:max-line-length
@@ -125,7 +134,7 @@ export class JobService {
       .pipe(catchError(this._serverError), tap(((response: {success: number, data: JobMaster}) => {
         if (response.data){
              this.savedJobsList.unshift(response.data);
-             // this.savedJobsSub.next([...this.savedJobsList]);
+             this.savedJobsSub.next([...this.savedJobsList]);
         }
       })));
   }
