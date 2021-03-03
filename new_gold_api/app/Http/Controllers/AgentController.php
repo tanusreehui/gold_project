@@ -125,8 +125,8 @@ class AgentController extends Controller
 //                    ->get();
 
 
-        $data = CustomerToAgents::select(DB::raw('sum(get_LC_due_by_customer_id(customer_id)) as LCdueByAgent'),DB::raw('sum(get_gold_due_by_customer_id(customer_id)) as goldDueByAgent'),'users.user_name','customer_to_agents.agent_id')
-            ->join('users','users.id','=','customer_to_agents.agent_id')
+        $data = CustomerToAgents::select(DB::raw('sum(get_LC_due_by_customer_id(customer_id)) as LCdueByAgent'),DB::raw('sum(get_gold_due_by_customer_id(customer_id)) as goldDueByAgent'),'people.user_name','customer_to_agents.agent_id')
+            ->join('people','people.id','=','customer_to_agents.agent_id')
             ->groupBy('customer_to_agents.agent_id')
             ->get();
 
@@ -151,8 +151,8 @@ class AgentController extends Controller
 //                ->where('customer_to_agents.agent_id',$id)
 //                ->get();
 
-        $data = CustomerToAgents::select(DB::raw('get_LC_due_by_customer_id(customer_id) as LC_Due'), DB::raw('get_gold_due_by_customer_id(customer_id) as gold_due'),'users.user_name','users.id')
-            ->join('users','customer_to_agents.customer_id','=','users.id')
+        $data = CustomerToAgents::select(DB::raw('get_LC_due_by_customer_id(customer_id) as LC_Due'), DB::raw('get_gold_due_by_customer_id(customer_id) as gold_due'),'people.user_name','people.id')
+            ->join('people','customer_to_agents.customer_id','=','people.id')
             ->where('customer_to_agents.agent_id',$id)
             ->get();
 

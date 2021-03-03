@@ -143,7 +143,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get('/getTotalGoldQuantity/{id}', [CustomerController::class,'getTotalGoldQuantity']);
     Route::get('/testGetEmployeeMaterial', [CustomerController::class,'testGetEmployeeMaterial']);
     Route::get('/getEmployeeMaterial', [CustomerController::class,'getEmployeeMaterial']);
-    Route::get('/myTest', [CustomerController::class,'MyTest']);
+//    Route::get('/myTest', [CustomerController::class,'MyTest']);
     Route::get('/getCustomerPassbook/{id}', [CustomerController::class,'CustomerTransactionTest']);
 
     //order_detail
@@ -263,7 +263,7 @@ Route::group(array('prefix' => 'dev'), function() {
     Route::get('/getTotalGoldQuantity/{id}', [CustomerController::class,'getTotalGoldQuantity']);
     Route::get('/testGetEmployeeMaterial', [CustomerController::class,'testGetEmployeeMaterial']);
     Route::get('/getEmployeeMaterial', [CustomerController::class,'getEmployeeMaterial']);
-    Route::get('/myTest', [CustomerController::class,'MyTest']);
+//    Route::get('/myTest', [CustomerController::class,'MyTest']);
     Route::get('/getCustomerPassbook/{id}', [CustomerController::class,'CustomerTransactionTest']);
 
     //order_detail

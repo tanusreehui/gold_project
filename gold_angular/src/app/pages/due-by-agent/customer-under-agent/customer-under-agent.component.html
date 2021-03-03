@@ -39,11 +39,11 @@
           <tbody>
           <tr  *ngFor="let data of customerList; let indexOfelement = index" >
             <td>{{indexOfelement+1}}</td>
-            <td>{{data.person_name | uppercase}}</td>
+            <td>{{data.user_name | uppercase}}</td>
             <td>{{data.LC_Due.toFixed(3) | currency:"&#8377;"}}</td>
             <td>{{data.gold_due.toFixed(3)}}gm</td>
             <td>
-              <button class="btn btn-info" (click)="viewPassbook(data.id,data.person_name)" >View Passbook</button>
+              <button class="btn btn-info" (click)="viewPassbook(data.id,data.user_name)" >View Passbook</button>
             </td>
           </tr>
           </tbody>

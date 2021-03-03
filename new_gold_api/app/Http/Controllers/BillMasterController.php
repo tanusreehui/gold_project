@@ -162,12 +162,12 @@ class BillMasterController extends Controller
     {
         $input = ($request->json()->all());
         $data = JobMaster::select('bill_masters.bill_number', 'bill_masters.id', 'bill_masters.discount')
-            ->join('users as karigarh', 'job_masters.karigarh_id', '=', 'karigarh.id')
+            ->join('people as karigarh', 'job_masters.karigarh_id', '=', 'karigarh.id')
             ->join('order_details', 'job_masters.order_details_id', '=', 'order_details.id')
             ->join('order_masters', 'order_details.order_master_id', '=', 'order_masters.id')
             ->join('bill_masters', 'bill_masters.order_master_id', '=', 'order_masters.id')
             ->join('products', 'order_details.product_id', '=', 'products.id')
-            ->join('users', 'order_masters.person_id', '=', 'users.id')
+            ->join('people', 'order_masters.person_id', '=', 'people.id')
             ->where('job_masters.bill_created', '=', 1)
             ->where('order_masters.id', '=', $input)
             ->distinct()

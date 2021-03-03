@@ -518,7 +518,7 @@ class CustomerController extends Controller
 //            ->where('users.id',$id)
 //            ->first();
 
-        $data1 = (array) DB::table('users')
+        $data1 = (array) DB::table('people')
             ->select('people.opening_balance_LC as cash_received','people.opening_balance_Gold as gold_received','people.created_at','people.opening_balance_LC as LC_balance','people.opening_balance_Gold as gold_balance' ,DB::raw("if(people.opening_balance_Gold,'Opening Balance','Opening Balance') as statement"),DB::raw("if(people.opening_balance_Gold,'--','--') as reference_number"))
             ->where('id',$id)
             ->first();
