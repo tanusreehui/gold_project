@@ -14,8 +14,8 @@ class AgentController extends Controller
 {
     public function index()
     {
-//        $agents = UserType::find(7)->people;
-        $agents = Person::select()->where('user_type_id',7)->get();
+        $agents = UserType::find(7)->people;
+//        $agents = Person::select()->where('user_type_id',7)->get();
         return response()->json(['success'=>1,'data'=>$agents], 200,[],JSON_NUMERIC_CHECK);
 
     }
@@ -24,8 +24,8 @@ class AgentController extends Controller
 //        $newData = (object)($request->json()->all());
         $agent = new Person();
         $agent->user_name = $request->input('user_name');
-        $agent->email = $request->input('email');
-        $agent->password = "81dc9bdb52d04dc20036dbd8313ed055";
+//        $agent->email = $request->input('email');
+//        $agent->password = "81dc9bdb52d04dc20036dbd8313ed055";
         $agent->user_type_id = 7;
         $agent->customer_category_id = 5;
         $agent->mobile1 = $request->input('mobile1');
@@ -48,12 +48,12 @@ class AgentController extends Controller
         if ($request->input('user_name')) {
             $agent->user_name = $request->input('user_name');
         }
-        if ($request->input('email')) {
-            $agent->email = $request->input('email');
-        }
-        if ($request->input('password')) {
-            $agent->password = $request->input('password');
-        }
+//        if ($request->input('email')) {
+//            $agent->email = $request->input('email');
+//        }
+//        if ($request->input('password')) {
+//            $agent->password = $request->input('password');
+//        }
 
         if ($request->input('user_type_id')) {
             $agent->user_type_id = $request->input('user_type_id');
@@ -158,8 +158,4 @@ class AgentController extends Controller
 
         return response()->json(['success'=>1,'data'=>$data],200,[],JSON_NUMERIC_CHECK);
     }
-
-
-
-
 }

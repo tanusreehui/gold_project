@@ -13,6 +13,7 @@ use App\Models\JobMaster;
 use App\Models\PaymentCash;
 use App\Models\PaymentGold;
 use App\Models\User;
+use App\Models\UserType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -24,34 +25,35 @@ class CustomerController extends Controller
 {
     public function index()
     {
-//        $customers = PersonType::find(10)->people;
-        $query = Person::select('id',
-            'user_name',
-            'user_type_id',
-            'email',
-            'mobile1',
-            'mobile2',
-            'customer_category_id',
-            'address1',
-            'address2',
-            'state',
-            'city',
-            'po',
-            'area',
-            'pin',
-            'opening_balance_LC',
-            'opening_balance_Gold',
-            'mv',
-            'discount')
-            ->where('user_type_id', '=', 10)
-            ->where('customer_category_id', '!=', 5);
+        $query = UserType::find(10)->people->where('customer_category_id', '!=', 5);
+        return response()->json(['success' => 1, 'data' => $query], 200, [], JSON_NUMERIC_CHECK);
+//        $query = Person::select('id',
+//            'user_name',
+//            'user_type_id',
+//            'email',
+//            'mobile1',
+//            'mobile2',
+//            'customer_category_id',
+//            'address1',
+//            'address2',
+//            'state',
+//            'city',
+//            'po',
+//            'area',
+//            'pin',
+//            'opening_balance_LC',
+//            'opening_balance_Gold',
+//            'mv',
+//            'discount')
+//            ->where('user_type_id', '=', 10)
+//            ->where('customer_category_id', '!=', 5);
 //            ->whereNotIn('customer_category_id',4);
 
         //to bind the parameters, the above statement does not bind the parameters so we need to bind them
         // using following statement
-        $finalQuery = Str::replaceArray('?', $query->getBindings(), $query->toSql());
-        $result = DB::table(DB::raw("($finalQuery) as table1"))->select()->get();
-        return response()->json(['success' => 1, 'data' => $result], 200, [], JSON_NUMERIC_CHECK);
+//        $finalQuery = Str::replaceArray('?', $query->getBindings(), $query->toSql());
+//        $result = DB::table(DB::raw("($finalQuery) as table1"))->select()->get();
+//        return response()->json(['success' => 1, 'data' => $query], 200, [], JSON_NUMERIC_CHECK);
 
     }
 

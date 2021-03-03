@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class BillMaster extends Model
 {
     public function getCustomer(){
-        return $this->belongsTo('App\Models\User;','customer_id');
+        return $this->belongsTo('App\Models\People;','customer_id');
 
     }
 
