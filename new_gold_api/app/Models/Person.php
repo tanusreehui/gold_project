@@ -7,5 +7,26 @@ use Illuminate\Database\Eloquent\Model;
 
 class Person extends Model
 {
-    use HasFactory;
+    protected $hidden = [
+        "inforce","created_at","updated_at",'password', 'remember_token',
+    ];
+    protected $visible = ['id',
+        'user_name',
+        'email',
+        'mobile1',
+        'mobile2',
+        'customer_category_id',
+        'user_type_id',
+        'address1',
+        'address2',
+        'state',
+        'city',
+        'po',
+        'area',
+        'pin',
+        'opening_balance_LC',
+        'opening_balance_Gold',
+        'mv',
+        'discount'];
+
 }

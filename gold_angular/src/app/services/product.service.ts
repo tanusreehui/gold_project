@@ -38,6 +38,8 @@ export class ProductService {
       product_name : new FormControl(null, [Validators.required, Validators.maxLength(20), Validators.minLength(4)]),
       model_number : new FormControl(null, [Validators.required]),
       price_code_id : new FormControl(null, [Validators.required]),
+      price_code_name : new FormControl('', [Validators.required]),
+      category_name : new FormControl('', [Validators.required]),
       product_category_id : new FormControl(null, [Validators.required]),
     });
   }
@@ -48,8 +50,8 @@ export class ProductService {
   }
 
   fillFormByUpdatebaleData(product){
-    // this.productForm.setValue(product);
-    this,this.productForm.patchValue({id:product.id , product_name: product.product_name , model_number: product.model_number ,price_code_id: product.price_code_id , product_category_id: product.product_category_id});
+    this.productForm.setValue(product);
+    // this.productForm.patchValue({id:product.id , product_name: product.product_name , model_number: product.model_number ,price_code_id: product.price_code_id , product_category_id: product.product_category_id});
   }
 
   saveProduct(product){

@@ -16,10 +16,10 @@ class CreatePeopleTable extends Migration
         Schema::create('people', function (Blueprint $table) {
             $table->id('id');
             $table->string('user_name')->nullable(true);
-            $table->string('email')->unique();
+//            $table->string('email')->unique();
 
-            $table->string('password');
-            $table->rememberToken();
+//            $table->string('password');
+//            $table->rememberToken();
             $table->string('mobile1',30)->nullable(true);
             $table->string('mobile2',30)->nullable(true);
 
