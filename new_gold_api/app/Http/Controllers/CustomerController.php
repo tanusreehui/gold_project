@@ -26,6 +26,7 @@ class CustomerController extends Controller
     public function index()
     {
         $query = UserType::find(10)->people->where('customer_category_id', '!=', 5);
+//        $query = UserType::find(10)->customer;
         return response()->json(['success' => 1, 'data' => $query], 200, [], JSON_NUMERIC_CHECK);
 //        $query = Person::select('id',
 //            'user_name',
@@ -64,8 +65,8 @@ class CustomerController extends Controller
 //        return $request;
         $customer = new Person();
         $customer->user_name = $request->input('user_name');
-        $customer->email = $request->input('email');
-        $customer->password = "81dc9bdb52d04dc20036dbd8313ed055";
+//        $customer->email = $request->input('email');
+//        $customer->password = "81dc9bdb52d04dc20036dbd8313ed055";
         $customer->user_type_id = $request->input('user_type_id');
         $customer->customer_category_id = $request->input('customer_category_id');
         $customer->mobile1 = $request->input('mobile1');

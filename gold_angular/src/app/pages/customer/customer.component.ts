@@ -76,7 +76,8 @@ export class CustomerComponent implements OnInit {
   // this function will update the customer
   updateCustomer() {
     let updateObserable = new Observable<any>();
-    console.log(this.customerForm.value);
+    // console.log('customer update');
+    // console.log(this.customerForm.value);
     updateObserable = this.customerService.updateCustomer(this.customerForm.value);
 
 

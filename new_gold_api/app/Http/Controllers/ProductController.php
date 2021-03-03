@@ -44,6 +44,10 @@ class ProductController extends Controller
         $product->price_code_id=$request->input('price_code_id');
         $product->product_category_id=$request->input('product_category_id');
         $product->update();
+
+        $product->setAttribute('category_name', $product->category->category_name);
+        $product->setAttribute('price_code_name', $product->priceCode->price_code_name);
+
         return response()->json(['success'=>1,'data'=>$product], 200,[],JSON_NUMERIC_CHECK);
     }
 

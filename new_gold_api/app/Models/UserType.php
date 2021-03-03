@@ -16,4 +16,11 @@ class UserType extends Model
     {
         return $this->hasMany('App\Models\Person','user_type_id');
     }
+
+    public function customer()
+    {
+        return $this->hasMany('App\Models\Person','user_type_id')->where('customer_category_id','<',5);
+    }
+
+
 }

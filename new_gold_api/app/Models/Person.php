@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Person extends Model
 {
+    protected $guarded = ['id'];
     protected $hidden = [
         "inforce","created_at","updated_at",'password', 'remember_token',
     ];
@@ -28,5 +29,9 @@ class Person extends Model
         'opening_balance_Gold',
         'mv',
         'discount'];
+
+
+
+
 
 }

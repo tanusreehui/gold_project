@@ -129,7 +129,7 @@ export class JobComponent implements OnInit {
                 this.jobMasterForm.reset();
                 this.jobDetailsForm.reset();
                 // this.jobService.getSavedJobsUpdateListener().subscribe();
-                this.jobService.getUpdatedSavedJob();
+                // this.jobService.getUpdatedSavedJob();
                 Swal.fire(
                   'Saved!',
                   'Order has been sent to job',

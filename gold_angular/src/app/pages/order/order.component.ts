@@ -109,6 +109,7 @@ export class OrderComponent implements OnInit {
     this.customerService.getCustomerUpdateListener()
       .subscribe((customers: Customer[]) => {
         this.customerList = customers;
+        console.log(this.customerList);
       });
 
     this.orderService.getAgentUpdateListener()

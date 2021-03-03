@@ -122,6 +122,8 @@ export class CustomerListComponent implements OnInit {
   }
   // this function will fill the form using current customer record, update will be done from customerComponent's Update function
   populateFormByCurrentCustomer(customer: Customer) {
+    console.log('list component');
+    console.log(customer);
     this.customerService.fillFormByUpdatebaleData(customer);
   }
 

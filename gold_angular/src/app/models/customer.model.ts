@@ -23,8 +23,9 @@ export class Customer{
   gold_due?: number;
   mv?: number;
   discount?: number;
+  id: number;
 
-  constructor(public id: number, public user_name: string, public email: string, public customer_category_id: number) {
+  constructor(public user_name: string, public email: string, public customer_category_id: number) {
     this.user_type_id = 10;
   }
 }
