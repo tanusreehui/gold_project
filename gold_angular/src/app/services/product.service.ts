@@ -83,8 +83,10 @@ export class ProductService {
       .pipe(catchError(this.serverError), tap((response: {success: number, id: number}) => {
         if (response.success === 1){
           const index = this.products.findIndex(x => x.id === id);
+
           if (index !== -1) {
             this.products.splice(index, 1);
+            console.log(this.products);
           }
         }
 

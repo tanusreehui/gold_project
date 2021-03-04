@@ -38,6 +38,8 @@ class AgentController extends Controller
         $agent->city = $request->input('city');
         $agent->pin = $request->input('pin');
         $agent->opening_balance_LC = 0;
+        $agent->mv = 0;
+        $agent->discount = 0;
         $agent->opening_balance_Gold = 0;
         $agent->save();
         return response()->json(['success' => 1, 'data' => $agent], 200,[],JSON_NUMERIC_CHECK);

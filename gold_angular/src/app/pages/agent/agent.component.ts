@@ -34,15 +34,15 @@ export class AgentComponent implements OnInit {
   onSubmit(){
     this.agentService.saveAgent().subscribe((response: {success: number, data: Agent})  => {
       if (response.data){
-        const {data} = response;
-        this.agentData.push(data);
+        // const {data} = response;
+        // this.agentData.unshift(data);
         Swal.fire(
           'Done!',
           'Successfully Added',
           'success'
         );
         this.agentForm.reset();
-        this.agentService.getLatestAgent();
+        // this.agentService.getLatestAgent();
       }
     });
   }

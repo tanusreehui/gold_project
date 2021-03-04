@@ -41,7 +41,7 @@ export class AgentService {
     this.agentForm = new FormGroup({
       id : new FormControl(null),
       user_name : new FormControl(null, [Validators.required, Validators.maxLength(20), Validators.minLength(4)]),
-      email : new FormControl(null, [Validators.required, Validators.email]),
+      // email : new FormControl(null, [Validators.required, Validators.email]),
       mobile1 : new FormControl('+91', [Validators.maxLength(13)]),
       mobile2 : new FormControl('+91', [Validators.maxLength(13)]),
       user_type_id: new FormControl(10),
@@ -55,6 +55,8 @@ export class AgentService {
       pin : new FormControl(null, [Validators.pattern('^[0-9]*$'), Validators.maxLength(6)]),
       opening_balance_LC : new FormControl(0.00),
       opening_balance_Gold : new FormControl(0.00),
+      mv : new FormControl(0.00),
+      discount : new FormControl(0.00),
     });
 
     this.http.get('http://127.0.0.1:8000/api/agents')
@@ -73,6 +75,7 @@ export class AgentService {
   }
 
   fillAgentFormForEdit(data){
+    console.log(data);
     this.agentForm.setValue(data);
   }
 
@@ -103,7 +106,12 @@ export class AgentService {
 
 
   saveAgent(){
-    return this.http.post<AgentResponseData>('http://127.0.0.1:8000/api/agents', this.agentForm.value);
+    return this.http.post<AgentResponseData>('http://127.0.0.1:8000/api/agents', this.agentForm.value)
+      .pipe(tap(((response: {success: number, data: Agent }) => {
+           this.agentData.unshift(response.data);
+           this.agentSub.next([...this.agentData]);
+
+      })));
   }
 
   deleteAgent(id){

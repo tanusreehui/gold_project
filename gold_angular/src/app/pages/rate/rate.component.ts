@@ -28,6 +28,9 @@ export class RateComponent implements OnInit {
   constructor(private rateService: RateService, private priceCodeService: PriceCodeService, private customerCategoryService: CustomerCategoryService) {
     this.page = 1;
     this.pageSize = 15;
+    this.rateData = this.rateService.gettingRateData();
+    this.customerCategories = this.customerCategoryService.getCustomerCategory();
+    this.priceCodes = this.priceCodeService.getPriceCodes();
   }
 
   ngOnInit(): void {

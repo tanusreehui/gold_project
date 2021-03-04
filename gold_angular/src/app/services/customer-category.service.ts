@@ -27,4 +27,7 @@ private customerCategorySub = new Subject<CustomerCategory[]>();
         this.customerCategorySub.next([...this.customerCategoryData]);
       });
   }
+  getCustomerCategory(){
+    return [...this.customerCategoryData];
+  }
 }

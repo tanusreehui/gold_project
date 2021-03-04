@@ -194,10 +194,10 @@ export class StockBillComponent implements OnInit {
 
           if (stockBillContainer.stockBillCustomer){
             this.selectedCustomerData =  stockBillContainer.stockBillCustomer;
-            this.discountPercentage = this.selectedCustomerData.discount;
+
           }else{
             this.selectedCustomerData = this.customerData[0];
-            this.discountPercentage = this.selectedCustomerData.discount;
+
           }
 
 
@@ -215,7 +215,6 @@ export class StockBillComponent implements OnInit {
         this.customerData = customers;
         this.selectedCustomerData = this.customerData[0];
         // this.selectedCustomerData.bill_date = '2010-11-02';
-        this.discountPercentage = this.selectedCustomerData.discount;
         this.selectedCustomerData.bill_date = this.date.getFullYear() + '-' + (this.date.getMonth() + 1) + '-' + this.date.getDate();
         // console.log(formatDate(this.date.getDate(), 'yyyy-MM-dd', 'en'));
         // this.selectedCustomerData.bill_date = this. datepipe. transform(this.date, 'yyyy-MM-dd');
@@ -273,8 +272,7 @@ export class StockBillComponent implements OnInit {
 
 
 
-      this.discount = (this.discountPercentage / 100) * this.totalCost;
-      this.totalCost = this.totalCost - this.discount;
+
 
 
 
@@ -379,7 +377,7 @@ export class StockBillComponent implements OnInit {
         billNumber : null,
         customerId : this.selectedCustomerData.id,
         agent_id: this.billDetailsData[0].agent_id,
-        discount: 0,
+        discount: this.discount,
         billDate: this.selectedCustomerData.bill_date,
       };
 
@@ -499,7 +497,6 @@ export class StockBillComponent implements OnInit {
     // return this.agentData[0] ;
   }
   ViewBill(){
-    console.log(this.selectedCustomerData);
     this.billView = false;
     const date =  this.date.getFullYear() + '-' + (this.date.getMonth() + 1) + '-' + this.date.getDate();
     this.selectedCustomerData.bill_date = date;
@@ -509,5 +506,15 @@ export class StockBillComponent implements OnInit {
     };
     this.storage.set('stockBillContainer', this.stockBillContainer).subscribe(() => {
     });
+    this.discountPercentage = this.stockBillContainer.stockBillCustomer.discount;
+    this.totalCost =0;
+    this.discount =0;
+    for(let i = 0; i < this.stockBillContainer.stockBillDetailsData.length; i++){
+      this.totalCost = this.totalCost + this.stockBillContainer.stockBillDetailsData[i].amount;
+    }
+    this.discount = (this.totalCost * this.discountPercentage)/100 ;
+
+    this.totalCost = this.totalCost - this.discount;
+
   }
 }

@@ -98,7 +98,7 @@ export class ProductComponent implements OnInit {
   }
 
   public deleteCurrentProduct(product: Product) {
-    this.confirmationDialogService.confirm('Please confirm..', 'Do you really want to delete customer ?')
+    this.confirmationDialogService.confirm('Please confirm..', 'Do you really want to delete product ?')
       .then((confirmed) => {
         // deleting record if confirmed
         if (confirmed){

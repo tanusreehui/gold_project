@@ -56,7 +56,8 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $result=$product->delete();
-        return response()->json(['success'=>$result,'id'=>$id], 200);
+//        return response()->json(['success'=>$result,'id'=>$id], 200);
+        return response()->json(['success' => 1, 'data' => $result], 200,[],JSON_NUMERIC_CHECK);
     }
 
     public function getProductData(Request $request)
