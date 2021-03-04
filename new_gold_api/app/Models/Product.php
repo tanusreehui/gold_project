@@ -13,6 +13,10 @@ class Product extends Model
      */
     private $model_number;
 
+    protected $hidden = [
+        "inforce","created_at","updated_at"
+    ];
+
     public function category()
     {
         return $this->belongsTo('App\Models\ProductCategory','product_category_id');

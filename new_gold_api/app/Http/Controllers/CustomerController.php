@@ -81,6 +81,7 @@ class CustomerController extends Controller
         $customer->opening_balance_LC = $request->input('opening_balance_LC');
         $customer->opening_balance_Gold = $request->input('opening_balance_Gold');
         $customer->mv = $request->input('mv');
+        $customer->discount = 0;
 
 //        if ($request->input('mv')) {
 //        $customer->mv = $request->input('mv');

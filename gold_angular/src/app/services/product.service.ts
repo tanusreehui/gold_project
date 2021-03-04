@@ -38,8 +38,8 @@ export class ProductService {
       product_name : new FormControl(null, [Validators.required, Validators.maxLength(20), Validators.minLength(4)]),
       model_number : new FormControl(null, [Validators.required]),
       price_code_id : new FormControl(null, [Validators.required]),
-      // price_code_name : new FormControl('', [Validators.required]),
-      // category_name : new FormControl('', [Validators.required]),
+      price_code_name : new FormControl('', [Validators.required]),
+      category_name : new FormControl('', [Validators.required]),
       product_category_id : new FormControl(null, [Validators.required]),
     });
   }
@@ -50,19 +50,20 @@ export class ProductService {
   }
 
   fillFormByUpdatebaleData(product){
-    this.productForm.controls['id'].setValue(product.id);
+    // this.productForm.controls['id'].setValue(product.id);
     this.productForm.setValue(product);
+    // tslint:disable-next-line:max-line-length
     // this.productForm.patchValue({id:product.id , product_name: product.product_name , model_number: product.model_number ,price_code_id: product.price_code_id , product_category_id: product.product_category_id});
   }
 
   saveProduct(product){
     return this.http.post<ProductResponseData>('http://127.0.0.1:8000/api/products', product)
-      .subscribe((response: {success: number, data: Product})  => {
+      .pipe(catchError(this.serverError), tap((response: {success: number, data: Product})  => {
         this.products.unshift(response.data);
 
         this.productSubject.next([...this.products]);
         // console.log(this.products);
-      });
+      }));
   }
 
   updateProduct(product){
@@ -70,6 +71,7 @@ export class ProductService {
       .pipe(catchError(this.serverError), tap((response: {success: number, data: Product}) => {
         const index = this.products.findIndex(x => x.id === product.id);
         this.products[index] = response.data;
+        // console.log(this.products[index]);
         // console.log(response);
         this.productSubject.next([...this.products]);
       }));

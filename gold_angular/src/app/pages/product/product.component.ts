@@ -58,11 +58,25 @@ export class ProductComponent implements OnInit {
   }
 
   populateFormByCurrentProduct(product: Product){
+    // console.log(product);
     this.productService.fillFormByUpdatebaleData(product);
   }
 
   onSubmit(){
-    this.productService.saveProduct(this.productForm.value);
+    this.productService.saveProduct(this.productForm.value).subscribe((response) => {
+      if (response.success === 1){
+        this.snackBar.openFromComponent(SncakBarComponent, {
+          duration: 4000, data: {message: 'Product Saved!'}
+        });
+        this.productForm.reset();
+      }
+    }, (error) => {
+      console.log('error occured ');
+      console.log(error);
+      this.snackBar.openFromComponent(SncakBarComponent, {
+        duration: 4000, data: {message: error.message}
+      });
+    });
   }
 
   updateProduct(){

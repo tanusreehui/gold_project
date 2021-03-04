@@ -43,8 +43,9 @@
         </form>
 
         <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end" fxLayoutGap="10px" fxLayoutGap.xs="0" >
-          <button mat-button (click)="onSubmit()" [disabled]="!productForm.valid" mat-stroked-button>Save</button>
-          <button mat-button (click)="updateProduct()" [disabled]="!productForm.dirty" mat-stroked-button>Update</button>
+<!--          <button mat-button (click)="onSubmit()" [disabled]="!productForm.valid" mat-stroked-button>Save</button>-->
+          <button mat-button (click)="onSubmit()" [disabled]="productForm.value.id" mat-stroked-button>Save</button>
+          <button mat-button (click)="updateProduct()" [disabled]="!productForm.dirty || !productForm.value.id" mat-stroked-button>Update</button>
           <button mat-button (click)="clearProductForm()" mat-stroked-button>clear</button>
         </div>
 

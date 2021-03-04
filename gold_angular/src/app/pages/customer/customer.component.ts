@@ -68,7 +68,7 @@ export class CustomerComponent implements OnInit {
     this.customerForm.setValue($event);
   }
 
-  clearCustomerForm() {
+  clearForm() {
     this.customerForm.reset();
     this.customerForm.patchValue({user_type_id : 10, customer_category_id : 2});
   }
