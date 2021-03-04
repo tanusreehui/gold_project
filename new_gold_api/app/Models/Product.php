@@ -17,6 +17,14 @@ class Product extends Model
         "inforce","created_at","updated_at"
     ];
 
+    protected $visible = ['id',
+        'product_name',
+        'model_number',
+        'product_category_id',
+        'price_code_id',
+        'price_code_name',
+        'category_name',];
+
     public function category()
     {
         return $this->belongsTo('App\Models\ProductCategory','product_category_id');
