@@ -389,7 +389,7 @@ class CustomerController extends Controller
         return response()->json(['success' => 1, 'data' => $result], 200, [], JSON_NUMERIC_CHECK);
   }
 
-    public function MyTest()
+    public function getEmployeeStock()
     {
 
         $test1 = User::select('id', 'user_name')

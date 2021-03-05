@@ -28,7 +28,7 @@ export class EmployeeStockService {
     //     this.employeeStockDataSub.next([...this.employeeStockData]);
     //   });
 
-    this.http.get(GlobalVariable.BASE_API_URL + '/myTest')
+    this.http.get(GlobalVariable.BASE_API_URL + '/getEmployeeStock ')
       .subscribe((response: {success: number, data: any}) => {
         const {data} = response;
         this.employeeStockData = data;
