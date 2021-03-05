@@ -21,10 +21,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isAccountManager = false;
   isOfficeStaff = false;
   router: Router;
+  userInfo: User;
+  messages: any;
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
+    // this.authService.getChats();
+    this.authService.getChats();
     this.userSub = this.authService.user.subscribe(user => {
+      this.userInfo = user;
+      console.log(user);
       if (user){
         this.isAuthenticated = user.isAuthenticated;
         this.isOwner = user.isOwner;
@@ -46,6 +52,24 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     });
     // console.log(this.userSub);
+    // this.authService.getMessageSubUpdateListener().subscribe((response)=>{
+    //   console.log('from listener');
+    //    console.log(response);
+    // });
+    this.authService.getMessageSubUpdateListener().subscribe((response)=>{
+      console.log("message updator");
+      this.messages = response;
+      console.log(response);
+    });
+  }
+
+
+  getChats(){
+      // this.authService.getMessageSubUpdateListener().subscribe((response)=> {
+      //   console.log("message updator");
+      //   console.log(response);
+      // });
+    this.authService.getChats();
   }
 
   ngOnDestroy(): void {

@@ -11,7 +11,7 @@ import {take, exhaustMap} from 'rxjs/operators';
 
 @Injectable()
 export class AuthInterceptorInterceptor implements HttpInterceptor {
-  userData: {id: number, personName: string, _authKey: string, personTypeId: number};
+  userData: {id: number, userName: string, _authKey: string, userTypeId: number};
   constructor(private authService: AuthService) {
   }
 
@@ -20,7 +20,7 @@ export class AuthInterceptorInterceptor implements HttpInterceptor {
     if (localStorage.getItem('user')){
       this.userData = JSON.parse(localStorage.getItem('user'));
     }else{
-      this.userData = {id: 0, personName: 'No Person', _authKey: 'no key', personTypeId: 0};
+      this.userData = {id: 0, userName: 'No Person', _authKey: 'no key', userTypeId: 0};
     }
     return this.authService.user.pipe(take(1), exhaustMap(user => {
       // if (!user){

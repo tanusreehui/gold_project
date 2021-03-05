@@ -75,6 +75,7 @@ import {NgSelectModule} from "@ng-select/ng-select";
 import { BilledJobListComponent } from './pages/completed-bill/billed-job-list/billed-job-list.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -125,7 +126,8 @@ import { BilledJobListComponent } from './pages/completed-bill/billed-job-list/b
     TransactionComponent,
     EmployeeStockComponent,
     FooterComponent,
-    BilledJobListComponent
+    BilledJobListComponent,
+
 
   ],
   imports: [

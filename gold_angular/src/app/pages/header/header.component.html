@@ -143,11 +143,43 @@
       </div>
       <button mat-button mat-raised-button *ngIf="isAuthenticated" (click)="logout()">Logout</button>
       <div>
-          <button  mat-button>
-            <mat-icon *ngIf="deviceXs">more_vert</mat-icon>
-            <span *ngIf="!deviceXs">Menu</span>
-          </button>
+<!--          <button  mat-button>-->
+<!--            <mat-icon *ngIf="deviceXs">more_vert</mat-icon>-->
+<!--            <span *ngIf="!deviceXs">Menu</span>-->
+<!--          </button>-->
+<!--        <button  mat-button>-->
+<!--          <mat-icon *ngIf="deviceXs">more_vert</mat-icon>-->
+<!--          <span *ngIf="!deviceXs">Chat With Us</span>-->
+<!--          [routerLink]="['/chat']"-->
+<!--          <mat-icon> chat</mat-icon>-->
+<!--        </button>-->
+        <button mat-button mat-raised-button  [matMenuTriggerFor]="chat">Chat With Us
+          <mat-icon> chat</mat-icon></button>
       </div>
+      <div>
+        <mat-menu #chat="matMenu">
+          <!--        <button mat-menu-item [routerLink]="['/chat']" >Create chat</button>-->
+          <label style="text-align: center"><b>{{userInfo.userName}}</b></label><br>
+          <!--        <button (click)="getChats()">test</button>-->
+          <table class="table" id="my-table" style="width: 100%">
+            <tbody *ngFor="let message of messages">
+            <tr style="margin: 0px"> Customer Name: {{message.customer_name}}
+
+              <!--          <td>Customer Name: {{message.customer_name}}</td>-->
+              <!--            <td>Message: {{message.messages}}</td>-->
+            </tr>
+            <tr style="margin: 0px">
+              Message: {{message.messages}}
+            </tr><br>
+            </tbody>
+          </table>
+          <mat-form-field class="example-full-width" fxFlex="20">
+            <mat-label>Message</mat-label>
+            <input matInput>
+          </mat-form-field>
+        </mat-menu>
+      </div>
+
     </mat-toolbar-row>
 
     <mat-toolbar-row *ngIf="deviceXs" fxLayoutAlign="space-between end">

@@ -72,12 +72,15 @@ export class AgentService {
         this.dueByAgentData = response.data;
         this.dueByAgentDataSub.next([...this.dueByAgentData]);
       });
+
   }
 
   fillAgentFormForEdit(data){
     console.log(data);
     this.agentForm.setValue(data);
   }
+
+
 
   getLatestAgent(){
     this.http.get('http://127.0.0.1:8000/api/agents')

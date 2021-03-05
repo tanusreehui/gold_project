@@ -6,6 +6,8 @@ import {User} from '../models/user.model';
 import {Router} from '@angular/router';
 // global.ts file is created in shared folder to store all global variables.
 import {GlobalVariable} from '../shared/global';
+import {Agent} from "../models/agent.model";
+import {FinishedJobs} from "../models/finishedJobs";
 
 export interface AuthResponseData {
   token: string;
@@ -13,6 +15,8 @@ export interface AuthResponseData {
   // tslint:disable-next-line:ban-types
   // token: String;
   user: {id: number, user_name: string,  user_type_id: number};
+
+
 }
 
 @Injectable({
@@ -20,8 +24,22 @@ export interface AuthResponseData {
 })
 export class AuthService {
   user = new BehaviorSubject<User>(null);
+  message : any;
+  messageSub = new Subject<any>();
 
-  constructor(private http: HttpClient, private router: Router) { }
+  getMessageSubUpdateListener(){
+    return this.messageSub.asObservable();
+  }
+
+  constructor(private http: HttpClient, private router: Router) {
+    // this.http.get('http://localhost:3000/messages')
+    //   .subscribe((response) => {
+    //
+    //     this.message = response;
+    //     console.log(this.message);
+    //     this.messageSub.next([...this.message]);
+    //   });
+  }
   isAuthenticated() {
     if (this.user.value) {
       return true;
@@ -71,6 +89,17 @@ export class AuthService {
     localStorage.removeItem('user');
     this.router.navigate(['/auth']);
     location.reload();
+  }
+
+  getChats(){
+    // return this.http.get('http://localhost:3000/messages');
+
+    this.http.get('http://localhost:3000/messages')
+      .subscribe((response) => {
+        this.message = response;
+        console.log(this.message);
+        this.messageSub.next([...this.message]);
+      });
   }
 
 

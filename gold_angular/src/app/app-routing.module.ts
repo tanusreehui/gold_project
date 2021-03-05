@@ -40,6 +40,7 @@ import {TransactionComponent} from './pages/transaction/transaction.component';
 import {EmployeeStockComponent} from './pages/employee-stock/employee-stock.component';
 import {BilledJobListComponent} from './pages/completed-bill/billed-job-list/billed-job-list.component';
 
+
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'customer', canActivate:  [AuthGuardService], component: CustomerComponent},
@@ -96,6 +97,7 @@ const routes: Routes = [
   {path: 'stockBill', canActivate: [AuthGuardService], component: StockBillComponent },
   {path: 'transaction', canActivate: [AuthGuardService], component: TransactionComponent },
   {path: 'employeeStock', canActivate: [AuthGuardService], component: EmployeeStockComponent },
+
 ];
 
 @NgModule({
