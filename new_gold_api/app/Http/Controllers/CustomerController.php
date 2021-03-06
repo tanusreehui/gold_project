@@ -167,7 +167,7 @@ class CustomerController extends Controller
 
     public function getKarigarhs()
     {
-        $result = User::select('id', 'user_name')->where('user_type_id', '=', 11)->get();
+        $result = Person::select('id', 'user_name')->where('user_type_id', '=', 11)->get();
         return response()->json(['success' => 1, 'data' => $result], 200, [], JSON_NUMERIC_CHECK);
     }
 

@@ -23,6 +23,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   router: Router;
   userInfo: User;
   messages: any;
+  message: any;
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
@@ -63,13 +64,25 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
 
+  saveMessage(){
+
+    const a ={
+      customer_name : this.userInfo.userName,
+      messages: this.message
+    }
+    this.authService.sendChats(a).subscribe((response)=>{
+      if(response) {
+        this.message = '';
+      }
+    });
+  }
 
   getChats(){
       // this.authService.getMessageSubUpdateListener().subscribe((response)=> {
       //   console.log("message updator");
       //   console.log(response);
       // });
-    this.authService.getChats();
+    // this.authService.getChats(item);
   }
 
   ngOnDestroy(): void {

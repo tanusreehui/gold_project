@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
 import {GlobalVariable} from '../shared/global';
 import {Agent} from "../models/agent.model";
 import {FinishedJobs} from "../models/finishedJobs";
+import {Customer} from "../models/customer.model";
 
 export interface AuthResponseData {
   token: string;
@@ -100,6 +101,14 @@ export class AuthService {
         console.log(this.message);
         this.messageSub.next([...this.message]);
       });
+  }
+
+  sendChats(item){
+    // console.log(item);
+   return this.http.post('http://localhost:3000/messages',item) .pipe(tap(((response) => {
+     this.message.push(response);
+     this.messageSub.next([...this.message]);
+   })));
   }
 
 

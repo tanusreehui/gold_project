@@ -157,12 +157,11 @@
           <mat-icon> chat</mat-icon></button>
       </div>
       <div>
-        <mat-menu #chat="matMenu">
-          <!--        <button mat-menu-item [routerLink]="['/chat']" >Create chat</button>-->
+        <mat-menu #chat="matMenu" style="width: 100% !important;padding: 10px ;">
+<!--        <div style="line-height: 4vh">-->
           <label style="text-align: center"><b>{{userInfo.userName}}</b></label><br>
-          <!--        <button (click)="getChats()">test</button>-->
-          <table class="table" id="my-table" style="width: 100%">
-            <tbody *ngFor="let message of messages">
+          <table class="table m-3 container-fluid" id="my-table" style="background-color: yellowgreen ;width: 100% !important; overflow-x: hidden ;overflow-y: scroll; line-height: 4vh; justify-content: end">
+            <tbody *ngFor="let message of messages" (click)="$event.stopPropagation();">
             <tr style="margin: 0px"> Customer Name: {{message.customer_name}}
 
               <!--          <td>Customer Name: {{message.customer_name}}</td>-->
@@ -173,11 +172,15 @@
             </tr><br>
             </tbody>
           </table>
-          <mat-form-field class="example-full-width" fxFlex="20">
-            <mat-label>Message</mat-label>
-            <input matInput>
+<!--        </div>-->
+          <mat-form-field class="example-full-width" fxFlex="100">
+            <mat-label>Enter Message </mat-label>
+            <input matInput placeholder="Enter Message" (click)="$event.stopPropagation();" [(ngModel)]="message">
           </mat-form-field>
+          <button mat-button mat-raised-button  (click)="$event.stopPropagation(); saveMessage();"><mat-icon>send</mat-icon></button>
+<!--        </div>-->
         </mat-menu>
+
       </div>
 
     </mat-toolbar-row>

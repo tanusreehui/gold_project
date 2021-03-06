@@ -110,25 +110,6 @@
       "customer_name": "Joy",
       "messages": "I am fine",
       "id": 3
-    },
-    {
-      "messages": "test",
-      "id": 4
-    },
-    {
-      "customer_name": "Counter Agent",
-      "messages": "test100000",
-      "id": 5
-    },
-    {
-      "customer_name": "Counter Agent",
-      "messages": "test100000",
-      "id": 6
-    },
-    {
-      "customer_name": "Counter Agent",
-      "messages": "test5000",
-      "id": 7
     }
   ],
   "test": [
