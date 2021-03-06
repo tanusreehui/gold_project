@@ -24,11 +24,12 @@ class UserController extends Controller
 
         $token = $user->createToken('my-app-token')->plainTextToken;
 
-        $response = [
-            'user' => $user,
-            'token' => $token
-        ];
-        return response($response, 201);
+//        $response = [
+//            'user' => $user,
+//            'token' => $token
+//        ];
+//        return response($response, 201);
+        return response()->json(['success'=>1,'user'=>$user, 'token'=>$token ,'message'=>'Welcome'], 200,[],JSON_NUMERIC_CHECK);
     }
 
     function login(Request $request)
@@ -40,13 +41,13 @@ class UserController extends Controller
         }
 
         $token = $user->createToken('my-app-token')->plainTextToken;
-
+        $data = User::find($user->person_id)->userData;
 //        $response = [
 //            'user' => $user,
 //            'token' => $token
 //        ];
 //        return response()->json(['success'=>1,'data'=>$response, 'message'=>'Welcome'], 200,[],JSON_NUMERIC_CHECK);
-        return response()->json(['success'=>1,'user'=>$user, 'token'=>$token ,'message'=>'Welcome'], 200,[],JSON_NUMERIC_CHECK);
+        return response()->json(['success'=>1,'user'=>$data, 'token'=>$token ,'message'=>'Welcome'], 200,[],JSON_NUMERIC_CHECK);
     }
 
 

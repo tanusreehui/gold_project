@@ -277,27 +277,26 @@ class DatabaseSeeder extends Seeder
 
 //        User::create(['user_name'=>'Arindam Biswas','mobile1'=>'9836444999','mobile2'=>'100','email'=>'arindam','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>1]);
 
-        User::create(['user_name'=>'Counter Agent','mobile1'=>'9836444451','mobile2'=>'','email'=>'bangle396@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>7]);
-        User::create(['user_name'=>'Abishek Basak','mobile1'=>'9836444451','mobile2'=>'','email'=>'bangle39612@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>7]);
-        User::create(['user_name'=>'Sudip Roy','mobile1'=>'9836444451','mobile2'=>'','email'=>'bangle396002@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>7]);
-        User::create(['user_name'=>'Bijon Dey','mobile1'=>'9836444451','mobile2'=>'','email'=>'bangle39611@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>7]);
-
-        User::create(['user_name'=>'Rik Roy','mobile1'=>'9836444451','mobile2'=>'','email'=>'bangle39600@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>2]);
-        User::create(['user_name'=>'Abijit Basak','mobile1'=>'9836444451','mobile2'=>'','email'=>'bangle39612000@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>3]);
-        User::create(['user_name'=>'Sudipto Roy','mobile1'=>'9836444451','mobile2'=>'','email'=>'bangle39600005@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>4]);
-        User::create(['user_name'=>'Bijit Dey','mobile1'=>'9836444451','mobile2'=>'','email'=>'bangle3961100@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>5]);
-        User::create(['user_name'=>'Prodip Ghosh','mobile1'=>'9836444785','mobile2'=>'','email'=>'bangle3710@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>6]);
-
-        User::create(['user_name'=>'Pushpendu Roy','mobile1'=>'9836444426','mobile2'=>'','email'=>'bangle376@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>8]);
-        User::create(['user_name'=>'Pushpendu Ghosh','mobile1'=>'9836444785','mobile2'=>'','email'=>'bangle371@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>10,'customer_category_id'=>2]);
-
-        User::create(['user_name'=>'Joy Ghosh','mobile1'=>'9836444972','mobile2'=>'','email'=>'bangle322@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>11,'customer_category_id'=>3]);
-        User::create(['user_name'=>'Erik Ghosh','mobile1'=>'9836444972','mobile2'=>'','email'=>'bangle333@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>11,'customer_category_id'=>3]);
-        User::create(['user_name'=>'Tuhin Ghosh','mobile1'=>'9836444972','mobile2'=>'','email'=>'bangle344@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>11,'customer_category_id'=>3]);
-
-        User::create(['user_name'=>'kk Ghosh','mobile1'=>'9836444972','mobile2'=>'','email'=>'bangle3022@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>11,'customer_category_id'=>3]);
-        User::create(['user_name'=>'abcd Ghosh','mobile1'=>'9836444972','mobile2'=>'','email'=>'bangle3033@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>11,'customer_category_id'=>3]);
-        User::create(['user_name'=>'ffgh Ghosh','mobile1'=>'9836444972','mobile2'=>'','email'=>'bangle3404@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>11,'customer_category_id'=>3]);
+//        User::create(['user_name'=>'Counter Agent','mobile1'=>'9836444451','mobile2'=>'','email'=>'bangle396@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>7]);
+//        User::create(['user_name'=>'Abishek Basak','mobile1'=>'9836444451','mobile2'=>'','email'=>'bangle39612@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>7]);
+//        User::create(['user_name'=>'Sudip Roy','mobile1'=>'9836444451','mobile2'=>'','email'=>'bangle396002@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>7]);
+//        User::create(['user_name'=>'Bijon Dey','mobile1'=>'9836444451','mobile2'=>'','email'=>'bangle39611@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>7]);
+//
+//        User::create(['user_name'=>'Rik Roy','mobile1'=>'9836444451','mobile2'=>'','email'=>'bangle39600@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>2]);
+//        User::create(['user_name'=>'Abijit Basak','mobile1'=>'9836444451','mobile2'=>'','email'=>'bangle39612000@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>3]);
+//        User::create(['user_name'=>'Sudipto Roy','mobile1'=>'9836444451','mobile2'=>'','email'=>'bangle39600005@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>4]);
+//        User::create(['user_name'=>'Bijit Dey','mobile1'=>'9836444451','mobile2'=>'','email'=>'bangle3961100@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>5]);
+//        User::create(['user_name'=>'Prodip Ghosh','mobile1'=>'9836444785','mobile2'=>'','email'=>'bangle3710@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>6]);
+//
+//        User::create(['user_name'=>'Pushpendu Roy','mobile1'=>'9836444426','mobile2'=>'','email'=>'bangle376@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>8]);
+//        User::create(['user_name'=>'Pushpendu Ghosh','mobile1'=>'9836444785','mobile2'=>'','email'=>'bangle371@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>10,'customer_category_id'=>2]);
+//
+//        User::create(['user_name'=>'Joy Ghosh','mobile1'=>'9836444972','mobile2'=>'','email'=>'bangle322@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>11,'customer_category_id'=>3]);
+//        User::create(['user_name'=>'Erik Ghosh','mobile1'=>'9836444972','mobile2'=>'','email'=>'bangle333@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>11,'customer_category_id'=>3]);
+//        User::create(['user_name'=>'Tuhin Ghosh','mobile1'=>'9836444972','mobile2'=>'','email'=>'bangle344@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>11,'customer_category_id'=>3]);
+//
+//        User::create(['user_name'=>'kk Ghosh','mobile1'=>'9836444972','mobile2'=>'','email'=>'bangle3022@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>11,'customer_category_id'=>3]);
+//        User::create(['user_name'=>'abcd Ghosh','mobile1'=>'9836444972','mobile2'=>'','email'=>'bangle3033@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055",'user_type_id'=>11,'customer_category_id'=>3]);
 
 
 
@@ -326,6 +325,13 @@ class DatabaseSeeder extends Seeder
         Person::create(['user_name'=>'abcd Ghosh','mobile1'=>'9836444972','mobile2'=>'','user_type_id'=>11,'customer_category_id'=>3]);
         Person::create(['user_name'=>'ffgh Ghosh','mobile1'=>'9836444972','mobile2'=>'','user_type_id'=>11,'customer_category_id'=>3]);
 
+        User::create(['person_id'=>'1','email'=>'bangle@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
+        User::create(['person_id'=>'2','email'=>'bangle3@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
+        User::create(['person_id'=>'3','email'=>'bangle302@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
+        User::create(['person_id'=>'4','email'=>'bangle3022@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
+        User::create(['person_id'=>'5','email'=>'bangle3021@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
+        User::create(['person_id'=>'6','email'=>'bangle3025@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
+        User::create(['person_id'=>'7','email'=>'bangle3029@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
 //        php artisan db:seed --class=ProductSeeder
     }
 }

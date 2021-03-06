@@ -44,6 +44,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function userData(){
+          return $this->hasOne('App\Models\Person','id');
+    }
+
     public function setPasswordAttribute($password)
     {
         if ( !empty($password) ) {
