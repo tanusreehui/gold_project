@@ -124,6 +124,7 @@ export class CustomerListComponent implements OnInit {
   populateFormByCurrentCustomer(customer: Customer) {
     console.log('list component');
     console.log(customer);
+    customer.password = null;
     this.customerService.fillFormByUpdatebaleData(customer);
   }
 

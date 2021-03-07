@@ -20,33 +20,39 @@ class User extends Authenticatable
     protected $guarded = ['id'];
     protected $hidden = [
         "inforce","created_at","updated_at",'password', 'remember_token',
+//        "inforce","created_at","updated_at", 'remember_token',
     ];
+//    protected $visible = ['id',
+//        'user_name',
+//        'email',
+//        'mobile1',
+//        'mobile2',
+//        'customer_category_id',
+//        'user_type_id',
+//        'address1',
+//        'address2',
+//        'state',
+//        'city',
+//        'po',
+//        'area',
+//        'pin',
+//        'opening_balance_LC',
+//        'opening_balance_Gold',
+//        'mv',
+//        'discount',
+//        'person_id'];
+
     protected $visible = ['id',
-        'user_name',
         'email',
-        'mobile1',
-        'mobile2',
-        'customer_category_id',
-        'user_type_id',
-        'address1',
-        'address2',
-        'state',
-        'city',
-        'po',
-        'area',
-        'pin',
-        'opening_balance_LC',
-        'opening_balance_Gold',
-        'mv',
-        'discount'];
+        'person_id'];
 
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 
-    public function userData(){
-          return $this->hasOne('App\Models\Person','id');
-    }
+//    public function userData(){
+//          return $this->hasOne('App\Models\Person','id');
+//    }
 
     public function setPasswordAttribute($password)
     {

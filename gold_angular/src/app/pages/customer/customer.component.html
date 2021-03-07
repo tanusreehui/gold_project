@@ -80,12 +80,29 @@
                 <input matInput placeholder="Markup Value" formControlName="mv">
               </mat-form-field>
             </div>
+            <div class="container" [hidden]="showLoginCredentials" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
+              <mat-form-field fxFlex="70">
+                <input matInput placeholder="Email" formControlName="email">
+              </mat-form-field>
+            </div>
+            <div class="container" [hidden]="showLoginCredentials" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
+              <mat-form-field fxFlex="70">
+                <input matInput placeholder="password" formControlName="password">
+              </mat-form-field>
+            </div>
+
               <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end" fxLayoutGap="10px" fxLayoutGap.xs="0" >
+                <button mat-button mat-stroked-button (click)="showCredentials()">
+                  Login Credentials
+                </button>
                 <button mat-button  mat-stroked-button (click)="clearForm()">
                   Clear
                 </button>
-                <button mat-button  mat-stroked-button [disabled]="!customerForm.valid" (click)="onSubmit()">
-                    Save
+<!--                <button mat-button  mat-stroked-button [disabled]="!customerForm.valid" (click)="onSubmit()">-->
+<!--                    Save-->
+<!--                </button>-->
+                <button mat-button  mat-stroked-button [disabled]="customerForm.value.id" (click)="onSubmit()">
+                  Save
                 </button>
                 <button mat-button type="button"  mat-stroked-button (click)="updateCustomer()" [disabled]="!customerForm.dirty">
                   Update

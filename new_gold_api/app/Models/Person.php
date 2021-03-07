@@ -9,7 +9,7 @@ class Person extends Model
 {
     protected $guarded = ['id'];
     protected $hidden = [
-        "inforce","created_at","updated_at",'password', 'remember_token',
+        "inforce","created_at","updated_at", 'remember_token',
     ];
     protected $visible = ['id',
         'user_name',
@@ -28,9 +28,12 @@ class Person extends Model
         'opening_balance_LC',
         'opening_balance_Gold',
         'mv',
-        'discount'];
+        'discount'
+        ];
 
-
+    public function userData(){
+        return $this->hasOne('App\Models\Person','id');
+    }
 
 
 

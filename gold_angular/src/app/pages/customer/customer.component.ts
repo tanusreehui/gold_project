@@ -9,6 +9,7 @@ import {SncakBarComponent} from '../../common/sncak-bar/sncak-bar.component';
 import {Observable} from 'rxjs';
 import {AuthResponseData} from '../../services/auth.service';
 import Swal from 'sweetalert2';
+import {Md5} from 'ts-md5';
 
 // @ts-ignore
 @Component({
@@ -16,12 +17,14 @@ import Swal from 'sweetalert2';
   templateUrl: './customer.component.html',
   styleUrls: ['./customer.component.scss']
 })
+
 export class CustomerComponent implements OnInit {
   customerForm: FormGroup;
   customers: Customer[];
   customer: Customer;
   currentEerror: {status: number, message: string, statusText: string};
   showDeveloperDiv = true;
+  showLoginCredentials = true;
 
   constructor(public customerService: CustomerService, private http: HttpClient, private _snackBar: MatSnackBar) {
     this.showDeveloperDiv = false;
@@ -36,6 +39,7 @@ export class CustomerComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.showLoginCredentials = true;
 
      // this.customers = this.customerService.getCustomers();
      this.customerForm = this.customerService.customerForm;
@@ -46,7 +50,17 @@ export class CustomerComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.customerForm.value);
+    // console.log(this.customerForm.value);
+    if (this.showLoginCredentials === true){
+      this.customerForm.controls['email'].reset();
+      this.customerForm.controls['password'].reset();
+    }
+    // console.log(this.showLoginCredentials);
+    if (this.customerForm.value.password != null || this.showLoginCredentials === true){
+      const md5 = new Md5();
+      const passwordMd5 = md5.appendStr(this.customerForm.value.password).end();
+      this.customerForm.patchValue({password: passwordMd5});
+    }
     this.customerService.saveCustomer(this.customerForm.value).subscribe((response: {success: number, data: Customer}) => {
       if (response.data){
         console.log(response.data);
@@ -55,9 +69,20 @@ export class CustomerComponent implements OnInit {
           'Customer Added',
           'success'
         );
+        this.customerForm.reset();
         // this.customers.unshift(response.data);
       }
     });
+  }
+
+  showCredentials(){
+    if (this.showLoginCredentials === false){
+      this.showLoginCredentials = true;
+    }else{
+      this.showLoginCredentials = false;
+      this.customerForm.controls['email'].reset();
+      this.customerForm.controls['password'].reset();
+    }
   }
 
   myCustomValidation(control: FormControl): {[s: string]: boolean } {
