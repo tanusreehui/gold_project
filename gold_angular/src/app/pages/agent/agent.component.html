@@ -4,7 +4,7 @@
     <!--    https://www.angularjswiki.com/angular/angular-material-icons-list-mat-icon-list/-->
     <mat-card>
       <div class="form-container">
-        <form [formGroup] = agentForm (ngSubmit)="onSubmit()">
+        <form [formGroup] = agentForm >
           <div class="container" fxLayout="column" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
             <mat-form-field>
               <input matInput placeholder="Agent Name" formControlName="user_name">
@@ -77,11 +77,36 @@
 <!--                <input matInput placeholder="Opening Balance Gold" formControlName="opening_balance_Gold">-->
 <!--              </mat-form-field>-->
 <!--            </div>-->
+            <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
+              <mat-form-field fxFlex="50">
+                <mat-label>Employee Type</mat-label>
+                <mat-select  formControlName="user_type_id">
+                  <mat-option *ngFor="let userType of userTypesList" [value]="userType.id">
+                    {{userType.user_type_name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="container" [hidden]="showLoginCredentials" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
+              <mat-form-field fxFlex="70">
+                <input matInput placeholder="Email" formControlName="email">
+              </mat-form-field>
+            </div>
+            <div class="container" [hidden]="showLoginCredentials" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
+              <mat-form-field fxFlex="70">
+                <input matInput placeholder="password" formControlName="password">
+              </mat-form-field>
+            </div>
+
             <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end" fxLayoutGap="10px" fxLayoutGap.xs="0" >
-              <button mat-button  mat-stroked-button >
+              <button mat-button mat-stroked-button (click)="showCredentials()" [disabled]="agentForm.value.id && agentForm.value.email">
+                Login Credentials
+              </button>
+              <button mat-button  mat-stroked-button (click)="agentForm.reset(); showLoginCredentials = true">
                 Clear
               </button>
-              <button mat-button  mat-stroked-button [disabled]="!agentForm.valid || agentForm.value.id" >
+<!--              <button mat-button  mat-stroked-button (click)="onSubmit()" [disabled]="!agentForm.valid || agentForm.value.id" >-->
+              <button mat-button  mat-stroked-button (click)="onSubmit()" >
                 Save
               </button>
               <button mat-button type="button"  mat-stroked-button  [disabled]="!agentForm.dirty" (click)="updateAgent()">

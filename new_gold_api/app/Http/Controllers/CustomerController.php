@@ -26,34 +26,34 @@ class CustomerController extends Controller
     public function index()
     {
 //        $query = UserType::find(10)->people
-        $query = Person::select('people.id',
-            'user_name',
-            'user_type_id',
-            'email',
-            'mobile1',
-            'mobile2',
-            'customer_category_id',
-            'address1',
-            'address2',
-            'state',
-            'city',
-            'po',
-            'area',
-            'pin',
-            'opening_balance_LC',
-            'opening_balance_Gold',
-            'mv',
-            'discount'
-            ,'email')
-            ->leftJoin('users', 'users.person_id', '=', 'people.id')
-            ->where('customer_category_id', '!=', 5)
-            ->where('user_type_id', '=', 10)->get();
+//        $query = Person::select('people.id',
+//            'user_name',
+//            'user_type_id',
+//            'email',
+//            'mobile1',
+//            'mobile2',
+//            'customer_category_id',
+//            'address1',
+//            'address2',
+//            'state',
+//            'city',
+//            'po',
+//            'area',
+//            'pin',
+//            'opening_balance_LC',
+//            'opening_balance_Gold',
+//            'mv',
+//            'discount'
+//            ,'email')
+//            ->leftJoin('users', 'users.person_id', '=', 'people.id')
+//            ->where('customer_category_id', '!=', 5)
+//            ->where('user_type_id', '=', 10)->get();
 
 //        foreach ($query as $user)
 //        {
 //            $user->passwordk = null;
 //        }
-//        $query = UserType::find(10)->customer;
+        $query = UserType::find(10)->customer;
         return response()->json(['success' => 1, 'data' => $query], 200, [], JSON_NUMERIC_CHECK);
 //        $query = Person::select('id',
 //            'user_name',
@@ -108,30 +108,30 @@ class CustomerController extends Controller
         $customer->opening_balance_LC = $request->input('opening_balance_LC');
         $customer->opening_balance_Gold = $request->input('opening_balance_Gold');
         $customer->mv = $request->input('mv');
-        $customer->discount = 0;
+        $customer->discount =$request->input('discount') ;
 
 //        if ($request->input('mv')) {
 //        $customer->mv = $request->input('mv');
 //        }
         $customer->save();
 
-        if($request->input('email') && $customer){
-//            $user = new User();
-//            $user->person_id = $customer->id;
-//            $user->email = $request->input('email');
-//            $user->password = $request->input('password') | md5('1234');
-//            $user->save();
-//            return response()->json(['success'=>1, 'data'=>$request->input('password')], 200,[],JSON_NUMERIC_CHECK);
-            $user = User::create([
-                'email'    => $request->input('email'),
-                'password' => $request->input('password'),
-                'person_id' => $customer->id,
-            ]);
-            if(!$user){
-                return response()->json(['success'=>0, 'data'=>$user, 'message'=> 'Failed to save data in user'], 200,[],JSON_NUMERIC_CHECK);
-            }
-//            $token = $user->createToken('my-app-token')->plainTextToken;
-        }
+//        if($request->input('email') && $customer){
+////            $user = new User();
+////            $user->person_id = $customer->id;
+////            $user->email = $request->input('email');
+////            $user->password = $request->input('password') | md5('1234');
+////            $user->save();
+////            return response()->json(['success'=>1, 'data'=>$request->input('password')], 200,[],JSON_NUMERIC_CHECK);
+//            $user = User::create([
+//                'email'    => $request->input('email'),
+//                'password' => $request->input('password'),
+//                'person_id' => $customer->id,
+//            ]);
+//            if(!$user){
+//                return response()->json(['success'=>0, 'data'=>$user, 'message'=> 'Failed to save data in user'], 200,[],JSON_NUMERIC_CHECK);
+//            }
+////            $token = $user->createToken('my-app-token')->plainTextToken;
+//        }
         return response()->json(['success'=>1, 'data'=>$customer], 200,[],JSON_NUMERIC_CHECK);
     }
 

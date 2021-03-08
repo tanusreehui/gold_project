@@ -64,8 +64,8 @@ export class CustomerService implements OnDestroy{
       opening_balance_Gold : new FormControl(0),
       mv : new FormControl(0),
       discount : new FormControl(0),
-      email : new FormControl(null),
-      password : new FormControl(null)
+      // email : new FormControl(null),
+      // password : new FormControl(null)
     });
 
   } // End of Controller
@@ -110,7 +110,7 @@ export class CustomerService implements OnDestroy{
     // console.log('customer console service');
     // console.log(customer);
     // this.customerForm.controls['id'].setValue(customer.id);
-    this.customerForm.controls['password'].setValue(null);
+    // this.customerForm.controls['password'].setValue(null);
     this.customerForm.setValue(customer);
     // this.customerForm.patchValue({ id : customer.id, user_name : customer.user_name , email : customer.email, mobile1 : customer.mobile1, mobile2 : customer.mobile2, user_type_id :  customer.user_type_id, customer_category_id : customer.customer_category_id, address1 : customer.address1, address2 : customer.address2, state : customer.state , po : customer.po, area : customer.area, city : customer.city, pin : customer.pin, opening_balance_LC : customer.opening_balance_LC, opening_balance_Gold : customer.opening_balance_Gold, mv :customer.mv});
     // console.log('customer form');

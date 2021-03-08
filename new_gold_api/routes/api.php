@@ -21,6 +21,7 @@ use App\Http\Controllers\OrderMasterController;
 use App\Http\Controllers\OrderDetailController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\CustomerCategoryController;
+use App\Http\Controllers\UserTypeController;
 
 
 /*
@@ -166,6 +167,9 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post('/saveTransaction',[MaterialController::class,'saveTransaction']);
     Route::get('/getEmployees',[MaterialController::class,'getEmployees']);
 
+    //User Types Controller
+    Route::get('/getUserTypes',[UserTypeController::class,'index']);
+
 });
 
 
@@ -285,6 +289,9 @@ Route::group(array('prefix' => 'dev'), function() {
     //Material TransactionMaster Controller
     Route::post('/saveTransaction',[MaterialController::class,'saveTransaction']);
     Route::get('/getEmployees',[MaterialController::class,'getEmployees']);
+
+    //User Types Controller
+    Route::get('/getUserTypes',[UserTypeController::class,'index']);
 
 });
 

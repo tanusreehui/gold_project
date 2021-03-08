@@ -24,7 +24,7 @@ export class CustomerComponent implements OnInit {
   customer: Customer;
   currentEerror: {status: number, message: string, statusText: string};
   showDeveloperDiv = true;
-  showLoginCredentials = true;
+  // showLoginCredentials = true;
 
   constructor(public customerService: CustomerService, private http: HttpClient, private _snackBar: MatSnackBar) {
     this.showDeveloperDiv = false;
@@ -39,7 +39,7 @@ export class CustomerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.showLoginCredentials = true;
+    // this.showLoginCredentials = true;
 
      // this.customers = this.customerService.getCustomers();
      this.customerForm = this.customerService.customerForm;
@@ -51,16 +51,16 @@ export class CustomerComponent implements OnInit {
 
   onSubmit() {
     // console.log(this.customerForm.value);
-    if (this.showLoginCredentials === true){
-      this.customerForm.controls['email'].reset();
-      this.customerForm.controls['password'].reset();
-    }
-    // console.log(this.showLoginCredentials);
-    if (this.customerForm.value.password != null || this.showLoginCredentials === true){
-      const md5 = new Md5();
-      const passwordMd5 = md5.appendStr(this.customerForm.value.password).end();
-      this.customerForm.patchValue({password: passwordMd5});
-    }
+    // if (this.showLoginCredentials === true){
+    //   this.customerForm.controls['email'].reset();
+    //   this.customerForm.controls['password'].reset();
+    // }
+    // // console.log(this.showLoginCredentials);
+    // if (this.customerForm.value.password != null || this.showLoginCredentials === true){
+    //   const md5 = new Md5();
+    //   const passwordMd5 = md5.appendStr(this.customerForm.value.password).end();
+    //   this.customerForm.patchValue({password: passwordMd5});
+    // }
     this.customerService.saveCustomer(this.customerForm.value).subscribe((response: {success: number, data: Customer}) => {
       if (response.data){
         console.log(response.data);
@@ -75,15 +75,15 @@ export class CustomerComponent implements OnInit {
     });
   }
 
-  showCredentials(){
-    if (this.showLoginCredentials === false){
-      this.showLoginCredentials = true;
-    }else{
-      this.showLoginCredentials = false;
-      this.customerForm.controls['email'].reset();
-      this.customerForm.controls['password'].reset();
-    }
-  }
+  // showCredentials(){
+  //   if (this.showLoginCredentials === false){
+  //     this.showLoginCredentials = true;
+  //   }else{
+  //     this.showLoginCredentials = false;
+  //     this.customerForm.controls['email'].reset();
+  //     this.customerForm.controls['password'].reset();
+  //   }
+  // }
 
   myCustomValidation(control: FormControl): {[s: string]: boolean } {
       return {customError: true};

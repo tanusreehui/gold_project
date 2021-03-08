@@ -22,6 +22,7 @@ export interface AgentResponseData {
 export class AgentService {
   agentData: Agent[] = [];
   dueByAgentData: any = [];
+  userTypeList: any[]= [];
   customerUnderAgentData: Customer[] = [];
   private dueByAgentDataSub = new Subject<any>();
   private  customerUnderAgentDataSub = new Subject<Customer[]>();
@@ -44,7 +45,8 @@ export class AgentService {
       // email : new FormControl(null, [Validators.required, Validators.email]),
       mobile1 : new FormControl('+91', [Validators.maxLength(13)]),
       mobile2 : new FormControl('+91', [Validators.maxLength(13)]),
-      user_type_id: new FormControl(10),
+      user_type_id: new FormControl(7),
+      // user_type_name: new FormControl(null),
       customer_category_id : new FormControl(2),
       address1 : new FormControl(null),
       address2 : new FormControl(null),
@@ -57,6 +59,8 @@ export class AgentService {
       opening_balance_Gold : new FormControl(0.00),
       mv : new FormControl(0.00),
       discount : new FormControl(0.00),
+      email : new FormControl(null),
+      password : new FormControl(null)
     });
 
     this.http.get('http://127.0.0.1:8000/api/agents')
@@ -73,11 +77,14 @@ export class AgentService {
         this.dueByAgentDataSub.next([...this.dueByAgentData]);
       });
 
+
   }
 
   fillAgentFormForEdit(data){
-    console.log(data);
+    // console.log(data);
     this.agentForm.setValue(data);
+    console.log("agent form value");
+    console.log(this.agentForm.value);
   }
 
 
@@ -122,6 +129,7 @@ export class AgentService {
   }
 
   updateAgent(){
+    // console.log(this.agentForm.value);
     return this.http.patch<AgentResponseData>('http://127.0.0.1:8000/api/agents/' + this.agentForm.value.id, this.agentForm.value);
   }
   getAgentList(){
@@ -141,5 +149,9 @@ export class AgentService {
   }
   getDueByAgentListList(){
     return [...this.dueByAgentData];
+  }
+
+  getUserTypes(){
+    return this.http.get(GlobalVariable.BASE_API_URL + '/getUserTypes');
   }
 }

@@ -14,7 +14,15 @@ class UserTypeController extends Controller
      */
     public function index()
     {
-        //
+        $result  = UserType::select()
+                  ->where('id','<>',1)
+                  ->where('id','<>',2)
+                  ->where('id','<>',9)
+                  ->where('id','<>',10)
+                  ->get();
+
+
+        return response()->json(['success'=>1, 'data'=>$result], 200,[],JSON_NUMERIC_CHECK);
     }
 
     /**

@@ -17,6 +17,8 @@ export class Agent{
   //     this.person_type_id = 7;
   // }
   user_name?: any;
+  email?: string;
+  // password?: string;
 
   constructor(){
 

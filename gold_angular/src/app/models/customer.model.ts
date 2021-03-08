@@ -24,7 +24,7 @@ export class Customer{
   mv?: number;
   discount?: number;
   id: number;
-  password?: null;
+  // password?: null;
 
   constructor(public user_name: string, public email: string, public customer_category_id: number) {
     this.user_type_id = 10;
