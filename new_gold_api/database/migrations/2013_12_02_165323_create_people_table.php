@@ -30,13 +30,13 @@ class CreatePeopleTable extends Migration
             $table ->foreign('customer_category_id')->references('id')->on('customer_categories');
 
             //Address
-            $table->String('address1', 100)->nullable(false);
+            $table->String('address1', 100)->nullable(true);
             $table->String('address2', 100)->nullable(true);
             $table->String('state', 50)->default('West Bengal')->nullable(false);
-            $table->String('po', 50)->nullable(false);
-            $table->String('area', 50)->nullable(false);
-            $table->String('city', 50)->nullable(false);
-            $table->String('pin', 30)->nullable(false);
+            $table->String('po', 50)->nullable(true);
+            $table->String('area', 50)->nullable(true);
+            $table->String('city', 50)->nullable(true);
+            $table->String('pin', 30)->nullable(true);
             $table->double('mv')->default(0);
 
             $table->double('opening_balance_LC')->default(0);

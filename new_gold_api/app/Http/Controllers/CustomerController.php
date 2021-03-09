@@ -360,7 +360,7 @@ class CustomerController extends Controller
             ,'bill_details.model_number','bill_details.size','bill_details.gross_weight','bill_details.material_id',
             'bill_details.ginnie','bill_details.rate','bill_details.pure_gold','bill_details.quantity','bill_details.mv'
             ,'bill_masters.bill_number','bill_masters.bill_date','bill_masters.order_master_id','bill_masters.agent_id'
-            ,'order_details.discount','job_masters.job_number','people.user_name','people.address1','people.address2'
+            ,'order_details.discount',DB::raw("bill_masters.discount as discount_amount"),'job_masters.job_number','people.user_name','people.address1','people.address2'
             ,'people.state','people.po','people.area','people.city','people.pin','order_masters.date_of_order','order_masters.order_number')
                 ->join('bill_masters', 'bill_masters.id', '=', 'bill_details.bill_master_id')
                 ->join('job_masters', 'job_masters.id', '=', 'bill_details.job_master_id')

@@ -73,11 +73,11 @@ class JobMasterController extends Controller
             $orderDetails->status_id=1;
             $orderDetails->update();
 
-            $jobData = JobMaster::select('users.user_name','job_masters.id','job_masters.status_id','job_masters.job_number','job_masters.order_details_id','job_masters.karigarh_id','job_masters.date','order_details.quantity','order_details.size','order_details.material_id','order_details.product_id','order_details.p_loss','products.model_number','order_masters.order_number','order_masters.date_of_delivery','materials.material_name')
+            $jobData = JobMaster::select('people.user_name','job_masters.id','job_masters.status_id','job_masters.job_number','job_masters.order_details_id','job_masters.karigarh_id','job_masters.date','order_details.quantity','order_details.size','order_details.material_id','order_details.product_id','order_details.p_loss','products.model_number','order_masters.order_number','order_masters.date_of_delivery','materials.material_name')
                 ->join('order_details','job_masters.order_details_id','order_details.id')
                 ->join('materials','order_details.material_id','materials.id')
                 ->join('order_masters','order_details.order_master_id','=','order_masters.id')
-                ->join('users','users.id','=','order_masters.person_id')
+                ->join('people','people.id','=','order_masters.person_id')
                 ->join('products','order_details.product_id','=','products.id')
                 ->where('job_masters.id',$jobMaster->id)
                 ->first();

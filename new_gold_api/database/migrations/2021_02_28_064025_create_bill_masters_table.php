@@ -30,7 +30,7 @@ class CreateBillMastersTable extends Migration
             $table ->foreign('customer_id')->references('id')->on('people');
 
             $table->bigInteger('agent_id')->unsigned();
-            $table ->foreign('agent_id')->references('id')->on('users');
+            $table ->foreign('agent_id')->references('id')->on('people');
 
             $table->double('discount')->default(0);
 

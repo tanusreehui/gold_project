@@ -38,6 +38,7 @@ export class BillDetail{
   LC?: number;
   discount?: number;
   rate?: number;
+  discount_amount?: number;
 
 
   constructor() {

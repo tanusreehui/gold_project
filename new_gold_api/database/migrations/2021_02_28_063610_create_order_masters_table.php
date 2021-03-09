@@ -21,10 +21,10 @@ class CreateOrderMastersTable extends Migration
             $table ->foreign('person_id')->references('id')->on('people');
 
             $table->bigInteger('agent_id')->unsigned();
-            $table ->foreign('agent_id')->references('id')->on('users');
+            $table ->foreign('agent_id')->references('id')->on('people');
 
             $table->bigInteger('employee_id')->unsigned();
-            $table ->foreign('employee_id')->references('id')->on('users');
+            $table ->foreign('employee_id')->references('id')->on('people');
 
             $table->date('date_of_order')->nullable(false);
             $table->date('date_of_delivery')->nullable(false);

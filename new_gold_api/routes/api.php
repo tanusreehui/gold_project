@@ -291,7 +291,7 @@ Route::group(array('prefix' => 'dev'), function() {
     Route::get('/getEmployees',[MaterialController::class,'getEmployees']);
 
     //User Types Controller
-    Route::get('/getUserTypes',[UserTypeController::class,'index']);
+    Route::get('/showCompletedBills',[UserTypeController::class,'index']);
 
 });
 

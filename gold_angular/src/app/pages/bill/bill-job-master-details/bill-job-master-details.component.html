@@ -28,15 +28,18 @@
       </tbody>
     </table>
     <div  style="text-align: center">
-      <button class="btn btn-primary" aria-label=" Generate Bill" [disabled]="billDetailsData.length==0" (click)="generateBill()" >
-        Generate Bill
+      <button class="btn btn-primary" aria-label=" Generate Bill" [disabled]="billDetailsData.length==0" (click)="viewBill()" >
+        View Bill
       </button>
       <br>
       <br>
     </div>
+
   </div>
+
   <div class="container" id="bill-div" [hidden]="!showBill">
-    <div style="text-align: right">
+<!--    <div style="text-align: right" [hidden]="!billMasterData.billNumber">-->
+    <div style="text-align: right" [hidden]="!billCreated">
       <button class="btn-primary"
         mat-stroked-button
         [printStyle]="printDivStyle"
@@ -105,9 +108,14 @@
         <td *ngIf=discount>Discount</td>
         <td></td>
         <td></td>
-        <td style="padding: 2px;"></td>
-        <td style="padding: 2px;"></td>
-        <td *ngIf=discount style="padding: 2px; text-align: right">({{discountPercentage}}%)</td>
+        <td></td>
+        <td></td>
+<!--        <td style="padding: 2px;"></td>-->
+<!--        <td style="padding: 2px;"></td>-->
+        <td *ngIf=discount  [hidden]="!billCreated" style="padding: 2px; text-align: right">({{discountPercentage}}%)</td>
+        <td style="text-align: right" [hidden]="billCreated">
+          <input style="width: 30px" [(ngModel)]="discountPercentage" type="text" autofocus (change)="getDiscount()">
+        </td>
         <td *ngIf=discount style="padding: 2px; text-align: right"> - {{discount | currency:"&#8377;"}} </td>
       </tr>
       <tr style=" border-top : 1px solid black; border-collapse: collapse">
@@ -132,6 +140,14 @@
       <br>
       <br>
       <p style="text-align:left ; margin-right: 7px; font-size: smaller">শর্তাবলী: - আপনার যাবতীয় লেনদেন ও দেনাপাওনা সম্পূর্ণ ভাবে প্রোপরাইটার শ্রী বিবেকানন্দ ঘোষ এর সাথে সম্পর্ক যুক্ত |</p>
+
+      <div  style="text-align: center" [hidden]="billCreated">
+        <button class="btn btn-primary" aria-label=" Generate Bill"   (click)="generateBill()" >
+          Generate Bill
+        </button>
+        <br>
+        <br>
+      </div>
     </div>
   </div>
 </div>

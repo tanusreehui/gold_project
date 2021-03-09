@@ -28,12 +28,14 @@ export class BillJobMasterDetailsComponent implements OnInit {
   // billMasterData : Array<{order_master_id: number, order_number: string}> = [];
   billDetailsData: BillDetail[] = [];
   showBill = false;
+  billCreated = false;
   total92Gold: number;
   totalGold: number;
   totalQuantity: number;
   totalCost: number;
   discount: number;
   discountPercentage: number;
+  originalCost: number;
   mv: number;
   x: FinishedJobs[];
   // public user = JSON.parse(localStorage.getItem('user'));
@@ -53,9 +55,11 @@ export class BillJobMasterDetailsComponent implements OnInit {
     this.totalGold = 0;
     this.totalQuantity = 0;
     this.totalCost = 0;
+    this.originalCost = 0;
     this.discountPercentage = 0;
     this.discount = 0;
     this.showBill = false;
+    this.billCreated = false;
     this.mv = 0;
     this.route.params.subscribe(params => {
       this.billService.getFinishedJobData(params.id);
@@ -83,7 +87,8 @@ export class BillJobMasterDetailsComponent implements OnInit {
       this.total92Gold = this.total92Gold - Number(data.total);
       this.totalGold = this.totalGold - Number(data.pure_gold);
       this.totalQuantity = this.totalQuantity - Number(data.quantity);
-      this.totalCost = this.totalCost - Number(data.cost);
+      // this.totalCost = this.totalCost - Number(data.cost);
+      this.originalCost = this.originalCost - Number(data.cost);
       this.billDetailsData.splice(index, 1);
     } else {
       this.billService.getTotalGoldQuantity(data.id).subscribe((response: {success: number, data: any}) => {
@@ -95,16 +100,54 @@ export class BillJobMasterDetailsComponent implements OnInit {
         this.total92Gold = this.total92Gold + Number(data.total);
         this.totalGold = this.totalGold + Number(data.pure_gold);
         this.totalQuantity = this.totalQuantity + Number(data.quantity);
-        this.totalCost = this.totalCost + Number(data.cost);
+        // this.totalCost = this.totalCost + Number(data.cost);
+        this.originalCost = this.originalCost + Number(data.cost);
         this.billDetailsData.push(data);
-        console.log(this.billDetailsData);
+        // console.log(this.billDetailsData);
         // console.log(this.billDetailsData);
       });
 
     }
   }
 
+  viewBill(){
+    this.showBill = true;
+    const x = new Date();
+    if (this.billDetailsData[0]) {
+      this.billMasterData = {
+        order_master_id: this.billDetailsData[0].order_master_id,
+        orderNumber: this.billDetailsData[0].orderNumber,
+        personName: this.billDetailsData[0].user_name,
+        address1: this.billDetailsData[0].address1,
+        mobile1: this.billDetailsData[0].mobile1,
+        pin: this.billDetailsData[0].pin,
+        area: this.billDetailsData[0].area,
+        city: this.billDetailsData[0].city,
+        state: this.billDetailsData[0].state,
+        po: this.billDetailsData[0].po,
+        orderDate: this.billDetailsData[0].date_of_order,
+        karigarhId: this.billDetailsData[0].karigarh_id,
+        customerId: this.billDetailsData[0].customer_id,
+        agent_id: this.billDetailsData[0].agent_id,
+        billDate: x.getFullYear() + '-' + parseInt(String(x.getMonth() + 1)) + '-' + x.getDate(),
+        discount: (this.billDetailsData[0].discount / 100) * this.originalCost
+      };
+      this.discount = (this.billDetailsData[0].discount / 100) * this.originalCost;
+      this.discountPercentage = this.billDetailsData[0].discount;
+      this.totalCost = this.originalCost - this.discount;
+    }
+  }
+
+  getDiscount(){
+    // this.discountPercentage = this.billDetailsData[0].discount;
+    this.billDetailsData[0].discount = this.discountPercentage;
+    this.discount = (this.billDetailsData[0].discount / 100) * this.originalCost;
+    this.totalCost = this.originalCost - this.discount;
+    this.billMasterData.discount = this.discount;
+  }
+
   generateBill() {
+    // console.log(this.billDetailsData[0].discount);
     Swal.fire({
       title: 'Do you want to generate the bill?',
       text: 'Bill  will be generated',
@@ -116,26 +159,26 @@ export class BillJobMasterDetailsComponent implements OnInit {
       if(result.value){
         const x = new Date();
 
-        if (this.billDetailsData[0]) {
-          this.billMasterData = {
-            order_master_id: this.billDetailsData[0].order_master_id,
-            orderNumber: this.billDetailsData[0].orderNumber,
-            personName: this.billDetailsData[0].user_name,
-            address1: this.billDetailsData[0].address1,
-            mobile1: this.billDetailsData[0].mobile1,
-            pin: this.billDetailsData[0].pin,
-            area: this.billDetailsData[0].area,
-            city: this.billDetailsData[0].city,
-            state: this.billDetailsData[0].state,
-            po: this.billDetailsData[0].po,
-            orderDate: this.billDetailsData[0].date_of_order,
-            karigarhId: this.billDetailsData[0].karigarh_id,
-            customerId: this.billDetailsData[0].customer_id,
-            agent_id: this.billDetailsData[0].agent_id,
-            billDate: x.getFullYear() + '-' + parseInt(String(x.getMonth() + 1)) + '-' + x.getDate(),
-            discount: (this.billDetailsData[0].discount / 100) * this.totalCost
-          };
-        }
+        // if (this.billDetailsData[0]) {
+        //   this.billMasterData = {
+        //     order_master_id: this.billDetailsData[0].order_master_id,
+        //     orderNumber: this.billDetailsData[0].orderNumber,
+        //     personName: this.billDetailsData[0].user_name,
+        //     address1: this.billDetailsData[0].address1,
+        //     mobile1: this.billDetailsData[0].mobile1,
+        //     pin: this.billDetailsData[0].pin,
+        //     area: this.billDetailsData[0].area,
+        //     city: this.billDetailsData[0].city,
+        //     state: this.billDetailsData[0].state,
+        //     po: this.billDetailsData[0].po,
+        //     orderDate: this.billDetailsData[0].date_of_order,
+        //     karigarhId: this.billDetailsData[0].karigarh_id,
+        //     customerId: this.billDetailsData[0].customer_id,
+        //     agent_id: this.billDetailsData[0].agent_id,
+        //     billDate: x.getFullYear() + '-' + parseInt(String(x.getMonth() + 1)) + '-' + x.getDate(),
+        //     discount: (this.billDetailsData[0].discount / 100) * this.totalCost
+        //   };
+        // }
         this.billService.saveBillMaster(this.billMasterData, this.billDetailsData).subscribe((response) => {
 
           this.billMasterData = {
@@ -157,9 +200,14 @@ export class BillJobMasterDetailsComponent implements OnInit {
             discount: this.discount,
             billNumber: response.data.bill_number
           };
-          this.discount = (this.billDetailsData[0].discount / 100) * this.totalCost;
-          this.discountPercentage = this.billDetailsData[0].discount;
-          this.totalCost = this.totalCost - this.discount;
+          // this.discount = (this.billDetailsData[0].discount / 100) * this.totalCost;
+          // this.discountPercentage = this.billDetailsData[0].discount;
+          // this.totalCost = this.totalCost - this.discount;
+
+          this.discount = this.billMasterData.discount;
+          // this.discountPercentage = this.billDetailsData[0].discount;
+          this.totalCost = this.originalCost - this.discount;
+
           this.billService.getFinishedJobsCustomers();
           this.billService.getCompletedBillCustomers();
           this.agentService.getLatestDueByAgentListList();
@@ -168,6 +216,12 @@ export class BillJobMasterDetailsComponent implements OnInit {
 
           // this.stockService.getUpdatedStockRecord();
           this.showBill = true;
+          this.billCreated = true;
+          Swal.fire(
+            'Generated',
+            'Bill is generated',
+            'success'
+          );
         });
       }
       else if (result.dismiss === Swal.DismissReason.cancel) {

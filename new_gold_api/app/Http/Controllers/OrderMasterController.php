@@ -92,7 +92,7 @@ class OrderMasterController extends Controller
             $data=Person::select('user_name')->where('id',$inputOrderMaster->customer_id)->first();
             $orderMaster->customer_name = $data->user_name;
 
-            $data=User::select('user_name')->where('id',$inputOrderMaster->agent_id)->first();
+            $data=Person::select('user_name')->where('id',$inputOrderMaster->agent_id)->first();
             $orderMaster->agent_name = $data->user_name;
 
 //            Saving Order Details

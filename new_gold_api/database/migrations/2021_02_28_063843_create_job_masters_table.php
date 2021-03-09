@@ -20,7 +20,7 @@ class CreateJobMastersTable extends Migration
             $table->date('date')->nullable(false);
 
             $table->bigInteger('karigarh_id')->unsigned();
-            $table ->foreign('karigarh_id')->references('id')->on('users');
+            $table ->foreign('karigarh_id')->references('id')->on('people');
 
             $table->bigInteger('order_details_id')->unsigned();
             $table ->foreign('order_details_id')->references('id')->on('order_details');
