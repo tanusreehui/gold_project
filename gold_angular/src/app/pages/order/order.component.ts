@@ -96,7 +96,7 @@ export class OrderComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // console.log(localStorage.getItem('user'));
+
 
     this.isSaveEnabled = true;
     this.orderMasterForm = this.orderService.orderMasterForm;
@@ -109,7 +109,6 @@ export class OrderComponent implements OnInit {
     this.customerService.getCustomerUpdateListener()
       .subscribe((customers: Customer[]) => {
         this.customerList = customers;
-        console.log(this.customerList);
       });
 
     this.orderService.getAgentUpdateListener()
@@ -182,45 +181,104 @@ export class OrderComponent implements OnInit {
     }
   }
 
-  addOrder(){
+  addOrder() {
     this.showProduct = true;
-    if (this.orderMasterForm.value.id){
+    const index = this.orderDetails.findIndex(x => x.model_number === this.orderDetailsForm.value.model_number);
+    if (index != -1) {
+      Swal.fire({
+        title: 'Want to add separately ?',
+        text: 'Model number already exists',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, add',
+        cancelButtonText: 'No, keep it'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          if (this.orderMasterForm.value.id){
+              this.orderDetails = [];
+              this.orderMasterForm.value.id = null;
+          }
+          this.orderMaster = this.orderMasterForm.value;
+          if (this.editableItemIndex === -1){
+            this.orderDetails.unshift(this.orderDetailsForm.value);
+          }else{
+            this.orderDetails[this.editableItemIndex] = this.orderDetailsForm.value;
+          }
+          // tslint:disable-next-line:max-line-length
+          this.orderDetailsForm.patchValue({product_id: null, model_number: null, p_loss: null, price: null, price_code: null, approx_gold: null, size: null, quantity: null, amount: null});
+          this.totalOrderAmount = this.orderDetails.reduce( (total, record) => {
+            // @ts-ignore
+            return total + (record.price * record.quantity);
+          }, 0);
+
+          this.totalQuantity = this.orderDetails.reduce( (total, record) => {
+            // @ts-ignore
+            return total + record.quantity;
+          }, 0);
+
+          this.totalApproxGold = this.orderDetails.reduce( (total, record) => {
+            // @ts-ignore
+            return total + record.approx_gold;
+          }, 0);
+          // tslint:disable-next-line:max-line-length
+          this.orderContainer = {
+            orderMaster: this.orderMaster,
+            orderDetails: this.orderDetails,
+            orderMasterFormValue: this.orderMasterForm.value,
+            totalAmount: this.totalOrderAmount,
+            totalQuantity: this.totalQuantity,
+            totalApproxGold: this.totalApproxGold
+          };
+          this.storage.set('orderContainer', this.orderContainer).subscribe(() => {});
+
+        }
+        // else if (result.dismiss === Swal.DismissReason.cancel) {
+        //   Swal.fire(
+        //     'Cancelled',
+        //     'Your order item is not deleted :)',
+        //     'error'
+        //   );
+        // }
+      });
+    }else{
+      if (this.orderMasterForm.value.id){
         this.orderDetails = [];
         this.orderMasterForm.value.id = null;
-    }
-    this.orderMaster = this.orderMasterForm.value;
-    if (this.editableItemIndex === -1){
-      this.orderDetails.unshift(this.orderDetailsForm.value);
-    }else{
-      this.orderDetails[this.editableItemIndex] = this.orderDetailsForm.value;
-    }
-    // tslint:disable-next-line:max-line-length
-    this.orderDetailsForm.patchValue({product_id: null, model_number: null, p_loss: null, price: null, price_code: null, approx_gold: null, size: null, quantity: null, amount: null});
-    this.totalOrderAmount = this.orderDetails.reduce( (total, record) => {
-      // @ts-ignore
-      return total + (record.price * record.quantity);
-    }, 0);
+      }
+      this.orderMaster = this.orderMasterForm.value;
+      if (this.editableItemIndex === -1){
+        this.orderDetails.unshift(this.orderDetailsForm.value);
+      }else{
+        this.orderDetails[this.editableItemIndex] = this.orderDetailsForm.value;
+      }
+      // tslint:disable-next-line:max-line-length
+      this.orderDetailsForm.patchValue({product_id: null, model_number: null, p_loss: null, price: null, price_code: null, approx_gold: null, size: null, quantity: null, amount: null});
+      this.totalOrderAmount = this.orderDetails.reduce( (total, record) => {
+        // @ts-ignore
+        return total + (record.price * record.quantity);
+      }, 0);
 
-    this.totalQuantity = this.orderDetails.reduce( (total, record) => {
-      // @ts-ignore
-      return total + record.quantity;
-    }, 0);
+      this.totalQuantity = this.orderDetails.reduce( (total, record) => {
+        // @ts-ignore
+        return total + record.quantity;
+      }, 0);
 
-    this.totalApproxGold = this.orderDetails.reduce( (total, record) => {
-      // @ts-ignore
-      return total + record.approx_gold;
-    }, 0);
-    // tslint:disable-next-line:max-line-length
-    this.orderContainer = {
-      orderMaster: this.orderMaster,
-      orderDetails: this.orderDetails,
-      orderMasterFormValue: this.orderMasterForm.value,
-      totalAmount: this.totalOrderAmount,
-      totalQuantity: this.totalQuantity,
-      totalApproxGold: this.totalApproxGold
-    };
+      this.totalApproxGold = this.orderDetails.reduce( (total, record) => {
+        // @ts-ignore
+        return total + record.approx_gold;
+      }, 0);
+      // tslint:disable-next-line:max-line-length
+      this.orderContainer = {
+        orderMaster: this.orderMaster,
+        orderDetails: this.orderDetails,
+        orderMasterFormValue: this.orderMasterForm.value,
+        totalAmount: this.totalOrderAmount,
+        totalQuantity: this.totalQuantity,
+        totalApproxGold: this.totalApproxGold
+      };
+      this.storage.set('orderContainer', this.orderContainer).subscribe(() => {});
+    }
   }
-
   productShow(){
     this.showProduct = !this.showProduct;
   }
@@ -363,16 +421,12 @@ export class OrderComponent implements OnInit {
   findModel(){
     const index = this.customerList.findIndex(k => k.id === this.orderMasterForm.value.customer_id );
     // tslint:disable-next-line:max-line-length
-    // console.log(this.orderDetailsForm.value.model_number);
-    // console.log(this.customerList[index].customer_category_id);
     this.orderService.getProductData(this.orderDetailsForm.value.model_number, this.customerList[index].customer_category_id)
       .subscribe((responseProducts: {success: number, data: Product}) => {
       if (responseProducts.data){
         const tempProduct = responseProducts.data;
         // tslint:disable-next-line:max-line-length
         const index2 =  this.customerList.findIndex(x => x.id === this.orderMasterForm.value.customer_id);
-        console.log(this.customerList[index2]);
-        console.log(this.customerList[index2].discount);
         // this.orderDetailsForm.patchValue({discount : this.customerList[index].discount})
         this.orderDetailsForm.patchValue({discount : this.customerList[index2].discount, product_id: tempProduct.id, p_loss: tempProduct.p_loss, price: tempProduct.price, price_code : tempProduct.price_code_name});
       }else{
@@ -428,7 +482,6 @@ export class OrderComponent implements OnInit {
     // let saveObserable = new Observable<any>();
     // saveObserable = this.orderService.saveOrder(this.orderMaster , this.orderDetails);
     // saveObserable.subscribe((response) => {
-    //   console.log(response);
     //   if (response.success === 1){
     //     this.orderMasterForm.reset();
     //     this.orderDetailsForm.reset();
@@ -439,8 +492,6 @@ export class OrderComponent implements OnInit {
     //     this.orderDetailsForm.value.amount = 0;
     //   }
     // }, (error) => {
-    //   console.log('error occured ');
-    //   console.log(error);
     //   this._snackBar.openFromComponent(SncakBarComponent, {
     //     duration: 4000, data: {message: error.message}
     //   });
@@ -471,7 +522,6 @@ export class OrderComponent implements OnInit {
   }
 
   updateItemAmount() {
-    console.log('quantity changed');
     const calculatedAmount = (this.orderDetailsForm.value.quantity * this.orderDetailsForm.value.price);
     this.orderDetailsForm.patchValue({amount: calculatedAmount});
   }

@@ -50,12 +50,11 @@ export class CustomerComponent implements OnInit {
   }
 
   onSubmit() {
-    // console.log(this.customerForm.value);
+
     // if (this.showLoginCredentials === true){
     //   this.customerForm.controls['email'].reset();
     //   this.customerForm.controls['password'].reset();
     // }
-    // // console.log(this.showLoginCredentials);
     // if (this.customerForm.value.password != null || this.showLoginCredentials === true){
     //   const md5 = new Md5();
     //   const passwordMd5 = md5.appendStr(this.customerForm.value.password).end();
@@ -63,7 +62,6 @@ export class CustomerComponent implements OnInit {
     // }
     this.customerService.saveCustomer(this.customerForm.value).subscribe((response: {success: number, data: Customer}) => {
       if (response.data){
-        console.log(response.data);
         Swal.fire(
           'Done!',
           'Customer Added',
@@ -101,8 +99,6 @@ export class CustomerComponent implements OnInit {
   // this function will update the customer
   updateCustomer() {
     let updateObserable = new Observable<any>();
-    // console.log('customer update');
-    // console.log(this.customerForm.value);
     updateObserable = this.customerService.updateCustomer(this.customerForm.value);
 
 

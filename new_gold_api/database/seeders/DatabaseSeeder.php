@@ -317,11 +317,11 @@ class DatabaseSeeder extends Seeder
         Person::create(['user_name'=>'Pushpendu Roy','mobile1'=>'9836444426','mobile2'=>'','user_type_id'=>8]);
         Person::create(['user_name'=>'Pushpendu Ghosh','mobile1'=>'9836444785','mobile2'=>'','user_type_id'=>10,'customer_category_id'=>2]);
 
-        Person::create(['user_name'=>'Joy Ghosh','mobile1'=>'9836444972','mobile2'=>'','user_type_id'=>11,'customer_category_id'=>3]);
-        Person::create(['user_name'=>'Erik Ghosh','mobile1'=>'9836444972','mobile2'=>'','user_type_id'=>11,'customer_category_id'=>3]);
-        Person::create(['user_name'=>'Tuhin Ghosh','mobile1'=>'9836444972','mobile2'=>'','user_type_id'=>11,'customer_category_id'=>3]);
+        Person::create(['user_name'=>'Joy Ghosh','mobile1'=>'9836444972','mobile2'=>'','user_type_id'=>10,'customer_category_id'=>3]);
+        Person::create(['user_name'=>'Erik Ghosh','mobile1'=>'9836444972','mobile2'=>'','user_type_id'=>10,'customer_category_id'=>3]);
+        Person::create(['user_name'=>'Tuhin Ghosh','mobile1'=>'9836444972','mobile2'=>'','user_type_id'=>8,'customer_category_id'=>3]);
 
-        Person::create(['user_name'=>'kk Ghosh','mobile1'=>'9836444972','mobile2'=>'','user_type_id'=>11,'customer_category_id'=>3]);
+        Person::create(['user_name'=>'kk Ghosh','mobile1'=>'9836444972','mobile2'=>'','user_type_id'=>8,'customer_category_id'=>3]);
         Person::create(['user_name'=>'abcd Ghosh','mobile1'=>'9836444972','mobile2'=>'','user_type_id'=>11,'customer_category_id'=>3]);
         Person::create(['user_name'=>'ffgh Ghosh','mobile1'=>'9836444972','mobile2'=>'','user_type_id'=>11,'customer_category_id'=>3]);
 

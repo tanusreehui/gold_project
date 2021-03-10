@@ -53,8 +53,6 @@ export class CompletedBillDetailsComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.billService.getFinishedBillData(params['id']);
     });
-    console.log(location.href);
-    console.log(location.href.split('/')[3]);
     if (location.href.split('/')[3] === 'completed_bill_details'){
       this.getBillDetails(location.href.split('/')[4]);
     }
@@ -62,13 +60,11 @@ export class CompletedBillDetailsComponent implements OnInit {
     this.billService.getfinishedBillDataSubUpdateListener()
       .subscribe((details: JobMaster[]) => {
         this.finishedBillData = details;
-        // console.log(this.finishedBillData);
       });
 
     this.billService.showCompletedBillsDataSubUpdateListener().subscribe((response) => {
       this.showBill = true;
       this.billDetailsData = response;
-      // console.log(this.billDetailsData);
       this.discountPercentage = this.billDetailsData[0].discount;
       for (let i = 0; i < this.billDetailsData.length; i++){
         this.total92Gold = this.total92Gold + Number(this.billDetailsData[i].ginnie);
@@ -91,7 +87,6 @@ export class CompletedBillDetailsComponent implements OnInit {
     // const index = this.finishedBillData.findIndex(x => x.id === data);
     // this.discount = this.finishedBillData[index].discount;
     this.billService.showCompletedBills(data);
-    // console.log();
     // const index = this.finishedBillData.findIndex(x => x.id === data);
     // this.discount = this.finishedBillData[index].discount;
   }

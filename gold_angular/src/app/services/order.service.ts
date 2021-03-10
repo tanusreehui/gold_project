@@ -111,7 +111,6 @@ export class OrderService {
       .subscribe((response: {success: number, data: Material[]}) => {
         const {data} = response;
         this.materialData = data;
-        // console.log(this.materialData);
         this.materialSub.next([...this.materialData]);
       });
 
@@ -156,16 +155,13 @@ export class OrderService {
 
   saveOrder(orderMaster, orderDetails){
     // tslint:disable-next-line:max-line-length
-    //    console.log(this.orderMaster);
     // tslint:disable-next-line:max-line-length
        return this.http.post<OrderResponseData>( GlobalVariable.BASE_API_URL + '/orders', {master: orderMaster, details: orderDetails})
          .pipe(catchError(this._serverError), tap(((response: {success: number, data: OrderMaster}) => {
-          //  console.log(response);
-          // if (this.orderMaster.id === null) {
+           // if (this.orderMaster.id === null) {
           //   this.orderMasterData.unshift(response.data);
           // }
-          // // console.log(this.orderMaster);
-          //
+           //
           // this.orderSub.next([...this.orderMasterData]);
            if(response.data){
              this.orderMasterData.unshift(response.data);
@@ -204,7 +200,6 @@ export class OrderService {
   }
 
   masterUpdate(){
-    // console.log(id);
     // tslint:disable-next-line:max-line-length
     return this.http.patch(GlobalVariable.BASE_API_URL + '/orderMaster', { master: this.orderMasterForm.value})
       .pipe(catchError(this._serverError), tap((response: {success: number, data: OrderMaster}) => {
@@ -227,7 +222,6 @@ export class OrderService {
   }
 
   deleteOrderMaster(id){
-    // console.log('deleteOrderMaster')
     return this.http.delete(GlobalVariable.BASE_API_URL + '/orderMasterDelete/' + id)
       .pipe(catchError(this._serverError), tap((response: {success: number, data: string}) => {
         // @ts-ignore
@@ -240,7 +234,6 @@ export class OrderService {
   }
 
   private _serverError(err: any) {
-    // console.log('sever error:', err);  // debug
     if (err instanceof Response) {
       return throwError('backend server error');
       // if you're using lite-server, use the following line

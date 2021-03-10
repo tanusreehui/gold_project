@@ -62,7 +62,6 @@ export class FinishJobComponent implements OnInit {
                    // this.stockService.getUpdatedStockRecord();
                    this.stockService.getUpdatedStockList();
                    // this.jobTaskService.getOneJobData(this.id).subscribe((response) => {
-                   //   console.log(response.data);
                    // });
                    this.jobTaskService.getOneJobData(this.id).subscribe();
                    Swal.fire(

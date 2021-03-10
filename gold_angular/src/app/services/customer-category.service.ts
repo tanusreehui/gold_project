@@ -20,9 +20,7 @@ private customerCategorySub = new Subject<CustomerCategory[]>();
   constructor(private http: HttpClient) {
     this.http.get(GlobalVariable.BASE_API_URL + '/getCustomerCategory')
       .subscribe((response: {success: number, data: CustomerCategory[]}) => {
-        // console.log(response);
         const {data} = response;
-        // console.log(data);
         this.customerCategoryData = data;
         this.customerCategorySub.next([...this.customerCategoryData]);
       });

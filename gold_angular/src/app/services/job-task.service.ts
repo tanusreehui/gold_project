@@ -276,7 +276,6 @@ export class JobTaskService implements OnDestroy{
             //  // this.jobBadgeArray.id = this.jobTaskForm.value.id;
             //  // this.jobBadgeArray.GS = this.goldSendBadge;
             //
-            //  console.log(this.jobBadgeArray);
             //  // this.badgeValueSub.next(this.jobBadgeArray);
        })));
 
@@ -293,7 +292,6 @@ export class JobTaskService implements OnDestroy{
   }
 
   getBatchCount(data){
-    console.log('service invoked');
     this.http.get(GlobalVariable.BASE_API_URL + '/countTaskBadgeValue/' + data)
       .subscribe((response: {success: number, data: object}) => {
         const a = {
@@ -382,7 +380,6 @@ export class JobTaskService implements OnDestroy{
   // }
 
   private _serverError(err: any) {
-    // console.log('sever error:', err);  // debug
     if (err instanceof Response) {
       return throwError('backend server error');
       // if you're using lite-server, use the following line

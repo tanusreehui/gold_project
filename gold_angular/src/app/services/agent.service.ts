@@ -81,10 +81,8 @@ export class AgentService {
   }
 
   fillAgentFormForEdit(data){
-    // console.log(data);
+
     this.agentForm.setValue(data);
-    console.log("agent form value");
-    console.log(this.agentForm.value);
   }
 
 
@@ -129,7 +127,6 @@ export class AgentService {
   }
 
   updateAgent(){
-    // console.log(this.agentForm.value);
     return this.http.patch<AgentResponseData>('http://127.0.0.1:8000/api/agents/' + this.agentForm.value.id, this.agentForm.value);
   }
   getAgentList(){

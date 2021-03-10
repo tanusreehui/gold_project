@@ -68,16 +68,11 @@ export class TransactionService {
 
   saveTransaction(master, details){
     // this.transactionForm.value = data;
-    console.log('service');
-    console.log(this.transactionForm.value);
-    // return;
-
     // return this.http.post(GlobalVariable.BASE_API_URL + '/saveTransaction',  this.transactionForm.value);
     return this.http.post(GlobalVariable.BASE_API_URL + '/saveTransaction',  {materialTransactionMaster: master, materialTransactionDetails: details});
   }
 
   private _serverError(err: any) {
-    // console.log('sever error:', err);  // debug
     if (err instanceof Response) {
       return throwError('backend server error');
       // if you're using lite-server, use the following line

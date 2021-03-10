@@ -117,7 +117,7 @@ export class AgentAllocationComponent implements OnInit {
   }
 
   testSetAgent(data){
-    console.log(data);
+
   }
 
   deallocateAgent(item){
@@ -145,7 +145,6 @@ export class AgentAllocationComponent implements OnInit {
           for ( let i = 0; i < this.stockDeallocation.length; i++){
             const index = this.billDetailsData.findIndex(x => x.id === this.stockDeallocation[i].id);
             this.billDetailsData.splice(index,1);
-            // console.log(this.billDetailsData.length);
             if (this.billDetailsData.length === 0){
               this.showCheckbox = false;
             }
@@ -165,9 +164,7 @@ export class AgentAllocationComponent implements OnInit {
     }
   }
 
-  // isCheckedFunction(item){
-  //   console.log(item);
-  // }
+
 
   stockSelection(data){
     this.tempStorageBillDetailsData.push(data);
@@ -175,7 +172,6 @@ export class AgentAllocationComponent implements OnInit {
     // @ts-ignore
     if (this.showCheckbox === true){
       this.billDetailsData = [];
-      // console.log(this.showCheckbox);
       // if (this.tempStorageBillDetailsData.length !== 0){
       this.billDetailsData = [...this.tempStorageBillDetailsData];
       // }

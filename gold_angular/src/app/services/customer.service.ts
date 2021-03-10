@@ -36,11 +36,9 @@ export class CustomerService implements OnDestroy{
   constructor(private http: HttpClient) {
     this.http.get('http://127.0.0.1:8000/api/customers')
       .subscribe((response: {success: number, data: Customer[]}) => {
-        // console.log(response);
         // @ts-ignore
         const {data} = response;
         this.customerData = data;
-        console.log(this.customerData);
         this.customerSub.next([...this.customerData]);
     });
 
@@ -75,14 +73,12 @@ export class CustomerService implements OnDestroy{
   saveCustomer(customer){
     return this.http.post<CustomerResponseData>('http://127.0.0.1:8000/api/customers', customer)
       .pipe(tap((response: {success: number, data: Customer} ) => {
-        console.log(response.data);
         this.customerData.unshift(response.data);
         // this.customerData.push(response.data);
         this.customerSub.next([...this.customerData]);
       }));
   }
   updateCustomer(customer){
-    console.log(customer);
     return this.http.patch<CustomerResponseData>('http://127.0.0.1:8000/api/customers/' + customer.id, customer)
       .pipe(catchError(this._serverError), tap((response: {success: number, data: Customer}) => {
         const index = this.customerData.findIndex(x => x.id === customer.id);
@@ -107,23 +103,17 @@ export class CustomerService implements OnDestroy{
 
 
   fillFormByUpdatebaleData(customer){
-    // console.log('customer console service');
-    // console.log(customer);
     // this.customerForm.controls['id'].setValue(customer.id);
     // this.customerForm.controls['password'].setValue(null);
     this.customerForm.setValue(customer);
     // this.customerForm.patchValue({ id : customer.id, user_name : customer.user_name , email : customer.email, mobile1 : customer.mobile1, mobile2 : customer.mobile2, user_type_id :  customer.user_type_id, customer_category_id : customer.customer_category_id, address1 : customer.address1, address2 : customer.address2, state : customer.state , po : customer.po, area : customer.area, city : customer.city, pin : customer.pin, opening_balance_LC : customer.opening_balance_LC, opening_balance_Gold : customer.opening_balance_Gold, mv :customer.mv});
-    // console.log('customer form');
-    // console.log(this.customerForm.value);
+
   }
 
   private handleError(errorResponse: HttpErrorResponse){
-     // console.log('Error occured');
-     // console.log(errorResponse);
      return throwError(errorResponse.error);
   }
   private _serverError(err: any) {
-    // console.log('sever error:', err);  // debug
     if (err instanceof Response) {
       return throwError('backend server error');
       // if you're using lite-server, use the following line

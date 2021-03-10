@@ -35,18 +35,14 @@ export class AgentComponent implements OnInit {
     this.agentData = this.agentService.getAgentList();
     this.agentService.getUserTypes().subscribe((response:{success: number , data:any[]})=>{
       this.userTypesList = response.data;
-      // console.log(this.userTypesList);
     });
   }
 
   onSubmit(){
-    console.log(this.agentForm.value);
-    return;
     if (this.showLoginCredentials === true){
       this.agentForm.controls['email'].reset();
       this.agentForm.controls['password'].reset();
     }
-    // console.log(this.showLoginCredentials);
     if (this.agentForm.value.password != null || this.showLoginCredentials === false){
       const md5 = new Md5();
       const passwordMd5 = md5.appendStr(this.agentForm.value.password).end();
@@ -125,8 +121,6 @@ export class AgentComponent implements OnInit {
   }
 
   updateAgent(){
-    // console.log(this.agentForm.value);
-    // return;
     if (this.agentForm.value.password != null) {
       const md5 = new Md5();
       const passwordMd5 = md5.appendStr(this.agentForm.value.password).end();

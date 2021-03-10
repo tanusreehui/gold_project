@@ -142,8 +142,6 @@ export class JobService {
   // finishJob(){
   //   return this.http.post<JobResponseData>( GlobalVariable.BASE_API_URL + '/finishJob', {master: this.jobMasterForm.value})
   //     .pipe(catchError(this._serverError), tap(((response: {success: number, data: JobMaster}) => {
-  //       console.log('finishJOb');
-  //       console.log(response.data);
   //     })));
   // }
 

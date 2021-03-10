@@ -12,7 +12,6 @@ export class EmployeeStockComponent implements OnInit {
   public searchTerm: any;
   constructor(public  employeeStockService: EmployeeStockService ) {
     this.employeeStockList = this.employeeStockService.getEmployeeStock();
-    console.log(this.employeeStockList);
   }
 
   printDivStyle = {

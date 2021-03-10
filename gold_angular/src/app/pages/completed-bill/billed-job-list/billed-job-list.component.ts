@@ -23,7 +23,6 @@ export class BilledJobListComponent implements OnInit {
   ngOnInit(): void {
     this.showReport = false;
     this.route.params.subscribe(params => {
-      // console.log(params.id);
       this.billService.getBilledJobList(params.id);
       this.billService.getBilledJobListSubUpdateListener().subscribe((response)=>{
         this.billedJobList  = response;
@@ -31,7 +30,6 @@ export class BilledJobListComponent implements OnInit {
     });
   }
   getReport(item){
-    console.log(item);
     this.totalBilledGold = 0;
     this.totalPureGold = 0;
     this.billService.getBilledJobReport(item.id).subscribe((response) => {

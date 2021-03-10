@@ -31,7 +31,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.authService.getChats();
     this.userSub = this.authService.user.subscribe(user => {
       this.userInfo = user;
-      console.log(user);
       if (user){
         this.isAuthenticated = user.isAuthenticated;
         this.isOwner = user.isOwner;
@@ -52,15 +51,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.isOfficeStaff = false;
       }
     });
-    // console.log(this.userSub);
     // this.authService.getMessageSubUpdateListener().subscribe((response)=>{
-    //   console.log('from listener');
-    //    console.log(response);
     // });
     this.authService.getMessageSubUpdateListener().subscribe((response)=>{
-      console.log("message updator");
       this.messages = response;
-      console.log(response);
+
     });
   }
 
@@ -79,8 +74,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   getChats(){
       // this.authService.getMessageSubUpdateListener().subscribe((response)=> {
-      //   console.log("message updator");
-      //   console.log(response);
       // });
     // this.authService.getChats(item);
   }

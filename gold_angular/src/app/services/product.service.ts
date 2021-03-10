@@ -25,7 +25,6 @@ export class ProductService {
   }
 
   constructor(private http: HttpClient) {
-    console.log('Product Service Initiated for first time');
     this.http.get('http://127.0.0.1:8000/api/products')
       .subscribe((response: {success: number, data: Product[]}) => {
         const {data} = response;
@@ -45,7 +44,6 @@ export class ProductService {
   }
   getProducts(){
     // when no data it will return null;
-    // console.log('getting products from product service');
     return [...this.products];
   }
 
@@ -62,7 +60,6 @@ export class ProductService {
         this.products.unshift(response.data);
 
         this.productSubject.next([...this.products]);
-        // console.log(this.products);
       }));
   }
 
@@ -71,8 +68,6 @@ export class ProductService {
       .pipe(catchError(this.serverError), tap((response: {success: number, data: Product}) => {
         const index = this.products.findIndex(x => x.id === product.id);
         this.products[index] = response.data;
-        // console.log(this.products[index]);
-        // console.log(response);
         this.productSubject.next([...this.products]);
       }));
   }
@@ -86,7 +81,6 @@ export class ProductService {
 
           if (index !== -1) {
             this.products.splice(index, 1);
-            console.log(this.products);
           }
         }
 
@@ -96,7 +90,6 @@ export class ProductService {
 
 
   private serverError(err: any) {
-    // console.log('sever error:', err);  // debug
     if (err instanceof Response) {
       return throwError('backend server error');
       // if you're using lite-server, use the following line

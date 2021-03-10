@@ -69,7 +69,6 @@ export class DalSubmitComponent implements OnInit {
         employee_id: this.oneJobData.karigarh_id
       });
       this.jobTaskForm.value.return_quantity = parseFloat(this.jobTaskForm.value.return_quantity);
-      console.log(this.jobTaskForm.value);
       this.jobTaskService.jobReturn().subscribe((response) => {
 
         if (response.success === 1) {

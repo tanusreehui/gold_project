@@ -17,7 +17,6 @@ export class BillOrderDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.disableDetails = false;
     this.route.params.subscribe(params => {
-      // console.log(params['id']);
       this.billService.getDetails(params['id']);
     });
     this.billService.getOrderDetailsSubUpdateListener()

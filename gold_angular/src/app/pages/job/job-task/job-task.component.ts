@@ -46,10 +46,10 @@ export class JobTaskComponent implements OnInit {
     this.showCompleteJobs = false;
     this.jobTaskForm = this.jobTaskService.jobTaskForm;
     this.jobService.getSavedJobsUpdateListener().subscribe((jobData: JobMaster[]) => {
-      // console.log('from listener');
+
 
       this.savedJobsData = jobData;
-      // console.log(this.savedJobsData);
+
     });
 
     this.jobService.getFinishedJobsUpdateListener().subscribe((finishedjobData: JobMaster[]) => {
@@ -58,7 +58,6 @@ export class JobTaskComponent implements OnInit {
     });
 
     this.savedJobsData = this.jobService.getAllJobList();
-    console.log(this.savedJobsData);
     this.finishedJobsList = this.jobService.getFinishedJobList();
 
     this.orderService.getMaterialUpdateListener()

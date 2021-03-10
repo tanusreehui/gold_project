@@ -58,7 +58,6 @@ export class RateComponent implements OnInit {
           'Item Successfully saved',
           'success'
         );
-        // console.log(response.data);
         this.rateData.unshift(response.data);
         this.rateForm.reset();
       }

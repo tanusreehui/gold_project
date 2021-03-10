@@ -111,7 +111,6 @@ export class JobComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.jobMasterForm.value);
     if(this.jobMasterForm.value.karigarh_id) {
       this.confirmationDialogService.confirm('Please confirm..', 'Do you really want to send order to job ?')
         .then((confirmed) => {

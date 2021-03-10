@@ -29,14 +29,10 @@ export class AuthComponent implements OnInit {
     const md5 = new Md5();
     const passwordMd5 = md5.appendStr(form.value.password).end();
     // const formPassword = form.value.password;
-    // console.log(form.value.email);
-    // console.log(passwordMd5);
-
     authObserable = this.authService.login({email: form.value.email, password: passwordMd5});
     authObserable.subscribe(response => {
       // this.isLoading = false;
       this.isLoading = true;
-      // console.log(response);
       // tslint:disable-next-line:triple-equals
       if (response.user.user_type_id === 1){
         this.router.navigate(['/owner']);

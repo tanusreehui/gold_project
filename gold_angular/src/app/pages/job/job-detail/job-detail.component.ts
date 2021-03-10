@@ -51,10 +51,7 @@ export class JobDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute , private  jobTaskService: JobTaskService , private  jobService: JobService , private  orderService: OrderService, private billService: BillService) {
     this.jobTaskService.testObserble().subscribe((response) => {
       this.btnControl = response;
-      // console.log('test');
-      // console.log(this.btnControl);
     });
-    // console.log(this.jobTaskService.btnControl);
     this.karigarhData = this.jobService.getAllKarigarhs();
     this.FGWt = 0;
     // this. jobTaskService.getBadgeValue().subscribe((response) => {
@@ -67,7 +64,7 @@ export class JobDetailComponent implements OnInit {
     //   }
     // });
 
-    // console.log(this.jobTaskService.getLatestBadgeValue());
+
 
 
     // this.FGWt = this.billService.FGWt;
@@ -98,10 +95,8 @@ export class JobDetailComponent implements OnInit {
       this.showTransactionDiv = false;
       // tslint:disable-next-line:radix
       this.id = parseInt(params.id);
-      // console.log(this.id);
       this.jobTaskService.getOneJobData(this.id).subscribe((response: {success: number , data: JobMaster}) => {
         this.oneJobData = response.data;
-        // console.log(this.oneJobData);
         this.jobTaskForm.patchValue({id: this.oneJobData.id});
         this.job_number = this.oneJobData.job_number;
         this.jobTaskForm.patchValue({size: this.oneJobData.size});
@@ -115,7 +110,6 @@ export class JobDetailComponent implements OnInit {
           const materialData = this.materialList[index];
           this.jobTaskForm.patchValue({material_name: materialData.material_name});
         });
-        // console.log(this.jobTaskForm.value);
       });
 
 
@@ -188,21 +182,15 @@ export class JobDetailComponent implements OnInit {
       // this.karigarhData = this.jobService.getAllKarigarhs();
       // this.jobService.getKarigarhUpdateListener().subscribe((response) => {
       //   this.karigarhData = response;
-      //   // console.log("karigarh data");
-      //   // console.log(this.karigarhData);
+      //
       //   const index = this.karigarhData.findIndex(x => x.id === this.oneJobData.karigarh_id);
       //   this.karigarhName = this.karigarhData[index].person_name;
-      //   // console.log(this.karigarhName);
+      //
       // });
-      // console.log("component");
-      // console.log(this.oneJobData);
       // if (this.oneJobData){
       //   // const index = this.karigarhData.findIndex(x => x.id === this.oneJobData.karigarh_id);
       //   // this.karigarhName = this.karigarhData[index].person_name;
-      //   console.log("component");
-      //   console.log(this.karigarhData);
       // }
-      // console.log(this.karigarhData);
       this.jobTaskService.getTotalData();
       this.jobTaskService.getTotal().subscribe((response) => {
         this.totalData = response.data;
@@ -216,7 +204,6 @@ export class JobDetailComponent implements OnInit {
             this.tempTotalData[i - 1] = 0;
           }
         }
-        // console.log(this.tempTotalData);
       });
       this.jobTaskService.getTotalDataUpdateListener().subscribe((response) => {
         this.totalData = response;

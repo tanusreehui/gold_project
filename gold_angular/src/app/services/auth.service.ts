@@ -37,7 +37,7 @@ export class AuthService {
     //   .subscribe((response) => {
     //
     //     this.message = response;
-    //     console.log(this.message);
+
     //     this.messageSub.next([...this.message]);
     //   });
   }
@@ -74,14 +74,11 @@ export class AuthService {
                   resData.user.user_type_id);
           this.user.next(user); // here two user is used one is user and another user is subject of rxjs
           localStorage.setItem('user', JSON.stringify(user));
-          // console.log('resdata');
-          // console.log(resData.user);
+
       }));  // this.handleError is a method created by me
   }
 
   private handleError(errorResponse: HttpErrorResponse){
-    console.log('Login Failed');
-    console.log(errorResponse);
     return throwError(errorResponse.error.message);
   }
 
@@ -98,14 +95,12 @@ export class AuthService {
     this.http.get('http://localhost:3000/messages')
       .subscribe((response) => {
         this.message = response;
-        console.log(this.message);
         this.messageSub.next([...this.message]);
       });
   }
 
   sendChats(item){
-    // console.log(item);
-   return this.http.post('http://localhost:3000/messages',item) .pipe(tap(((response) => {
+    return this.http.post('http://localhost:3000/messages',item) .pipe(tap(((response) => {
      this.message.push(response);
      this.messageSub.next([...this.message]);
    })));

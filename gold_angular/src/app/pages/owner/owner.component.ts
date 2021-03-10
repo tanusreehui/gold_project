@@ -28,7 +28,7 @@ export class OwnerComponent implements OnInit {
     // const result = this.arr.filter(res => res.checked).map(ele => ele.value);
 
     const result = this.arr.filter(({ checked }) => checked).map(({ value }) => value);
-    console.log(result);
+
 
 
     const pilots = [

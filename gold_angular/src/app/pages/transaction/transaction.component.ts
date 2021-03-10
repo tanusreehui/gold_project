@@ -41,7 +41,6 @@ export class TransactionComponent implements OnInit {
 
     this.transactionService.getTransactionTypeUpdateListener().subscribe((response) => {
       this.transactionTypeData = response;
-      // console.log(this.user);
       if (this.user.personTypeId === 2){
         this.transactionTypeData = this.transactionTypeData.filter(x => x.id === 3 || x.id === 4);
       }else if (this.user.personTypeId === 3 || this.user.personTypeId === 4 || this.user.personTypeId === 5 || this.user.personTypeId === 6){
@@ -138,8 +137,7 @@ export class TransactionComponent implements OnInit {
 
 
 
-    // console.log(this.materialTransactionMaster);
-    // console.log(this.materialTransactionDetails);
+
 
     // return;
     // this.transactionForm.patchValue({person_id: this.user.id});

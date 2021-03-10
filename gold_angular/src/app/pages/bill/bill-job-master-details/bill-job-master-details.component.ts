@@ -69,7 +69,6 @@ export class BillJobMasterDetailsComponent implements OnInit {
       .subscribe((details: JobMaster[]) => {
         this.finishedJobData = details;
         this.mv = this.finishedJobData[0].mv;
-        // console.log(this.finishedJobData);
       });
   }
 
@@ -78,10 +77,6 @@ export class BillJobMasterDetailsComponent implements OnInit {
   }
 
   selectionForBill(data) {
-    // console.log('bill selection console');
-    // console.log(data);
-    // console.log(this.mv);
-    // console.log(data);
     const index = this.billDetailsData.findIndex(x => x.id === data.id);
     if (index >= 0) {
       this.total92Gold = this.total92Gold - Number(data.total);
@@ -103,8 +98,6 @@ export class BillJobMasterDetailsComponent implements OnInit {
         // this.totalCost = this.totalCost + Number(data.cost);
         this.originalCost = this.originalCost + Number(data.cost);
         this.billDetailsData.push(data);
-        // console.log(this.billDetailsData);
-        // console.log(this.billDetailsData);
       });
 
     }
@@ -147,7 +140,6 @@ export class BillJobMasterDetailsComponent implements OnInit {
   }
 
   generateBill() {
-    // console.log(this.billDetailsData[0].discount);
     Swal.fire({
       title: 'Do you want to generate the bill?',
       text: 'Bill  will be generated',

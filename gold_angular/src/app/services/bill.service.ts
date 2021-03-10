@@ -77,7 +77,6 @@ export class BillService {
       .subscribe((response: {success: number, data: FinishedJobs[]}) => {
         const {data} = response;
         this.finshedJobs = data;
-        // console.log(this.finshedJobs);
         this.finishedJobsSub.next([...this.finshedJobs]);
       });
 
@@ -85,7 +84,6 @@ export class BillService {
       .subscribe((response: {success: number, data: FinishedJobs[]}) => {
         const {data} = response;
         this.completedBill = data;
-        // console.log(this.finshedJobs);
         this.completedBillDataSub.next([...this.completedBill]);
       });
 
@@ -106,7 +104,6 @@ export class BillService {
       .subscribe((response: {success: number, data: FinishedJobs[]}) => {
         const {data} = response;
         this.finshedJobs = data;
-        // console.log(this.finshedJobs);
         this.finishedJobsSub.next([...this.finshedJobs]);
       });
   }
@@ -116,7 +113,6 @@ export class BillService {
       .subscribe((response: {success: number, data: FinishedJobs[]}) => {
         const {data} = response;
         this.completedBill = data;
-        // console.log(this.finshedJobs);
         this.completedBillDataSub.next([...this.completedBill]);
       });
   }
@@ -136,7 +132,6 @@ export class BillService {
       .subscribe((response: {success: number, data: OrderDetail[]})  => {
         const {data} = response;
         this.completedBillOrderDetails = data;
-        // console.log(this.completedBillOrderDetails);
         this.completedBillOrderDetailsSub.next([...this.completedBillOrderDetails]);
       });
   }
@@ -155,7 +150,6 @@ export class BillService {
       .subscribe((response: {success: number, data: FinishedJobs[]}) => {
         const {data} = response;
         this.billedJobs = data;
-        // console.log(this.finshedJobs);
         this.billedJobListSub.next([...this.billedJobs]);
       });
 
@@ -171,8 +165,6 @@ export class BillService {
   // showCompletedBills(data){
   //   return this.http.get('http://127.0.0.1:8000/api/showCompletedBills/' + data)
   //     .subscribe((response: {success: number, data: BillDetail[]})  => {
-  //       console.log('from service2');
-  //       console.log(response.data);
   //       this.showCompletedBillsData = response.data;
   //
   //       this.showCompletedBillsDataSub.next([...this.showCompletedBillsData]);
@@ -208,8 +200,6 @@ export class BillService {
   }
 
   saveBillMaster(billMasterData, billDetailsData){
-    console.log("service");
-    console.log(billMasterData);
     return this.http.post<{ success: number, data: BillMaster }>( GlobalVariable.BASE_API_URL + '/saveBillMaster' , {master : billMasterData, details: billDetailsData })
       .pipe(catchError(this._serverError), tap(((response: {success: number, data: BillMaster}) => {
 
@@ -243,7 +233,6 @@ export class BillService {
   }
 
   private _serverError(err: any) {
-    // console.log('sever error:', err);  // debug
     if (err instanceof Response) {
       return throwError('backend server error');
       // if you're using lite-server, use the following line

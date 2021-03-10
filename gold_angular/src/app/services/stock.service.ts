@@ -69,13 +69,10 @@ export class StockService {
     // this.http.get(GlobalVariable.BASE_API_URL + '/getStockCustomer')
     //   .subscribe((response: { success: number , data: Customer[]}) => {
     //     this.stockCustomers = response.data;
-    //     console.log(this.stockCustomers);
     //     this.stockCustomerSub.next([...this.stockCustomers]);
     // });
   }
   saveStock(stockArray) {
-    // console.log(stockArray);
-    // return ;
     return this.http.post<StockResponseData>(GlobalVariable.BASE_API_URL + '/createStock', stockArray);
   }
 

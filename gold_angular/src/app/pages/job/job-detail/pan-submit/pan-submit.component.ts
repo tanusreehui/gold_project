@@ -35,7 +35,6 @@ export class PanSubmitComponent implements OnInit {
     this.oneJobData = this.savedJobsData[index];
     // this.jobTaskForm.patchValue({material_name: this.oneJobData.material_name});
     // this.jobTaskForm.patchValue({material_name: 'test'});
-    // console.log(this.oneJobData.material_name);
     this.jobTaskService.getJobTaskDataUpdateListener().subscribe((response) => {
       this.jobTaskData = response;
     });
@@ -71,7 +70,6 @@ export class PanSubmitComponent implements OnInit {
         employee_id: this.oneJobData.karigarh_id
       });
       this.jobTaskForm.value.return_quantity = parseFloat(this.jobTaskForm.value.return_quantity);
-      console.log(this.jobTaskForm.value);
       this.jobTaskService.jobReturn().subscribe((response) => {
         if (response.success === 1) {
           this._snackBar.openFromComponent(SncakBarComponent, {

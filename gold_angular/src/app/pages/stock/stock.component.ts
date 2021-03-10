@@ -67,7 +67,6 @@ export class StockComponent implements OnInit {
       //   // tslint:disable-next-line:radix
       //   value.tag = (parseInt(x[1]).toString(16) + '-' + parseInt(x[2]).toString(16) + '-' + parseInt(x[3]));
       // });
-      // console.log(this.stockData);
     });
 
     this.router.params.subscribe((params) => {
@@ -79,11 +78,7 @@ export class StockComponent implements OnInit {
 
         this.stockService.getJobMasterDataUpdateListener().subscribe((response) => {
           this.jobMasterData = response;
-          // console.log('this.job master data');
-          // console.log(this.jobMasterData);
           this.mv = this.jobMasterData[0].mv;
-          // console.log('mv master data');
-          // console.log(this.mv);
           this.billService.getTotalGoldQuantity(params.id).subscribe((response:{success: number, data: any }) => {
             this.totalGold =  response.data.data.toFixed(3);
             this.jobMasterContainer = {
@@ -107,7 +102,7 @@ export class StockComponent implements OnInit {
               amount: this.jobMasterContainer.jobMasterData[0].price * this.jobMasterContainer.jobMasterData[0].quantity,
               agent_id: this.jobMasterContainer.jobMasterData[0].agent_id,
             });
-            
+
           });
 
         });
@@ -194,11 +189,15 @@ export class StockComponent implements OnInit {
           html: 'data saving',// add html attribute if you want or remove
           allowOutsideClick: false,
           // timer: 3000,
-          onBeforeOpen: () => {
-            Swal.showLoading();
-          },
+          // onBeforeOpen: () => {
+          //   Swal.showLoading();
+          // },
+          didOpen: () => {
+            Swal.showLoading()
+          }
 
         });
+
         this.stockService.saveStock(this.stockList).subscribe((response: {success: number, data: Stock})  => {
           if (response.data) {
             Swal.hideLoading();

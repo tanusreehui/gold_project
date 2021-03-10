@@ -40,7 +40,6 @@ export class DueByAgentComponent implements OnInit {
     });
     this.agentService.getDueByAgentDataUpdateListener().subscribe((response) => {
       this.dueByAgentList = response;
-      console.log(this.dueByAgentList);
     });
   }
 }

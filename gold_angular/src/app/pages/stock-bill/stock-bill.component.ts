@@ -27,10 +27,12 @@ export class StockBillComponent implements OnInit {
   totalGold: number;
   totalQuantity: number;
   totalCost: number;
+  originalCost: number;
   searchTag: string;
   // agentName: string;
   stockBillContainer: any;
   billView = true ;
+  billCreated = false;
   customerData: Customer[];
   selectedCustomerData: Customer = null ;
   selectedAgentData: Agent;
@@ -53,16 +55,14 @@ export class StockBillComponent implements OnInit {
   // now = Date.now();
 
   constructor(private customerService: CustomerService, private  stockService: StockService, private  billService: BillService, private  storage: StorageMap, private agentService: AgentService) {
-    console.log('constructor invoked');
     this.agentData = this.agentService.getAgentList();
     this.customerData = this.customerService.getCustomers();
     // this.selectedCustomerData = this.customerData[0];
     this.selectedAgentData = this.agentData[0];
     this.stockList = this.stockService.getStockList();
     this.date = new Date();
-    // this.selectedCustomerData.bill_date = this.date.getFullYear() + '-' + (this.date.getMonth() + 1) + '-' + this.date.getDate();
-    // console.log(this.selectedCustomerData.bill_date);
 
+    // this.selectedCustomerData.bill_date = this.date.getFullYear() + '-' + (this.date.getMonth() + 1) + '-' + this.date.getDate();
     // if(this.billDetailsData != null){
     //   for (let i = 0; i < this.billDetailsData.length; i++ ) {
     //     const index = this.stockList.findIndex(x => x.id === this.billDetailsData[i].id);
@@ -79,7 +79,7 @@ export class StockBillComponent implements OnInit {
     //     this.stockList[i].isSet = false;
     //   }
     // }
-    // console.log(this.stockList);
+
 
     // if (this.stockList){
     //   this.stockList.forEach(function(value) {
@@ -115,8 +115,6 @@ export class StockBillComponent implements OnInit {
         for (let i = 0; i < this.billDetailsData.length; i++ ){
           const index = this.stockList.findIndex(x => x.id === this.billDetailsData[i].id);
           this.stockList[index].isSet = true;
-          // console.log(this.stockList[index]);
-
           // this.stockList[i].total = Number(this.stockList[i].gold);
           // this.stockList[i].cost = this.stockList[i].amount;
 
@@ -141,7 +139,9 @@ export class StockBillComponent implements OnInit {
     this.totalGold = 0;
     this.totalQuantity = 0;
     this.totalCost = 0;
+    this.originalCost = 0;
     this.discount = 0;
+    this.billCreated = false;
 
 
 
@@ -159,9 +159,6 @@ export class StockBillComponent implements OnInit {
 
     this.stockService.getStockUpdateListener().subscribe((response) => {
       this.stockList = response;
-      // console.log('from init');
-      // console.log(this.stockList);
-
       // this.stockList.forEach(function(value) {
       //   value.isSet = false;
       //   const x = value.tag.split('-');
@@ -172,13 +169,12 @@ export class StockBillComponent implements OnInit {
 
 
       this.storage.get('stockBillContainer').subscribe((stockBillContainer: any) => {
-        // console.log(stockBillContainer);
         if (stockBillContainer) {
           this.total92Gold = 0;
           this.totalGold = 0;
           this.totalQuantity = 0;
           this.totalCost = 0;
-          console.log(stockBillContainer);
+          this.originalCost = 0;
           if  (stockBillContainer.stockBillDetailsData != null) {
             this.billDetailsData = stockBillContainer.stockBillDetailsData;
             for (let i = 0; i < this.billDetailsData.length; i++ ){
@@ -188,7 +184,8 @@ export class StockBillComponent implements OnInit {
               this.total92Gold = this.total92Gold + Number(this.billDetailsData[i].total);
               this.totalGold = this.totalGold + Number(pure_gold);
               this.totalQuantity = this.totalQuantity + Number(this.billDetailsData[i].quantity);
-              this.totalCost = this.totalCost + this.billDetailsData[i].amount;
+              // this.totalCost = this.totalCost + this.billDetailsData[i].amount;
+              this.originalCost = this.originalCost + this.billDetailsData[i].amount;
             }
           }
 
@@ -216,9 +213,6 @@ export class StockBillComponent implements OnInit {
         this.selectedCustomerData = this.customerData[0];
         // this.selectedCustomerData.bill_date = '2010-11-02';
         this.selectedCustomerData.bill_date = this.date.getFullYear() + '-' + (this.date.getMonth() + 1) + '-' + this.date.getDate();
-        // console.log(formatDate(this.date.getDate(), 'yyyy-MM-dd', 'en'));
-        // this.selectedCustomerData.bill_date = this. datepipe. transform(this.date, 'yyyy-MM-dd');
-        // console.log(this.date);
       });
 
     this.agentService.getAgentUpdateListener()
@@ -238,8 +232,6 @@ export class StockBillComponent implements OnInit {
     // this.storage.get('stockBillContainer').subscribe((stockBillContainer: any) => {
     //   if (stockBillContainer) {
     //     this.billDetailsData = stockBillContainer.stockBillDetailsData;
-    //     console.log('stockBillContainer');
-    //     console.log(this.stockList);
     //     // this.billDetailsData.forEach(function(value) {
     //     //
     //     // });
@@ -252,8 +244,14 @@ export class StockBillComponent implements OnInit {
     return toWords(value);
   }
 
+  getDiscount(){
+
+    this.discount = (this.originalCost * this.discountPercentage)/100 ;
+
+    this.totalCost = this.originalCost - this.discount;
+  }
+
   stockSelectionForBill(item) {
-    console.log(item);
     const index = this.billDetailsData.findIndex(x => x.id === item.id);
     if (index === -1){
 
@@ -268,7 +266,8 @@ export class StockBillComponent implements OnInit {
       this.total92Gold = this.total92Gold + Number(item.total);
       this.totalGold = this.totalGold + Number(item.pure_gold);
       this.totalQuantity = this.totalQuantity + Number(item.quantity);
-      this.totalCost = this.totalCost + item.amount;
+      // this.totalCost = this.totalCost + item.amount;
+      this.originalCost = this.originalCost + item.amount;
 
 
 
@@ -283,11 +282,11 @@ export class StockBillComponent implements OnInit {
     }
 
     // this.billDetailsData.push(item);
-    // console.log(this.billDetailsData);
+
 
     // item.total = item.gold;
     // item.cost = item.amount;
-    // console.log(item);
+
     //
     // item.pure_gold = parseFloat(((item.total * 92) / 100).toFixed(3));
     //
@@ -295,24 +294,19 @@ export class StockBillComponent implements OnInit {
     // this.totalGold = this.totalGold + Number(item.pure_gold);
     //
     // // this.billDetailsData.push(item);
-    // console.log(this.billDetailsData);
-    // console.log(this.total92Gold);
-    // console.log(this.totalGold);
 
     this.stockBillContainer = {
         stockBillDetailsData: this.billDetailsData,
         stockBillCustomer: this.selectedCustomerData,
       };
-    console.log(this.stockBillContainer);
     this.storage.set('stockBillContainer', this.stockBillContainer).subscribe(() => {
     });
   }
 
   clearStorage(){
-    // console.log(this.stockBillContainer);
+
     // this.billDetailsData = [];
     // localStorage.removeItem('stockBillContainer');
-    // console.log(this.stockBillContainer);
     // for (let i = 0 ; i < this.stockList.length ; i ++){
     //   this.stockList[i].isSet = false;
     // }
@@ -338,23 +332,19 @@ export class StockBillComponent implements OnInit {
 
   }
 
-  test(data){
-    console.log(data);
-  }
 
 
   removeFromStockBillEntry(item){
-    // console.log(this.billDetailsData);
     const index = this.billDetailsData.findIndex(x => x.id === item.id);
     const stockListIndex = this.stockList.findIndex(x => x.id === item.id);
     this.total92Gold = this.total92Gold - Number(item.total);
     this.totalGold = this.totalGold - Number(item.pure_gold);
     this.totalQuantity = this.totalQuantity - Number(item.quantity);
-    this.totalCost = this.totalCost - item.amount;
+    // this.totalCost = this.totalCost - item.amount;
+    this.originalCost = this.originalCost - item.amount;
 
     this.billDetailsData.splice(index, 1);
     this.stockList[stockListIndex].isSet = false;
-    // console.log(this.billDetailsData);
     this.stockBillContainer = {
         stockBillDetailsData: this.billDetailsData,
         stockBillCustomer: this.selectedCustomerData,
@@ -364,7 +354,6 @@ export class StockBillComponent implements OnInit {
   }
 
   stockBillGenerate(){
-    // console.log(this.billDetailsData);
     Swal.fire({
       title: 'Do you want to generate bill ?',
       text: 'Bill  will be generated',
@@ -398,6 +387,7 @@ export class StockBillComponent implements OnInit {
           this.stockBillContainer = null;
           this.storage.delete('stockBillContainer').subscribe();
           this.stockService.getUpdatedStockList();
+          this.billCreated = true;
         }
       });
     });
@@ -406,9 +396,9 @@ export class StockBillComponent implements OnInit {
 
   backBtn(){
     this.billView = true;
+    this.billCreated = false;
 
     this.tempStockList = this.stockList.filter(x => x.agent_id === this.selectedAgentData.id);
-    // console.log(this.selectedAgentData);
     // this.defaultAgentSelection();
     if (this.billMasterData.bill_number){
     //   window.location.href = '/stockBill';
@@ -423,9 +413,6 @@ export class StockBillComponent implements OnInit {
 
   }
   customerSelected(data){
-
-    console.log('test');
-    console.log(data);
     data.bill_date = this.selectedCustomerData.bill_date;
     this.selectedCustomerData = data;
     this.stockBillContainer = {
@@ -435,26 +422,16 @@ export class StockBillComponent implements OnInit {
     this.storage.set('stockBillContainer', this.stockBillContainer).subscribe(() => {
     });
     // this.storage.get('stockBillContainer').subscribe((stockBillContainer: any) => {
-    //   console.log('from customerSelected');
-    //   console.log(stockBillContainer.stockBillCustomer);
     // });
 
-    // console.log(this.stockBillContainer);
+
   }
 
   getStockListByAgentName(item){
 
     // this.stockList('false').fill();
-    // console.log("getStockListByAgentName");
-    // console.log(item);
-    // console.log("billDetailsData");
-    // console.log(this.billDetailsData);
-    // console.log('from getStockListByAgentName function');
-    // console.log(this.stockList);
     // this.selectedAgentData = item;
     this.tempStockList = this.stockList.filter(x => x.agent_id === item.id);
-    // console.log('from getStockListByAgentName function');
-    // console.log(this.tempStockList);
     // this.tempStockList = this.stockList.filter(x => x.agent_id === item);
     if (this.billDetailsData.length > 0){
       for(let i = 0; i < this.tempStockList.length; i++ ) {
@@ -476,22 +453,18 @@ export class StockBillComponent implements OnInit {
 
     // const date =  item.getFullYear() + '-' + parseInt(String(item.getMonth() + 1)) + '-' + item.getDate();
     const date =  this.date.getFullYear() + '-' + (this.date.getMonth() + 1) + '-' + this.date.getDate();
-    // console.log(this.selectedCustomerData.bill_date);
     this.selectedCustomerData.bill_date = date;
-    // console.log(this.selectedCustomerData.bill_date);
     this.stockBillContainer = {
       stockBillDetailsData: this.billDetailsData,
       stockBillCustomer: this.selectedCustomerData,
     };
     this.storage.set('stockBillContainer', this.stockBillContainer).subscribe(() => {
     });
-    // console.log(this.stockBillContainer);
-  // }
+    // }
   // testLoop(){
   //   this.billDetailsData.forEach(function(value){
   //     const index = this.tempStockList.findIndex(x => x.id === value.id);
-  //     console.log(index);
-  //   });
+    //   });
   }
   defaultAgentSelection(){
     // return this.agentData[0] ;
@@ -509,12 +482,15 @@ export class StockBillComponent implements OnInit {
     this.discountPercentage = this.stockBillContainer.stockBillCustomer.discount;
     this.totalCost =0;
     this.discount =0;
+    this.originalCost = 0;
     for(let i = 0; i < this.stockBillContainer.stockBillDetailsData.length; i++){
-      this.totalCost = this.totalCost + this.stockBillContainer.stockBillDetailsData[i].amount;
+      // this.totalCost = this.totalCost + this.stockBillContainer.stockBillDetailsData[i].amount;
+      this.originalCost = this.originalCost + this.stockBillContainer.stockBillDetailsData[i].amount;
     }
-    this.discount = (this.totalCost * this.discountPercentage)/100 ;
+    this.discount = (this.originalCost * this.discountPercentage)/100 ;
 
-    this.totalCost = this.totalCost - this.discount;
+    // this.totalCost = this.totalCost - this.discount;
+    this.totalCost = this.originalCost - this.discount;
 
   }
 }

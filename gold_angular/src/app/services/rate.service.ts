@@ -41,9 +41,7 @@ private rateSub = new Subject<Rate[]>();
 
     this.http.get(GlobalVariable.BASE_API_URL + '/getRates')
       .subscribe((response: {success: number, data: Rate[]}) => {
-        // console.log(response);
         const {data} = response;
-        // console.log(data);
         this.rateData = data;
         this.rateSub.next([...this.rateData]);
       });
