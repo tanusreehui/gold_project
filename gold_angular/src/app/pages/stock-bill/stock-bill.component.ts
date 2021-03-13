@@ -114,7 +114,7 @@ export class StockBillComponent implements OnInit {
 
         for (let i = 0; i < this.billDetailsData.length; i++ ){
           const index = this.stockList.findIndex(x => x.id === this.billDetailsData[i].id);
-          this.stockList[index].isSet = true;
+          // this.stockList[index].isSet = true;
           // this.stockList[i].total = Number(this.stockList[i].gold);
           // this.stockList[i].cost = this.stockList[i].amount;
 

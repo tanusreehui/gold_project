@@ -73,6 +73,7 @@ import { EmployeeStockComponent } from './pages/employee-stock/employee-stock.co
 import { FooterComponent } from './pages/footer/footer.component';
 import {NgSelectModule} from "@ng-select/ng-select";
 import { BilledJobListComponent } from './pages/completed-bill/billed-job-list/billed-job-list.component';
+import { ChatComponent } from './pages/chat/chat.component';
 
 
 
@@ -127,6 +128,7 @@ import { BilledJobListComponent } from './pages/completed-bill/billed-job-list/b
     EmployeeStockComponent,
     FooterComponent,
     BilledJobListComponent,
+    ChatComponent,
 
 
   ],

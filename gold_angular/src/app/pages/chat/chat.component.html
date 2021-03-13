@@ -1,0 +1,35 @@
+<div fxLayout.xs="column" fxLayout="row" fxLayoutAlign="space-between stretch" fxFlexFill id="product-div">
+  <div fxLayout="column" fxFlex="30" class="mr-1">
+  </div>
+  <div fxLayout="column" fxFlex="40" class="mr-1">
+    <mat-card  class="ml-2 mt-2" style="background-color: transparent">
+      <mat-card fxLayout="column" class="ml-2 mt-2"  fxFlex="35"  fxLayoutAlign = "right" style="background-color: #a6e0ff; overflow-y: auto; height: 60vh !important;">
+        <table class="table table-hover">
+          <tbody>
+          <tr [ngStyle]="getBackgroundColor(indexOfelement)"  *ngFor ="let item of  employeeList ; let indexOfelement = index;" (click)="getChats(item.id)">
+            <td *ngIf="item.id != userInfo.id">{{item.user_name}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </mat-card>
+      <mat-card  *ngIf="toPersonId" fxLayout="column" class="ml-2 mt-2"  fxFlex="65" style="background-color: #dddddd; overflow-y: scroll; height: 60vh !important; ">
+        <h2> Chat with {{toPerson.user_name}}</h2>
+        <table class="table" [hidden]="!isMessageShown">
+          <tbody>
+          <tr *ngFor ="let item of shownMessages" [ngClass]="{'left':item.person_id != userInfo.id , 'right':item.person_id === userInfo.id}">
+            <!--            <td>{{item.messages}}</td>-->
+            <td><p class="rounded" [ngClass]="{'green':item.person_id != userInfo.id}">{{item.messages}}</p></td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="d-flex" >
+          <input class="col-10" matInput placeholder="Enter Message" (click)="$event.stopPropagation();" [(ngModel)]="message">
+          <button class="col-2" mat-button (click)="$event.stopPropagation(); saveMessage();"><mat-icon>send</mat-icon></button>
+        </div>
+      </mat-card>
+
+    </mat-card>
+  </div>
+  <div fxLayout="column" fxFlex="30" class="mr-1">
+  </div>
+</div>

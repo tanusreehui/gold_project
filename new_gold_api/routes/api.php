@@ -149,6 +149,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 //    Route::get('/myTest', [CustomerController::class,'MyTest']);
     Route::get('/getEmployeeStock', [CustomerController::class,'getEmployeeStock']);
     Route::get('/getCustomerPassbook/{id}', [CustomerController::class,'CustomerTransactionTest']);
+    Route::get('getEmployees', [CustomerController::class,'getEmployees']);
 
     //order_detail
     Route::post('/orderDetails', [OrderDetailController::class,'fetchingDetails']);
@@ -165,10 +166,13 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     //Material TransactionMaster Controller
     Route::post('/saveTransaction',[MaterialController::class,'saveTransaction']);
-    Route::get('/getEmployees',[MaterialController::class,'getEmployees']);
+//    Route::get('/getEmployees',[MaterialController::class,'getEmployees']);
 
     //User Types Controller
     Route::get('/getUserTypes',[UserTypeController::class,'index']);
+
+    //User Controller
+//    Route::get('/getEmployees',[UserController::class,'getEmployees']);
 
 });
 
@@ -243,7 +247,7 @@ Route::group(array('prefix' => 'dev'), function() {
 
     //materials
     Route::get('/materials', [MaterialController::class,'getMaterials']);
-    Route::get('/orderMaterials', [MaterialController::class,'getOrderMaterials']);
+//    Route::get('/orderMaterials', [MaterialController::class,'getOrderMaterials']);
 
     //order_master
     Route::get('/orders', [OrderMasterController::class,'index']);

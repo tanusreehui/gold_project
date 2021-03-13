@@ -693,5 +693,13 @@ class CustomerController extends Controller
 
     }
 
+    function getEmployees(){
+        $result = Person::select('users.id','users.person_id','people.user_name')
+                  ->join('users','users.person_id','=','people.id')
+                  ->get();
+
+        return response()->json(['success'=>1,'data'=>$result], 200,[],JSON_NUMERIC_CHECK);
+    }
+
 
 }

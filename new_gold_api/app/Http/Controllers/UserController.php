@@ -72,4 +72,6 @@ class UserController extends Controller
         $result = $request->user()->currentAccessToken()->delete();
         return $result;
     }
+
+
 }
