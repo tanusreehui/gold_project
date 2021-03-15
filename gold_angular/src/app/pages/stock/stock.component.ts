@@ -179,11 +179,12 @@ export class StockComponent implements OnInit {
       confirmButtonText: 'Yes, save it!',
       cancelButtonText: 'No, cancel it'
     }).then((result) => {
-      if(result.value){
+      if (result.value){
         this.stockList = Array(parseInt(this.stockForm.value.division)).fill(this.stockForm.value);
         if (this.tempStock){
           this.stockList.push(this.tempStock);
         }
+        // @ts-ignore
         Swal.fire({
           title: 'Please Wait !',
           html: 'data saving',// add html attribute if you want or remove
@@ -193,9 +194,8 @@ export class StockComponent implements OnInit {
           //   Swal.showLoading();
           // },
           didOpen: () => {
-            Swal.showLoading()
+            Swal.showLoading();
           }
-
         });
 
         this.stockService.saveStock(this.stockList).subscribe((response: {success: number, data: Stock})  => {
