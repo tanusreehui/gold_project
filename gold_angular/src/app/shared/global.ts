@@ -5,12 +5,9 @@ import {fontWeight} from 'html2canvas/dist/types/css/property-descriptors/font-w
 export const GlobalVariable = Object.freeze({
   // local
   BASE_API_URL: 'http://127.0.0.1:8000/api',
-  BASE_API_URL_LOGIN: 'http://127.0.0.1:8000/api/user',
 
-  // bind
+  // build
   // BASE_API_URL: 'http://127.0.0.1/gold_project/new_gold_api/public/api',
-  // for login purpose
-  // BASE_API_URL_LOGIN: 'http://127.0.0.1/gold_project/new_gold_api/public/api/user',
 
   // ... more of your variables
 });

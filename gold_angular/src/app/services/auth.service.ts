@@ -66,7 +66,7 @@ export class AuthService {
   }
   login(loginData){
     // return this.http.post<AuthResponseData>('http://127.0.0.1:8000/api/user/login', loginData)
-    return this.http.post<AuthResponseData>(GlobalVariable.BASE_API_URL_LOGIN + '/login', loginData)
+    return this.http.post<AuthResponseData>(GlobalVariable.BASE_API_URL + '/login', loginData)
       .pipe(catchError(this.handleError), tap(resData => {
         // tslint:disable-next-line:max-line-length
           const user = new User(resData.user.id,
