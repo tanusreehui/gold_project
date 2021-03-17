@@ -549,10 +549,10 @@ export class OrderComponent implements OnInit {
         return true;
       }
     };
-    doc.fromHTML(DATA.innerHTML, 10, 10, {
-      width: 500,
-      elementHandlers: handleElement,
-    });
+    // doc.fromHTML(DATA.innerHTML, 10, 10, {
+    //   width: 500,
+    //   elementHandlers: handleElement,
+    // });
 
     doc.save('OrderList.pdf');
   }
