@@ -4,8 +4,7 @@ import {CustomerService} from '../../../services/customer.service';
 import {FormControl, Validators} from '@angular/forms';
 import * as XLSX from 'xlsx';
 import {ExcelService} from '../../../services/excel.service';
-
-import * as jsPDF from 'jspdf';
+import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
 import html2canvas from 'html2canvas';
 import {Observable} from 'rxjs';

@@ -18,7 +18,7 @@ import {ConfirmationDialogService} from '../../common/confirmation-dialog/confir
 import {map, startWith} from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import {ExcelService} from '../../services/excel.service';
-import * as jsPDF from 'jspdf';
+import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
 import {  ViewChild, ElementRef } from '@angular/core';
 import {ProductService} from '../../services/product.service';
