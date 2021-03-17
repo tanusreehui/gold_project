@@ -118,7 +118,7 @@ export class BillService {
   }
 
   getDetails(data){
-    return this.http.post<ProductResponseData>('http://127.0.0.1:8000/api/fetchingDetails', data)
+    return this.http.post<ProductResponseData>(GlobalVariable.BASE_API_URL + '/fetchingDetails', data)
       .subscribe((response: {success: number, data: OrderDetail[]})  => {
         const {data} = response;
         this.orderDetails = data;
@@ -128,7 +128,7 @@ export class BillService {
 
 
   getCompletedBIllDetails(data){
-    return this.http.post<ProductResponseData>('http://127.0.0.1:8000/api/getCompletedBIllDetails', data)
+    return this.http.post<ProductResponseData>(GlobalVariable.BASE_API_URL + '/getCompletedBIllDetails', data)
       .subscribe((response: {success: number, data: OrderDetail[]})  => {
         const {data} = response;
         this.completedBillOrderDetails = data;
@@ -137,7 +137,7 @@ export class BillService {
   }
 
   getFinishedJobData(data){
-    return this.http.post<ProductResponseData>('http://127.0.0.1:8000/api/getFinishedJobData', data)
+    return this.http.post<ProductResponseData>(GlobalVariable.BASE_API_URL + '/getFinishedJobData', data)
       .subscribe((response: {success: number, data: JobMaster[]})  => {
         const {data} = response;
         this.finishedJobData = data;
@@ -163,7 +163,7 @@ export class BillService {
 
 
   // showCompletedBills(data){
-  //   return this.http.get('http://127.0.0.1:8000/api/showCompletedBills/' + data)
+  //   return this.http.get(GlobalVariable.BASE_API_URL + '/showCompletedBills/' + data)
   //     .subscribe((response: {success: number, data: BillDetail[]})  => {
   //       this.showCompletedBillsData = response.data;
   //
@@ -184,7 +184,7 @@ export class BillService {
 
 
   getFinishedBillData(data){
-    return this.http.post<{success: number, data: JobMaster[]}>('http://127.0.0.1:8000/api/getFinishedBillData', data)
+    return this.http.post<{success: number, data: JobMaster[]}>(GlobalVariable.BASE_API_URL + '/getFinishedBillData', data)
       .subscribe((response: {success: number, data: JobMaster[]})  => {
         const {data} = response;
         this.finishedBillData = data;

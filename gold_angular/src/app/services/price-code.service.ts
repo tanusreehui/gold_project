@@ -3,6 +3,7 @@ import {PriceCode} from '../models/priceCode.model';
 import {Product} from '../models/product.model';
 import {Subject} from 'rxjs';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {GlobalVariable} from '../shared/global';
 
 export interface PriceCodeResponse{
   success: number;
@@ -17,7 +18,7 @@ export class PriceCodeService {
   priceCodeSubject = new Subject<PriceCode[]>();
 
   constructor(private http: HttpClient) {
-    this.http.get('http://127.0.0.1:8000/api/priceCodes')
+    this.http.get(GlobalVariable.BASE_API_URL + '/priceCodes')
       .subscribe((response: PriceCodeResponse) => {
         const {data} = response;
         this.priceCodes = data;

@@ -5,6 +5,7 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {catchError, tap} from 'rxjs/operators';
 import {Subject, throwError} from 'rxjs';
+import {GlobalVariable} from '../shared/global';
 
 
 export interface CustomerResponseData {
@@ -34,7 +35,7 @@ export class CustomerService implements OnDestroy{
     this.customerSub.next([...this.customerData]);
   }
   constructor(private http: HttpClient) {
-    this.http.get('http://127.0.0.1:8000/api/customers')
+    this.http.get(GlobalVariable.BASE_API_URL + '/customers')
       .subscribe((response: {success: number, data: Customer[]}) => {
         // @ts-ignore
         const {data} = response;
@@ -71,7 +72,7 @@ export class CustomerService implements OnDestroy{
 
 
   saveCustomer(customer){
-    return this.http.post<CustomerResponseData>('http://127.0.0.1:8000/api/customers', customer)
+    return this.http.post<CustomerResponseData>(GlobalVariable.BASE_API_URL + '/customers', customer)
       .pipe(tap((response: {success: number, data: Customer} ) => {
         this.customerData.unshift(response.data);
         // this.customerData.push(response.data);
@@ -79,7 +80,7 @@ export class CustomerService implements OnDestroy{
       }));
   }
   updateCustomer(customer){
-    return this.http.patch<CustomerResponseData>('http://127.0.0.1:8000/api/customers/' + customer.id, customer)
+    return this.http.patch<CustomerResponseData>(GlobalVariable.BASE_API_URL + '/customers/' + customer.id, customer)
       .pipe(catchError(this._serverError), tap((response: {success: number, data: Customer}) => {
         const index = this.customerData.findIndex(x => x.id === customer.id);
         this.customerData[index] = response.data;
@@ -88,7 +89,7 @@ export class CustomerService implements OnDestroy{
   }
 
   deleteCustomer(id){
-    return this.http.delete<{success: number, data: string}>('http://127.0.0.1:8000/api/customers/' + id)
+    return this.http.delete<{success: number, data: string}>(GlobalVariable.BASE_API_URL + '/customers/' + id)
       .pipe(catchError(this._serverError), tap((response: {success: number, data: string}) => {
        if (response.success === 1){
          const index = this.customerData.findIndex(x => x.id === id);

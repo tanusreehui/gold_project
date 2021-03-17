@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import { Subject, throwError} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {catchError, tap} from 'rxjs/operators';
+import {GlobalVariable} from '../shared/global';
 
 
 export interface ProductResponseData {
@@ -25,7 +26,7 @@ export class ProductService {
   }
 
   constructor(private http: HttpClient) {
-    this.http.get('http://127.0.0.1:8000/api/products')
+    this.http.get(GlobalVariable.BASE_API_URL + '/products')
       .subscribe((response: {success: number, data: Product[]}) => {
         const {data} = response;
         this.products = data;
@@ -55,7 +56,7 @@ export class ProductService {
   }
 
   saveProduct(product){
-    return this.http.post<ProductResponseData>('http://127.0.0.1:8000/api/products', product)
+    return this.http.post<ProductResponseData>(GlobalVariable.BASE_API_URL + '/products', product)
       .pipe(catchError(this.serverError), tap((response: {success: number, data: Product})  => {
         this.products.unshift(response.data);
 
@@ -64,7 +65,7 @@ export class ProductService {
   }
 
   updateProduct(product){
-    return this.http.patch<ProductResponseData>('http://127.0.0.1:8000/api/products' , product)
+    return this.http.patch<ProductResponseData>(GlobalVariable.BASE_API_URL + '/products' , product)
       .pipe(catchError(this.serverError), tap((response: {success: number, data: Product}) => {
         const index = this.products.findIndex(x => x.id === product.id);
         this.products[index] = response.data;
@@ -74,7 +75,7 @@ export class ProductService {
 
 
   deleteProduct(id){
-    return this.http.delete<{success: number, id: number}>('http://127.0.0.1:8000/api/products/' + id)
+    return this.http.delete<{success: number, id: number}>(GlobalVariable.BASE_API_URL + '/products/' + id)
       .pipe(catchError(this.serverError), tap((response: {success: number, id: number}) => {
         if (response.success === 1){
           const index = this.products.findIndex(x => x.id === id);

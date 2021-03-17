@@ -40,12 +40,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post("login",[UserController::class,'login']);
-Route::post("register",[UserController::class,'register']);
+//Route::post("register",[UserController::class,'register']);
 //Route::get("getAllUsers",[UserController::class,'getAllUsers']);
 
+Route::group(array('prefix' => 'user'), function() {
+    Route::post("login",[UserController::class,'login']);
+    Route::post("register",[UserController::class,'register']);
+    Route::get('/customers', [CustomerController::class,'index']);
+});
 
-
-Route::post("register",[UserController::class,'register']);
 
 Route::group(['middleware' => 'auth:sanctum'], function(){
     //All secure URL's

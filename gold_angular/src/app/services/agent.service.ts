@@ -63,7 +63,7 @@ export class AgentService {
       password : new FormControl(null)
     });
 
-    this.http.get('http://127.0.0.1:8000/api/agents')
+    this.http.get(GlobalVariable.BASE_API_URL + '/agents')
       .subscribe((response: {success: number, data: Agent[]}) => {
         // @ts-ignore
         const {data} = response;
@@ -88,7 +88,7 @@ export class AgentService {
 
 
   getLatestAgent(){
-    this.http.get('http://127.0.0.1:8000/api/agents')
+    this.http.get(GlobalVariable.BASE_API_URL + '/agents')
       .subscribe((response: {success: number, data: Agent[]}) => {
         // @ts-ignore
         const {data} = response;
@@ -114,7 +114,7 @@ export class AgentService {
 
 
   saveAgent(){
-    return this.http.post<AgentResponseData>('http://127.0.0.1:8000/api/agents', this.agentForm.value)
+    return this.http.post<AgentResponseData>(GlobalVariable.BASE_API_URL + '/agents', this.agentForm.value)
       .pipe(tap(((response: {success: number, data: Agent }) => {
            this.agentData.unshift(response.data);
            this.agentSub.next([...this.agentData]);
@@ -123,11 +123,11 @@ export class AgentService {
   }
 
   deleteAgent(id){
-    return this.http.delete<AgentResponseData>('http://127.0.0.1:8000/api/agents/' + id);
+    return this.http.delete<AgentResponseData>(GlobalVariable.BASE_API_URL + 'agents/' + id);
   }
 
   updateAgent(){
-    return this.http.patch<AgentResponseData>('http://127.0.0.1:8000/api/agents/' + this.agentForm.value.id, this.agentForm.value);
+    return this.http.patch<AgentResponseData>(GlobalVariable.BASE_API_URL + '/agents/' + this.agentForm.value.id, this.agentForm.value);
   }
   getAgentList(){
     return [...this.agentData];
