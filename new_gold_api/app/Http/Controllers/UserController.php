@@ -49,13 +49,16 @@ class UserController extends Controller
         }
 
         $token = $user->createToken('my-app-token')->plainTextToken;
+//        $token2 = $user->session()->token();
+
+//        $token2 = csrf_token();
         $data = Person::find($user->person_id)->userData;
 //        $response = [
 //            'user' => $user,
 //            'token' => $token
 //        ];
 //        return response()->json(['success'=>1,'data'=>$response, 'message'=>'Welcome'], 200,[],JSON_NUMERIC_CHECK);
-        return response()->json(['success'=>1,'user'=>$data, 'token'=>$token ,'message'=>'Welcome'], 200,[],JSON_NUMERIC_CHECK);
+        return response()->json(['success'=>1,'user'=>$data,'token'=>$token ,'message'=>'Welcome'], 200,[],JSON_NUMERIC_CHECK);
     }
 
 

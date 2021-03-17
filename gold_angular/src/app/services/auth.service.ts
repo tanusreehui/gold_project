@@ -9,6 +9,7 @@ import {GlobalVariable} from '../shared/global';
 import {Agent} from "../models/agent.model";
 import {FinishedJobs} from "../models/finishedJobs";
 import {Customer} from "../models/customer.model";
+import {url} from 'inspector';
 
 export interface AuthResponseData {
   token: string;
@@ -86,7 +87,8 @@ export class AuthService {
   logout(){
     this.user.next(null);
     localStorage.removeItem('user');
-    this.router.navigate(['/auth']);
+    this.router.navigate(['/']);
+    // this.router.navigate(['/auth']);
     location.reload();
   }
 

@@ -12,6 +12,7 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        //
+        'stripe/*',
+        'http://127.0.0.1/gold_project/new_gold_api/public/api/login',
     ];
 }
