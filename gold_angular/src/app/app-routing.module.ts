@@ -25,7 +25,7 @@ import {BillOrderDetailsComponent} from "./pages/bill/bill-order-details/bill-or
 import {BillJobMasterDetailsComponent} from './pages/bill/bill-job-master-details/bill-job-master-details.component';
 import {CompletedBillComponent} from "./pages/completed-bill/completed-bill.component";
 import {CompletedBillOrderDetailsComponent} from "./pages/completed-bill/completed-bill-order-details/completed-bill-order-details.component";
-import {CommonJsUsageWarnPlugin} from "@angular-devkit/build-angular/src/angular-cli-files/plugins/common-js-usage-warn-plugin";
+// import {CommonJsUsageWarnPlugin} from "@angular-devkit/build-angular/src/angular-cli-files/plugins/common-js-usage-warn-plugin";
 import {CompletedBillDetailsComponent} from "./pages/completed-bill/completed-bill-details/completed-bill-details.component";
 import {RateComponent} from './pages/rate/rate.component';
 import {StockComponent} from './pages/stock/stock.component';
