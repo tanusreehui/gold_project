@@ -20,6 +20,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isSalesManager = false;
   isAccountManager = false;
   isOfficeStaff = false;
+  isAgent = false;
+  isDeveloper = false;
+  isCustomer = false;
+  isKarigarh = false;
   router: Router;
   userInfo: User;
   messages: any;
@@ -40,6 +44,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.isSalesManager = user.isSalesManager;
         this.isAccountManager = user.isAccountManager;
         this.isOfficeStaff = user.isOfficeStaff;
+        this.isAgent = user.isAgent;
+        this.isDeveloper = user.isDeveloper;
+        this.isCustomer = user.isCustomer;
+        this.isKarigarh = user.isKarigarh;
       }else{
         this.isAuthenticated = false;
         this.isOwner = false;
@@ -49,6 +57,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.isSalesManager = false;
         this.isAccountManager = false;
         this.isOfficeStaff = false;
+        this.isAgent = false;
+        this.isDeveloper = false;
+        this.isCustomer = false;
+        this.isKarigarh = false;
       }
     });
     // this.authService.getMessageSubUpdateListener().subscribe((response)=>{

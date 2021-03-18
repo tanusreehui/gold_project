@@ -23,6 +23,7 @@ use App\Models\Material;
 use App\Models\Rate;
 use App\Models\ProductCategory;
 use App\Models\BillAdjustment;
+use App\Models\TransactionType;
 
 class DatabaseSeeder extends Seeder
 {
@@ -159,6 +160,11 @@ class DatabaseSeeder extends Seeder
         UserType::create(['user_type_name' => 'Developer']);
         UserType::create(['user_type_name' => 'Customer']);
         UserType::create(['user_type_name' => 'Karigarh']);
+
+        TransactionType::create(['transaction_type'=>'Inward']);
+        TransactionType::create(['transaction_type'=>'Outward']);
+        TransactionType::create(['transaction_type'=>'Transferred']);
+        TransactionType::create(['transaction_type'=>'Withdrawal']);
 
         //rates  table data
         //base Rate
