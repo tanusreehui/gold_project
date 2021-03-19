@@ -307,8 +307,21 @@ class DatabaseSeeder extends Seeder
 
 
         //people table data
-
+        //Owner- person id is 1
+        Person::create(['user_name'=>'Vivekananda Ghosh','mobile1'=>'9836444999','mobile2'=>'','user_type_id'=>1]);
+        //Counter Agent - person id is 2
         Person::create(['user_name'=>'Counter Agent','mobile1'=>'9836444451','mobile2'=>'','user_type_id'=>7]);
+        //number 1 & number 2 fixed..cant change them
+        Person::create(['user_name'=>'Arindam Ghosh','mobile1'=>'98364411221','mobile2'=>'','user_type_id'=>2]);
+        Person::create(['user_name'=>'Arindam Biswas','mobile1'=>'7003031560','mobile2'=>'','user_type_id'=>3]);
+        Person::create(['user_name'=>'Sameeran Majumdar','mobile1'=>'9830530463','mobile2'=>'','user_type_id'=>4]);
+        Person::create(['user_name'=>'Debaleena Hembram','mobile1'=>'9830530464','mobile2'=>'','user_type_id'=>5]);
+        Person::create(['user_name'=>'Pritam Nandi','mobile1'=>'9830530469','mobile2'=>'','user_type_id'=>6]);
+
+        Person::create(['user_name'=>'Riya Guha Choudhury','mobile1'=>'9830530462','mobile2'=>'','user_type_id'=>9]);
+        Person::create(['user_name'=>'Priyam Ghosh','mobile1'=>'9830530463','mobile2'=>'','user_type_id'=>9]);
+        Person::create(['user_name'=>'Sukanta Hui','mobile1'=>'9830530461','mobile2'=>'','user_type_id'=>9]);
+
         Person::create(['user_name'=>'Abishek Basak','mobile1'=>'9836444451','mobile2'=>'','user_type_id'=>7]);
         Person::create(['user_name'=>'Sudip Roy','mobile1'=>'9836444451','mobile2'=>'','user_type_id'=>7]);
         Person::create(['user_name'=>'Bijon Dey','mobile1'=>'9836444451','mobile2'=>'','user_type_id'=>7]);
@@ -331,13 +344,15 @@ class DatabaseSeeder extends Seeder
         Person::create(['user_name'=>'abcd Ghosh','mobile1'=>'9836444972','mobile2'=>'','user_type_id'=>11,'customer_category_id'=>3]);
         Person::create(['user_name'=>'ffgh Ghosh','mobile1'=>'9836444972','mobile2'=>'','user_type_id'=>11,'customer_category_id'=>3]);
 
-        User::create(['person_id'=>'1','email'=>'bangle@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
-        User::create(['person_id'=>'2','email'=>'bangle3@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
-        User::create(['person_id'=>'3','email'=>'bangle302@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
-        User::create(['person_id'=>'4','email'=>'bangle3022@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
-        User::create(['person_id'=>'5','email'=>'bangle3021@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
-        User::create(['person_id'=>'6','email'=>'bangle3025@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
-        User::create(['person_id'=>'7','email'=>'bangle3029@gmail.com','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
+        User::create(['person_id'=>'1','email'=>'bile','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
+        User::create(['person_id'=>'3','email'=>'papai','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
+        User::create(['person_id'=>'4','email'=>'guddu','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
+        User::create(['person_id'=>'5','email'=>'sameeran','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
+        User::create(['person_id'=>'6','email'=>'pritam','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
+        User::create(['person_id'=>'7','email'=>'riya','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
+        User::create(['person_id'=>'8','email'=>'priyam','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
+        User::create(['person_id'=>'9','email'=>'biju','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
+
 //        php artisan db:seed --class=ProductSeeder
     }
 }
