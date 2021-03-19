@@ -22,6 +22,7 @@ export class CustomerComponent implements OnInit {
   customerForm: FormGroup;
   customers: Customer[];
   customer: Customer;
+
   currentEerror: {status: number, message: string, statusText: string};
   showDeveloperDiv = true;
   // showLoginCredentials = true;
@@ -47,6 +48,7 @@ export class CustomerComponent implements OnInit {
        this.customers = response;
 
      });
+
   }
 
   onSubmit() {

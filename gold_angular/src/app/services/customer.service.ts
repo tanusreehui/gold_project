@@ -20,6 +20,7 @@ export class CustomerService implements OnDestroy{
   customerData: Customer[] = [];
   private customerSub = new Subject<Customer[]>();
   customerForm: FormGroup;
+  settingsInfo: any = {};
 
   getCustomers(){
     // when no data it will return null;
@@ -43,6 +44,10 @@ export class CustomerService implements OnDestroy{
         this.customerSub.next([...this.customerData]);
     });
 
+    this.http.get('assets/settings.json').subscribe((data: any) => {
+      this.settingsInfo = data;
+      this.customerForm.patchValue({mv : this.settingsInfo.mv});
+    });
 
     this.customerForm = new FormGroup({
       id : new FormControl(null),
@@ -61,11 +66,14 @@ export class CustomerService implements OnDestroy{
       pin : new FormControl(null, [Validators.pattern('^[0-9]*$'), Validators.maxLength(6)]),
       opening_balance_LC : new FormControl(0),
       opening_balance_Gold : new FormControl(0),
-      mv : new FormControl(0),
+      mv : new FormControl(this.settingsInfo.mv),
       discount : new FormControl(0),
       // email : new FormControl(null),
       // password : new FormControl(null)
     });
+
+
+
 
   } // End of Controller
 
