@@ -143,51 +143,51 @@
       </div>
       <button mat-button mat-raised-button *ngIf="isAuthenticated" (click)="logout()">Logout</button>
       <div>
-<!--          <button  mat-button>-->
-<!--            <mat-icon *ngIf="deviceXs">more_vert</mat-icon>-->
-<!--            <span *ngIf="!deviceXs">Menu</span>-->
-<!--          </button>-->
+          <button  mat-button>
+            <mat-icon *ngIf="deviceXs">more_vert</mat-icon>
+            <span *ngIf="!deviceXs">Menu</span>
+          </button>
 <!--        <button  mat-button>-->
 <!--          <mat-icon *ngIf="deviceXs">more_vert</mat-icon>-->
 <!--          <span *ngIf="!deviceXs">Chat With Us</span>-->
 <!--          [routerLink]="['/chat']"-->
 <!--          <mat-icon> chat</mat-icon>-->
 <!--        </button>-->
-<!--        <button mat-button mat-raised-button  [matMenuTriggerFor]="chat" [routerLink]="['/chat']">Chat With Us-->
-<!--          <mat-icon> chat</mat-icon></button>-->
-<!--      </div>-->
-<!--      <div>-->
-<!--        <mat-menu #chat="matMenu" style="width: 100% !important;padding: 10px ;">-->
-<!--&lt;!&ndash;        <div style="line-height: 4vh">&ndash;&gt;-->
-<!--          <label style="text-align: center"><b>{{userInfo.userName}}</b></label><br>-->
-
-<!--&lt;!&ndash;          <table class="table m-3 container-fluid" id="my-table" style="background-color: yellowgreen ;width: 100% !important; overflow-x: hidden ;overflow-y: scroll; line-height: 4vh; justify-content: end">&ndash;&gt;-->
-<!--&lt;!&ndash;            <tbody *ngFor="let message of messages" (click)="$event.stopPropagation();">&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;            <tr style="margin: 0px"> Customer Name: {{message.customer_name}}&ndash;&gt;&ndash;&gt;-->
-
-
-<!--&lt;!&ndash;              &lt;!&ndash;          <td>Customer Name: {{message.customer_name}}</td>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;              &lt;!&ndash;            <td>Message: {{message.messages}}</td>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;               <tr style="margin: 0px">{{message.customer_name}}&ndash;&gt;-->
-<!--&lt;!&ndash;            </tr>&ndash;&gt;-->
-<!--&lt;!&ndash;            <tr style="margin: 0px">&ndash;&gt;-->
-<!--&lt;!&ndash;              Message: {{message.messages}}&ndash;&gt;-->
-<!--&lt;!&ndash;            </tr><br>&ndash;&gt;-->
-<!--&lt;!&ndash;            </tbody>&ndash;&gt;-->
-<!--&lt;!&ndash;          </table>&ndash;&gt;-->
-<!--&lt;!&ndash;        </div>&ndash;&gt;-->
-<!--          <mat-form-field class="example-full-width" fxFlex="100">-->
-<!--            <mat-label>Enter Message </mat-label>-->
-<!--            <input matInput placeholder="Enter Message" (click)="$event.stopPropagation();" [(ngModel)]="message">-->
-<!--          </mat-form-field>-->
-<!--          <button mat-button mat-raised-button  (click)="$event.stopPropagation(); saveMessage();"><mat-icon>send</mat-icon></button>-->
-<!--&lt;!&ndash;        </div>&ndash;&gt;-->
-<!--        </mat-menu>-->
-
-<!--      </div>-->
-        <button mat-button mat-raised-button   [routerLink]="['/chat']">Chat With Us
+        <button mat-button mat-raised-button  [matMenuTriggerFor]="chat">Chat With Us
           <mat-icon> chat</mat-icon></button>
       </div>
+      <div>
+        <mat-menu #chat="matMenu" style="width: 100% !important;padding: 10px ;">
+<!--        <div style="line-height: 4vh">-->
+          <label style="text-align: center"><b>{{userInfo.userName}}</b></label><br>
+
+          <table class="table m-3 container-fluid" id="my-table" style="background-color: yellowgreen ;width: 100% !important; overflow-x: hidden ;overflow-y: scroll; line-height: 4vh; justify-content: end">
+            <tbody *ngFor="let message of messages" (click)="$event.stopPropagation();">
+<!--            <tr style="margin: 0px"> Customer Name: {{message.customer_name}}-->
+
+
+              <!--          <td>Customer Name: {{message.customer_name}}</td>-->
+              <!--            <td>Message: {{message.messages}}</td>-->
+<tr style="margin: 0px"><b>{{message.customer_name}}</b>
+            </tr>
+            <tr style="margin: 0px">
+             <b>Message: </b>  {{message.messages}}
+            </tr><br>
+            </tbody>
+          </table>
+<!--        </div>-->
+          <mat-form-field class="example-full-width" fxFlex="100">
+            <mat-label>Enter Message </mat-label>
+            <input matInput placeholder="Enter Message" (click)="$event.stopPropagation();" [(ngModel)]="message">
+          </mat-form-field>
+          <button mat-button mat-raised-button  (click)="$event.stopPropagation(); saveMessage();"><mat-icon>send</mat-icon></button>
+<!--        </div>-->
+        </mat-menu>
+
+      </div>
+<!--        <button mat-button mat-raised-button   [routerLink]="['/chat']">Chat With Us-->
+<!--          <mat-icon> chat</mat-icon></button>-->
+<!--      </div>-->
 
     </mat-toolbar-row>
 
