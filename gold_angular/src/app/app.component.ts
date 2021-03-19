@@ -7,6 +7,7 @@ import { faBaby } from '@fortawesome/free-solid-svg-icons';
 import { MediaObserver, MediaChange } from '@angular/flex-layout';
 import { Subscription } from 'rxjs';
 import {AuthService} from './services/auth.service';
+import {CommonService} from './services/common.service';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +23,7 @@ export class AppComponent implements OnInit, OnDestroy{
   faBaby = faBaby;
   mediaSub: Subscription;
   deviceXs: boolean;
-  constructor(public mediaObserver: MediaObserver, private authService: AuthService){
+  constructor(public mediaObserver: MediaObserver, private authService: AuthService, private commonService: CommonService){
   }
   ngOnInit(): void {
       this.mediaSub = this.mediaObserver.media$.subscribe(
