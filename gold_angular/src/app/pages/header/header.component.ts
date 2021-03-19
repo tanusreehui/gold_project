@@ -85,9 +85,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   getChats(){
-      // this.authService.getMessageSubUpdateListener().subscribe((response)=> {
-      // });
-    // this.authService.getChats(item);
+      this.authService.getMessageSubUpdateListener().subscribe((response)=> {
+      });
+    this.authService.getChats();
   }
 
   ngOnDestroy(): void {
