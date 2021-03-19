@@ -35,6 +35,7 @@
     "alasql-angular": "0.0.19",
     "angular-number-to-text": "^1.0.2",
     "bootstrap": "^4.4.1",
+    "core-js": "^3.9.1",
     "exceljs": "^4.2.1",
     "file-saver": "^2.0.2",
     "html2canvas": "^1.0.0-rc.5",
