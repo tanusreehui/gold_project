@@ -7,7 +7,8 @@ export const GlobalVariable = Object.freeze({
   // BASE_API_URL: 'http://127.0.0.1:8000/api',
 
   // build
-  BASE_API_URL: 'http://127.0.0.1/gold_project/new_gold_api/public/api',
+  // BASE_API_URL: 'http://127.0.0.1/gold_project/new_gold_api/public/api',
+  BASE_API_URL: window.location.origin + '/gold_project/new_gold_api/public/api',
 
   // ... more of your variables
 });

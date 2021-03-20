@@ -10,7 +10,7 @@ export class CommonService {
   constructor() {
     this.currentURL = window.location.href;
     this.BASE_API_URL = window.location.origin + '/gold_project/new_gold_api/public/api';
-    console.log(this.BASE_API_URL);
-    console.log(window.location);
+    // console.log(this.BASE_API_URL);
+    // console.log(window.location);
   }
 }

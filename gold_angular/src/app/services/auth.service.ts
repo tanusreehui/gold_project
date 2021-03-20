@@ -10,6 +10,7 @@ import {Agent} from "../models/agent.model";
 import {FinishedJobs} from "../models/finishedJobs";
 import {Customer} from "../models/customer.model";
 import {url} from 'inspector';
+import {CommonService} from "./common.service";
 
 export interface AuthResponseData {
   token: string;
@@ -41,6 +42,7 @@ export class AuthService {
 
     //     this.messageSub.next([...this.message]);
     //   });
+    // console.log(GlobalVariable.BASE_API_URL);
   }
   isAuthenticated() {
     if (this.user.value) {
