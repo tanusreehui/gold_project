@@ -6,6 +6,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {catchError, tap} from 'rxjs/operators';
 import {Subject, throwError} from 'rxjs';
 import {GlobalVariable} from '../shared/global';
+import {CommonService} from "./common.service";
 
 
 export interface CustomerResponseData {
@@ -35,7 +36,7 @@ export class CustomerService implements OnDestroy{
     this.customerData.push(tempCustomer);
     this.customerSub.next([...this.customerData]);
   }
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private commonService: CommonService) {
     this.http.get(GlobalVariable.BASE_API_URL + '/customers')
       .subscribe((response: {success: number, data: Customer[]}) => {
         // @ts-ignore
@@ -44,10 +45,12 @@ export class CustomerService implements OnDestroy{
         this.customerSub.next([...this.customerData]);
     });
 
-    this.http.get('assets/settings.json').subscribe((data: any) => {
-      this.settingsInfo = data;
-      this.customerForm.patchValue({mv : this.settingsInfo.mv});
-    });
+    // this.http.get('assets/settings.json').subscribe((data: any) => {
+    //   this.settingsInfo = data;
+    //   this.customerForm.patchValue({mv : this.settingsInfo.mv});
+    // });
+
+    // console.log(this.commonService.getDefaultMV());
 
     this.customerForm = new FormGroup({
       id : new FormControl(null),
@@ -72,7 +75,7 @@ export class CustomerService implements OnDestroy{
       // password : new FormControl(null)
     });
 
-
+    this.customerForm.patchValue({mv : this.commonService.getDefaultMV()});
 
 
   } // End of Controller
