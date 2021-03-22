@@ -10,6 +10,9 @@ import {Observable} from 'rxjs';
 import {AuthResponseData} from '../../services/auth.service';
 import Swal from 'sweetalert2';
 import {Md5} from 'ts-md5';
+import {CommonService} from '../../services/common.service';
+import {CustomerCategoryService} from '../../services/customer-category.service';
+import {CustomerCategory} from '../../models/customerCategory.model';
 
 // @ts-ignore
 @Component({
@@ -22,13 +25,24 @@ export class CustomerComponent implements OnInit {
   customerForm: FormGroup;
   customers: Customer[];
   customer: Customer;
+  settingsInfo: any;
+  customerCategoryList: CustomerCategory[];
 
   currentEerror: {status: number, message: string, statusText: string};
   showDeveloperDiv = true;
   // showLoginCredentials = true;
 
-  constructor(public customerService: CustomerService, private http: HttpClient, private _snackBar: MatSnackBar) {
+  constructor(public customerService: CustomerService, private commonService: CommonService, private http: HttpClient, private _snackBar: MatSnackBar, private customerCategoryService: CustomerCategoryService) {
     this.showDeveloperDiv = false;
+    this.customerForm = this.customerService.customerForm;
+
+    this.http.get('assets/settings.json').subscribe((data: any) => {
+      // console.log(data);
+      this.settingsInfo = data;
+      // console.log(this.settingsInfo.mv);
+      this.customerForm.patchValue({mv : this.settingsInfo.mv});
+    });
+    this.customerCategoryList = this.customerCategoryService.getCustomerCategory();
 
   }
 
@@ -43,10 +57,20 @@ export class CustomerComponent implements OnInit {
     // this.showLoginCredentials = true;
 
      // this.customers = this.customerService.getCustomers();
-     this.customerForm = this.customerService.customerForm;
-     this.customerService.getCustomerUpdateListener().subscribe((response)=>{
-       this.customers = response;
+     // this.customerForm = this.customerService.customerForm;
 
+
+     // this.commonService.getSettingsUpdateListener().subscribe((response) => {
+     //   console.log('test customer component');
+     //   console.log(response);
+     // });
+     // this.customerForm.patchValue({mv : this.settingsInfo.mv});
+     // console.log(this.commonService.getDefaultMV());
+     this.customerService.getCustomerUpdateListener().subscribe((response) => {
+       this.customers = response;
+     });
+     this.customerCategoryService.getCustomerCategoryUpdateListener().subscribe((response) => {
+       this.customerCategoryList = response;
      });
 
   }
@@ -70,6 +94,8 @@ export class CustomerComponent implements OnInit {
           'success'
         );
         this.customerForm.reset();
+        // this.customerForm = this.customerService.customerForm;
+        this.customerForm.patchValue({state: 'West Bengal', mv: this.settingsInfo.mv});
         // this.customers.unshift(response.data);
       }
     });

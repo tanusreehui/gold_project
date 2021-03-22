@@ -17,7 +17,7 @@
       <tr>
         <th>ID</th>
         <th>Name</th>
-        <th>Email</th>
+<!--        <th>Email</th>-->
         <th>Mobile</th>
         <th>City</th>
         <th>Action</th>
@@ -27,7 +27,7 @@
       <tr *ngFor="let customer of customerData | filter:searchTerm | paginate: { itemsPerPage: pageSize, currentPage: p }">
         <td>{{customer.id}}</td>
         <td sortable-column="user_name">{{customer.user_name}}</td>
-        <td>{{customer.email}}</td>
+<!--        <td>{{customer.email}}</td>-->
         <td>{{customer.mobile1}}</td>
         <td>{{customer.city}}</td>
         <td>

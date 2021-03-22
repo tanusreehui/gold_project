@@ -13,6 +13,7 @@ class Person extends Model
     ];
     protected $visible = ['id',
         'user_name',
+        'billing_name',
         'email',
         'mobile1',
         'mobile2',

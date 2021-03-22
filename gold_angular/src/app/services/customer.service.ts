@@ -19,6 +19,7 @@ export interface CustomerResponseData {
 })
 export class CustomerService implements OnDestroy{
   customerData: Customer[] = [];
+  // mv: number;
   private customerSub = new Subject<Customer[]>();
   customerForm: FormGroup;
   settingsInfo: any = {};
@@ -45,6 +46,9 @@ export class CustomerService implements OnDestroy{
         this.customerSub.next([...this.customerData]);
     });
 
+    // this.mv = 0;
+    // this.mv =  [...this.commonService.getDefaultMV()];
+    // this.mv =  this.commonService.getDefaultMV();
     // this.http.get('assets/settings.json').subscribe((data: any) => {
     //   this.settingsInfo = data;
     //   this.customerForm.patchValue({mv : this.settingsInfo.mv});
@@ -55,11 +59,12 @@ export class CustomerService implements OnDestroy{
     this.customerForm = new FormGroup({
       id : new FormControl(null),
       user_name : new FormControl(null, [Validators.required, Validators.maxLength(20), Validators.minLength(4)]),
+      billing_name : new FormControl(null, [Validators.required, Validators.maxLength(20), Validators.minLength(4)]),
       // email : new FormControl(null, [Validators.required, Validators.email]),
-      mobile1 : new FormControl('+91', [Validators.maxLength(13)]),
-      mobile2 : new FormControl('+91', [Validators.maxLength(13)]),
+      mobile1 : new FormControl('+91', [Validators.required, Validators.maxLength(13)]),
+      mobile2 : new FormControl('+91', [Validators.required, Validators.maxLength(13)]),
       user_type_id : new FormControl(10),
-      customer_category_id : new FormControl(2),
+      customer_category_id : new FormControl(2, [Validators.required]),
       address1 : new FormControl(null),
       address2 : new FormControl(null),
       state : new FormControl('West Bengal'),
@@ -69,13 +74,14 @@ export class CustomerService implements OnDestroy{
       pin : new FormControl(null, [Validators.pattern('^[0-9]*$'), Validators.maxLength(6)]),
       opening_balance_LC : new FormControl(0),
       opening_balance_Gold : new FormControl(0),
-      mv : new FormControl(this.settingsInfo.mv),
+      mv : new FormControl(),
       discount : new FormControl(0),
       // email : new FormControl(null),
       // password : new FormControl(null)
     });
+    // console.log(this.mv);
 
-    this.customerForm.patchValue({mv : this.commonService.getDefaultMV()});
+    // this.customerForm.patchValue({mv : this.commonService.getDefaultMV()});
 
 
   } // End of Controller

@@ -92,9 +92,11 @@ class CustomerController extends Controller
 ////        return $request;
         $customer = new Person();
         $customer->user_name = $request->input('user_name');
+        $customer->billing_name = $request->input('billing_name');
 //        $customer->email = $request->input('email');
 //        $customer->password = "81dc9bdb52d04dc20036dbd8313ed055";
-        $customer->user_type_id = $request->input('user_type_id');
+//        $customer->user_type_id = $request->input('user_type_id');
+        $customer->user_type_id = 10;
         $customer->customer_category_id = $request->input('customer_category_id');
         $customer->mobile1 = $request->input('mobile1');
         $customer->mobile2 = $request->input('mobile2');
@@ -105,10 +107,20 @@ class CustomerController extends Controller
         $customer->area = $request->input('area');
         $customer->city = $request->input('city');
         $customer->pin = $request->input('pin');
-        $customer->opening_balance_LC = $request->input('opening_balance_LC');
-        $customer->opening_balance_Gold = $request->input('opening_balance_Gold');
+
+        if ($request->input('opening_balance_LC')) {
+            $customer->opening_balance_LC = $request->input('opening_balance_LC');
+        }
+
+        if ($request->input('opening_balance_Gold')) {
+            $customer->opening_balance_Gold = $request->input('opening_balance_Gold');
+        }
+
         $customer->mv = $request->input('mv');
-        $customer->discount =$request->input('discount') ;
+        
+        if ($request->input('discount')) {
+            $customer->discount = $request->input('discount');
+        }
 
 //        if ($request->input('mv')) {
 //        $customer->mv = $request->input('mv');
@@ -140,6 +152,9 @@ class CustomerController extends Controller
         $customer = Person::find($id);
         if ($request->input('user_name')) {
             $customer->user_name = $request->input('user_name');
+        }
+        if ($request->input('billing_name')) {
+            $customer->billing_name = $request->input('billing_name');
         }
         if ($request->input('email')) {
             $customer->email = $request->input('email');

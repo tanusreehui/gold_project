@@ -308,41 +308,41 @@ class DatabaseSeeder extends Seeder
 
         //people table data
         //Owner- person id is 1
-        Person::create(['user_name'=>'Vivekananda Ghosh','mobile1'=>'9836444999','mobile2'=>'','user_type_id'=>1]);
+        Person::create(['user_name'=>'Vivekananda Ghosh','billing_name'=>' ','mobile1'=>'9836444999','mobile2'=>'','user_type_id'=>1]);
         //Counter Agent - person id is 2
-        Person::create(['user_name'=>'Counter Agent','mobile1'=>'9836444451','mobile2'=>'','user_type_id'=>7]);
+        Person::create(['user_name'=>'Counter Agent','billing_name'=>' ','mobile1'=>'9836444451','mobile2'=>'','user_type_id'=>7]);
         //number 1 & number 2 fixed..cant change them
-        Person::create(['user_name'=>'Arindam Ghosh','mobile1'=>'98364411221','mobile2'=>'','user_type_id'=>2]);
-        Person::create(['user_name'=>'Arindam Biswas','mobile1'=>'7003031560','mobile2'=>'','user_type_id'=>3]);
-        Person::create(['user_name'=>'Sameeran Majumdar','mobile1'=>'9830530463','mobile2'=>'','user_type_id'=>4]);
-        Person::create(['user_name'=>'Debaleena Hembram','mobile1'=>'9830530464','mobile2'=>'','user_type_id'=>5]);
-        Person::create(['user_name'=>'Pritam Nandi','mobile1'=>'9830530469','mobile2'=>'','user_type_id'=>6]);
+        Person::create(['user_name'=>'Arindam Ghosh','billing_name'=>' ','mobile1'=>'98364411221','mobile2'=>'','user_type_id'=>2]);
+        Person::create(['user_name'=>'Arindam Biswas','billing_name'=>' ','mobile1'=>'7003031560','mobile2'=>'','user_type_id'=>3]);
+        Person::create(['user_name'=>'Sameeran Majumdar','billing_name'=>' ','mobile1'=>'9830530463','mobile2'=>'','user_type_id'=>4]);
+        Person::create(['user_name'=>'Debaleena Hembram','billing_name'=>' ','mobile1'=>'9830530464','mobile2'=>'','user_type_id'=>5]);
+        Person::create(['user_name'=>'Pritam Nandi','billing_name'=>' ','mobile1'=>'9830530469','mobile2'=>'','user_type_id'=>6]);
 
-        Person::create(['user_name'=>'Riya Guha Choudhury','mobile1'=>'9830530462','mobile2'=>'','user_type_id'=>9]);
-        Person::create(['user_name'=>'Priyam Ghosh','mobile1'=>'9830530463','mobile2'=>'','user_type_id'=>9]);
-        Person::create(['user_name'=>'Sukanta Hui','mobile1'=>'9830530461','mobile2'=>'','user_type_id'=>9]);
+        Person::create(['user_name'=>'Riya Guha Choudhury','billing_name'=>' ','mobile1'=>'9830530462','mobile2'=>'','user_type_id'=>9]);
+        Person::create(['user_name'=>'Priyam Ghosh','billing_name'=>' ','mobile1'=>'9830530463','mobile2'=>'','user_type_id'=>9]);
+        Person::create(['user_name'=>'Sukanta Hui','billing_name'=>' ','mobile1'=>'9830530461','mobile2'=>'','user_type_id'=>9]);
 
-        Person::create(['user_name'=>'Abishek Basak','mobile1'=>'9836444451','mobile2'=>'','user_type_id'=>7]);
-        Person::create(['user_name'=>'Sudip Roy','mobile1'=>'9836444451','mobile2'=>'','user_type_id'=>7]);
-        Person::create(['user_name'=>'Bijon Dey','mobile1'=>'9836444451','mobile2'=>'','user_type_id'=>7]);
+        Person::create(['user_name'=>'Abishek Basak','billing_name'=>' ','mobile1'=>'9836444451','mobile2'=>'','user_type_id'=>7]);
+        Person::create(['user_name'=>'Sudip Roy','billing_name'=>' ','mobile1'=>'9836444451','mobile2'=>'','user_type_id'=>7]);
+        Person::create(['user_name'=>'Bijon Dey','billing_name'=>' ','mobile1'=>'9836444451','mobile2'=>'','user_type_id'=>7]);
 
 
-        Person::create(['user_name'=>'Rik Roy','mobile1'=>'9836444451','mobile2'=>'','user_type_id'=>2]);
-        Person::create(['user_name'=>'Abijit Basak','mobile1'=>'9836444451','mobile2'=>'','user_type_id'=>3]);
-        Person::create(['user_name'=>'Sudipto Roy','mobile1'=>'9836444451','mobile2'=>'','user_type_id'=>4]);
-        Person::create(['user_name'=>'Bijit Dey','mobile1'=>'9836444451','mobile2'=>'','user_type_id'=>5]);
-        Person::create(['user_name'=>'Prodip Ghosh','mobile1'=>'9836444785','mobile2'=>'','user_type_id'=>6]);
+        Person::create(['user_name'=>'Rik Roy','billing_name'=>' ','mobile1'=>'9836444451','mobile2'=>'','user_type_id'=>2]);
+        Person::create(['user_name'=>'Abijit Basak','billing_name'=>' ','mobile1'=>'9836444451','mobile2'=>'','user_type_id'=>3]);
+        Person::create(['user_name'=>'Sudipto Roy','billing_name'=>' ','mobile1'=>'9836444451','mobile2'=>'','user_type_id'=>4]);
+        Person::create(['user_name'=>'Bijit Dey','billing_name'=>' ','mobile1'=>'9836444451','mobile2'=>'','user_type_id'=>5]);
+        Person::create(['user_name'=>'Prodip Ghosh','billing_name'=>' ','mobile1'=>'9836444785','mobile2'=>'','user_type_id'=>6]);
 
-        Person::create(['user_name'=>'Pushpendu Roy','mobile1'=>'9836444426','mobile2'=>'','user_type_id'=>8]);
-        Person::create(['user_name'=>'Pushpendu Ghosh','mobile1'=>'9836444785','mobile2'=>'','user_type_id'=>10,'customer_category_id'=>2]);
+        Person::create(['user_name'=>'Pushpendu Roy','billing_name'=>' ','mobile1'=>'9836444426','mobile2'=>'','user_type_id'=>8]);
+        Person::create(['user_name'=>'Pushpendu Ghosh','billing_name'=>' ','mobile1'=>'9836444785','mobile2'=>'','user_type_id'=>10,'customer_category_id'=>2]);
 
-        Person::create(['user_name'=>'Joy Ghosh','mobile1'=>'9836444972','mobile2'=>'','user_type_id'=>10,'customer_category_id'=>3]);
-        Person::create(['user_name'=>'Erik Ghosh','mobile1'=>'9836444972','mobile2'=>'','user_type_id'=>10,'customer_category_id'=>3]);
-        Person::create(['user_name'=>'Tuhin Ghosh','mobile1'=>'9836444972','mobile2'=>'','user_type_id'=>8,'customer_category_id'=>3]);
+        Person::create(['user_name'=>'Joy Ghosh','billing_name'=>' ','mobile1'=>'9836444972','mobile2'=>'','user_type_id'=>10,'customer_category_id'=>3]);
+        Person::create(['user_name'=>'Erik Ghosh','billing_name'=>' ','mobile1'=>'9836444972','mobile2'=>'','user_type_id'=>10,'customer_category_id'=>3]);
+        Person::create(['user_name'=>'Tuhin Ghosh','billing_name'=>' ','mobile1'=>'9836444972','mobile2'=>'','user_type_id'=>8,'customer_category_id'=>3]);
 
-        Person::create(['user_name'=>'kk Ghosh','mobile1'=>'9836444972','mobile2'=>'','user_type_id'=>8,'customer_category_id'=>3]);
-        Person::create(['user_name'=>'abcd Ghosh','mobile1'=>'9836444972','mobile2'=>'','user_type_id'=>11,'customer_category_id'=>3]);
-        Person::create(['user_name'=>'ffgh Ghosh','mobile1'=>'9836444972','mobile2'=>'','user_type_id'=>11,'customer_category_id'=>3]);
+        Person::create(['user_name'=>'kk Ghosh','billing_name'=>' ','mobile1'=>'9836444972','mobile2'=>'','user_type_id'=>8,'customer_category_id'=>3]);
+        Person::create(['user_name'=>'abcd Ghosh','billing_name'=>' ','mobile1'=>'9836444972','mobile2'=>'','user_type_id'=>11,'customer_category_id'=>3]);
+        Person::create(['user_name'=>'ffgh Ghosh','billing_name'=>' ','mobile1'=>'9836444972','mobile2'=>'','user_type_id'=>11,'customer_category_id'=>3]);
 
         User::create(['person_id'=>'1','email'=>'bile','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
         User::create(['person_id'=>'3','email'=>'papai','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
