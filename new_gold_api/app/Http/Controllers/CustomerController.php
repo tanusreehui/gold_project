@@ -117,7 +117,7 @@ class CustomerController extends Controller
         }
 
         $customer->mv = $request->input('mv');
-        
+
         if ($request->input('discount')) {
             $customer->discount = $request->input('discount');
         }
@@ -270,7 +270,7 @@ class CustomerController extends Controller
     public function getFinishedJobData(Request $request)
     {
         $input = ($request->json()->all());
-        $data = JobMaster::select(DB::raw('order_masters.id as order_master_id'),'rates.price','products.model_number', DB::raw('karigarh.user_name as karigarh_name'), DB::raw('people.id as customer_id'), DB::raw('karigarh.id as karigarh_id'),'people.mv','people.customer_category_id', 'order_masters.order_number', 'order_masters.date_of_order', 'order_masters.agent_id','job_masters.gross_weight', 'products.model_number', 'order_details.size', 'order_details.quantity','order_details.material_id', 'order_details.price','order_details.discount','order_masters.date_of_order', 'job_masters.job_number', 'people.user_name', 'people.address1', 'people.mobile1', 'people.state', 'people.po', 'people.area', 'people.city', 'people.pin', 'job_masters.id','job_masters.status_id', DB::raw("if(job_masters.status_id = 100,'COMPLETED',if(job_masters.status_id = 102,'STOCK CREATED','WORK IN PROGRESS')) as status"))
+        $data = JobMaster::select(DB::raw('order_masters.id as order_master_id'),'rates.price','products.model_number', DB::raw('karigarh.user_name as karigarh_name'), DB::raw('people.id as customer_id'), DB::raw('karigarh.id as karigarh_id'),'people.mv','people.customer_category_id', 'order_masters.order_number', 'order_masters.date_of_order', 'order_masters.agent_id','job_masters.gross_weight', 'products.model_number', 'order_details.size', 'order_details.quantity','order_details.material_id', 'order_details.price','order_details.discount','order_masters.date_of_order', 'job_masters.job_number', 'people.user_name','people.billing_name', 'people.address1', 'people.mobile1', 'people.state', 'people.po', 'people.area', 'people.city', 'people.pin', 'job_masters.id','job_masters.status_id', DB::raw("if(job_masters.status_id = 100,'COMPLETED',if(job_masters.status_id = 102,'STOCK CREATED','WORK IN PROGRESS')) as status"))
             ->join('people as karigarh', 'job_masters.karigarh_id', '=', 'karigarh.id')
             ->join('order_details', 'job_masters.order_details_id', '=', 'order_details.id')
             ->join('order_masters', 'order_details.order_master_id', '=', 'order_masters.id')
@@ -375,7 +375,7 @@ class CustomerController extends Controller
             ,'bill_details.model_number','bill_details.size','bill_details.gross_weight','bill_details.material_id',
             'bill_details.ginnie','bill_details.rate','bill_details.pure_gold','bill_details.quantity','bill_details.mv'
             ,'bill_masters.bill_number','bill_masters.bill_date','bill_masters.order_master_id','bill_masters.agent_id'
-            ,'order_details.discount',DB::raw("bill_masters.discount as discount_amount"),'job_masters.job_number','people.user_name','people.address1','people.address2'
+            ,'order_details.discount',DB::raw("bill_masters.discount as discount_amount"),'job_masters.job_number','people.user_name','people.billing_name','people.address1','people.address2'
             ,'people.state','people.po','people.area','people.city','people.pin','order_masters.date_of_order','order_masters.order_number')
                 ->join('bill_masters', 'bill_masters.id', '=', 'bill_details.bill_master_id')
                 ->join('job_masters', 'job_masters.id', '=', 'bill_details.job_master_id')

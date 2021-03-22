@@ -21,6 +21,7 @@ export class BillMaster{
   agent_id?: number;
   discount?: number;
   bill_number?: string ;
+
   constructor() {
   }
 }

@@ -110,7 +110,7 @@ export class BillJobMasterDetailsComponent implements OnInit {
       this.billMasterData = {
         order_master_id: this.billDetailsData[0].order_master_id,
         orderNumber: this.billDetailsData[0].orderNumber,
-        personName: this.billDetailsData[0].user_name,
+        personName: this.billDetailsData[0].billing_name,
         address1: this.billDetailsData[0].address1,
         mobile1: this.billDetailsData[0].mobile1,
         pin: this.billDetailsData[0].pin,
@@ -176,7 +176,7 @@ export class BillJobMasterDetailsComponent implements OnInit {
           this.billMasterData = {
             order_master_id: this.billDetailsData[0].order_master_id,
             orderNumber: this.billDetailsData[0].order_number,
-            personName: this.billDetailsData[0].user_name,
+            personName: this.billDetailsData[0].billing_name,
             address1: this.billDetailsData[0].address1,
             mobile1: this.billDetailsData[0].mobile1,
             pin: this.billDetailsData[0].pin,
