@@ -91,17 +91,21 @@ export class CustomerService implements OnDestroy{
   saveCustomer(customer){
     return this.http.post<CustomerResponseData>(GlobalVariable.BASE_API_URL + '/customers', customer)
       .pipe(tap((response: {success: number, data: Customer} ) => {
-        this.customerData.unshift(response.data);
-        // this.customerData.push(response.data);
-        this.customerSub.next([...this.customerData]);
+        if (response.success !== 0) {
+          this.customerData.unshift(response.data);
+          // this.customerData.push(response.data);
+          this.customerSub.next([...this.customerData]);
+        }
       }));
   }
   updateCustomer(customer){
     return this.http.patch<CustomerResponseData>(GlobalVariable.BASE_API_URL + '/customers/' + customer.id, customer)
       .pipe(catchError(this._serverError), tap((response: {success: number, data: Customer}) => {
-        const index = this.customerData.findIndex(x => x.id === customer.id);
-        this.customerData[index] = response.data;
-        this.customerSub.next([...this.customerData]); // here two user is used one is user and another user is subject of rxjs
+        if (response.success !== 0) {
+          const index = this.customerData.findIndex(x => x.id === customer.id);
+          this.customerData[index] = response.data;
+          this.customerSub.next([...this.customerData]); // here two user is used one is user and another user is subject of rxjs
+        }
       }));  // this.handleError is a method created by me
   }
 

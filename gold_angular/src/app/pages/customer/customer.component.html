@@ -7,14 +7,6 @@
         <form [formGroup] = customerForm>
           <div class="container" fxLayout="column" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
             <mat-form-field>
-              <input matInput placeholder="Billing Name" formControlName="billing_name">
-              <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="end" fxLayoutGap="10px" fxLayoutGap.xs="0" *ngIf="!customerForm.get('billing_name').valid && customerForm.get('billing_name').touched">
-                <mat-error *ngIf="customerForm.get('billing_name').errors['required']">This field is Required</mat-error>
-                <mat-error *ngIf="customerForm.get('billing_name').errors['minlength']">Minimum length of name is {{customerForm.get('billing_name').errors.minlength.requiredLength}}</mat-error>
-                <mat-error *ngIf="customerForm.get('billing_name').errors['maxlength']">Maximum length of name is {{customerForm.get('billing_name').errors.maxlength.requiredLength}}</mat-error>
-              </div>
-            </mat-form-field>
-            <mat-form-field>
               <input matInput placeholder="Customer Name" formControlName="user_name">
               <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="end" fxLayoutGap="10px" fxLayoutGap.xs="0" *ngIf="!customerForm.get('user_name').valid && customerForm.get('user_name').touched">
                 <mat-error *ngIf="customerForm.get('user_name').errors['required']">This field is Required</mat-error>
@@ -22,6 +14,15 @@
                 <mat-error *ngIf="customerForm.get('user_name').errors['maxlength']">Maximum length of name is {{customerForm.get('user_name').errors.maxlength.requiredLength}}</mat-error>
               </div>
             </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="Billing Name" formControlName="billing_name">
+              <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="end" fxLayoutGap="10px" fxLayoutGap.xs="0" *ngIf="!customerForm.get('billing_name').valid && customerForm.get('billing_name').touched">
+                <mat-error *ngIf="customerForm.get('billing_name').errors['required']">This field is Required</mat-error>
+                <mat-error *ngIf="customerForm.get('billing_name').errors['minlength']">Minimum length of name is {{customerForm.get('billing_name').errors.minlength.requiredLength}}</mat-error>
+                <mat-error *ngIf="customerForm.get('billing_name').errors['maxlength']">Maximum length of name is {{customerForm.get('billing_name').errors.maxlength.requiredLength}}</mat-error>
+              </div>
+            </mat-form-field>
+
 
 <!--              <mat-form-field>-->
 <!--                <mat-placeholder>Email  <mat-icon> email</mat-icon></mat-placeholder>-->

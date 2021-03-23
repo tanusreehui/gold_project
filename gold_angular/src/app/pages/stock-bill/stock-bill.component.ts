@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
 import {DatePipe, formatDate} from '@angular/common';
 import {AgentService} from '../../services/agent.service';
 import {Agent} from '../../models/agent.model';
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-stock-bill',
@@ -51,16 +52,23 @@ export class StockBillComponent implements OnInit {
   page: number;
   pageSize: number;
   p = 1;
+  settingsInfo: any;
+  showDiscountEdit: boolean;
 
   // now = Date.now();
 
-  constructor(private customerService: CustomerService, private  stockService: StockService, private  billService: BillService, private  storage: StorageMap, private agentService: AgentService) {
+  constructor(private customerService: CustomerService, private  stockService: StockService, private  billService: BillService, private  storage: StorageMap, private agentService: AgentService, private http: HttpClient) {
     this.agentData = this.agentService.getAgentList();
     this.customerData = this.customerService.getCustomers();
     // this.selectedCustomerData = this.customerData[0];
     this.selectedAgentData = this.agentData[0];
     this.stockList = this.stockService.getStockList();
     this.date = new Date();
+
+    this.http.get('assets/settings.json').subscribe((data: any) => {
+      this.settingsInfo = data;
+      this.showDiscountEdit = this.settingsInfo.showDiscountEdit;
+    });
 
     // this.selectedCustomerData.bill_date = this.date.getFullYear() + '-' + (this.date.getMonth() + 1) + '-' + this.date.getDate();
     // if(this.billDetailsData != null){

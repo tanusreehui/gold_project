@@ -87,17 +87,24 @@ export class CustomerComponent implements OnInit {
     //   this.customerForm.patchValue({password: passwordMd5});
     // }
     this.customerService.saveCustomer(this.customerForm.value).subscribe((response: {success: number, data: Customer}) => {
-      if (response.data){
-        Swal.fire(
-          'Done!',
-          'Customer Added',
-          'success'
-        );
-        this.customerForm.reset();
-        // this.customerForm = this.customerService.customerForm;
-        this.customerForm.patchValue({state: 'West Bengal', mv: this.settingsInfo.mv});
-        // this.customers.unshift(response.data);
+        if (response.success === 1) {
+          Swal.fire(
+            'Done!',
+            'Customer Added',
+            'success'
+          );
+          this.customerForm.reset();
+          // this.customerForm = this.customerService.customerForm;
+          this.customerForm.patchValue({state: 'West Bengal', mv: this.settingsInfo.mv});
+          // this.customers.unshift(response.data);
       }
+        else{
+          Swal.fire(
+            'Error',
+            'Customer name already exists, please choose a different name',
+            'error'
+          );
+        }
     });
   }
 
@@ -136,6 +143,13 @@ export class CustomerComponent implements OnInit {
           'Done!',
           'Customer Updated',
           'success'
+        );
+      }
+      if (response.success === 0){
+        Swal.fire(
+          'Error',
+          'Customer Name already exists',
+          'error'
         );
       }
       this.currentEerror = null;

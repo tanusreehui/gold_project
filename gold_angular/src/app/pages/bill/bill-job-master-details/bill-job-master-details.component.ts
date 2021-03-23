@@ -14,6 +14,7 @@ import {StockService} from '../../../services/stock.service';
 import {AgentService} from '../../../services/agent.service';
 import {JobService} from '../../../services/job.service';
 import Swal from "sweetalert2";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-bill-job-master-details',
@@ -38,9 +39,15 @@ export class BillJobMasterDetailsComponent implements OnInit {
   originalCost: number;
   mv: number;
   x: FinishedJobs[];
+  settingsInfo: any;
+  showDiscountEdit: boolean;
   // public user = JSON.parse(localStorage.getItem('user'));
 
-  constructor(private  route: ActivatedRoute, private billService: BillService , private stockService: StockService , private agentService: AgentService , private  jobService: JobService) {
+  constructor(private  route: ActivatedRoute, private billService: BillService , private stockService: StockService , private agentService: AgentService , private  jobService: JobService , private http: HttpClient) {
+    this.http.get('assets/settings.json').subscribe((data: any) => {
+      this.settingsInfo = data;
+      this.showDiscountEdit = this.settingsInfo.showDiscountEdit;
+    });
   }
 
   printDivStyle = {

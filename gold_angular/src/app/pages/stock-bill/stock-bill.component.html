@@ -272,7 +272,7 @@
             <div fxLayout="row" *ngIf="billDetailsData.length" style="justify-content: space-between">
               <div class="col-4">
                 <label>Customer Name & Address : </label><br>
-                <label style="font-weight: bolder; font-size: larger">{{selectedCustomerData.user_name}}</label><br>
+                <label style="font-weight: bolder; font-size: larger">{{selectedCustomerData.billing_name}}</label><br>
                 <label>{{selectedCustomerData.address1}}</label><br>
                 <label>{{selectedCustomerData.city}} &nbsp;,&nbsp;{{selectedCustomerData.area}}</label><br>
                 <label>pin code:-&nbsp;{{selectedCustomerData.pin}}</label><br>
@@ -327,8 +327,8 @@
                 <td style="padding: 2px;"></td>
                 <td style="padding: 2px;"></td>
 <!--                <td *ngIf=discount style="padding: 2px;text-align: right" >({{discountPercentage}}%)</td>-->
-                <td *ngIf=discount  [hidden]="!billCreated" style="padding: 2px; text-align: right">({{discountPercentage}}%)</td>
-                <td style="text-align: right" [hidden]="billCreated">
+                <td *ngIf=discount  [hidden]="!billCreated && showDiscountEdit" style="padding: 2px; text-align: right">({{discountPercentage}}%)</td>
+                <td style="text-align: right" [hidden]="billCreated || !showDiscountEdit">
                   <input style="width: 30px" [(ngModel)]="discountPercentage" type="text" autofocus (change)="getDiscount()">
                 </td>
                 <td *ngIf=discount style="padding: 2px; text-align: right" > - {{discount | currency:"&#8377;"}}</td>
