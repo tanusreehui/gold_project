@@ -88,44 +88,47 @@ class CustomerController extends Controller
 
     public function saveCustomer(Request $request)
     {
+        $existingCustomer = Person::select()->where('user_name',$request->input('user_name'))->first();
 
+//        return response()->json(['success'=>1, 'data'=>$test], 200,[],JSON_NUMERIC_CHECK);
 ////        return $request;
-        $customer = new Person();
-        $customer->user_name = $request->input('user_name');
-        $customer->billing_name = $request->input('billing_name');
+        if($existingCustomer === null) {
+            $customer = new Person();
+            $customer->user_name = $request->input('user_name');
+            $customer->billing_name = $request->input('billing_name');
 //        $customer->email = $request->input('email');
 //        $customer->password = "81dc9bdb52d04dc20036dbd8313ed055";
 //        $customer->user_type_id = $request->input('user_type_id');
-        $customer->user_type_id = 10;
-        $customer->customer_category_id = $request->input('customer_category_id');
-        $customer->mobile1 = $request->input('mobile1');
-        $customer->mobile2 = $request->input('mobile2');
-        $customer->address1 = $request->input('address1');
-        $customer->address2 = $request->input('address2');
-        $customer->state = $request->input('state');
-        $customer->po = $request->input('po');
-        $customer->area = $request->input('area');
-        $customer->city = $request->input('city');
-        $customer->pin = $request->input('pin');
+            $customer->user_type_id = 10;
+            $customer->customer_category_id = $request->input('customer_category_id');
+            $customer->mobile1 = $request->input('mobile1');
+            $customer->mobile2 = $request->input('mobile2');
+            $customer->address1 = $request->input('address1');
+            $customer->address2 = $request->input('address2');
+            $customer->state = $request->input('state');
+            $customer->po = $request->input('po');
+            $customer->area = $request->input('area');
+            $customer->city = $request->input('city');
+            $customer->pin = $request->input('pin');
 
-        if ($request->input('opening_balance_LC')) {
-            $customer->opening_balance_LC = $request->input('opening_balance_LC');
-        }
+            if ($request->input('opening_balance_LC')) {
+                $customer->opening_balance_LC = $request->input('opening_balance_LC');
+            }
 
-        if ($request->input('opening_balance_Gold')) {
-            $customer->opening_balance_Gold = $request->input('opening_balance_Gold');
-        }
+            if ($request->input('opening_balance_Gold')) {
+                $customer->opening_balance_Gold = $request->input('opening_balance_Gold');
+            }
 
-        $customer->mv = $request->input('mv');
+            $customer->mv = $request->input('mv');
 
-        if ($request->input('discount')) {
-            $customer->discount = $request->input('discount');
-        }
+            if ($request->input('discount')) {
+                $customer->discount = $request->input('discount');
+            }
 
 //        if ($request->input('mv')) {
 //        $customer->mv = $request->input('mv');
 //        }
-        $customer->save();
+            $customer->save();
 
 //        if($request->input('email') && $customer){
 ////            $user = new User();
@@ -144,73 +147,89 @@ class CustomerController extends Controller
 //            }
 ////            $token = $user->createToken('my-app-token')->plainTextToken;
 //        }
-        return response()->json(['success'=>1, 'data'=>$customer], 200,[],JSON_NUMERIC_CHECK);
+            return response()->json(['success' => 1, 'data' => $customer], 200, [], JSON_NUMERIC_CHECK);
+        }
+        else{
+            return response()->json(['success' => 0], 200, [], JSON_NUMERIC_CHECK);
+        }
     }
 
     public function updateCustomer($id, Request $request)
     {
-        $customer = Person::find($id);
-        if ($request->input('user_name')) {
-            $customer->user_name = $request->input('user_name');
+        $existingCustomer = Person::select()
+            ->where('user_name',$request->input('user_name'))
+            ->where('id','<>',$id)
+            ->first();
+        if($existingCustomer === null){
+            $customer = Person::find($id);
+            if ($request->input('user_name')) {
+                $customer->user_name = $request->input('user_name');
+            }
+            if ($request->input('billing_name')) {
+                $customer->billing_name = $request->input('billing_name');
+            }
+            if ($request->input('email')) {
+                $customer->email = $request->input('email');
+            }
+            if ($request->input('password')) {
+                $customer->password = $request->input('password');
+            }
+
+            if ($request->input('user_type_id')) {
+                $customer->user_type_id = $request->input('user_type_id');
+            }
+
+            if ($request->input('customer_category_id')) {
+                $customer->customer_category_id = $request->input('customer_category_id');
+            }
+
+            if ($request->input('mobile1')) {
+                $customer->mobile1 = $request->input('mobile1');
+            }
+
+            if ($request->input('mobile2')) {
+                $customer->mobile2 = $request->input('mobile2');
+            }
+
+            if ($request->input('address1')) {
+                $customer->address1 = $request->input('address1');
+            }
+
+            if ($request->input('address2')) {
+                $customer->address2 = $request->input('address2');
+            }
+
+            if ($request->input('state')) {
+                $customer->state = $request->input('state');
+            }
+
+            if ($request->input('po')) {
+                $customer->po = $request->input('po');
+            }
+
+            if ($request->input('area')) {
+                $customer->area = $request->input('area');
+            }
+
+            if ($request->input('city')) {
+                $customer->city = $request->input('city');
+            }
+
+            if ($request->input('pin')) {
+                $customer->pin = $request->input('pin');
+            }
+            if ($request->input('mv')) {
+                $customer->mv = $request->input('mv');
+            }
+            $customer->save();
+            return response()->json(['success' => 1, 'data' => $customer], 200, [], JSON_NUMERIC_CHECK);
+
         }
-        if ($request->input('billing_name')) {
-            $customer->billing_name = $request->input('billing_name');
-        }
-        if ($request->input('email')) {
-            $customer->email = $request->input('email');
-        }
-        if ($request->input('password')) {
-            $customer->password = $request->input('password');
+        else{
+            return response()->json(['success' => 0], 200, [], JSON_NUMERIC_CHECK);
         }
 
-        if ($request->input('user_type_id')) {
-            $customer->user_type_id = $request->input('user_type_id');
-        }
 
-        if ($request->input('customer_category_id')) {
-            $customer->customer_category_id = $request->input('customer_category_id');
-        }
-
-        if ($request->input('mobile1')) {
-            $customer->mobile1 = $request->input('mobile1');
-        }
-
-        if ($request->input('mobile2')) {
-            $customer->mobile2 = $request->input('mobile2');
-        }
-
-        if ($request->input('address1')) {
-            $customer->address1 = $request->input('address1');
-        }
-
-        if ($request->input('address2')) {
-            $customer->address2 = $request->input('address2');
-        }
-
-        if ($request->input('state')) {
-            $customer->state = $request->input('state');
-        }
-
-        if ($request->input('po')) {
-            $customer->po = $request->input('po');
-        }
-
-        if ($request->input('area')) {
-            $customer->area = $request->input('area');
-        }
-
-        if ($request->input('city')) {
-            $customer->city = $request->input('city');
-        }
-
-        if ($request->input('pin')) {
-            $customer->pin = $request->input('pin');
-        }
-        if ($request->input('mv')) {
-            $customer->mv = $request->input('mv');
-        }
-        $customer->save();
-        return response()->json(['success' => 1, 'data' => $customer], 200, [], JSON_NUMERIC_CHECK);
     }
 
     public function deleteCustomer($id)
