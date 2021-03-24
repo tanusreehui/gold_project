@@ -3,6 +3,9 @@ import {AuthService} from '../../services/auth.service';
 import {Subscription} from 'rxjs';
 import {User} from '../../models/user.model';
 import {Router} from '@angular/router';
+import Swal from 'sweetalert2';
+import {HttpClient} from '@angular/common/http';
+
 
 @Component({
   selector: 'app-header',
@@ -28,7 +31,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userInfo: User;
   messages: any;
   message: any;
-  constructor(private authService: AuthService) { }
+  showupload = false;
+  constructor(private authService: AuthService, private http: HttpClient) { }
 
   ngOnInit(): void {
     // this.authService.getChats();
@@ -105,5 +109,52 @@ export class HeaderComponent implements OnInit, OnDestroy {
       'background-color': 'rgba(147,112,219,.3)',
       color : 'white'
     };
+  }
+  upload(){
+    Swal.fire({
+      title: 'Upload Image',
+      input: 'file',
+      inputAttributes: {
+        autocapitalize: 'off'
+      },
+      showCancelButton: true,
+      confirmButtonText: 'Look up',
+      showLoaderOnConfirm: true,
+      preConfirm: (File: File) => {
+        console.log(File);
+        const formData = new FormData();
+        formData.append('image', File);
+        console.log(formData);
+        // return this.http.post('gold_project/gold_angular/src/assets/profile_pictures/', formData).subscribe();
+        return this.http.post('http://localhost:4200/test/', formData).subscribe();
+        // return fetch(`//api.github.com/users/${login}`)
+        //   .then(response => {
+        //     // if (!response.ok) {
+        //     //   throw new Error(response.statusText)
+        //     // }
+        //     return response.json();
+        //   })
+        //   .catch(error => {
+        //     Swal.showValidationMessage(
+        //       `Request failed: ${error}`
+        //     );
+        //   });
+      },
+      allowOutsideClick: () => !Swal.isLoading()
+    }).then((result) => {
+      // console.log(result);
+      // const file: File = result.value;
+      // const reader = new FileReader();
+      // const formData = new FormData();
+      // // console.log(result);
+      // formData.append('image', image);
+      // return this.http.post('assets/profile_pictures/DSC_1234.jpg', formData);
+      // if (result.isConfirmed) {
+      //   Swal.fire({
+      //     // title: `${result.value.login}'s avatar`,
+      //     imageUrl: 'assets/profile_pictures/DSC_0319.jpg'
+      //   });
+      // }
+    });
   }
 }

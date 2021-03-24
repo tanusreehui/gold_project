@@ -466,13 +466,71 @@ class CustomerController extends Controller
         return response()->json(['success' => 1, 'data' => $result], 200, [], JSON_NUMERIC_CHECK);
   }
 
-    public function getEmployeeStock()
+//    public function getEmployeeStock()
+//    {
+//
+//        $test1 = Person::select('id', 'user_name')
+//            ->where('user_type_id', '!=', 9)
+//            ->where('user_type_id', '!=', 10)
+//            ->get();
+//
+//
+//        $test2 = Material::select('id', 'material_name')
+//            ->where('main_material_id', 0)
+//            ->get();
+//
+//
+//        $employeeArray = [];
+//
+//        for ($i = 0; $i < count($test1); $i++) {
+//            $stockArray = [];
+//            for ($j = 0; $j < count($test2); $j++) {
+////                $result = DB::select('SELECT get_employee_balance(?,?) as employee_balance,? as material_name, ? as user_name',  array($i, $test2[$j]->id, $test2[$j]->material_name, $test1[$i]->user_name))[0];
+//                $result = DB::select('SELECT get_employee_balance(?,?) as employee_balance,? as material_name, ? as user_name',  array($test1[$i]->id, $test2[$j]->id, $test2[$j]->material_name, $test1[$i]->user_name))[0];
+//                array_push($stockArray, $result);
+//
+//            }
+//
+//            $employeeStock =  (object) array("user_name"=> $test1[$i]->user_name,
+//                                    "Pure_gold"=> $stockArray[0]->employee_balance,
+//                                    "Pure_silver"=>$stockArray[1]->employee_balance,
+//                                    "ginnie_92"=>$stockArray[2]->employee_balance,
+//                                    "Pan"=>$stockArray[3]->employee_balance,
+//                                    "ginnie_90"=>$stockArray[4]->employee_balance,
+//                                    "Dal"=>$stockArray[5]->employee_balance,
+//                                    "Nitric"=>$stockArray[6]->employee_balance,
+//                                    "Production_dust"=>$stockArray[7]->employee_balance
+//                             );
+////
+////            $employeeStock =  (object) array("user_name"=> $test1[$i]->user_name,
+////                                    $stockArray[0]->material_name=>$stockArray[0]->employee_balance,
+////                                    $stockArray[1]->material_name=>$stockArray[1]->employee_balance,
+////                                    $stockArray[2]->material_name=>$stockArray[2]->employee_balance,
+////                                    $stockArray[3]->material_name=>$stockArray[3]->employee_balance,
+////                                    $stockArray[4]->material_name=>$stockArray[4]->employee_balance,
+////                                    $stockArray[5]->material_name=>$stockArray[5]->employee_balance,
+////                                    $stockArray[6]->material_name=>$stockArray[6]->employee_balance,
+////                                    $stockArray[7]->material_name=>$stockArray[7]->employee_balance
+////                            );
+//
+////            $resultNew = (object)$employeeStock;
+//            array_push($employeeArray, $employeeStock);
+//        }
+//
+//        return response()->json(['success' => 500, 'data' => $employeeArray], 200, [], JSON_NUMERIC_CHECK);
+//    }
+
+
+
+    public function getEmployeeStock($id)
     {
 
-        $test1 = User::select('id', 'user_name')
-            ->where('user_type_id', '!=', 9)
-            ->where('user_type_id', '!=', 10)
-            ->get();
+//        $test1 = Person::select('id', 'user_name')
+//            ->where('user_type_id', '!=', 9)
+//            ->where('user_type_id', '!=', 10)
+//            ->get();
+
+        $test1 = Person::find($id);
 
 
         $test2 = Material::select('id', 'material_name')
@@ -482,25 +540,25 @@ class CustomerController extends Controller
 
         $employeeArray = [];
 
-        for ($i = 0; $i < count($test1); $i++) {
+//        for ($i = 0; $i < count($test1); $i++) {
             $stockArray = [];
             for ($j = 0; $j < count($test2); $j++) {
 //                $result = DB::select('SELECT get_employee_balance(?,?) as employee_balance,? as material_name, ? as user_name',  array($i, $test2[$j]->id, $test2[$j]->material_name, $test1[$i]->user_name))[0];
-                $result = DB::select('SELECT get_employee_balance(?,?) as employee_balance,? as material_name, ? as user_name',  array($test1[$i]->id, $test2[$j]->id, $test2[$j]->material_name, $test1[$i]->user_name))[0];
+                $result = DB::select('SELECT get_employee_balance(?,?) as employee_balance,? as material_name, ? as user_name',  array($test1->id, $test2[$j]->id, $test2[$j]->material_name, $test1->user_name))[0];
                 array_push($stockArray, $result);
 
             }
 
-            $employeeStock =  (object) array("user_name"=> $test1[$i]->user_name,
-                                    "Pure_gold"=> $stockArray[0]->employee_balance,
-                                    "Pure_silver"=>$stockArray[1]->employee_balance,
-                                    "ginnie_92"=>$stockArray[2]->employee_balance,
-                                    "Pan"=>$stockArray[3]->employee_balance,
-                                    "ginnie_90"=>$stockArray[4]->employee_balance,
-                                    "Dal"=>$stockArray[5]->employee_balance,
-                                    "Nitric"=>$stockArray[6]->employee_balance,
-                                    "Production_dust"=>$stockArray[7]->employee_balance
-                             );
+            $employeeStock =  (object) array("user_name"=> $test1->user_name,
+                "Pure_gold"=> $stockArray[0]->employee_balance,
+                "Pure_silver"=>$stockArray[1]->employee_balance,
+                "ginnie_92"=>$stockArray[2]->employee_balance,
+                "Pan"=>$stockArray[3]->employee_balance,
+                "ginnie_90"=>$stockArray[4]->employee_balance,
+                "Dal"=>$stockArray[5]->employee_balance,
+                "Nitric"=>$stockArray[6]->employee_balance,
+                "Production_dust"=>$stockArray[7]->employee_balance
+            );
 //
 //            $employeeStock =  (object) array("user_name"=> $test1[$i]->user_name,
 //                                    $stockArray[0]->material_name=>$stockArray[0]->employee_balance,
@@ -515,9 +573,9 @@ class CustomerController extends Controller
 
 //            $resultNew = (object)$employeeStock;
             array_push($employeeArray, $employeeStock);
-        }
+//        }
 
-        return response()->json(['success' => 500, 'data' => $employeeArray], 200, [], JSON_NUMERIC_CHECK);
+        return response()->json(['success' => 1, 'data' => $employeeArray], 200, [], JSON_NUMERIC_CHECK);
     }
 
     public function employeeTransactionTest($id){

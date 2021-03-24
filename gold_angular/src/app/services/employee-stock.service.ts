@@ -19,6 +19,8 @@ export class EmployeeStockService {
   }
 
   constructor(private http: HttpClient) {
+    const user = JSON.parse(localStorage.getItem('user'));
+
 
     // fetching employee stocks
     // this.http.get(GlobalVariable.BASE_API_URL + '/testGetEmployeeMaterial')
@@ -28,7 +30,7 @@ export class EmployeeStockService {
     //     this.employeeStockDataSub.next([...this.employeeStockData]);
     //   });
 
-    this.http.get(GlobalVariable.BASE_API_URL + '/getEmployeeStock ')
+    this.http.get(GlobalVariable.BASE_API_URL + '/getEmployeeStock/' + user.id)
       .subscribe((response: {success: number, data: any}) => {
         const {data} = response;
         this.employeeStockData = data;

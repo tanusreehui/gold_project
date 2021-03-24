@@ -1084,17 +1084,26 @@
   <mat-toolbar [ngStyle]="myStyle()" *ngIf="isAuthenticated && isOwner">
     <mat-toolbar-row fxLayoutAlign="space-between center">
       <div fxLayout="row">
-        <button mat-button >
-          <mat-icon>home</mat-icon>
-          <span class="logo">Coder</span>
+<!--        <button class="btn" id="dropdownBasic2" routerLinkActive="MyActiveMenu" ngbDropdownToggle>My Toggle dropdown</button>-->
+        <button mat-button class="rounded-circle" [matMenuTriggerFor]="test1">
+<!--          <mat-icon>home</mat-icon>-->
+<!--          <span class="logo">Coder</span>-->
+          <div class="rounded-circle" style="width: 55px; height: 55px; border: #e8c50e solid">
+            <img class="rounded-circle" style="width: 50px; height: 50px" src="assets/profile_pictures/DSC_0319.jpg">
+          </div>
+<!--          <img class="rounded-circle" style="width: 50px; height: 50px" src="assets/profile_pictures/DSC_0319.jpg">-->
         </button>
+        <mat-menu #test1="matMenu">
+          <button  mat-menu-item (click)="upload()">Upload Image</button>
+        </mat-menu>
         <div *ngIf="!deviceXs">
-          <button mat-button
-                  [routerLink]="['/']"
-                  routerLinkActive="MyActiveMenu"
-                  [routerLinkActiveOptions]="{exact: true}">Home</button>
-          <button mat-button >Contact Us</button>
-          <button mat-button >About Us</button>
+<!--          <button mat-button-->
+<!--                  [routerLink]="['/']"-->
+<!--                  routerLinkActive="MyActiveMenu"-->
+<!--                  [routerLinkActiveOptions]="{exact: true}">Home</button>-->
+          <label style="background-color: #f2f2f2;color: #e8c50e">{{userInfo.userName}}</label>
+<!--          <button mat-button >Contact Us</button>-->
+<!--          <button mat-button >About Us</button>-->
         </div>
         <div ngbDropdown class="">
           <button class="btn" id="dropdownBasic2" routerLinkActive="MyActiveMenu" ngbDropdownToggle>My Toggle dropdown</button>
