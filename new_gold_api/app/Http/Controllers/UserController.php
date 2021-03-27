@@ -87,9 +87,9 @@ class UserController extends Controller
 
         //return $fileName;
         $path = $request->file('file')->move(public_path("/profile_pic"), $fileName);
-        $photoUrl = url('/entrant_pictures/' . $fileName);
+//        $photoUrl = url('/entrant_pictures/' . $fileName);
 
-        return response()->json(['success'=>100,'data'=> $input], 200,[],JSON_NUMERIC_CHECK);
+        return response()->json(['success'=>100,'data'=> $path], 200,[],JSON_NUMERIC_CHECK);
 
     }
 

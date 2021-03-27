@@ -348,10 +348,10 @@ class DatabaseSeeder extends Seeder
         User::create(['person_id'=>'3','email'=>'papai','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
         User::create(['person_id'=>'4','email'=>'guddu','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
         User::create(['person_id'=>'5','email'=>'sameeran','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
-        User::create(['person_id'=>'6','email'=>'pritam','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
-        User::create(['person_id'=>'7','email'=>'riya','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
-        User::create(['person_id'=>'8','email'=>'priyam','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
-        User::create(['person_id'=>'9','email'=>'biju','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
+        User::create(['person_id'=>'7','email'=>'pritam','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
+        User::create(['person_id'=>'8','email'=>'riya','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
+        User::create(['person_id'=>'9','email'=>'priyam','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
+        User::create(['person_id'=>'10','email'=>'biju','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
 
 //        php artisan db:seed --class=ProductSeeder
     }
