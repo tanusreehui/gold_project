@@ -6,6 +6,8 @@ import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
 import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
 import {GlobalVariable} from "../../shared/global";
+import {url} from 'inspector';
+import {SncakBarComponent} from '../../common/sncak-bar/sncak-bar.component';
 
 
 @Component({
@@ -35,13 +37,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
   showupload = false;
   file: File = null;
   imageSrc: any;
-  constructor(private authService: AuthService, private http: HttpClient) { }
+  defaultPicture: any;
+
+  constructor(private authService: AuthService, private http: HttpClient) {
+    this.defaultPicture = GlobalVariable.BASE_API_URL_profile + '/no_dp.png';
+    if (localStorage.getItem('user')){
+      const localUserID = JSON.parse(localStorage.getItem('user')).id;
+      this.imageSrc = GlobalVariable.BASE_API_URL_profile + '/profile_pic_' + localUserID + '.jpeg';
+    }
+  }
 
   ngOnInit(): void {
     // this.authService.getChats();
     this.authService.getChats();
     this.userSub = this.authService.user.subscribe(user => {
       this.userInfo = user;
+
       if (user){
         this.isAuthenticated = user.isAuthenticated;
         this.isOwner = user.isOwner;
@@ -55,6 +66,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.isDeveloper = user.isDeveloper;
         this.isCustomer = user.isCustomer;
         this.isKarigarh = user.isKarigarh;
+
+        this.imageSrc = GlobalVariable.BASE_API_URL_profile + '/profile_pic_' + this.userInfo.id + '.jpeg';
+
       }else{
         this.isAuthenticated = false;
         this.isOwner = false;
@@ -76,16 +90,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.messages = response;
 
     });
+
   }
 
   saveMessage(){
 
-    const a ={
+    const a = {
       customer_name : this.userInfo.userName,
       messages: this.message
-    }
+    };
     this.authService.sendChats(a).subscribe((response)=>{
-      if(response) {
+      if (response) {
         this.message = '';
       }
     });
@@ -94,7 +109,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   getChats(){
       this.authService.getMessageSubUpdateListener().subscribe((response)=> {
       });
-    this.authService.getChats();
+      this.authService.getChats();
   }
 
   ngOnDestroy(): void {
@@ -105,6 +120,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.authService.logout();
   }
 
+
   myStyle(){
     // return {'background-color': '#e83d44'};
     return {
@@ -113,62 +129,44 @@ export class HeaderComponent implements OnInit, OnDestroy {
       color : 'white'
     };
   }
-  // onUpload(event) {
-  //   const user = JSON.parse(localStorage.getItem('user'));
-  //   const config = { headers: {
-  //       'Content-Type': undefined
-  //       , Bearer: user.token
-  //     }
-  //   };
-  //
-  //   // console.log(document.getElementById(ID));
-  //   const formData = new FormData();
-  //   const  img = new Image();
-  //   img.src = URL.createObjectURL(event.target.files[0]);
-  //   console.log(event.target.files[0]);
-  //   // console.log(document.getElementById('test1'));
-  //   // return;
-  //   // tslint:disable-next-line:only-arrow-functions
-  //   img.onload = function() {
-  //     formData.append('title', event.target.files[0]);
-  //   };
-  //   console.log(formData);
-  //   // this.http.post(GlobalVariable.BASE_API_URL + '/testPic', 1234).subscribe();
-  //   const x = JSON.stringify({info: formData});
-  //   this.http.post('http://127.0.0.1/gold_project/new_gold_api/public/api/dev/testPic', formData).subscribe();
-  //   // const test = document.getElementById(event);
-  //   // console.log(document.getElementById('test1'));
-  //
-  //   return;
-  //   // this.fileUploadService.upload(this.file).subscribe(
-  //   //   (event: any) => {
-  //   //     if (typeof (event) === 'object') {
-  //   //
-  //   //       // Short link via api response
-  //   //       this.shortLink = event.link;
-  //   //
-  //   //       this.loading = false; // Flag variable
-  //   //     }
-  //   //   }
-  //   // );
-  // }
 
   onChange(event) {
     this.file = event.target.files[0];
     const reader = new FileReader();
-    reader.onload = e => this.imageSrc = reader.result;
+    // reader.onload = e => this.imageSrc = reader.result;
+    // reader.readAsDataURL(this.file);
+    // console.log(JSON.parse(localStorage.getItem('user')));
 
-    reader.readAsDataURL(this.file);
+    Swal.fire({
+      title: 'Change profile ?',
+      text: 'Confirmed ?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, Change it!',
+      cancelButtonText: 'No, Keep it'
+    }).then((result) => {
+      if (result.value){
+        reader.onload = e => this.imageSrc = reader.result;
+        reader.readAsDataURL(this.file);
+        this.authService.upload(this.file).subscribe((response) => {
+            // if (typeof (event) === 'object') {
+            // }
+            console.log(response);
+          }
+        );
+      }else if (result.dismiss === Swal.DismissReason.cancel) {
+      }
+    });
   }
 
-  onUpload(){
-     console.log(this.file);
-      this.authService.upload(this.file).subscribe(
-        (event: any) => {
-          if (typeof (event) === 'object') {
-          }
-        }
-      );
-    }
+  // onUpload(){
+  //    console.log(this.file);
+  //    this.authService.upload(this.file).subscribe((response) => {
+  //         // if (typeof (event) === 'object') {
+  //         // }
+  //         console.log(response);
+  //       }
+  //     );
+  //   }
 
 }
