@@ -8,6 +8,7 @@ import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common
 import {GlobalVariable} from "../../shared/global";
 import {url} from 'inspector';
 import {SncakBarComponent} from '../../common/sncak-bar/sncak-bar.component';
+import {element} from 'protractor';
 
 
 @Component({
@@ -86,7 +87,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
     // this.authService.getMessageSubUpdateListener().subscribe((response)=>{
     // });
-    this.authService.getMessageSubUpdateListener().subscribe((response)=>{
+    this.authService.getMessageSubUpdateListener().subscribe((response) => {
       this.messages = response;
 
     });
@@ -99,7 +100,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       customer_name : this.userInfo.userName,
       messages: this.message
     };
-    this.authService.sendChats(a).subscribe((response)=>{
+    this.authService.sendChats(a).subscribe((response) => {
       if (response) {
         this.message = '';
       }
@@ -133,10 +134,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onChange(event) {
     this.file = event.target.files[0];
     const reader = new FileReader();
-    // reader.onload = e => this.imageSrc = reader.result;
-    // reader.readAsDataURL(this.file);
-    // console.log(JSON.parse(localStorage.getItem('user')));
-
     Swal.fire({
       title: 'Change profile ?',
       text: 'Confirmed ?',
@@ -149,14 +146,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
         reader.onload = e => this.imageSrc = reader.result;
         reader.readAsDataURL(this.file);
         this.authService.upload(this.file).subscribe((response) => {
-            // if (typeof (event) === 'object') {
-            // }
-            console.log(response);
+          if (response.success === 100){
           }
+        }
         );
       }else if (result.dismiss === Swal.DismissReason.cancel) {
       }
     });
+    event.srcElement.value = null;
   }
 
   // onUpload(){
