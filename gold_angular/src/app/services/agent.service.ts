@@ -22,7 +22,7 @@ export interface AgentResponseData {
 export class AgentService {
   agentData: Agent[] = [];
   dueByAgentData: any = [];
-  userTypeList: any[]= [];
+  userTypeList: any[] = [];
   customerUnderAgentData: Customer[] = [];
   private dueByAgentDataSub = new Subject<any>();
   private  customerUnderAgentDataSub = new Subject<Customer[]>();

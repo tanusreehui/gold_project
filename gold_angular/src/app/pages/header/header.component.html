@@ -692,10 +692,22 @@
   <mat-toolbar [ngStyle]="myStyle()" *ngIf="isAuthenticated && isDeveloper">
     <mat-toolbar-row fxLayoutAlign="space-between center">
       <div fxLayout="row">
-        <button mat-button >
-          <mat-icon>home</mat-icon>
-          <span class="logo">Coder</span>
+        <button mat-button class="rounded-circle" [matMenuTriggerFor]="test1">
+          <!--          <mat-icon>home</mat-icon>-->
+          <!--          <span class="logo">Coder</span>-->
+          <div class="rounded-circle" style="width: 55px; height: 55px; border: #e8c50e solid">
+            <img  class="rounded-circle" style="width: 50px; height: 50px" [src]="imageSrc || 'assets/profile_pictures/DSC_0319.jpg'" alt="your image">
+          </div>
+          <!--          <img class="rounded-circle" style="width: 50px; height: 50px" src="assets/profile_pictures/DSC_0319.jpg">-->
         </button>
+        <mat-menu #test1="matMenu">
+          <input type="file" id="myFile" (change)="onChange($event)" name="filename" >
+          <!--          <button  mat-menu-item (click)="upload()">Upload Image</button>-->
+          <button (click)="onUpload()"
+                  class="btn btn-success">
+            Upload
+          </button>
+        </mat-menu>
         <div *ngIf="!deviceXs">
           <button mat-button
                   [routerLink]="['/']"
@@ -1089,12 +1101,18 @@
 <!--          <mat-icon>home</mat-icon>-->
 <!--          <span class="logo">Coder</span>-->
           <div class="rounded-circle" style="width: 55px; height: 55px; border: #e8c50e solid">
-            <img class="rounded-circle" style="width: 50px; height: 50px" src="assets/profile_pictures/DSC_0319.jpg">
+            <img  class="rounded-circle" style="width: 50px; height: 50px" [src]="imageSrc || 'assets/profile_pictures/DSC_0319.jpg'" alt="your image">
+<!--            <img class="rounded-circle" style="width: 50px; height: 50px" src="assets/profile_pictures/DSC_0319.jpg">-->
           </div>
 <!--          <img class="rounded-circle" style="width: 50px; height: 50px" src="assets/profile_pictures/DSC_0319.jpg">-->
         </button>
         <mat-menu #test1="matMenu">
-          <button  mat-menu-item (click)="upload()">Upload Image</button>
+          <input type="file" id="myFile" (change)="onChange($event)" name="filename">
+<!--          <button  mat-menu-item (click)="upload()">Upload Image</button>-->
+          <button (click)="onUpload()"
+                  class="btn btn-success">
+            Upload
+          </button>
         </mat-menu>
         <div *ngIf="!deviceXs">
 <!--          <button mat-button-->

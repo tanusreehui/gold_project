@@ -27,7 +27,7 @@ export class AuthInterceptorInterceptor implements HttpInterceptor {
       // }
       // @ts-ignore
       // const clonedRequest = request.clone({headers: request.headers.set('Authorization', 'Bearer ' + this.userData._authKey)});
-      const clonedRequest = request.clone({headers: request.headers.set('Authorization', 'Bearer ' + this.userData._authKey, 'X-XSRF-TOKEN' + null)});
+      const clonedRequest = request.clone({headers: request.headers.set('Authorization', 'Bearer ' + this.userData._authKey)});
       return next.handle(clonedRequest);
     }));
   }

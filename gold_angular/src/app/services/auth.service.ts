@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {catchError, tap} from 'rxjs/operators';
-import {BehaviorSubject, Subject, throwError} from 'rxjs';
+import {BehaviorSubject, Observable, Subject, throwError} from 'rxjs';
 import {User} from '../models/user.model';
 import {Router} from '@angular/router';
 // global.ts file is created in shared folder to store all global variables.
@@ -27,7 +27,7 @@ export interface AuthResponseData {
 })
 export class AuthService {
   user = new BehaviorSubject<User>(null);
-  message : any;
+  message: any;
   messageSub = new Subject<any>();
 
   getMessageSubUpdateListener(){
@@ -109,6 +109,19 @@ export class AuthService {
      this.message.push(response);
      this.messageSub.next([...this.message]);
    })));
+  }
+
+  upload(file): Observable<any> {
+
+    // Create form data
+    const formData = new FormData();
+
+    // Store form name as "file" with file data
+    formData.append('file', file);
+    formData.append('filename', 'profile_pic_' + JSON.parse(localStorage.getItem('user')).id + '.jpeg');
+    // Make http post request over api
+    // with formData as req
+    return this.http.post('http://127.0.0.1/gold_project/new_gold_api/public/api/dev/testPic', formData);
   }
 
 

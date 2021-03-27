@@ -1,10 +1,11 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
-import {Subscription} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {User} from '../../models/user.model';
 import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
+import {GlobalVariable} from "../../shared/global";
 
 
 @Component({
@@ -32,6 +33,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   messages: any;
   message: any;
   showupload = false;
+  file: File = null;
+  imageSrc: any;
   constructor(private authService: AuthService, private http: HttpClient) { }
 
   ngOnInit(): void {
@@ -110,51 +113,62 @@ export class HeaderComponent implements OnInit, OnDestroy {
       color : 'white'
     };
   }
-  upload(){
-    Swal.fire({
-      title: 'Upload Image',
-      input: 'file',
-      inputAttributes: {
-        autocapitalize: 'off'
-      },
-      showCancelButton: true,
-      confirmButtonText: 'Look up',
-      showLoaderOnConfirm: true,
-      preConfirm: (File: File) => {
-        console.log(File);
-        const formData = new FormData();
-        formData.append('image', File);
-        console.log(formData);
-        // return this.http.post('gold_project/gold_angular/src/assets/profile_pictures/', formData).subscribe();
-        return this.http.post('http://localhost:4200/test/', formData).subscribe();
-        // return fetch(`//api.github.com/users/${login}`)
-        //   .then(response => {
-        //     // if (!response.ok) {
-        //     //   throw new Error(response.statusText)
-        //     // }
-        //     return response.json();
-        //   })
-        //   .catch(error => {
-        //     Swal.showValidationMessage(
-        //       `Request failed: ${error}`
-        //     );
-        //   });
-      },
-      allowOutsideClick: () => !Swal.isLoading()
-    }).then((result) => {
-      // console.log(result);
-      // const file: File = result.value;
-      // const reader = new FileReader();
-      // const formData = new FormData();
-      // // console.log(result);
-      // formData.append('image', image);
-      // return this.http.post('assets/profile_pictures/DSC_1234.jpg', formData);
-      // if (result.isConfirmed) {
-      //   Swal.fire({
-      //     // title: `${result.value.login}'s avatar`,
-      //     imageUrl: 'assets/profile_pictures/DSC_0319.jpg'
-      //   });
-      // }
-    });
+  // onUpload(event) {
+  //   const user = JSON.parse(localStorage.getItem('user'));
+  //   const config = { headers: {
+  //       'Content-Type': undefined
+  //       , Bearer: user.token
+  //     }
+  //   };
+  //
+  //   // console.log(document.getElementById(ID));
+  //   const formData = new FormData();
+  //   const  img = new Image();
+  //   img.src = URL.createObjectURL(event.target.files[0]);
+  //   console.log(event.target.files[0]);
+  //   // console.log(document.getElementById('test1'));
+  //   // return;
+  //   // tslint:disable-next-line:only-arrow-functions
+  //   img.onload = function() {
+  //     formData.append('title', event.target.files[0]);
+  //   };
+  //   console.log(formData);
+  //   // this.http.post(GlobalVariable.BASE_API_URL + '/testPic', 1234).subscribe();
+  //   const x = JSON.stringify({info: formData});
+  //   this.http.post('http://127.0.0.1/gold_project/new_gold_api/public/api/dev/testPic', formData).subscribe();
+  //   // const test = document.getElementById(event);
+  //   // console.log(document.getElementById('test1'));
+  //
+  //   return;
+  //   // this.fileUploadService.upload(this.file).subscribe(
+  //   //   (event: any) => {
+  //   //     if (typeof (event) === 'object') {
+  //   //
+  //   //       // Short link via api response
+  //   //       this.shortLink = event.link;
+  //   //
+  //   //       this.loading = false; // Flag variable
+  //   //     }
+  //   //   }
+  //   // );
+  // }
+
+  onChange(event) {
+    this.file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = e => this.imageSrc = reader.result;
+
+    reader.readAsDataURL(this.file);
   }
+
+  onUpload(){
+     console.log(this.file);
+      this.authService.upload(this.file).subscribe(
+        (event: any) => {
+          if (typeof (event) === 'object') {
+          }
+        }
+      );
+    }
+
 }
