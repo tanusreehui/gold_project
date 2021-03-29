@@ -18,7 +18,8 @@ import {Md5} from "ts-md5";
 export class AgentComponent implements OnInit {
 
   agentData: Agent[];
-  userTypesList : any[];
+  userTypesList: any[];
+  employeeList: any[];
   agentForm: FormGroup;
   showLoginCredentials = true;
 

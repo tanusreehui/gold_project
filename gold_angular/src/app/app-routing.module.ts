@@ -40,6 +40,7 @@ import {TransactionComponent} from './pages/transaction/transaction.component';
 import {EmployeeStockComponent} from './pages/employee-stock/employee-stock.component';
 import {BilledJobListComponent} from './pages/completed-bill/billed-job-list/billed-job-list.component';
 import {ChatComponent} from "./pages/chat/chat.component";
+import {PasswordResetComponent} from './pages/password-reset/password-reset.component';
 
 
 const routes: Routes = [
@@ -99,6 +100,7 @@ const routes: Routes = [
   {path: 'transaction', canActivate: [AuthGuardService], component: TransactionComponent },
   {path: 'employeeStock', canActivate: [AuthGuardService], component: EmployeeStockComponent },
   {path: 'chat', canActivate: [AuthGuardService], component: ChatComponent },
+  {path: 'passwordReset', canActivate: [AuthGuardService], component: PasswordResetComponent },
 
 ];
 

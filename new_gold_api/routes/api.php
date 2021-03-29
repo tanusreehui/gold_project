@@ -176,7 +176,9 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get('/getUserTypes',[UserTypeController::class,'index']);
 
    // User Controller
-
+    Route::get('/getEmployees',[UserController::class,'getEmployees']);
+    Route::post('/resetPassword',[UserController::class,'resetPassword']);
+    Route::post('/uploadPicture',[UserController::class,'uploadPicture']);
 
 });
 
@@ -300,7 +302,7 @@ Route::group(array('prefix' => 'dev'), function() {
 
     //User Types Controller
     Route::get('/showCompletedBills',[UserTypeController::class,'index']);
-    Route::post('/testPic',[UserController::class,'testPic']);
+    Route::post('/uploadPicture',[UserController::class,'uploadPicture']);
 
 });
 

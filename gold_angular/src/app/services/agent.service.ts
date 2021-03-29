@@ -23,10 +23,13 @@ export class AgentService {
   agentData: Agent[] = [];
   dueByAgentData: any = [];
   userTypeList: any[] = [];
+  employeeList: Agent[] = [];
   customerUnderAgentData: Customer[] = [];
   private dueByAgentDataSub = new Subject<any>();
   private  customerUnderAgentDataSub = new Subject<Customer[]>();
+  private employeeDataSub = new Subject<Agent[]>();
   agentForm: FormGroup;
+  passwordResetForm: FormGroup;
 
   private agentSub = new Subject<Agent[]>();
 
@@ -35,6 +38,10 @@ export class AgentService {
   }
   getDueByAgentDataUpdateListener(){
     return  this.dueByAgentDataSub.asObservable();
+  }
+
+  getEmployeeDataUpdateListener(){
+    return  this.employeeDataSub.asObservable();
   }
 
   constructor(private http: HttpClient) {
@@ -59,8 +66,17 @@ export class AgentService {
       opening_balance_Gold : new FormControl(0.00),
       mv : new FormControl(0.00),
       discount : new FormControl(0.00),
-      email : new FormControl(null,[Validators.email]),
+      email : new FormControl(null, [Validators.email]),
       password : new FormControl(null)
+    });
+
+    this.passwordResetForm = new FormGroup({
+      id : new FormControl(null),
+      // user_name : new FormControl(null, [Validators.required, Validators.maxLength(20), Validators.minLength(4)]),
+      // email : new FormControl(null, [Validators.required, Validators.email]),
+      password : new FormControl(null, [Validators.required]),
+      confirmPassword : new FormControl(null, [Validators.required]),
+      changedPassword : new FormControl(null, [Validators.required]),
     });
 
     this.http.get(GlobalVariable.BASE_API_URL + '/agents')
@@ -77,12 +93,22 @@ export class AgentService {
         this.dueByAgentDataSub.next([...this.dueByAgentData]);
       });
 
+    this.http.get(GlobalVariable.BASE_API_URL + '/getEmployees')
+      .subscribe((response: {success: number, data: Agent[]}) => {
+        this.employeeList = response.data;
+        this.employeeDataSub.next([...this.employeeList]);
+      });
+
 
   }
 
   fillAgentFormForEdit(data){
 
     this.agentForm.setValue(data);
+  }
+
+  resetPassword(){
+    return this.http.post(GlobalVariable.BASE_API_URL + '/resetPassword', this.passwordResetForm.value);
   }
 
 
@@ -118,7 +144,6 @@ export class AgentService {
       .pipe(tap(((response: {success: number, data: Agent }) => {
            this.agentData.unshift(response.data);
            this.agentSub.next([...this.agentData]);
-
       })));
   }
 
@@ -151,4 +176,6 @@ export class AgentService {
   getUserTypes(){
     return this.http.get(GlobalVariable.BASE_API_URL + '/getUserTypes');
   }
+
+
 }
