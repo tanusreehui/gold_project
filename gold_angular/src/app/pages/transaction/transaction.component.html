@@ -1,4 +1,4 @@
-<p>transaction works!</p>
+<!--<p>transaction works!</p>-->
 <div fxLayout.xs="column" fxLayout="row" fxLayoutAlign="space-between stretch" fxFlexFill id="product-div">
   <div fxLayout="column" fxFlex="30" class="mr-1">
   </div>
@@ -22,7 +22,7 @@
               <mat-label>Employee</mat-label>
               <mat-select  formControlName="employee_id">
                 <mat-option *ngFor="let employee of employeeList" [value]="employee.id">
-                  {{employee.person_name}}
+                  {{employee.user_name}}
                 </mat-option>
               </mat-select>
             </mat-form-field>

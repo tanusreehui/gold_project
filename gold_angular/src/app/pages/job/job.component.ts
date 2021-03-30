@@ -165,10 +165,4 @@ export class JobComponent implements OnInit {
     this.jobDetailsForm.reset();
     this.selectedJobIndex = -1;
   }
-
-
-
-
-
-
 }

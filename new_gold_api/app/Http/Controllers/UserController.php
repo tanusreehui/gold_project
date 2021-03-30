@@ -78,8 +78,8 @@ class UserController extends Controller
         return $result;
     }
 
-    function testPic(Request $request){
-        $input = json_decode($request->getContent(), true);
+    function uploadPicture(Request $request){
+//        $input = json_decode($request->getContent(), true);
 
 
         $fileName = $request['filename'];
@@ -95,5 +95,18 @@ class UserController extends Controller
 
     }
 
+    public function getEmployees(){
+        $employees = Person::select('people.id','people.user_name')
+                      ->join('users','users.person_id','=','people.id')
+                      ->get();
+
+        return response()->json(['success'=>1,'data'=> $employees], 200,[],JSON_NUMERIC_CHECK);
+    }
+    public function resetPassword(Request $request){
+        $user = User::select()->where('person_id',$request->id)->first();
+        $user->password = $request->input('changedPassword');
+        $user->update();
+        return response()->json(['success'=>1,'data'=> $user], 200,[],JSON_NUMERIC_CHECK);
+    }
 
 }
