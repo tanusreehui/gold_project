@@ -46,7 +46,7 @@ export class AgentComponent implements OnInit {
     }
     if (this.agentForm.value.password != null || this.showLoginCredentials === false){
       const md5 = new Md5();
-      const passwordMd5 = md5.appendStr(this.agentForm.value.password).end();
+      const passwordMd5 = md5.appendStr(this.agentForm.value.temp_password).end();
       this.agentForm.patchValue({password: passwordMd5});
     }
     this.agentService.saveAgent().subscribe((response: {success: number, data: Agent})  => {
@@ -98,8 +98,9 @@ export class AgentComponent implements OnInit {
   }
 
   editAgent(item){
+    item.temp_password = null;
     item.password = null;
-    if(item.email != null){
+    if (item.email != null){
       this.showLoginCredentials = false;
     }else{
       this.showLoginCredentials = true;

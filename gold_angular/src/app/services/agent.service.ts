@@ -66,7 +66,8 @@ export class AgentService {
       opening_balance_Gold : new FormControl(0.00),
       mv : new FormControl(0.00),
       discount : new FormControl(0.00),
-      email : new FormControl(null, [Validators.email]),
+      email : new FormControl(null),
+      temp_password : new FormControl(null),
       password : new FormControl(null)
     });
 

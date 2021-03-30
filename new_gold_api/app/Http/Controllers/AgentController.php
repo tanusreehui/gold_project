@@ -58,7 +58,8 @@ class AgentController extends Controller
         $agent->mobile2 = $request->input('mobile2');
         $agent->address1 = $request->input('address1');
         $agent->address2 = $request->input('address2');
-        $agent->state = $request->input('state');
+//        $agent->state = $request->input('state');
+        $agent->state ='West Bengal';
         $agent->po = $request->input('po');
         $agent->area = $request->input('area');
         $agent->city = $request->input('city');

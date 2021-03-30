@@ -6,7 +6,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {OrderResponseData, OrderService} from '../../services/order.service';
 import {Agent} from '../../models/agent.model';
 import {Material} from '../../models/material.model';
-import { DatePipe } from '@angular/common';
+import {DatePipe, formatDate} from '@angular/common';
 import {Product} from '../../models/product.model';
 import {StorageMap} from '@ngx-pwa/local-storage';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -177,14 +177,14 @@ export class OrderComponent implements OnInit {
   material_quantity_decimal(){
     const x = String(this.orderDetailsForm.value.approx_gold).split('.');
     if (!x[1]){
-      this.orderDetailsForm.patchValue({approx_gold : (this.orderDetailsForm.value.approx_gold / 1000)});
+      this.orderDetailsForm.patchValue({approx_gold : Number(this.orderDetailsForm.value.approx_gold / 1000)});
     }
   }
 
   addOrder() {
     this.showProduct = true;
     const index = this.orderDetails.findIndex(x => x.model_number === this.orderDetailsForm.value.model_number);
-    if (index != -1) {
+    if (index !== -1) {
       Swal.fire({
         title: 'Want to add separately ?',
         text: 'Model number already exists',
@@ -474,6 +474,10 @@ export class OrderComponent implements OnInit {
           this.totalApproxGold = 0;
           this.showProduct = false;
 
+          // this.delivery_date.setDate(this.order_date.getDate() + 3);
+          // const order_date_format = formatDate(order_date, 'yyyy-MM-dd', 'en');
+          // const delivery_date_format = formatDate(delivery_date, 'yyyy-MM-dd', 'en');
+          this.orderMasterForm.patchValue({order_date: this.orderService.order_date_format, delivery_date: this.orderService.delivery_date_format});
 
           // this.orderMasterList.unshift(response.data);
         }
