@@ -352,6 +352,8 @@ class DatabaseSeeder extends Seeder
         User::create(['person_id'=>'8','email'=>'riya','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
         User::create(['person_id'=>'9','email'=>'priyam','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
         User::create(['person_id'=>'10','email'=>'biju','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
+        User::create(['person_id'=>'11','email'=>'Test','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
+
 
 //        php artisan db:seed --class=ProductSeeder
     }

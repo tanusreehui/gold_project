@@ -48,6 +48,7 @@ class AgentController extends Controller
 //        $newData = (object)($request->json()->all());
         $agent = new Person();
         $agent->user_name = $request->input('user_name');
+        $agent->billing_name = ' ';
 //        $agent->email = $request->input('email');
 //        $agent->password = "81dc9bdb52d04dc20036dbd8313ed055";
 //        $agent->user_type_id = 7;

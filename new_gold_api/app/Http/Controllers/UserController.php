@@ -44,8 +44,10 @@ class UserController extends Controller
         $user= User::where('email', $request->email)->first();
 //        return response()->json(['message'=>$user], 200,[],JSON_NUMERIC_CHECK);
         // print_r($data);
-        if (!$user || !Hash::check($request->password, $user->password)) {
+        if (!Hash::check($request->password, $user->password)) {
             return response()->json(['success'=>0,'data'=>null, 'message'=>'Credential does not matched'], 200,[],JSON_NUMERIC_CHECK);
+        } elseif (!$user) {
+            return response()->json(['success' => 0, 'data' => null, 'message' => 'Credential does not matched'], 200, [], JSON_NUMERIC_CHECK);
         }
 
         $token = $user->createToken('my-app-token')->plainTextToken;

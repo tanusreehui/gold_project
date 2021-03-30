@@ -121,7 +121,7 @@
                 <button mat-button  mat-stroked-button [disabled]="customerForm.value.id" (click)="onSubmit()">
                   Save
                 </button>
-                <button mat-button type="button"  mat-stroked-button (click)="updateCustomer()" [disabled]="!customerForm.dirty">
+                <button mat-button type="button"  mat-stroked-button (click)="updateCustomer()" [disabled]="customerForm.value.id === null">
                   Update
                 </button>
               </div>
