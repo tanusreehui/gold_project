@@ -41,10 +41,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   defaultPicture: any;
 
   constructor(private authService: AuthService, private http: HttpClient) {
-    this.defaultPicture = GlobalVariable.BASE_API_URL_profile + '/no_dp.png';
+    this.defaultPicture = GlobalVariable.BASE_API_URL_profile + 'profile_pic/no_dp.png';
     if (localStorage.getItem('user')){
       const localUserID = JSON.parse(localStorage.getItem('user')).id;
-      this.imageSrc = GlobalVariable.BASE_API_URL_profile + '/profile_pic_' + localUserID + '.jpeg';
+      this.imageSrc = GlobalVariable.BASE_API_URL_profile + 'profile_pic/profile_pic_' + localUserID + '.jpeg';
     }
   }
 
@@ -68,7 +68,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.isCustomer = user.isCustomer;
         this.isKarigarh = user.isKarigarh;
 
-        this.imageSrc = GlobalVariable.BASE_API_URL_profile + '/profile_pic_' + this.userInfo.id + '.jpeg';
+        this.imageSrc = GlobalVariable.BASE_API_URL_profile + 'profile_pic/profile_pic_' + this.userInfo.id + '.jpeg';
 
       }else{
         this.isAuthenticated = false;

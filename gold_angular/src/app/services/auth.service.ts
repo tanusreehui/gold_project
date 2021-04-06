@@ -121,7 +121,8 @@ export class AuthService {
     formData.append('filename', 'profile_pic_' + JSON.parse(localStorage.getItem('user')).id + '.jpeg');
     // Make http post request over api
     // with formData as req
-    return this.http.post('http://127.0.0.1/gold_project/new_gold_api/public/api/uploadPicture', formData);
+    // return this.http.post('http://127.0.0.1/gold_project/new_gold_api/public/api/uploadPicture', formData);
+    return this.http.post(GlobalVariable.BASE_API_URL_profile + 'api/uploadPicture', formData);
   }
 
 

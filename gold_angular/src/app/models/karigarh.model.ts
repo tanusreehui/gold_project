@@ -3,8 +3,8 @@
 
 export class Karigarh{
   id: number;
-  person_name: string;
   person_type_id: number;
+  user_name: string;
   constructor() {
       this.person_type_id = 11;
   }

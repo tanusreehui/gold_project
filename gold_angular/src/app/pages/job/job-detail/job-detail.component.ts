@@ -73,11 +73,13 @@ export class JobDetailComponent implements OnInit {
   }
 
   printDivStyle = {
-    table: {'border-collapse': 'collapse', width : '20%'},
+    table: {'border-collapse': 'collapse', width : '20%', border: '1px solid red'},
     label: {width: '100%'},
     h1 : {color: 'black'},
-    h2 : {border: 'solid 1px'},
-    td: {border: '1px solid red', margin: '0px', padding: '3px'}
+    // h2 : {border: 'solid 1px'},
+    h2 : {border: '1px solid black'},
+    td: {border: '1px solid red', margin: '0px', padding: '1px'},
+    // th: {border: '1px solid red'}
   };
 
 
@@ -101,8 +103,10 @@ export class JobDetailComponent implements OnInit {
         this.job_number = this.oneJobData.job_number;
         this.jobTaskForm.patchValue({size: this.oneJobData.size});
         const index1 = this.karigarhData.findIndex(x => x.id === this.oneJobData.karigarh_id);
-        this.karigarhName = this.karigarhData[index1].person_name;
+        this.karigarhName = this.karigarhData[index1].user_name;
+
         this.userData = JSON.parse(localStorage.getItem('user'));
+        // console.log(this.userData);
         // tslint:disable-next-line:no-shadowed-variable
         this.orderService.getMaterialUpdateListener().subscribe((response) => {
           this.materialList = response;

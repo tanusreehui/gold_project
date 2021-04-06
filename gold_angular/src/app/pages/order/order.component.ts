@@ -430,7 +430,7 @@ export class OrderComponent implements OnInit {
         // this.orderDetailsForm.patchValue({discount : this.customerList[index].discount})
         this.orderDetailsForm.patchValue({discount : this.customerList[index2].discount, product_id: tempProduct.id, p_loss: tempProduct.p_loss, price: tempProduct.price, price_code : tempProduct.price_code_name});
       }else{
-        alert('This model does not exist for this customer');
+        // alert('This model does not exist for this customer');
         // tslint:disable-next-line:max-line-length
         this.orderDetailsForm.patchValue({ p_loss: null, price: null, price_code : null, discount : null});
       }
@@ -463,7 +463,8 @@ export class OrderComponent implements OnInit {
             'Order Successfully saved',
             'success'
           );
-          this.storage.delete('orderContainer').subscribe(() => {});
+          // this.storage.delete('orderContainer').subscribe(() => {});
+          this.storage.clear();
           this.orderContainer = null;
           this.orderMaster = null;
           this.orderDetails = [];
