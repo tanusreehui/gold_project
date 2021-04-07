@@ -464,7 +464,7 @@ export class OrderComponent implements OnInit {
             'success'
           );
           // this.storage.delete('orderContainer').subscribe(() => {});
-          this.storage.clear();
+          this.storage.clear().subscribe(() => {});
           this.orderContainer = null;
           this.orderMaster = null;
           this.orderDetails = [];
@@ -478,7 +478,9 @@ export class OrderComponent implements OnInit {
           // this.delivery_date.setDate(this.order_date.getDate() + 3);
           // const order_date_format = formatDate(order_date, 'yyyy-MM-dd', 'en');
           // const delivery_date_format = formatDate(delivery_date, 'yyyy-MM-dd', 'en');
+          // tslint:disable-next-line:max-line-length
           this.orderMasterForm.patchValue({order_date: this.orderService.order_date_format, delivery_date: this.orderService.delivery_date_format});
+          this.orderDetailsForm.patchValue({material_id: 3});
 
           // this.orderMasterList.unshift(response.data);
         }
@@ -515,7 +517,8 @@ export class OrderComponent implements OnInit {
   //   this.orderService.setOrderMasterData();
   // }
   cancelOrder() {
-    this.storage.delete('orderContainer').subscribe(() => {});
+    // this.storage.delete('orderContainer').subscribe(() => {});
+    this.storage.clear().subscribe(() => {});
     this.orderContainer = null;
     this.orderMaster = null;
     this.orderDetails = [];
@@ -524,6 +527,9 @@ export class OrderComponent implements OnInit {
     this.totalApproxGold = 0;
     this.orderMasterForm.reset();
     this.orderDetailsForm.reset();
+
+    this.orderMasterForm.patchValue({order_date: this.orderService.order_date_format, delivery_date: this.orderService.delivery_date_format});
+    this.orderDetailsForm.patchValue({material_id: 3});
   }
 
   updateItemAmount() {
