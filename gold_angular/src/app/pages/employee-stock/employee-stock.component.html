@@ -1,4 +1,4 @@
-<div style="background-color: #a6e0ff">
+<div style="background-color: #d9dd9b">
   <div  class="d-flex">
     <div class="col-4">
       <mat-form-field  class = "col-3" style="padding-left: 15px; padding-top: 20px" class="example-full-width">
@@ -16,35 +16,106 @@
     </div>
   </div>
 
-  <div id ="printBillDiv">
-    <table class="table table-hover">
-      <thead>
-      <th>SL No.</th>
-      <th>Name</th>
-      <th>Pure Gold</th>
-      <th>Pure Silver</th>
-      <th>92 Ginnie</th>
-      <th>Pan</th>
-      <th>90 Ginnie</th>
-      <th>Dal</th>
-      <th>Nitric</th>
-      <th>Production_dust</th>
-      </thead>
-      <tbody>
-      <tr *ngFor="let item of employeeStockList | filter: searchTerm ; let indexofElement = index">
-        <td>{{indexofElement+1}}</td>
-        <td>{{item.user_name}}</td>
-        <td>{{item.Pure_gold.toFixed(3)}}</td>
-        <td>{{item.Pure_silver.toFixed(3)}}</td>
-        <td>{{item.ginnie_92.toFixed(3)}}</td>
-        <td>{{item.Pan.toFixed(3)}}</td>
-        <td>{{item.ginnie_90.toFixed(3)}}</td>
-        <td>{{item.Dal.toFixed(3)}}</td>
-        <td>{{item.Nitric.toFixed(3)}}</td>
-        <td>{{item.Production_dust.toFixed(3)}}</td>
-      </tr>
-      </tbody>
-    </table>
+<!--  <div id ="printBillDiv">-->
+<!--    <table class="table table-hover">-->
+<!--      <thead>-->
+<!--      <th>SL No.</th>-->
+<!--      <th>Name</th>-->
+<!--      <th>Pure Gold</th>-->
+<!--      <th>Pure Silver</th>-->
+<!--      <th>92 Ginnie</th>-->
+<!--      <th>Pan</th>-->
+<!--      <th>90 Ginnie</th>-->
+<!--      <th>Dal</th>-->
+<!--      <th>Nitric</th>-->
+<!--      <th>Production_dust</th>-->
+<!--      </thead>-->
+<!--      <tbody>-->
+<!--      <tr *ngFor="let item of employeeStockList | filter: searchTerm ; let indexofElement = index">-->
+<!--        <td>{{indexofElement+1}}</td>-->
+<!--        <td>{{item.user_name}}</td>-->
+<!--        <td>{{item.Pure_gold.toFixed(3)}}</td>-->
+<!--        <td>{{item.Pure_silver.toFixed(3)}}</td>-->
+<!--        <td>{{item.ginnie_92.toFixed(3)}}</td>-->
+<!--        <td>{{item.Pan.toFixed(3)}}</td>-->
+<!--        <td>{{item.ginnie_90.toFixed(3)}}</td>-->
+<!--        <td>{{item.Dal.toFixed(3)}}</td>-->
+<!--        <td>{{item.Nitric.toFixed(3)}}</td>-->
+<!--        <td>{{item.Production_dust.toFixed(3)}}</td>-->
+<!--      </tr>-->
+<!--      </tbody>-->
+<!--    </table>-->
+<!--  </div>-->
+
+  <div class="d-flex">
+    <div class="col-4"></div>
+    <div  class="col-4" id ="printBillDiv" style="text-align: center ; background-color: #d9dd9b ;padding: 5px ; width: fit-content">
+      <table class="table" *ngIf = employeeStockList[0]  style="width: 80% ; margin: 20px;">
+        <!--      <thead>-->
+        <!--      <th>SL No.</th>-->
+        <!--      <th>Name</th>-->
+        <!--      <th>Pure Gold</th>-->
+        <!--      <th>Pure Silver</th>-->
+        <!--      <th>92 Ginnie</th>-->
+        <!--      <th>Pan</th>-->
+        <!--      <th>90 Ginnie</th>-->
+        <!--      <th>Dal</th>-->
+        <!--      <th>Nitric</th>-->
+        <!--      <th>Production_dust</th>-->
+        <!--      </thead>-->
+        <tbody>
+        <!--      <tr *ngFor="let item of employeeStockList | filter: searchTerm ; let indexofElement = index">-->
+        <!--        <td>{{indexofElement+1}}</td>-->
+        <!--        <td>{{item.user_name}}</td>-->
+        <!--        <td>{{item.Pure_gold.toFixed(3)}}</td>-->
+        <!--        <td>{{item.Pure_silver.toFixed(3)}}</td>-->
+        <!--        <td>{{item.ginnie_92.toFixed(3)}}</td>-->
+        <!--        <td>{{item.Pan.toFixed(3)}}</td>-->
+        <!--        <td>{{item.ginnie_90.toFixed(3)}}</td>-->
+        <!--        <td>{{item.Dal.toFixed(3)}}</td>-->
+        <!--        <td>{{item.Nitric.toFixed(3)}}</td>-->
+        <!--        <td>{{item.Production_dust.toFixed(3)}}</td>-->
+        <!--      </tr>-->
+        <tr>
+          <td style="font-weight: bolder">Name</td>
+          <td>{{employeeStockList[0].user_name}}</td>
+        </tr>
+        <tr>
+          <td style="font-weight: bolder">Pure Gold</td>
+          <td>{{employeeStockList[0].Pure_gold.toFixed(3)}}</td>
+        </tr>
+        <tr>
+          <td style="font-weight: bolder">Pure Silver</td>
+          <td>{{employeeStockList[0].Pure_silver.toFixed(3)}}</td>
+        </tr>
+        <tr>
+          <td style="font-weight: bolder">92 Ginnie</td>
+          <td>{{employeeStockList[0].ginnie_92.toFixed(3)}}</td>
+        </tr>
+        <tr>
+          <td style="font-weight: bolder">Pan</td>
+          <td>{{employeeStockList[0].Pan.toFixed(3)}}</td>
+        </tr>
+        <tr>
+          <td style="font-weight: bolder">90 Ginnie</td>
+          <td>{{employeeStockList[0].ginnie_90.toFixed(3)}}</td>
+        </tr>
+        <tr>
+          <td style="font-weight: bolder">Dal</td>
+          <td>{{employeeStockList[0].Dal.toFixed(3)}}</td>
+        </tr>
+        <tr>
+          <td style="font-weight: bolder">Nitric</td>
+          <td>{{employeeStockList[0].Nitric.toFixed(3)}}</td>
+        </tr>
+        <tr>
+          <td style="font-weight: bolder">Production_dust</td>
+          <td>{{employeeStockList[0].Production_dust.toFixed(3)}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-4"></div>
   </div>
 
 

@@ -15,14 +15,15 @@ export class EmployeeStockComponent implements OnInit {
   }
 
   printDivStyle = {
-    table: {'border-collapse': 'collapse', 'width' : '100%' },
+    table: {'border-collapse': 'collapse', 'width' : '100%' ,border: '1px  solid black'},
     label:{'width': '100%'},
-    th: {border: '1px  solid black' , 'fontSize' : 'small'}
+    td: {border: '1px  solid black' , 'fontSize' : 'small'}
   };
 
   ngOnInit(): void {
      this.employeeStockService.getEmployeeStockDataUpdateListener().subscribe((response) => {
        this.employeeStockList = response;
+       console.log(this.employeeStockList);
      });
   }
 
