@@ -105,7 +105,7 @@ export class AuthService {
   }
 
   sendChats(item){
-    return this.http.post('http://localhost:3000/messages',item) .pipe(tap(((response) => {
+    return this.http.post('http://localhost:3000/messages', item) .pipe(tap(((response) => {
      this.message.push(response);
      this.messageSub.next([...this.message]);
    })));

@@ -71,7 +71,7 @@ import { CustomerUnderAgentComponent } from './pages/due-by-agent/customer-under
 import { TransactionComponent } from './pages/transaction/transaction.component';
 import { EmployeeStockComponent } from './pages/employee-stock/employee-stock.component';
 import { FooterComponent } from './pages/footer/footer.component';
-import {NgSelectModule} from "@ng-select/ng-select";
+import { NgSelectModule} from "@ng-select/ng-select";
 import { BilledJobListComponent } from './pages/completed-bill/billed-job-list/billed-job-list.component';
 import { ChatComponent } from './pages/chat/chat.component';
 import { PasswordResetComponent } from './pages/password-reset/password-reset.component';
