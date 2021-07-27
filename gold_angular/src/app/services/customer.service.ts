@@ -6,7 +6,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {catchError, tap} from 'rxjs/operators';
 import {Subject, throwError} from 'rxjs';
 import {GlobalVariable} from '../shared/global';
-import {CommonService} from "./common.service";
+import {CommonService} from './common.service';
 
 
 export interface CustomerResponseData {

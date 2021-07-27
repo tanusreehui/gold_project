@@ -149,7 +149,7 @@ export class AgentService {
   }
 
   deleteAgent(id){
-    return this.http.delete<AgentResponseData>(GlobalVariable.BASE_API_URL + 'agents/' + id);
+    return this.http.delete<AgentResponseData>(GlobalVariable.BASE_API_URL + '/agents/' + id);
   }
 
   updateAgent(){

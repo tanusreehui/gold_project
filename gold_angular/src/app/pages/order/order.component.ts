@@ -419,6 +419,7 @@ export class OrderComponent implements OnInit {
   }
 
   findModel(){
+	console.log('findModel invoked');  
     const index = this.customerList.findIndex(k => k.id === this.orderMasterForm.value.customer_id );
     // tslint:disable-next-line:max-line-length
     this.orderService.getProductData(this.orderDetailsForm.value.model_number, this.customerList[index].customer_category_id)

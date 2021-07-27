@@ -186,7 +186,7 @@ class AgentController extends Controller
 
         $data = CustomerToAgents::select(DB::raw('sum(get_LC_due_by_customer_id(customer_id)) as LCdueByAgent'),DB::raw('sum(get_gold_due_by_customer_id(customer_id)) as goldDueByAgent'),'people.user_name','customer_to_agents.agent_id')
             ->join('people','people.id','=','customer_to_agents.agent_id')
-            ->groupBy('customer_to_agents.agent_id')
+            ->groupBy('customer_to_agents.agent_id','people.user_name')
             ->get();
 
 
