@@ -162,6 +162,10 @@ class AgentController extends Controller
     }
 
     public function deleteAgent($id){
+        // 2 is the id of Counter Agent
+        if($id==2){
+            return response()->json(['success' => 0, 'data' => null], 200,[],JSON_NUMERIC_CHECK);
+        }
         $data = Person::find($id);
         $data->delete();
         return response()->json(['success' => 1, 'data' => $data], 200,[],JSON_NUMERIC_CHECK);
