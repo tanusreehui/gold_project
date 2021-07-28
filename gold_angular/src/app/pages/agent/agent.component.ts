@@ -62,6 +62,13 @@ export class AgentComponent implements OnInit {
         this.agentForm.patchValue({mobile1: '+91', mobile2: '+91'});
         // this.agentService.getLatestAgent();
       }
+    }, (error) => {
+      // console.log(error);
+      Swal.fire(
+        'Error!',
+        error.statusText,
+        'error'
+      );
     });
   }
 
@@ -83,6 +90,12 @@ export class AgentComponent implements OnInit {
             'Done!',
             'Deleted Agent',
             'success'
+          );
+        }, (error) => {
+          Swal.fire(
+            'Error!',
+             error.statusText,
+            'error'
           );
         });
 

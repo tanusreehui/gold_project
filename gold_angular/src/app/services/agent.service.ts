@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Agent} from '../models/agent.model';
 import {HttpClient} from '@angular/common/http';
-import {Subject} from 'rxjs';
+import {Subject, throwError} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Product} from '../models/product.model';
 import {ProductResponseData} from './product.service';
@@ -142,7 +142,7 @@ export class AgentService {
 
   saveAgent(){
     return this.http.post<AgentResponseData>(GlobalVariable.BASE_API_URL + '/agents', this.agentForm.value)
-      .pipe(tap(((response: {success: number, data: Agent }) => {
+      .pipe(catchError(this._serverError), tap(((response: {success: number, data: Agent }) => {
            this.agentData.unshift(response.data);
            this.agentSub.next([...this.agentData]);
       })));
@@ -176,6 +176,24 @@ export class AgentService {
 
   getUserTypes(){
     return this.http.get(GlobalVariable.BASE_API_URL + '/getUserTypes');
+  }
+
+  private _serverError(err: any) {
+    if (err instanceof Response) {
+      return throwError('backend server error');
+      // if you're using lite-server, use the following line
+      // instead of the line above:
+      // return Observable.throw(err.text() || 'backend server error');
+    }
+    if (err.status === 0){
+      // tslint:disable-next-line:label-position
+      return throwError ({status: err.status, message: 'Backend Server is not Working', statusText: err.statusText});
+    }
+    if (err.status === 401){
+      // tslint:disable-next-line:label-position
+      return throwError ({status: err.status, message: 'You are not authorised', statusText: err.statusText});
+    }
+    return throwError(err);
   }
 
 
