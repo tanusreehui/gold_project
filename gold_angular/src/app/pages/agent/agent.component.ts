@@ -59,6 +59,7 @@ export class AgentComponent implements OnInit {
           'success'
         );
         this.agentForm.reset();
+        this.agentForm.patchValue({mobile1: '+91', mobile2: '+91'});
         // this.agentService.getLatestAgent();
       }
     });
