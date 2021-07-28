@@ -154,7 +154,7 @@
             <button mat-icon-button color="primary" aria-label="Edit Customer" (click)="editAgent(agent)">
               <mat-icon>edit</mat-icon>
             </button>
-            <button mat-icon-button color="warn" aria-label="Edit Customer" (click)="deleteAgent(agent)">
+            <button mat-icon-button color="warn" aria-label="Edit Customer"  [disabled]="agent.id === 2" (click)="deleteAgent(agent)">
               <mat-icon>delete</mat-icon>
             </button>
           </td>
