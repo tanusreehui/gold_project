@@ -144,7 +144,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let agent of agentData">
+        <tr *ngFor="let agent of agentData; let i = index">
           <td>{{agent.id}}</td>
           <td sortable-column="user_name">{{agent.user_name}}</td>
           <td>{{agent.email}}</td>
