@@ -58,8 +58,8 @@ export class CustomerService implements OnDestroy{
 
     this.customerForm = new FormGroup({
       id : new FormControl(null),
-      user_name : new FormControl(null, [Validators.required, Validators.maxLength(20), Validators.minLength(4)]),
-      billing_name : new FormControl(null, [Validators.required, Validators.maxLength(20), Validators.minLength(4)]),
+      user_name : new FormControl(null, [Validators.required, Validators.maxLength(100), Validators.minLength(4)]),
+      billing_name : new FormControl(null, [Validators.required, Validators.maxLength(100), Validators.minLength(4)]),
       // email : new FormControl(null, [Validators.required, Validators.email]),
       mobile1 : new FormControl('+91', [Validators.required, Validators.maxLength(13)]),
       mobile2 : new FormControl('+91', [Validators.required, Validators.maxLength(13)]),
