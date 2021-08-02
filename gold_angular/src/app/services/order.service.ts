@@ -174,32 +174,38 @@ export class OrderService {
         })));
     }
 
-  fetchOrderDetails(order_master_id){
-    this.http.post(GlobalVariable.BASE_API_URL + '/orderDetails', {orderMasterId: order_master_id})
-      .subscribe((response: {success: number, data: OrderDetail[]}) => {
-        const {data} = response;
-        this.orderDetails = data;
+  // fetchOrderDetails(order_master_id){
+  //   this.http.post(GlobalVariable.BASE_API_URL + '/orderDetails', {orderMasterId: order_master_id})
+  //     .subscribe((response: {success: number, data: OrderDetail[]}) => {
+  //       const {data} = response;
+  //       this.orderDetails = data;
+  //       console.log('From service');
+  //       console.log(this.orderDetails);
+  //
+  //       this.orderDetailsSub.next([...this.orderDetails]);
+  //     });
+  // }
 
-        this.orderDetailsSub.next([...this.orderDetails]);
-      });
+  fetchOrderDetails(order_master_id){
+    return this.http.post(GlobalVariable.BASE_API_URL + '/orderDetails', {orderMasterId: order_master_id});
   }
 
   updateOrder(){
     // this.http.patch(GlobalVariable.BASE_API_URL + '/orders', {master: this.orderMaster, details: this.orderDetailUpdate})
     //   .subscribe((response: {success: number, orderDetail: OrderDetail, orderMaster: OrderMaster}) => {
 
-      return this.http.patch(GlobalVariable.BASE_API_URL + '/orders',{master: this.orderMaster, details: this.orderDetailUpdate})
+      return this.http.patch(GlobalVariable.BASE_API_URL + '/orders', {master: this.orderMaster, details: this.orderDetailUpdate})
       .pipe(catchError(this._serverError), tap((response: {success: number, orderDetail: OrderDetail, orderMaster: OrderMaster}) => {
         // instant changing the order details after update
         const {orderDetail} = response;
         // @ts-ignore
-        const detailIndex = this.orderDetails.findIndex(x => x.id === this.orderDetailUpdate.id);
-        if (detailIndex === -1){
-          this.orderDetails.unshift(orderDetail);
-        }else {
-          this.orderDetails[detailIndex] = response.orderDetail;
-        }
-        this.orderDetailsSub.next([...this.orderDetails]);
+        // const detailIndex = this.orderDetails.findIndex(x => x.id === this.orderDetailUpdate.id);
+        // if (detailIndex === -1){
+        //   this.orderDetails.unshift(orderDetail);
+        // }else {
+        //   this.orderDetails[detailIndex] = response.orderDetail;
+        // }
+        // this.orderDetailsSub.next([...this.orderDetails]);
       }));
   }
 

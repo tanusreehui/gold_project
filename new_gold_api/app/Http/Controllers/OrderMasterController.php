@@ -178,10 +178,12 @@ class OrderMasterController extends Controller
         $orderDetails->model_number=$inputOrderDetails->model_number;
         $orderDetails->price_code=$inputOrderDetails->price_code;
 
-        $data=User::select('user_name')->where('id',$inputOrderMaster->customer_id)->get();
+//        $data=User::select('user_name')->where('id',$inputOrderMaster->customer_id)->get();
+        $data=Person::select('user_name')->where('id',$inputOrderMaster->customer_id)->get();
         $orderMaster->customer_name = $data[0]->user_name;
 
-        $data=User::select('user_name')->where('id',$inputOrderMaster->agent_id)->get();
+//        $data=User::select('user_name')->where('id',$inputOrderMaster->agent_id)->get();
+        $data=Person::select('user_name')->where('id',$inputOrderMaster->agent_id)->get();
         $orderMaster->agent_name = $data[0]->user_name;
 
         return response()->json(['success'=>1, 'orderDetail'=>$orderDetails, 'orderMaster'=>$orderMaster], 200);
@@ -212,9 +214,11 @@ class OrderMasterController extends Controller
         $orderMaster->date_of_order=$inputOrderMaster->order_date;
         $orderMaster->date_of_delivery=$inputOrderMaster->delivery_date;
         $orderMaster->update();
-        $data=User::select('user_name')->where('id',$inputOrderMaster->customer_id)->get();
+//        $data=User::select('user_name')->where('id',$inputOrderMaster->customer_id)->get();
+        $data=Person::select('user_name')->where('id',$inputOrderMaster->customer_id)->get();
         $orderMaster->customer_name = $data[0]->user_name;
-        $data=User::select('user_name')->where('id',$inputOrderMaster->agent_id)->get();
+//        $data=User::select('user_name')->where('id',$inputOrderMaster->agent_id)->get();
+        $data=Person::select('user_name')->where('id',$inputOrderMaster->agent_id)->get();
         $orderMaster->agent_name = $data[0]->user_name;
         return response()->json(['success'=>1, 'data'=>$orderMaster], 200);
     }

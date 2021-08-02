@@ -127,30 +127,32 @@ export class OrderComponent implements OnInit {
     this.productService.getProductUpdateListener().subscribe((response) => {
       this.productList  = response;
     });
-    this.orderService.getOrderDetailsListener()
-      .subscribe((orderDetail) => {
-          this.orderDetails = orderDetail;
-          this.totalApproxGold = 0;
-          this.totalOrderAmount = 0;
-          this.totalQuantity = 0;
-        // tslint:disable-next-line:prefer-for-of
-          for (let x = 0; x < this.orderDetails.length; x++){
-            this.totalApproxGold = this.totalApproxGold + this.orderDetails[x].approx_gold;
-            this.totalQuantity = this.totalQuantity + this.orderDetails[x].quantity;
-            this.totalOrderAmount = this.totalOrderAmount + this.orderDetails[x].amount;
-          }
-      });
+    // this.orderService.getOrderDetailsListener()
+    //   .subscribe((orderDetail) => {
+    //       this.orderDetails = orderDetail;
+    //       console.log(this.orderDetails);
+    //       this.totalApproxGold = 0;
+    //       this.totalOrderAmount = 0;
+    //       this.totalQuantity = 0;
+    //     // tslint:disable-next-line:prefer-for-of
+    //       for (let x = 0; x < this.orderDetails.length; x++){
+    //         this.totalApproxGold = this.totalApproxGold + this.orderDetails[x].approx_gold;
+    //         this.totalQuantity = this.totalQuantity + this.orderDetails[x].quantity;
+    //         this.totalOrderAmount = this.totalOrderAmount + this.orderDetails[x].amount;
+    //       }
+    //   });
 
-    this.storage.get('orderContainer').subscribe((orderContainer: any) => {
-      if (orderContainer){
-        this.orderMaster = orderContainer.orderMaster;
-        this.orderDetails = orderContainer.orderDetails;
-        this.orderMasterForm.setValue(orderContainer.orderMasterFormValue);
-        this.totalOrderAmount = orderContainer.totalAmount;
-        this.totalQuantity = orderContainer.totalQuantity;
-        this.totalApproxGold = orderContainer.totalApproxGold;
-      }
-    }, (error) => {});
+    // this.storage.get('orderContainer').subscribe((orderContainer: any) => {
+    //   if (orderContainer){
+    //     this.orderMaster = orderContainer.orderMaster;
+    //     this.orderDetails = orderContainer.orderDetails;
+    //     console.log(this.orderDetails);
+    //     this.orderMasterForm.setValue(orderContainer.orderMasterFormValue);
+    //     this.totalOrderAmount = orderContainer.totalAmount;
+    //     this.totalQuantity = orderContainer.totalQuantity;
+    //     this.totalApproxGold = orderContainer.totalApproxGold;
+    //   }
+    // }, (error) => {});
   }
 
   updateMaster(){
@@ -289,10 +291,10 @@ export class OrderComponent implements OnInit {
     const amount = item.quantity * item.price;
     // tslint:disable-next-line:max-line-length
 
-    const index = this.orderMasterList.findIndex(x => x.id === item.order_master_id);
-    this.editableOrderMaster = this.orderMasterList[index];
+    // const index = this.orderMasterList.findIndex(x => x.id === item.order_master_id);
+    // this.editableOrderMaster = this.orderMasterList[index];
 
-    this.orderMasterForm.patchValue({id : this.editableOrderMaster.id, customer_id : this.editableOrderMaster.customer_id, agent_id : this.editableOrderMaster.agent_id, order_date : this.editableOrderMaster.date_of_order, delivery_date : this.editableOrderMaster.date_of_delivery});
+    // this.orderMasterForm.patchValue({id : this.editableOrderMaster.id, customer_id : this.editableOrderMaster.customer_id, agent_id : this.editableOrderMaster.agent_id, order_date : this.editableOrderMaster.date_of_order, delivery_date : this.editableOrderMaster.date_of_delivery});
 
     this.orderDetailsForm.patchValue({id: item.id, product_id: item.product_id, model_number : item.model_number, p_loss: item.p_loss, price: item.price, price_code: item.price_code, quantity: item.quantity, amount: item.amount, approx_gold: item.approx_gold, size: item.size , material_id: item.material_id});
     this.product_id = item.product_id;
@@ -326,6 +328,8 @@ export class OrderComponent implements OnInit {
           'Item updated in Order List',
           'success'
         );
+        const index = this.orderDetails.findIndex(x => x.id === this.orderDetailsForm.value.id);
+        this.orderDetails.splice(index, 1, response.orderDetail);
 
         this.orderDetailsForm.reset();
       }
@@ -419,7 +423,7 @@ export class OrderComponent implements OnInit {
   }
 
   findModel(){
-	console.log('findModel invoked');  
+	console.log('findModel invoked');
     const index = this.customerList.findIndex(k => k.id === this.orderMasterForm.value.customer_id );
     // tslint:disable-next-line:max-line-length
     this.orderService.getProductData(this.orderDetailsForm.value.model_number, this.customerList[index].customer_category_id)
@@ -539,14 +543,16 @@ export class OrderComponent implements OnInit {
   }
 
   showOrderDetailsList(item){
-
-    this.orderService.fetchOrderDetails(item.id);
-
-    this.showProduct = true;
-    this.isAddEnabled = false;
-
-
-
+    this.orderService.fetchOrderDetails(item.id).subscribe((response: {success: number, data: OrderDetail[]}) => {
+      if (response.data){
+        this.orderDetails = response.data;
+        this.showProduct = true;
+        this.isAddEnabled = false;
+        const index = this.orderMasterList.findIndex(x => x.id === item.id);
+        this.editableOrderMaster = this.orderMasterList[index];
+        this.orderMasterForm.patchValue({id : this.editableOrderMaster.id, customer_id : this.editableOrderMaster.customer_id, agent_id : this.editableOrderMaster.agent_id, order_date : this.editableOrderMaster.date_of_order, delivery_date : this.editableOrderMaster.date_of_delivery});
+      }
+    });
   }
 
   OrderListToExcel(){
