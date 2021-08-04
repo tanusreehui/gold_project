@@ -330,7 +330,20 @@ export class OrderComponent implements OnInit {
         );
         const index = this.orderDetails.findIndex(x => x.id === this.orderDetailsForm.value.id);
         this.orderDetails.splice(index, 1, response.orderDetail);
+        this.editableItemIndex = -1;
+        this.totalApproxGold = this.orderDetails.reduce( (total, record) => {
+          // @ts-ignore
+          return total + record.approx_gold;
+        }, 0);
+        this.totalOrderAmount = this.orderDetails.reduce( (total, record) => {
+          // @ts-ignore
+          return total + (record.price * record.quantity);
+        }, 0);
 
+        this.totalQuantity = this.orderDetails.reduce( (total, record) => {
+          // @ts-ignore
+          return total + record.quantity;
+        }, 0);
         this.orderDetailsForm.reset();
       }
       this.currentError = null;
@@ -546,6 +559,19 @@ export class OrderComponent implements OnInit {
     this.orderService.fetchOrderDetails(item.id).subscribe((response: {success: number, data: OrderDetail[]}) => {
       if (response.data){
         this.orderDetails = response.data;
+        this.totalApproxGold = this.orderDetails.reduce( (total, record) => {
+          // @ts-ignore
+          return total + record.approx_gold;
+        }, 0);
+        this.totalOrderAmount = this.orderDetails.reduce( (total, record) => {
+          // @ts-ignore
+          return total + (record.price * record.quantity);
+        }, 0);
+
+        this.totalQuantity = this.orderDetails.reduce( (total, record) => {
+          // @ts-ignore
+          return total + record.quantity;
+        }, 0);
         this.showProduct = true;
         this.isAddEnabled = false;
         const index = this.orderMasterList.findIndex(x => x.id === item.id);
