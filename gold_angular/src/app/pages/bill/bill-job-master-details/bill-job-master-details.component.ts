@@ -142,6 +142,7 @@ export class BillJobMasterDetailsComponent implements OnInit {
     // this.discountPercentage = this.billDetailsData[0].discount;
     this.billDetailsData[0].discount = this.discountPercentage;
     this.discount = (this.billDetailsData[0].discount / 100) * this.originalCost;
+    console.log(this.discount);
     this.totalCost = this.originalCost - this.discount;
     this.billMasterData.discount = this.discount;
   }

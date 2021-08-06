@@ -318,6 +318,10 @@ class DatabaseSeeder extends Seeder
 
         Person::create(['user_name'=>'Sameeran Majumdar','billing_name'=>' ','mobile1'=>'9830530463','mobile2'=>'','user_type_id'=>7]);
 
+        Person::create(['user_name'=>'Jit Das','billing_name'=>' ','mobile1'=>'9830530463','mobile2'=>'','user_type_id'=>11]);
+        Person::create(['user_name'=>'Asit Pal','billing_name'=>' ','mobile1'=>'9830530463','mobile2'=>'','user_type_id'=>11]);
+        Person::create(['user_name'=>'Manik Sen','billing_name'=>' ','mobile1'=>'9830530463','mobile2'=>'','user_type_id'=>11]);
+
 
 //        Person::create(['user_name'=>'Riya Guha Choudhury','billing_name'=>' ','mobile1'=>'9830530462','mobile2'=>'','user_type_id'=>9]);
 //        Person::create(['user_name'=>'Priyam Ghosh','billing_name'=>' ','mobile1'=>'9830530463','mobile2'=>'','user_type_id'=>9]);

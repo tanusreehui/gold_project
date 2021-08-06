@@ -59,6 +59,7 @@ export class JobComponent implements OnInit {
     this.orderMasterData = this.orderService.getOrderMaster();
     this.jobService.getKarigarhUpdateListener().subscribe((responseProducts: Karigarh[]) => {
       this.karigarhData = responseProducts;
+      console.log(this.karigarhData);
     });
     this.orderService.getOrderUpdateListener().subscribe((responseProducts: OrderMaster[]) => {
       this.orderMasterData = responseProducts;
@@ -75,12 +76,15 @@ export class JobComponent implements OnInit {
   }
 
   viewDetails(data) {
-    this.orderService.fetchOrderDetails(data.id);
-    this.orderService.getOrderDetailsListener()
-      .subscribe((orderDetails: []) => {
-        this.showProduct = false;
-        this.orderDetails = orderDetails;
-      });
+    this.orderService.fetchOrderDetails(data.id).subscribe((response: {success: number, data: OrderDetail[]}) => {
+      this.showProduct = false;
+      this.orderDetails = response.data;
+    });
+    // this.orderService.getOrderDetailsListener()
+    //   .subscribe((orderDetails: []) => {
+    //     this.showProduct = false;
+    //     this.orderDetails = orderDetails;
+    //   });
   }
 
   productShow() {

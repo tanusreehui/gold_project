@@ -96,7 +96,7 @@ class JobTaskController extends Controller
             ->join('job_masters','job_masters.id','=','job_details.job_master_id')
             ->where('job_details.job_master_id','=',$data->id)
             ->groupBy('job_tasks.id')
-            ->groupBy('job_details.job_master_id')
+            ->groupBy('job_details.job_master_id','job_tasks.task_name','job_masters.gross_weight')
             ->get();
 
         return response()->json(['success'=>1,'data'=> $total], 200,[],JSON_NUMERIC_CHECK);
@@ -141,7 +141,7 @@ class JobTaskController extends Controller
             ->leftJoinSub($table1, 'table1', function ($join) {
                 $join->on('job_tasks.id', '=', 'table1.job_task_id');
             })
-            ->groupBy('table1.job_task_id','job_tasks.id')
+            ->groupBy('table1.job_task_id','job_tasks.id','job_tasks.task_name')
             ->get();
 
         return response()->json(['success'=>1,'data'=>$result], 200,[],JSON_NUMERIC_CHECK);
