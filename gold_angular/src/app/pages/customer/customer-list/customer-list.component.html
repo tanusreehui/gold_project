@@ -24,8 +24,8 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let customer of customerData | filter:searchTerm | paginate: { itemsPerPage: pageSize, currentPage: p }">
-        <td>{{customer.id}}</td>
+      <tr *ngFor="let indexOfElement = index ; let customer of customerData | filter:searchTerm | paginate: { itemsPerPage: pageSize, currentPage: p }">
+        <td>{{indexOfElement+1}}</td>
         <td sortable-column="user_name">{{customer.user_name}}</td>
 <!--        <td>{{customer.email}}</td>-->
         <td>{{customer.mobile1}}</td>

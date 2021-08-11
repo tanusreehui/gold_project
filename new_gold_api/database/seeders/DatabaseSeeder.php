@@ -113,6 +113,14 @@ class DatabaseSeeder extends Seeder
         PriceCode::create(['price_code_name'=>'X']);
         PriceCode::create(['price_code_name'=>'Y']);
         PriceCode::create(['price_code_name'=>'Z']);
+        PriceCode::create(['price_code_name'=>'AA']);
+        PriceCode::create(['price_code_name'=>'FI']);
+        PriceCode::create(['price_code_name'=>'FJ']);
+        PriceCode::create(['price_code_name'=>'FK']);
+        PriceCode::create(['price_code_name'=>'FL']);
+        PriceCode::create(['price_code_name'=>'FM']);
+        PriceCode::create(['price_code_name'=>'FN']);
+        PriceCode::create(['price_code_name'=>'FO']);
 
         //job_tasks table data
         JobTask::create(['task_name'=>'Gold Submit']);

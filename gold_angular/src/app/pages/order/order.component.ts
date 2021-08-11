@@ -285,6 +285,7 @@ export class OrderComponent implements OnInit {
     this.showProduct = !this.showProduct;
   }
 
+  // for autopopulating order details form
   fillOrderDetailsForm(item){
     this.editableItemIndex = this.orderDetails.findIndex(x => x === item);
     this.isSaveEnabled = false;
@@ -559,6 +560,7 @@ export class OrderComponent implements OnInit {
     this.orderService.fetchOrderDetails(item.id).subscribe((response: {success: number, data: OrderDetail[]}) => {
       if (response.data){
         this.orderDetails = response.data;
+        // for viewing total approx gold ,total order amount and total quantity of the order details
         this.totalApproxGold = this.orderDetails.reduce( (total, record) => {
           // @ts-ignore
           return total + record.approx_gold;
@@ -574,6 +576,7 @@ export class OrderComponent implements OnInit {
         }, 0);
         this.showProduct = true;
         this.isAddEnabled = false;
+        // for autopopulating order master form
         const index = this.orderMasterList.findIndex(x => x.id === item.id);
         this.editableOrderMaster = this.orderMasterList[index];
         this.orderMasterForm.patchValue({id : this.editableOrderMaster.id, customer_id : this.editableOrderMaster.customer_id, agent_id : this.editableOrderMaster.agent_id, order_date : this.editableOrderMaster.date_of_order, delivery_date : this.editableOrderMaster.date_of_delivery});

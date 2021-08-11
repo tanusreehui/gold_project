@@ -36,10 +36,9 @@ export class CustomerComponent implements OnInit {
     this.showDeveloperDiv = false;
     this.customerForm = this.customerService.customerForm;
 
+    // for getting settings data (Ex- mv etc) from json file
     this.http.get('assets/settings.json').subscribe((data: any) => {
-      // console.log(data);
       this.settingsInfo = data;
-      // console.log(this.settingsInfo.mv);
       this.customerForm.patchValue({mv : this.settingsInfo.mv});
     });
     this.customerCategoryList = this.customerCategoryService.getCustomerCategory();
