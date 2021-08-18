@@ -13,6 +13,7 @@ export class BilledJobListComponent implements OnInit {
   billedJobList: FinishedJobs[];
   showReport = false;
   jobReport: any[];
+  orderData: any;
   jobNumber: string;
   totalBilledGold: any;
   totalPureGold: any;
@@ -32,10 +33,11 @@ export class BilledJobListComponent implements OnInit {
   getReport(item){
     this.totalBilledGold = 0;
     this.totalPureGold = 0;
-    this.billService.getBilledJobReport(item.id).subscribe((response) => {
+    this.billService.getBilledJobReport(item.id).subscribe((response:{ success: number , data: any[], data2: any}) => {
        if(response.data){
          this.showReport = true;
          this.jobReport = response.data;
+         this.orderData = response.data2;
          for (let i = 0; i < this.jobReport.length ; i++){
             this.totalBilledGold = this.totalBilledGold + this.jobReport[i].total;
          }

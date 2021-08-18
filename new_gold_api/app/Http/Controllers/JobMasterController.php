@@ -159,8 +159,14 @@ class JobMasterController extends Controller
     {
         $queryResult = DB::select('call getBilledJobInfo(?)',[$id]);
         $result1 = collect($queryResult);
+//        return $result1[0]->user_name;
 
         $result2 = BillAdjustment::select()->get();
+        $result4 = OrderDetail::select( 'materials.id','materials.material_name', 'materials.gold')
+                   ->join('job_masters','job_masters.order_details_id','=','order_details.id')
+                   ->join('materials','order_details.material_id','=','materials.id')
+                   ->where('job_masters.id',$id)
+                   ->first();
 
         $result3 = array(
             array("task_name"=>"Gold",
@@ -173,21 +179,27 @@ class JobMasterController extends Controller
                 "quantity" => $result1[0]->quantity,
                 "mv" => $result1[0]->mv,
                 "p_loss" => $result1[0]->p_loss,
-                "model_number" => $result1[0]->model_number
+                "model_number" => $result1[0]->model_number,
+                "submit_employee_name" => $result1[0]->user_name,
+                "return_employee_name" => $result1[1]->user_name,
             ),
             array("task_name"=>"Pan",
                 "id"=>3,
                 "submit"=>$result1[4]->material_submitted,
                 "return"=>abs($result1[5]->material_submitted),
                 "total"=> (($result1[4]->material_submitted + $result1[5]->material_submitted) * $result2[0]->value)/100,
-                "valueTaken"=>$result2[0]->value
+                "valueTaken"=>$result2[0]->value,
+                "submit_employee_name" => $result1[4]->user_name,
+                "return_employee_name" => $result1[5]->user_name,
             ),
             array("task_name"=>"Nitric",
                 "id"=>4,
                 "submit"=> 0,
                 "return"=>abs($result1[6]->material_submitted),
                 "total"=>($result1[6]->material_submitted * $result2[1]->value)/100,
-                "valueTaken"=>$result2[1]->value
+                "valueTaken"=>$result2[1]->value,
+                "submit_employee_name" => "--",
+                "return_employee_name" => $result1[6]->user_name,
             ),
             array("task_name"=>"Total PLoss",
                 "id"=>0,
@@ -207,7 +219,7 @@ class JobMasterController extends Controller
             )
 
         );
-        return response()->json(['success'=>1,'data'=>$result3], 200,[],JSON_NUMERIC_CHECK);
+        return response()->json(['success'=>1,'data'=>$result3,'data2'=>$result4], 200,[],JSON_NUMERIC_CHECK);
     }
 
 

@@ -36,6 +36,7 @@
           <tbody>
           <tr>
             <td>Model Number : {{jobReport[0].model_number}}</td>
+            <td>Material Name : {{orderData.material_name}}</td>
             <td>PLoss : {{jobReport[0].p_loss}}</td>
             <td>Quantity : {{jobReport[0].quantity}}</td>
             <td>Rate : {{jobReport[0].rate}}</td>
@@ -58,8 +59,8 @@
           <tr  *ngFor="let data of jobReport; let indexOfelement = index" >
             <td>{{indexOfelement+1}}</td>
             <td class="text-left">{{data.task_name}}</td>
-            <td class="text-right">{{data.submit === "--" ? "--": data.submit.toFixed(3) + " gm"}}</td>
-            <td class="text-right">{{data.return === "--" ? "--": + data.return.toFixed(3)}}</td>
+            <td class="text-right">{{data.submit === "--" ? "--": data.submit.toFixed(3) + " gm" + " ( " + data.submit_employee_name + " )"}}</td>
+            <td class="text-right">{{data.return === "--" ? "--": + data.return.toFixed(3) + " gm" + " ( " + data.return_employee_name + " )"}}</td>
             <td class="text-right">{{data.id  === 0? data.valueTaken + " * "+ jobReport[0].quantity : data.valueTaken + " %"}}</td>
             <td class="text-right">{{testMath.abs(data.total.toFixed(3))}} gm</td>
             <!--        <td><button  class="btn btn-primary" (click)="getReport(data.id)">View Report</button></td>-->
@@ -76,7 +77,7 @@
             <td></td>
             <td class="text-left" style="font-weight: bold">Total Pure Gold</td>
             <td></td>
-            <td></td>
+            <td>{{orderData.gold}} + "%"</td>
             <td></td>
             <td class="text-right" style="font-weight: bold">{{totalPureGold.toFixed(3)}} gm</td>
           </tr>
