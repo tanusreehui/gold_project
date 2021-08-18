@@ -667,7 +667,7 @@ class CustomerController extends Controller
         $data2 =   BillDetail::select('bill_masters.id','bill_masters.created_at',DB::raw("bill_masters.bill_number as reference_number"),DB::raw("sum(bill_details.quantity * bill_details.rate) - bill_masters.discount as cash_received"),DB::raw("sum(bill_details.pure_gold) as  gold_received"),DB::raw("if(sum(bill_details.quantity * bill_details.rate),'Billed','--') as statement"))
             ->join('bill_masters','bill_masters.id','=','bill_details.bill_master_id')
             ->where('bill_masters.customer_id',$id)
-            ->groupBy('bill_masters.id')
+            ->groupBy('bill_masters.id','bill_masters.created_at','bill_masters.bill_number','bill_masters.discount')
             ->get();
 
         for($i=0;$i<count($data2);$i++) {

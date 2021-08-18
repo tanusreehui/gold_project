@@ -14,13 +14,13 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
-        $product=[
-            ['model_number'=>'B7001','product_name'=>'BABY','product_category_id'=>1,'price_code_id'=>7],
-            ['model_number'=>'B7002','product_name'=>'Baby Bangle','product_category_id'=>1,'price_code_id'=>7],
-            ['model_number'=>'B7003','product_name'=>'BABY BANGLE','product_category_id'=>1,'price_code_id'=>8],
-            ['model_number'=>'B7004','product_name'=>'baby bangle','product_category_id'=>1,'price_code_id'=>8],
-            ['model_number'=>'B7008','product_name'=>'baby','product_category_id'=>1,'price_code_id'=>7]
-        ];
+//        $product=[
+//            ['model_number'=>'B7001','product_name'=>'BABY','product_category_id'=>1,'price_code_id'=>7],
+//            ['model_number'=>'B7002','product_name'=>'Baby Bangle','product_category_id'=>1,'price_code_id'=>7],
+//            ['model_number'=>'B7003','product_name'=>'BABY BANGLE','product_category_id'=>1,'price_code_id'=>8],
+//            ['model_number'=>'B7004','product_name'=>'baby bangle','product_category_id'=>1,'price_code_id'=>8],
+//            ['model_number'=>'B7008','product_name'=>'baby','product_category_id'=>1,'price_code_id'=>7]
+//        ];
         //Product::truncate();
         Product::insert([
             ['model_number'=>'B7001','product_name'=>'BABY','product_category_id'=>1,'price_code_id'=>7],

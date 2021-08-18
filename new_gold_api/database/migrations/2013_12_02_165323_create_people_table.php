@@ -33,7 +33,7 @@ class CreatePeopleTable extends Migration
             //Address
             $table->String('address1', 100)->nullable(true);
             $table->String('address2', 100)->nullable(true);
-            $table->String('state', 50)->default('West Bengal')->nullable(false);
+            $table->String('state', 50)->default('West Bengal')->nullable(true);
             $table->String('po', 50)->nullable(true);
             $table->String('area', 50)->nullable(true);
             $table->String('city', 50)->nullable(true);

@@ -586,7 +586,7 @@ class CreateAllProceduresAndFunctions extends Migration
                                                       inner join bill_details on job_details.job_master_id = bill_details.job_master_id
                                                       where job_details.job_master_id = job_master_id) as table1
                                                       on job_tasks.id = table1.job_task_id
-                                                      group by job_tasks.id,table1.p_loss, table1.rate, table1.quantity, table1.mv, table1.model_number;
+                                                      group by job_tasks.id,job_tasks.task_name,table1.p_loss, table1.rate, table1.quantity, table1.mv, table1.model_number;
 
                         END;'
         );
