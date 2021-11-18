@@ -19,13 +19,16 @@ class CreateProductsTable extends Migration
             $table->string('product_name',110);
 
 
-            $table->bigInteger('product_category_id')->unsigned();
-            $table ->foreign('product_category_id')->references('id')->on('product_categories');
+
+           // $table->bigInteger('product_category_id')->unsigned();
+            //$table ->foreign('product_category_id')->references('id')->on('product_categories');
+
+            $table->foreignId('product_category_id')->references('id')->on('product_categories');
 
             $table->bigInteger('price_code_id')->unsigned();
             $table ->foreign('price_code_id')->references('id')->on('price_codes');
 
-
+             $table->double('product_mv')->default(0);
 
             $table->tinyInteger('inforced')->default(1);
             $table->timestamps();

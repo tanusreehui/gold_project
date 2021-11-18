@@ -683,6 +683,7 @@ class DatabaseSeeder extends Seeder
 
 
         User::create(['person_id'=>'1','email'=>'bile','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
+        User::create(['person_id'=>'3','email'=>'papai','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
 //        User::create(['person_id'=>'3','email'=>'papai','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
 //        User::create(['person_id'=>'4','email'=>'guddu','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
 //        User::create(['person_id'=>'5','email'=>'sameeran','password'=>"81dc9bdb52d04dc20036dbd8313ed055"]);
