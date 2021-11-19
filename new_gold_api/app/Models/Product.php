@@ -23,7 +23,8 @@ class Product extends Model
         'product_category_id',
         'price_code_id',
         'price_code_name',
-        'category_name',];
+        'category_name',
+        'product_mv'];
 
     public function category()
     {

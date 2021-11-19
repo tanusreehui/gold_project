@@ -86,7 +86,9 @@ export class OrderService {
       customer_id : new FormControl(null, [Validators.required]),
       agent_id : new FormControl(null, [Validators.required]),
       order_date : new FormControl(this.order_date_format, [Validators.required]),
-      delivery_date : new FormControl(this.delivery_date_format, [Validators.required])
+      delivery_date : new FormControl(this.delivery_date_format, [Validators.required]),
+      mv : new FormControl(null, [Validators.required])
+
     });
 
     this.orderDetailsForm = new FormGroup({
@@ -101,7 +103,8 @@ export class OrderService {
       size : new FormControl(null, [Validators.required]),
       quantity : new FormControl(null, [Validators.required]),
       amount : new FormControl(0 , [Validators.required]),
-      discount : new FormControl(null , [Validators.required])
+      discount : new FormControl(null , [Validators.required]),
+      product_mv : new FormControl(null , [Validators.required])
     });
     // fetching agents
     this.http.get(GlobalVariable.BASE_API_URL + '/agents')

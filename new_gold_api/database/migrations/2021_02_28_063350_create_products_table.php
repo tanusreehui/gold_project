@@ -28,7 +28,7 @@ class CreateProductsTable extends Migration
             $table->bigInteger('price_code_id')->unsigned();
             $table ->foreign('price_code_id')->references('id')->on('price_codes');
 
-             $table->double('product_mv')->default(0);
+             $table->double('product_mv')->default(10);
 
             $table->tinyInteger('inforced')->default(1);
             $table->timestamps();

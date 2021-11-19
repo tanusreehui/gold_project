@@ -12,6 +12,7 @@ export class Product{
   p_loss?: number;
   price?: number;
   discount?: number;
+  product_mv?: number;
   constructor(){
 
   }

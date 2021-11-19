@@ -31,6 +31,9 @@ class CreateJobMastersTable extends Migration
             $table ->double('gross_weight')->default(0);
 
             $table ->integer('bill_created')->default(0);
+
+            $table ->double('cust_mv')->default(0);
+            $table ->double('product_mv')->default(0);
             $table->timestamps();
         });
     }

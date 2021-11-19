@@ -10,7 +10,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products=Product::select('products.id','product_name','products.model_number','products.product_category_id','products.price_code_id','price_codes.price_code_name','product_categories.category_name')
+        $products=Product::select('products.id','product_name','products.model_number','products.product_category_id','products.price_code_id','price_codes.price_code_name','product_categories.category_name','products.product_mv')
             ->join('price_codes', 'price_codes.id', '=', 'products.price_code_id')
             ->join('product_categories', 'product_categories.id', '=', 'products.product_category_id')
             ->get();
@@ -27,6 +27,7 @@ class ProductController extends Controller
         $product->product_name=$request->input('product_name');
         $product->price_code_id=$request->input('price_code_id');
         $product->product_category_id=$request->input('product_category_id');
+        $product->product_mv=$request->input('product_mv');
         $product->save();
 
         $product->setAttribute('category_name', $product->category->category_name);
@@ -43,6 +44,7 @@ class ProductController extends Controller
         $product->product_name=$request->input('product_name');
         $product->price_code_id=$request->input('price_code_id');
         $product->product_category_id=$request->input('product_category_id');
+        $product->product_mv=$request->input('product_mv');
         $product->update();
 
         $product->setAttribute('category_name', $product->category->category_name);
@@ -62,7 +64,7 @@ class ProductController extends Controller
 
     public function getProductData(Request $request)
     {
-        $result= Rate::select('products.id','rates.price','rates.p_loss','price_codes.price_code_name','products.model_number')
+        $result= Rate::select('products.id','rates.price','rates.p_loss','price_codes.price_code_name','products.model_number','products.product_mv')
             ->join('products','rates.price_code_id','=','products.price_code_id')
             ->join('price_codes','price_codes.id','=','rates.price_code_id')
             ->where('rates.customer_category_id','=',$request['customer_category_id'])

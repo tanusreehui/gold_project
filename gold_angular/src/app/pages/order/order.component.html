@@ -17,8 +17,13 @@
 
 
           <div class="container material" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
-            <ng-select [items]="customerList" fxFlex="80"  bindLabel="user_name" class="custom" bindValue="id" formControlName="customer_id" placeholder="Select Customer">
+            <ng-select [items]="customerList" fxFlex="80"  bindLabel="user_name" class="custom" bindValue="id" formControlName="customer_id" placeholder="Select Customer" (change)="populateMV()">
             </ng-select>
+
+            <mat-form-field fxFlex="40" class="pr-4">
+              <mat-placeholder>MV</mat-placeholder>
+              <input matInput type="text"  formControlName="mv">
+            </mat-form-field>
           </div>
 
 <!--          <div class="container" fxLayout="column" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">-->
@@ -91,17 +96,17 @@
             </ng-select>
 
             <div class="container" fxLayout="row" fxFlex="50" fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="10px" fxLayoutGap.xs="0" *ngIf="orderDetailsForm.value.product_id">
-              <mat-form-field fxFlex="20">
+              <mat-form-field fxFlex="30">
                 <mat-placeholder>PLoss</mat-placeholder>
                 <input matInput type="number" formControlName="p_loss" [readonly]="true" class="text-right">
               </mat-form-field>
 
-              <mat-form-field fxFlex="20">
+              <mat-form-field fxFlex="30">
                 <mat-placeholder>Price</mat-placeholder>
                 <input matInput type="number" formControlName="price" [readonly]="true" class="text-right">
               </mat-form-field>
 
-              <mat-form-field fxFlex="15">
+              <mat-form-field fxFlex="30">
                 <mat-placeholder>Code</mat-placeholder>
                 <input matInput  formControlName="price_code" [readonly]="true" class="text-center">
               </mat-form-field>
@@ -109,12 +114,17 @@
           </div>
           <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
 
-            <mat-form-field fxFlex="40"  class="pr-4">
+            <mat-form-field fxFlex="25">
+              <mat-placeholder>Product MV</mat-placeholder>
+              <input matInput type="number" formControlName="product_mv"  class="text-right">
+            </mat-form-field>
+
+            <mat-form-field fxFlex="35"  class="pr-4">
               <mat-placeholder>Quantity</mat-placeholder>
               <input matInput type="number"  formControlName="quantity" (change)="updateItemAmount()">
             </mat-form-field>
 
-            <mat-form-field fxFlex="40">
+            <mat-form-field fxFlex="35">
               <mat-placeholder>Size</mat-placeholder>
               <input matInput  formControlName="size">
             </mat-form-field>

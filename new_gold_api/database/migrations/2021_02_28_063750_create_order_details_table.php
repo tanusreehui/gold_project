@@ -37,6 +37,8 @@ class CreateOrderDetailsTable extends Migration
             $table->bigInteger('status_id')->unsigned();
             $table ->foreign('status_id')->references('id')->on('status_types');
             $table ->integer('bill_created')->default(0);
+            $table ->double('cust_mv')->default(0);
+            $table ->double('product_mv')->default(0);
             $table->timestamps();
         });
     }

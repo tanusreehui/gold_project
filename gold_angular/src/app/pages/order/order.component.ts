@@ -297,7 +297,7 @@ export class OrderComponent implements OnInit {
 
     // this.orderMasterForm.patchValue({id : this.editableOrderMaster.id, customer_id : this.editableOrderMaster.customer_id, agent_id : this.editableOrderMaster.agent_id, order_date : this.editableOrderMaster.date_of_order, delivery_date : this.editableOrderMaster.date_of_delivery});
 
-    this.orderDetailsForm.patchValue({id: item.id, product_id: item.product_id, model_number : item.model_number, p_loss: item.p_loss, price: item.price, price_code: item.price_code, quantity: item.quantity, amount: item.amount, approx_gold: item.approx_gold, size: item.size , material_id: item.material_id});
+    this.orderDetailsForm.patchValue({id: item.id, product_id: item.product_id, model_number : item.model_number, p_loss: item.p_loss, price: item.price, price_code: item.price_code, quantity: item.quantity, amount: item.amount, approx_gold: item.approx_gold, size: item.size , material_id: item.material_id , product_mv: item.product_mv});
     this.product_id = item.product_id;
   }
 
@@ -447,11 +447,11 @@ export class OrderComponent implements OnInit {
         // tslint:disable-next-line:max-line-length
         const index2 =  this.customerList.findIndex(x => x.id === this.orderMasterForm.value.customer_id);
         // this.orderDetailsForm.patchValue({discount : this.customerList[index].discount})
-        this.orderDetailsForm.patchValue({discount : this.customerList[index2].discount, product_id: tempProduct.id, p_loss: tempProduct.p_loss, price: tempProduct.price, price_code : tempProduct.price_code_name});
+        this.orderDetailsForm.patchValue({discount : this.customerList[index2].discount, product_id: tempProduct.id, p_loss: tempProduct.p_loss, price: tempProduct.price, price_code : tempProduct.price_code_name , product_mv: tempProduct.product_mv});
       }else{
         // alert('This model does not exist for this customer');
         // tslint:disable-next-line:max-line-length
-        this.orderDetailsForm.patchValue({ p_loss: null, price: null, price_code : null, discount : null});
+        this.orderDetailsForm.patchValue({ p_loss: null, price: null, price_code : null, discount : null, product_mv: null});
       }
     });
   }
@@ -579,7 +579,8 @@ export class OrderComponent implements OnInit {
         // for autopopulating order master form
         const index = this.orderMasterList.findIndex(x => x.id === item.id);
         this.editableOrderMaster = this.orderMasterList[index];
-        this.orderMasterForm.patchValue({id : this.editableOrderMaster.id, customer_id : this.editableOrderMaster.customer_id, agent_id : this.editableOrderMaster.agent_id, order_date : this.editableOrderMaster.date_of_order, delivery_date : this.editableOrderMaster.date_of_delivery});
+        console.log(this.editableOrderMaster);
+        this.orderMasterForm.patchValue({id : this.editableOrderMaster.id, customer_id : this.editableOrderMaster.customer_id, agent_id : this.editableOrderMaster.agent_id, order_date : this.editableOrderMaster.date_of_order, delivery_date : this.editableOrderMaster.date_of_delivery , mv: this.editableOrderMaster.cust_mv});
       }
     });
   }
@@ -616,4 +617,10 @@ export class OrderComponent implements OnInit {
     ];
     this.excelService.exportToExcelSpecial(this.orderMasterList, 'Orders', head);
   }
+  populateMV(){
+    const selectedCustomer =  this.customerList.filter(x => x.id === this.orderMasterForm.value.customer_id);
+    // console.log(data);
+    this.orderMasterForm.patchValue({mv : selectedCustomer[0].mv});
+  }
+
 }

@@ -13,6 +13,7 @@ export class OrderMaster{
   delivery_date: string;
   date_of_order?: any;
   date_of_delivery?: any;
+  cust_mv?: number;
   constructor() {
   }
 }

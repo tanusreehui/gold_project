@@ -41,6 +41,7 @@ export class ProductService {
       price_code_name : new FormControl('', [Validators.required]),
       category_name : new FormControl('', [Validators.required]),
       product_category_id : new FormControl(null, [Validators.required]),
+      product_mv: new FormControl(0, [Validators.required])
     });
   }
   getProducts(){
@@ -50,6 +51,7 @@ export class ProductService {
 
   fillFormByUpdatebaleData(product){
     // this.productForm.controls['id'].setValue(product.id);
+    console.log(product);
     this.productForm.setValue(product);
     // tslint:disable-next-line:max-line-length
     // this.productForm.patchValue({id:product.id , product_name: product.product_name , model_number: product.model_number ,price_code_id: product.price_code_id , product_category_id: product.product_category_id});

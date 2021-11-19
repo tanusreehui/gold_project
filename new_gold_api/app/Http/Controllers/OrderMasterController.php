@@ -17,9 +17,11 @@ class OrderMasterController extends Controller
 {
     public function index()
     {
-        $data=OrderMaster::select('order_masters.id','order_masters.person_id','order_masters.date_of_order','order_masters.date_of_delivery','order_masters.order_number',DB::raw('customer.user_name as customer_name'),DB::raw('customer.id as customer_id'),DB::raw('agent.id as agent_id'),DB::raw('agent.user_name as agent_name'))
+        $data=OrderMaster::select('order_masters.id','order_masters.person_id','order_masters.date_of_order','order_masters.date_of_delivery','order_masters.order_number','order_details.cust_mv',DB::raw('customer.user_name as customer_name'),DB::raw('customer.id as customer_id'),DB::raw('agent.id as agent_id'),DB::raw('agent.user_name as agent_name'))
+            ->join('order_details', 'order_details.order_master_id', '=', 'order_masters.id')
             ->join('people as customer', 'customer.id', '=', 'order_masters.person_id')
             ->join('people as agent', 'agent.id', '=', 'order_masters.agent_id')
+            ->distinct()
             ->get();
         return response()->json(['success'=>1,'data'=>$data], 200,[],JSON_NUMERIC_CHECK);
     }
@@ -109,6 +111,8 @@ class OrderMasterController extends Controller
                 $orderDetails->size=$row['size'];
                 $orderDetails->product_id=$row['product_id'];
                 $orderDetails->discount=$row['discount'];
+                $orderDetails->cust_mv=$inputOrderMaster->mv;
+                $orderDetails->product_mv=$row['product_mv'];
                 $orderDetails->status_id=40;
                 $orderDetails->save();
             }
@@ -160,6 +164,8 @@ class OrderMasterController extends Controller
             $orderDetails->product_id=$inputOrderDetails->product_id;
             $orderDetails->size=$inputOrderDetails->size;
             $orderDetails->material_id=$inputOrderDetails->material_id;
+            $orderDetails->cust_mv=$inputOrderMaster->mv;
+            $orderDetails->product_mv=$inputOrderDetails->product_mv;
             $orderDetails->save();
         }else{
             $orderDetails=new OrderDetail();
@@ -171,6 +177,8 @@ class OrderMasterController extends Controller
             $orderDetails->product_id=$inputOrderDetails->product_id;
             $orderDetails->size=$inputOrderDetails->size;
             $orderDetails->material_id=$inputOrderDetails->material_id;
+            $orderDetails->cust_mv=$inputOrderMaster->mv;
+            $orderDetails->product_mv=$inputOrderDetails->product_mv;
             $orderDetails->update();
         }
 
