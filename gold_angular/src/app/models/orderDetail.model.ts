@@ -19,6 +19,8 @@ export class OrderDetail{
   person_name?: string;
   status?: any;
   discount?: number;
+  cust_mv?: number;
+  product_mv?: number;
   constructor() {
   }
 }

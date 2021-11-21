@@ -63,6 +63,7 @@ export class JobComponent implements OnInit {
     });
     this.orderService.getOrderUpdateListener().subscribe((responseProducts: OrderMaster[]) => {
       this.orderMasterData = responseProducts;
+      console.log('orderMasterData', this.orderMasterData);
     });
     this.productService.getProductUpdateListener()
       .subscribe((responseProducts: Product[]) => {
@@ -105,7 +106,9 @@ export class JobComponent implements OnInit {
     this.jobMasterForm.patchValue({
       model_number: details.model_number,
       order_details_id: details.id,
-      material_name: this.materialList[index].material_name
+      material_name: this.materialList[index].material_name,
+      cust_mv: this.orderMasterData[0].cust_mv,
+      product_mv: this.orderMasterData[0].product_mv
     });
     const user = JSON.parse(localStorage.getItem('user'));
     this.jobDetailsForm.value.employee_id = user.id;

@@ -57,6 +57,8 @@ class JobMasterController extends Controller
         $jobMaster->order_details_id=$inputJobMaster->order_details_id;
 //                $jobMaster->gross_weight=$inputJobMaster->gross_weight;
         $jobMaster->status_id=1;
+        $jobMaster->cust_mv=$inputJobMaster->cust_mv;
+        $jobMaster->product_mv=$inputJobMaster->product_mv;
         $jobMaster->save();
 
         $jobDetails=new JobDetail();

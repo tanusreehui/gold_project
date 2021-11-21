@@ -14,6 +14,8 @@ export class OrderMaster{
   date_of_order?: any;
   date_of_delivery?: any;
   cust_mv?: number;
+  product_mv?: number;
+
   constructor() {
   }
 }

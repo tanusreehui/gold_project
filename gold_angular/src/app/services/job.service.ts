@@ -59,7 +59,9 @@ export class JobService {
       gross_weight : new FormControl(null, [Validators.required]),
       order_details_id : new FormControl(null, [Validators.required]),
       model_number : new FormControl({value: null, disabled: true}, [Validators.required]),
-      material_name : new FormControl({value: null, disabled: true}, [Validators.required])
+      material_name : new FormControl({value: null, disabled: true}, [Validators.required]),
+      cust_mv : new FormControl(null, [Validators.required]),
+      product_mv : new FormControl(null, [Validators.required])
     });
     this.jobDetailsForm = new FormGroup({
       id : new FormControl(null),
