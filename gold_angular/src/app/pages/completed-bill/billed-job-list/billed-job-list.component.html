@@ -19,73 +19,85 @@
     </table>
   </div>
 </div>
-<div [hidden]="!showReport">
-  <div  fxFlex="100" class="row"  id ="show-billNumber-div"  style="background-color: #d9dd9b">
+<div *ngIf="showReport">
+  <div  fxFlex="100" class="row"   style="background-color: #d9dd9b">
 
-<!--    <th style="width: 5px">PLoss :</th>{{jobReport[0].p_loss}}-->
-<!--    <th style="width: 5px">Quantity :</th>{{jobReport[0].quantity}}-->
-<!--    <th style="width: 5px">Rate : </th>{{jobReport[0].rate}}-->
-<!--    <th style="width: 5px">MV  :</th>{{jobReport[0].mv}}-->
-    <div fxFlex="100" style="text-align: center; font-weight: bolder; padding-top: 10px">
-      <h1>{{jobNumber}}</h1>
+
+    <div style="text-align: right" fxFlex="100">
+      <button
+        mat-stroked-button
+        class="btn-primary"
+        [printStyle]="printDivStyle"
+        printSectionId="printReportDiv"
+        ngxPrint >
+        <mat-icon>print</mat-icon>
+      </button>
     </div>
-    <div fxFlex="100" class="col">
-      <div fxFlex="10"></div>
-      <div fxFlex="80" style="align-content: center; padding-top: 5px; padding-left: 10px; padding-right: 10px">
-        <table class="table jobInfo" style="margin: 0px" *ngIf="jobReport">
-          <tbody>
-          <tr>
-            <td>Model Number : {{jobReport[0].model_number}}</td>
-            <td>Material Name : {{orderData.material_name}}</td>
-            <td>PLoss : {{jobReport[0].p_loss}}</td>
-            <td>Quantity : {{jobReport[0].quantity}}</td>
-            <td>Rate : {{jobReport[0].rate}}</td>
-            <td>MV : {{jobReport[0].mv}}</td>
-          </tr>
-          </tbody>
-        </table>
-        <table class="table table-bordered taskReport" *ngIf="jobReport">
-          <thead>
-          <tr>
-            <th>SL No.</th>
-            <th class="text-left">Material Name</th>
-            <th class="text-right">Submit</th>
-            <th class="text-right">Return</th>
-            <th class="text-right">Value Taken</th>
-            <th class="text-right">Used</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr  *ngFor="let data of jobReport; let indexOfelement = index" >
-            <td>{{indexOfelement+1}}</td>
-            <td class="text-left">{{data.task_name}}</td>
-            <td class="text-right">{{data.submit === "--" ? "--": data.submit.toFixed(3) + " gm" + " ( " + data.submit_employee_name + " )"}}</td>
-            <td class="text-right">{{data.return === "--" ? "--": + data.return.toFixed(3) + " gm" + " ( " + data.return_employee_name + " )"}}</td>
-            <td class="text-right">{{data.id  === 0? data.valueTaken + " x "+ jobReport[0].quantity : data.valueTaken + " %"}}</td>
-            <td class="text-right">{{testMath.abs(data.total.toFixed(3))}} gm</td>
-            <!--        <td><button  class="btn btn-primary" (click)="getReport(data.id)">View Report</button></td>-->
-          </tr>
-          <tr>
-            <td></td>
-            <td class="text-left" style="font-weight: bold">Total</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="text-right" style="font-weight: bold">{{totalBilledGold.toFixed(3)}} gm</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td class="text-left" style="font-weight: bold">Total Pure Gold</td>
-            <td></td>
-            <td>{{orderData.gold}}  %</td>
-            <td></td>
-            <td class="text-right" style="font-weight: bold">{{totalPureGold.toFixed(3)}} gm</td>
-          </tr>
-          </tbody>
-        </table>
+
+    <div id="printReportDiv"  fxFlex="100" class="row">
+      <div fxFlex="100" style="text-align: center; font-weight: bolder; padding-top: 10px">
+        <h1>{{jobNumber}}</h1>
       </div>
-      <div fxFlex="10"></div>
+      <div fxFlex="100" class="col">
+        <div fxFlex="10"></div>
+        <div fxFlex="80" style="align-content: center; padding-top: 5px; padding-left: 10px; padding-right: 10px">
+          <table class="table jobInfo" style="margin-bottom: 20px" *ngIf="jobReport">
+            <tbody>
+            <tr>
+              <td>Model Number : {{jobReport[0].model_number}}</td>
+              <td>Material Name : {{orderData.material_name}}</td>
+              <td>PLoss : {{jobReport[0].p_loss}} /pcs</td>
+              <td>Quantity : {{jobReport[0].quantity}}</td>
+              <td>Rate : {{jobReport[0].rate}}/pcs</td>
+              <td>MV : {{jobReport[0].mv}} /pcs</td>
+            </tr>
+            </tbody>
+          </table>
+
+          <table class="table table-bordered taskReport" *ngIf="jobReport">
+            <thead>
+            <tr>
+              <th>SL No.</th>
+              <th class="text-left">Material Name</th>
+              <th class="text-right">Submit</th>
+              <th class="text-right">Return</th>
+              <th class="text-right">Value Taken</th>
+              <th class="text-right">Used</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr  *ngFor="let data of jobReport; let indexOfelement = index" >
+              <td>{{indexOfelement+1}}</td>
+              <td class="text-left">{{data.task_name}}</td>
+              <td class="text-right">{{data.submit === "--" ? "--": data.submit.toFixed(3) + " gm" + " ( " + data.submit_employee_name + " )"}}</td>
+              <td class="text-right">{{data.return === "--" ? "--": + data.return.toFixed(3) + " gm" + " ( " + data.return_employee_name + " )"}}</td>
+              <td class="text-right">{{data.id  === 0? data.valueTaken + " x "+ jobReport[0].quantity : data.valueTaken + " %"}}</td>
+              <td class="text-right">{{testMath.abs(data.total.toFixed(3))}} gm</td>
+              <!--        <td><button  class="btn btn-primary" (click)="getReport(data.id)">View Report</button></td>-->
+            </tr>
+            <tr>
+              <td></td>
+              <td class="text-left" style="font-weight: bold">Total</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="text-right" style="font-weight: bold">{{totalBilledGold.toFixed(3)}} gm</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td class="text-left" style="font-weight: bold">Total Pure Gold</td>
+              <td></td>
+              <td>{{orderData.gold}}  %</td>
+              <td></td>
+              <td class="text-right" style="font-weight: bold">{{totalPureGold.toFixed(3)}} gm</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div fxFlex="10"></div>
+      </div>
     </div>
+
 
 
 

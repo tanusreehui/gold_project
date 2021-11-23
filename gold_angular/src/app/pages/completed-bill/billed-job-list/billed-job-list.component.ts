@@ -20,6 +20,11 @@ export class BilledJobListComponent implements OnInit {
   testMath =  Math;
 
   constructor(private  route: ActivatedRoute, private billService: BillService) { }
+  printDivStyle = {
+    table: {'border-collapse': 'collapse', 'width' : '100%' },
+    label:{ 'width': '100%'},
+    th: {border: '1px  solid black' , 'fontSize' : 'small'}
+  };
 
   ngOnInit(): void {
     this.showReport = false;
