@@ -75,7 +75,7 @@ export class BillJobMasterDetailsComponent implements OnInit {
     this.billService.getfinishedJobDataSubUpdateListener()
       .subscribe((details: JobMaster[]) => {
         this.finishedJobData = details;
-        this.mv = (this.finishedJobData[0].cust_mv + this.finishedJobData[0].product_mv) * this.finishedJobData[0].quantity ;
+        this.mv = (this.finishedJobData[0].cust_mv + this.finishedJobData[0].product_mv) ;
         console.log('finishedJobData', this.finishedJobData);
       });
   }
