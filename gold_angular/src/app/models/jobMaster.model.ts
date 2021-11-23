@@ -28,6 +28,8 @@ export class JobMaster{
   pure_gold?: number;
   cost?: number;
   mv?: number;
+  cust_mv?: number;
+  product_mv?: number;
   constructor() {
   }
 }

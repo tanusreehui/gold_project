@@ -141,6 +141,7 @@ export class BillService {
       .subscribe((response: {success: number, data: JobMaster[]})  => {
         const {data} = response;
         this.finishedJobData = data;
+        console.log(this.finishedJobData);
         this.finishedJobDataSub.next([...this.finishedJobData]);
       });
   }

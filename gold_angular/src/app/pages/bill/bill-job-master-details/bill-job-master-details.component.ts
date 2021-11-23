@@ -75,7 +75,8 @@ export class BillJobMasterDetailsComponent implements OnInit {
     this.billService.getfinishedJobDataSubUpdateListener()
       .subscribe((details: JobMaster[]) => {
         this.finishedJobData = details;
-        this.mv = this.finishedJobData[0].mv;
+        this.mv = (this.finishedJobData[0].cust_mv + this.finishedJobData[0].product_mv) * this.finishedJobData[0].quantity ;
+        console.log('finishedJobData', this.finishedJobData);
       });
   }
 
@@ -104,6 +105,7 @@ export class BillJobMasterDetailsComponent implements OnInit {
         this.totalQuantity = this.totalQuantity + Number(data.quantity);
         // this.totalCost = this.totalCost + Number(data.cost);
         this.originalCost = this.originalCost + Number(data.cost);
+        data.mv = this.mv;
         this.billDetailsData.push(data);
       });
 
@@ -180,7 +182,7 @@ export class BillJobMasterDetailsComponent implements OnInit {
         //   };
         // }
         this.billService.saveBillMaster(this.billMasterData, this.billDetailsData).subscribe((response) => {
-
+          console.log(this.billDetailsData);
           this.billMasterData = {
             order_master_id: this.billDetailsData[0].order_master_id,
             orderNumber: this.billDetailsData[0].order_number,

@@ -100,6 +100,7 @@ export class JobComponent implements OnInit {
   }
 
   placeJob(details) {
+    console.log(details);
     this.selectedJobIndex = this.orderDetails.findIndex(x => x.id === details.id);
     this.selectedJobItem = details;
     const index = this.materialList.findIndex(x => x.id === details.material_id);
@@ -107,8 +108,8 @@ export class JobComponent implements OnInit {
       model_number: details.model_number,
       order_details_id: details.id,
       material_name: this.materialList[index].material_name,
-      cust_mv: this.orderMasterData[0].cust_mv,
-      product_mv: this.orderMasterData[0].product_mv
+      cust_mv: details.cust_mv,
+      product_mv: details.product_mv
     });
     const user = JSON.parse(localStorage.getItem('user'));
     this.jobDetailsForm.value.employee_id = user.id;
@@ -119,6 +120,7 @@ export class JobComponent implements OnInit {
 
   onSubmit() {
     if(this.jobMasterForm.value.karigarh_id) {
+      console.log(this.jobMasterForm.value);
       this.confirmationDialogService.confirm('Please confirm..', 'Do you really want to send order to job ?')
         .then((confirmed) => {
           if (confirmed) {
