@@ -2,27 +2,28 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Subject} from 'rxjs';
 import {Customer} from '../models/customer.model';
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommonService {
+  private BASE_API_URL = environment.BASE_API_URL;
   private readonly currentURL: string;
-  private BASE_API_URL: string;
   settingsInfo: any = {};
-  // settingsInfo: any;
-  //
-  // private settingsSub = new Subject<any[]>();
-  // //
-  // getSettingsUpdateListener(){
-  //   return this.settingsSub.asObservable();
-  // }
+  private actual_base_api_url: string;
+
 
   constructor(private http: HttpClient) {
-    // this.currentURL = window.location.href;
-    // this.BASE_API_URL = window.location.origin + '/gold_project/new_gold_api/public/api';
-    // // console.log(this.BASE_API_URL);
-    // // console.log(window.location);
+
+    let project_url;
+    if (window.location.origin === 'http://localhost:4200'){
+      project_url = 'http://127.0.0.1';
+      // console.log(x);
+    }else{
+      project_url = window.location.origin;
+    }
+    this.actual_base_api_url = project_url + this.BASE_API_URL;
 
     this.http.get('assets/settings.json').subscribe((data: any) => {
       this.settingsInfo = data;
@@ -30,6 +31,9 @@ export class CommonService {
       // this.settingsSub.next([...this.settingsInfo]);
 
     });
+  }
+  getAPI(): string{
+    return this.actual_base_api_url;
   }
 
   getDefaultMV(){

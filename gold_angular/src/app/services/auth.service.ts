@@ -96,12 +96,12 @@ export class AuthService {
 
   getChats(){
     // return this.http.get('http://localhost:3000/messages');
-
-    this.http.get('http://localhost:3000/messages')
-      .subscribe((response) => {
-        this.message = response;
-        this.messageSub.next([...this.message]);
-      });
+    //
+    // this.http.get('http://localhost:3000/messages')
+    //   .subscribe((response) => {
+    //     this.message = response;
+    //     this.messageSub.next([...this.message]);
+    //   });
   }
 
   sendChats(item){
