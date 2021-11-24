@@ -23,6 +23,7 @@ import 'jspdf-autotable';
 import {  ViewChild, ElementRef } from '@angular/core';
 import {ProductService} from '../../services/product.service';
 import {isNumber} from '@ng-bootstrap/ng-bootstrap/util/util';
+import {environment} from "../../../environments/environment";
 
 
 @Component({
@@ -34,7 +35,7 @@ import {isNumber} from '@ng-bootstrap/ng-bootstrap/util/util';
 export class OrderComponent implements OnInit {
 
   @ViewChild('htmlData') htmlData: ElementRef;
-
+  isProduction = environment.production;
   customerList: Customer[];
   agentList: Agent[];
   materialList: Material[];

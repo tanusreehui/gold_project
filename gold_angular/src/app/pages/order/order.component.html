@@ -300,10 +300,12 @@
 
   </div>
 </div>
-
+<div fxLayout.xs="column" fxLayout="row" fxLayoutAlign="space-between stretch"  *ngIf="!isProduction">
+  <mat-slide-toggle [(ngModel)]="showDeveloperDiv">Slide Toggle Checked: {{showDeveloperDiv}}</mat-slide-toggle>
+</div>
 
 <!--This is developer div-->
-<div fxLayout.xs="column" fxLayout="row" fxLayoutAlign="space-between stretch"  id="developer-div" *ngIf="showDeveloperDiv">
+<div fxLayout.xs="column" fxLayout="row" fxLayoutAlign="space-between stretch"  id="developer-div" *ngIf="showDeveloperDiv && !isProduction">
   <div fxLayout="column" fxFlex="25" class="mr-1" style="background-color: #dddddd">
     <pre>
       orderData = {{orderMasterList | json}}
