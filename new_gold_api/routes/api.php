@@ -51,6 +51,11 @@ Route::post("register",[UserController::class,'register']);
 
 
 Route::group(['middleware' => 'auth:sanctum'], function(){
+    Route::get('/me', function(Request $request) {
+        return auth()->user();
+    });
+    Route::get("user",[UserController::class,'getCurrentUser']);
+
     //All secure URL's
 
     //cash_payment
