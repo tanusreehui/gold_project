@@ -1,4 +1,4 @@
-$color-red: #e85704;
+$color-red: #231b18;
 $color-yellow-1: #e89e05;
 $color-yellow-2: #e8c50e;
 $color-yellow-3: #dce815;
@@ -56,8 +56,11 @@ body{
   min-height: 100%;
   width: 100%;
   background-color: antiquewhite;
-  @include linear-gradient(to bottom, $color-red 0%, #e88007 50%, #e8af0a 100%);
-  background-image: url("assets/background/zhilkooleg-C5ayHUXMMX8-unsplash.jpg");
+  @include linear-gradient(to bottom, $color-red 0%, #32220a 50%, #46576f 100%);
+  //background-image: url("assets/background/zhilkooleg-C5ayHUXMMX8-unsplash.jpg");
+  background: linear-gradient(217deg, rgba(182, 92, 92, 0.8), rgba(255,0,0,0) 70.71%),
+  linear-gradient(127deg, rgba(146, 85, 10, 0.8), rgba(0,255,0,0) 70.71%),
+  linear-gradient(336deg, rgba(246, 226, 199, 0.8), rgba(0,0,255,0) 70.71%);
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;

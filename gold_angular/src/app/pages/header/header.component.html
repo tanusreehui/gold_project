@@ -350,28 +350,6 @@
         <!--          <button mat-menu-item [routerLink]="['/lc_receipt']">L.C. Receipts</button>-->
         <!--        </mat-menu>-->
 
-        <mat-menu #fish="matMenu">
-          <button mat-menu-item>Baikal oilfish</button>
-          <button mat-menu-item>Bala shark</button>
-          <button mat-menu-item>Ballan wrasse</button>
-          <button mat-menu-item>Bamboo shark</button>
-          <button mat-menu-item>Banded killifish</button>
-        </mat-menu>
-
-        <mat-menu #amphibians="matMenu">
-          <button mat-menu-item>Sonoran desert toad</button>
-          <button mat-menu-item>Western toad</button>
-          <button mat-menu-item>Arroyo toad</button>
-          <button mat-menu-item>Yosemite toad</button>
-        </mat-menu>
-
-        <mat-menu #reptiles="matMenu">
-          <button mat-menu-item>Banded Day Gecko</button>
-          <button mat-menu-item>Banded Gila Monster</button>
-          <button mat-menu-item>Black Tree Monitor</button>
-          <button mat-menu-item>Blue Spiny Lizard</button>
-          <button mat-menu-item disabled>Velociraptor</button>
-        </mat-menu>
         <!--for huge menus-->
       </div>
       <button mat-button mat-raised-button *ngIf="isAuthenticated" (click)="logout()">Logout</button>
@@ -1107,10 +1085,10 @@
           <mat-icon>arrow_drop_down</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item [routerLink]="['/customer']" routerLinkActive="MyActiveMenu">Customer</button>
-          <button mat-menu-item [routerLink]="['/product']" routerLinkActive="MyActiveMenu">Product</button>
-          <button mat-menu-item [routerLink]="['/rate']" routerLinkActive="MyActiveMenu">Rate</button>
-          <button mat-menu-item [routerLink]="['/agent']" routerLinkActive="MyActiveMenu">Agent</button>
+          <button mat-menu-item [routerLink]="['/customer']" routerLinkActive="MyActiveMenu"><mat-icon>perm_identity</mat-icon>Customer</button>
+          <button mat-menu-item [routerLink]="['/product']" routerLinkActive="MyActiveMenu"><mat-icon>shopping_cart</mat-icon>Product</button>
+          <button mat-menu-item [routerLink]="['/rate']" routerLinkActive="MyActiveMenu"><mat-icon>card_travel</mat-icon>Rate</button>
+          <button mat-menu-item [routerLink]="['/agent']" routerLinkActive="MyActiveMenu"><mat-icon>account_box</mat-icon>Agent</button>
         </mat-menu>
 
         <button mat-button [matMenuTriggerFor]="TransactionMenu">
@@ -1118,8 +1096,8 @@
           <mat-icon>arrow_drop_down</mat-icon>
         </button>
         <mat-menu #TransactionMenu="matMenu">
-          <button mat-menu-item [routerLink]="['/order']" routerLinkActive="MyActiveMenu">Order</button>
-          <button mat-menu-item [routerLink]="['/job']" routerLinkActive="MyActiveMenu">Job</button>
+          <button mat-menu-item [routerLink]="['/order']" routerLinkActive="MyActiveMenu"><mat-icon>loyalty</mat-icon>Order</button>
+          <button mat-menu-item [routerLink]="['/job']" routerLinkActive="MyActiveMenu"><mat-icon>extension</mat-icon>Job</button>
           <button mat-menu-item [routerLink]="['/job_task']" routerLinkActive="MyActiveMenu">Work In Progress</button>
           <button mat-menu-item [routerLink]="['/cash_payment']" routerLinkActive="MyActiveMenu">Cash Payment</button>
           <button mat-menu-item [routerLink]="['/gold_payment']" routerLinkActive="MyActiveMenu">Gold Payment</button>
@@ -1196,31 +1174,9 @@
         <!--          <button mat-menu-item [routerLink]="['/lc_receipt']">L.C. Receipts</button>-->
         <!--        </mat-menu>-->
 
-        <mat-menu #fish="matMenu">
-          <button mat-menu-item>Baikal oilfish</button>
-          <button mat-menu-item>Bala shark</button>
-          <button mat-menu-item>Ballan wrasse</button>
-          <button mat-menu-item>Bamboo shark</button>
-          <button mat-menu-item>Banded killifish</button>
-        </mat-menu>
-
-        <mat-menu #amphibians="matMenu">
-          <button mat-menu-item>Sonoran desert toad</button>
-          <button mat-menu-item>Western toad</button>
-          <button mat-menu-item>Arroyo toad</button>
-          <button mat-menu-item>Yosemite toad</button>
-        </mat-menu>
-
-        <mat-menu #reptiles="matMenu">
-          <button mat-menu-item>Banded Day Gecko</button>
-          <button mat-menu-item>Banded Gila Monster</button>
-          <button mat-menu-item>Black Tree Monitor</button>
-          <button mat-menu-item>Blue Spiny Lizard</button>
-          <button mat-menu-item disabled>Velociraptor</button>
-        </mat-menu>
         <!--for huge menus-->
       </div>
-      <button mat-button mat-raised-button *ngIf="isAuthenticated" (click)="logout()">Logout</button>
+      <button mat-button mat-raised-button *ngIf="isAuthenticated" (click)="logout()"><mat-icon>power_settings_new</mat-icon></button>
 <!--      <div>-->
 <!--        <button  mat-button>-->
 <!--          <mat-icon *ngIf="deviceXs">more_vert</mat-icon>-->
