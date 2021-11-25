@@ -55,6 +55,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
         return auth()->user();
     });
     Route::get("user",[UserController::class,'getCurrentUser']);
+    Route::put("user",[UserController::class,'updatePassword']);
 
     //All secure URL's
 
