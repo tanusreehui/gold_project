@@ -68,7 +68,6 @@ class UserController extends APIController
 
     function getCurrentUser(Request $request){
         return $request->user();
-
     }
 
     function getBearerToken(Request $request){
@@ -96,6 +95,12 @@ class UserController extends APIController
     function logout(Request $request){
         $result = $request->user()->currentAccessToken()->delete();
         return $result;
+    }
+    public function revoke_all(Request $request){
+        //revoke all tokens from current user
+        $user = request()->user();
+        $result = $user->tokens()->delete();
+        return $this->successResponse($result);
     }
 
     function uploadPicture(Request $request){

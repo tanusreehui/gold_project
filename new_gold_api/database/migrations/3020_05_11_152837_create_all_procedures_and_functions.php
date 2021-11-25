@@ -721,6 +721,27 @@ class CreateAllProceduresAndFunctions extends Migration
 
             END;'
         );
+        // function to check a person is deletable or not
+        DB::unprepared('DROP FUNCTION IF EXISTS is_deletable_person;
+            CREATE FUNCTION `is_deletable_person`(`PARAM_ID` INT) RETURNS INT
+            DETERMINISTIC
+            BEGIN
+
+                  DECLARE temp_entry_count INT;
+                  DECLARE temp_count INT;
+                  set temp_entry_count=0;
+                  -- counting order master entry
+                  select count(*) into temp_count from order_masters where person_id=PARAM_ID;
+                  set temp_entry_count:=temp_entry_count+temp_count;
+
+                  IF temp_entry_count>0 THEN
+                      RETURN 0;
+                  else
+                      RETURN 1;
+                  END IF;
+
+            END;'
+        );
 
 
 

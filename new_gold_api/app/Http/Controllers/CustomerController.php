@@ -84,7 +84,10 @@ class CustomerController extends Controller
 //        return response()->json(['success' => 1, 'data' => $query], 200, [], JSON_NUMERIC_CHECK);
 
     }
-
+    public function getCustomer($id){
+        $query = UserType::find(10)->customer;
+        return response()->json(['success' => 1, 'data' => $query], 200, [], JSON_NUMERIC_CHECK);
+    }
 
     public function saveCustomer(Request $request)
     {

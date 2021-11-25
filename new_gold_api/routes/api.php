@@ -42,6 +42,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post("login",[UserController::class,'login']);
 Route::post("register",[UserController::class,'register']);
 
+
 //Route::get("getAllUsers",[UserController::class,'getAllUsers']);
 //Route::group(array('prefix' => 'user'), function() {
 //    Route::post("login",[UserController::class,'login']);
@@ -59,6 +60,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get("token",[UserController::class,'getBearerToken']);
     Route::get("actualToken",[UserController::class,'actualToken']);
     Route::get("userHistory",[UserController::class,'getUserHistory']);
+    Route::get("logout",[UserController::class,'logout']);
+    Route::get("revokeAll",[UserController::class,'revoke_all']);
 
 
     //All secure URL's
@@ -144,9 +147,11 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     //customer
     Route::get('/customers', [CustomerController::class,'index']);
+    Route::get('/customers/{id}', [CustomerController::class,'getCustomer']);
     Route::post('/customers', [CustomerController::class,'saveCustomer']);
     Route::patch('/customers/{id}', [CustomerController::class,'updateCustomer']);
     Route::delete('/customers/{id}', [CustomerController::class,'deleteCustomer']);
+
     Route::get('/completedBillCustomers', [CustomerController::class,'completedBillCustomers']);
     Route::post('/getCompletedBIllDetails', [CustomerController::class,'getCompletedBIllDetails']);
     Route::post('/getFinishedBillData', [BillMasterController::class,'getFinishedBillData']);
@@ -275,9 +280,11 @@ Route::group(array('prefix' => 'dev'), function() {
 
     //customer
     Route::get('/customers', [CustomerController::class,'index']);
+    Route::get('/customers/{id}', [CustomerController::class,'getCustomer']);
     Route::post('/customers', [CustomerController::class,'saveCustomer']);
     Route::patch('/customers/{id}', [CustomerController::class,'updateCustomer']);
     Route::delete('/customers/{id}', [CustomerController::class,'deleteCustomer']);
+
     Route::get('/completedBillCustomers', [CustomerController::class,'completedBillCustomers']);
     Route::post('/getCompletedBIllDetails', [CustomerController::class,'getCompletedBIllDetails']);
     Route::post('/getFinishedBillData', [BillMasterController::class,'getFinishedBillData']);
@@ -313,6 +320,5 @@ Route::group(array('prefix' => 'dev'), function() {
     //User Types Controller
     Route::get('/showCompletedBills',[UserTypeController::class,'index']);
     Route::post('/uploadPicture',[UserController::class,'uploadPicture']);
-
 });
 
