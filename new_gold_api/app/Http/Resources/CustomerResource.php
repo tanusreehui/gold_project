@@ -17,6 +17,7 @@ class CustomerResource extends JsonResource
         return [
             'id' => $this->id,
             'user_name' => $this->user_name,
+            'short_name'=>get_short_name($this->user_name),
             'billing_name' => $this->billing_name,
             'mobile1' => $this->mobile1,
             'mobile2' => $this->mobile2,
