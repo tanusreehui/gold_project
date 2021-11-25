@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CustomerResource;
 use App\Models\BillDetail;
 use App\Models\CustomVoucher;
 use App\Models\Material;
@@ -54,7 +55,8 @@ class CustomerController extends Controller
 //            $user->passwordk = null;
 //        }
         $query = UserType::find(10)->customer;
-        return response()->json(['success' => 1, 'data' => $query], 200, [], JSON_NUMERIC_CHECK);
+//        return response()->json(['success' => 1, 'data' => new CustomerResource($query)], 200, [], JSON_NUMERIC_CHECK);
+        return response()->json(['success' => 1, 'data' =>CustomerResource::collection($query)], 200, [], JSON_NUMERIC_CHECK);
 //        $query = Person::select('id',
 //            'user_name',
 //            'user_type_id',
