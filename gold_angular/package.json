@@ -31,7 +31,7 @@
     "@ng-bootstrap/ng-bootstrap": "^6.0.2",
     "@ng-select/ng-select": "^6.0.0",
     "@ngx-pwa/local-storage": "^13.0.2",
-    "alasql": "^0.6.0",
+    "alasql": "^1.7.3",
     "alasql-angular": "0.0.19",
     "angular-number-to-text": "^1.0.2",
     "bootstrap": "^4.4.1",
@@ -51,7 +51,7 @@
     "ts-md5": "^1.2.7",
     "tslib": "^2.0.0",
     "uuid": "^8.1.0",
-    "xlsx": "^0.16.0",
+    "xlsx": "^0.17.4",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
