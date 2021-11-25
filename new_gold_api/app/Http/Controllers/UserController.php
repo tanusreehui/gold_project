@@ -70,30 +70,24 @@ class UserController extends APIController
         return $request->user();
 
     }
+
     function getBearerToken(Request $request){
         return $request->bearerToken();
     }
+
     function actualToken(Request $request){
         return  request()->user()->currentAccessToken()->token;
     }
     function getUserHistory(Request $request){
         $token = request()->user()->currentAccessToken()->token;
-        $result = DB::select("select people.user_name
-                                    ,people.mobile1
-                                    ,users.email
-                                    ,personal_access_tokens.last_used_at
-                                    ,personal_access_tokens.created_at
-                                    ,personal_access_tokens.updated_at
-                                    from personal_access_tokens
-                                    inner join users on personal_access_tokens.tokenable_id=users.id
-                                    inner join people on people.id = users.person_id
-                                    where token=?", array($token));
 
         $result = DB::table('personal_access_tokens')
+            ->select('users.id','email','user_name','user_type_name','mobile1','abilities','personal_access_tokens.last_used_at','personal_access_tokens.created_at','personal_access_tokens.updated_at')
             ->join('users','users.id','=','personal_access_tokens.tokenable_id')
+            ->join('people','people.id','=','users.person_id')
+            ->join('user_types','user_types.id','=','people.user_type_id')
             ->where('personal_access_tokens.token','=',$token)->first();
         return $result;
-
     }
 
     function getAllUsers(Request $request){
