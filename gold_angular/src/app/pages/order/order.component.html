@@ -213,6 +213,10 @@
         </tr>
         </tfoot>
       </table>
+      <div>
+        <label>Discount Percentage</label>
+        <input matInput type="number" [(ngModel)]="discount" >
+      </div>
       <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="30px" fxLayoutGap.xs="0" >
         <button mat-button  (click)="cancelOrder()" [disabled]="orderDetails.length<1" mat-stroked-button>Cancel Order</button>
         <button mat-button (click)="onSubmit()" mat-stroked-button [disabled]="(orderDetails.length<1 || orderDetailsForm.valid) || orderMasterForm.valid">Save Order</button>
@@ -246,7 +250,7 @@
             <td class="text-center">{{(indexOfElement+1) }}</td>
             <td class="text-left">{{item.order_number }}</td>
             <td  class="text-center">{{item.customer_name | uppercase}}</td>
-            <td class="text-right">{{item.agent_name | uppercase}}</td>
+            <td class="text-right">{{item.agent_name.split(" ")[0].substring(0,2) | uppercase}}{{item.agent_name.split(" ")[1].substring(0,2) | uppercase}}</td>
             <td class="text-right">{{item.date_of_order | date : 'dd/MM/yyyy' }}</td>
             <td class="text-right">{{item.date_of_delivery | date : 'dd/MM/yyyy'}}</td>
             <td class="text-center">

@@ -60,6 +60,8 @@ export class OrderComponent implements OnInit {
   maxDate = new Date(2021, 3, 2);
   startDate = new Date(2020, 0, 2);
 
+  discount: number ;
+
   public currentError: any;
 
   pipe = new DatePipe('en-US');
@@ -124,6 +126,7 @@ export class OrderComponent implements OnInit {
     this.orderService.getOrderUpdateListener()
       .subscribe((responseOrders: OrderMaster[]) => {
          this.orderMasterList = responseOrders;
+
       });
     this.productService.getProductUpdateListener().subscribe((response) => {
       this.productList  = response;
@@ -186,6 +189,9 @@ export class OrderComponent implements OnInit {
 
   addOrder() {
     this.showProduct = true;
+    const selectedCustomer = this.customerList.filter(customer => customer.id === this.orderMasterForm.value.customer_id);
+    console.log(selectedCustomer);
+    this.discount = selectedCustomer[0].discount;
     const index = this.orderDetails.findIndex(x => x.model_number === this.orderDetailsForm.value.model_number);
     if (index !== -1) {
       Swal.fire({
