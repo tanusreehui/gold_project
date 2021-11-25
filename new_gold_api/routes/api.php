@@ -56,6 +56,10 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     });
     Route::get("user",[UserController::class,'getCurrentUser']);
     Route::put("user",[UserController::class,'updatePassword']);
+    Route::get("token",[UserController::class,'getBearerToken']);
+    Route::get("actualToken",[UserController::class,'actualToken']);
+    Route::get("userHistory",[UserController::class,'getUserHistory']);
+
 
     //All secure URL's
 
