@@ -199,6 +199,9 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
 
 Route::group(array('prefix' => 'dev'), function() {
+
+    Route::get('/test', [CustomerController::class,'test']);
+
     //cash_payment
     Route::post('/saveCashPayment', [PaymentCashController::class,'saveCashPayment']);
 

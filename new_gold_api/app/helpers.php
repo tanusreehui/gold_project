@@ -1,0 +1,73 @@
+<?php
+//https://laravel-news.com/creating-helpers
+//composer dump-autoload
+
+use Carbon\Carbon;
+
+if (! function_exists('get_sql_with_bindings')) {
+    function get_sql_with_bindings($query) {
+        return vsprintf(str_replace('?', '%s', $query->toSql()), collect($query->getBindings())->map(function ($binding) {
+            return is_numeric($binding) ? $binding : "'{$binding}'";
+        })->toArray());
+    }
+}
+
+
+if (! function_exists('get_age')) {
+    function get_age($dateOfBirth) {
+        return Carbon::parse($dateOfBirth)->age;
+    }
+}
+
+if (! function_exists('get_accounting_year')) {
+    function get_accounting_year($entry_date = "") {
+        if($entry_date == ""){
+            $entry_date = Carbon::now()->format('Y-m-d');
+        }
+        $temp_date = explode("-",$entry_date);
+        if($temp_date[1]>3){
+            $x = $temp_date[0]%100;
+            $accounting_year = $x*100 + ($x+1);
+        }else{
+            $x = $temp_date[0]%100;
+            $accounting_year =($x-1)*100+$x;
+        }
+        return $accounting_year;
+    }
+}
+if (! function_exists('get_next_year')) {
+    function get_next_year($current_year,$current_month) {
+        $next_year = $current_year;
+        $next_month = $current_month+1;
+        if($next_month>12){
+            $next_year=$next_year+1;
+            $next_month=1;
+        }
+        return $next_year;
+    }
+}
+if (! function_exists('get_next_month')) {
+    function get_next_month($current_year,$current_month) {
+        $next_year = $current_year;
+        $next_month = $current_month+1;
+        if($next_month>12){
+            $next_year=$next_year+1;
+            $next_month=1;
+        }
+        return $next_month;
+    }
+}
+
+if (! function_exists('get_short_name')) {
+    function get_short_name($name) {
+        $pieces = explode(" ", $name);
+        $x = substr($pieces[0],0,2); // piece1
+        $y = substr($pieces[1],0,2); // piece2
+        return $x.$y;
+    }
+}
+
+
+
+
+
