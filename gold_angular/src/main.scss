@@ -58,9 +58,7 @@ body{
   background-color: antiquewhite;
   @include linear-gradient(to bottom, $color-red 0%, #32220a 50%, #46576f 100%);
   //background-image: url("assets/background/zhilkooleg-C5ayHUXMMX8-unsplash.jpg");
-  background: linear-gradient(217deg, rgba(182, 92, 92, 0.8), rgba(255,0,0,0) 70.71%),
-  linear-gradient(127deg, rgba(146, 85, 10, 0.8), rgba(0,255,0,0) 70.71%),
-  linear-gradient(336deg, rgba(246, 226, 199, 0.8), rgba(0,0,255,0) 70.71%);
+  background: linear-gradient(90deg, rgb(126, 125, 132) 0%, rgb(164, 164, 203) 35%, rgb(100, 111, 113) 100%);
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;

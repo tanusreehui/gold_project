@@ -6,9 +6,18 @@
   @import "~@ng-select/ng-select/themes/default.theme";
 }
 
+::ng-deep .ng-select .ng-select-container , ::ng-deep .ng-select.ng-select-single .ng-select-container{
+  min-height: 40px;
+  //font-size: 0.8em;
+}
+
+::ng-deep .ng-option{
+  background: linear-gradient(90deg, rgb(46, 104, 132) 0%, rgb(164, 164, 203) 35%, rgb(100, 111, 113) 100%);
+}
+
 #order-div{
   width: 100%;
-  min-height: 100%;
+  min-height: 90vh;
   padding: 10px;
   background: linear-gradient(90deg, rgb(126, 125, 132) 0%, rgb(164, 164, 203) 35%, rgb(100, 111, 113) 100%);
 }
