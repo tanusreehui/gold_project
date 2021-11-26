@@ -216,9 +216,27 @@
           <mat-form-field class="example-full-width">
             <input matInput placeholder="Items per page" [(ngModel)]="pageSize" name="PageSize" type="text">
           </mat-form-field>
+
+          <div fxFlex="10" >
+            <button
+              mat-stroked-button
+              [printStyle]="printDivStyle"
+              printSectionId="order-master-table"
+              ngxPrint><mat-icon>print</mat-icon></button>
+          </div>
+          <div fxFlex="10" >
+            <button mat-stroked-button (click)="OrderListToExcel()" ><mat-icon>cloud_download</mat-icon></button>
+          </div>
+          <div fxFlex="10" >
+            <button mat-stroked-button (click)="ConvertToExcel()" >Excel</button>
+          </div>
+          <div fxFlex="15" >
+            <button mat-stroked-button  (click)="ConvertToPdf()" >PDF </button>
+          </div>
+
         </div>
         <div  id="htmlData" #htmlData>
-          <table class="table" id="order-master-table">
+          <table class="table table-striped" id="order-master-table">
             <thead>
             <tr>
               <th class="w-2 text-center">SL No.</th>
@@ -264,24 +282,6 @@
                                 screenReaderPageLabel="page"
                                 screenReaderCurrentLabel="You're on page">
           </pagination-controls>
-          <div fxLayout.xs="column" fxLayout="row" style="background-color: transparent;">
-            <div fxFlex="10" >
-              <button
-                mat-stroked-button
-                [printStyle]="printDivStyle"
-                printSectionId="order-master-table"
-                ngxPrint><mat-icon>print</mat-icon></button>
-            </div>
-            <div fxFlex="10" >
-              <button mat-stroked-button (click)="OrderListToExcel()" ><mat-icon>cloud_download</mat-icon></button>
-            </div>
-            <div fxFlex="10" >
-              <button mat-stroked-button (click)="ConvertToExcel()" >Excel</button>
-            </div>
-            <div fxFlex="15" >
-              <button mat-stroked-button  (click)="ConvertToPdf()" >PDF </button>
-            </div>
-          </div>
         </div>
       </div>
 
