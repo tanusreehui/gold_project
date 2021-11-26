@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Agent} from '../models/agent.model';
 
-import {Subject, throwError} from 'rxjs';
+import {forkJoin, Subject, throwError} from 'rxjs';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Material} from '../models/material.model';
 import {OrderMaster} from '../models/orderMaster.model';
@@ -106,29 +106,23 @@ export class OrderService {
       discount : new FormControl(null , [Validators.required]),
       product_mv : new FormControl(null , [Validators.required])
     });
-    // fetching agents
-    this.http.get(GlobalVariable.BASE_API_URL + '/agents')
-      .subscribe((response: {success: number, data: Agent[]}) => {
-        const {data} = response;
-        this.agentData = data;
-        this.agentSub.next([...this.agentData]);
-      });
 
-    this.http.get(GlobalVariable.BASE_API_URL + '/orderMaterials')
-      .subscribe((response: {success: number, data: Material[]}) => {
-        const {data} = response;
-        this.materialData = data;
-        this.materialSub.next([...this.materialData]);
-      });
 
-    // fetching order List
-    this.http.get(GlobalVariable.BASE_API_URL + '/orders')
-      .subscribe((response: {success: number, data: OrderMaster[]}) => {
-        const {data} = response;
-        this.orderMasterData = data;
-        // @ts-ignore
-        this.orderSub.next([...this.orderMasterData]);
-      });
+    forkJoin({
+      requestAgents:  this.http.get<{success: number , data: any[]}>(GlobalVariable.BASE_API_URL + '/agents'),
+      requestOrderMaterials:  this.http.get<{success: number , data: any[]}>(GlobalVariable.BASE_API_URL + '/orderMaterials'),
+      requestOrders:  this.http.get<{success: number , data: any[]}>(GlobalVariable.BASE_API_URL + '/orders'),
+      // tslint:disable-next-line:variable-name
+    }).subscribe(({requestAgents, requestOrderMaterials, requestOrders}) => {
+      this.agentData = requestAgents.data;
+      this.agentSub.next([...this.agentData]);
+
+      this.materialData = requestOrderMaterials.data;
+      this.materialSub.next([...this.materialData]);
+
+      this.orderMasterData = requestOrders.data;
+      this.orderSub.next([...this.orderMasterData]);
+    });
   }
 
   getOrderMaster(){

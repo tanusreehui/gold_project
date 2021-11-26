@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\OrderResource;
 use App\Models\OrderMaster;
 use Illuminate\Http\Request;
 use App\Models\CustomerToAgents;
@@ -23,7 +24,7 @@ class OrderMasterController extends Controller
             ->join('people as agent', 'agent.id', '=', 'order_masters.agent_id')
             ->distinct()
             ->get();
-        return response()->json(['success'=>1,'data'=>$data], 200,[],JSON_NUMERIC_CHECK);
+        return response()->json(['success'=>1,'data'=>OrderResource::collection($data)], 200,[],JSON_NUMERIC_CHECK);
     }
 
     public function testSaveOrder(){

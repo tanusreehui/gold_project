@@ -49,7 +49,7 @@ export class OrderComponent implements OnInit {
   orderMasterForm: FormGroup;
   orderDetailsForm: FormGroup;
   isSaveEnabled = true;
-  showDeveloperDiv = true;
+  showDeveloperDiv = false;
   product_id: number;
   showProduct = false;
   showUpdate = false;
