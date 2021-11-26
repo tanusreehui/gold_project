@@ -9,9 +9,6 @@
         <div class="form-container-master">
         <!--Order Master form-->
           <form [formGroup] = orderMasterForm >
-
-
-
             <div class="container material" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
               <ng-select [items]="customerList" fxFlex="80"  bindLabel="user_name" class="custom" bindValue="id" formControlName="customer_id" placeholder="Select Customer" (change)="populateMV()">
               </ng-select>
