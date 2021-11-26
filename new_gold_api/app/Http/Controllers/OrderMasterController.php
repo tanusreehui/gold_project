@@ -48,6 +48,8 @@ class OrderMasterController extends Controller
 
         $inputOrderMaster=(object)($input['master']);
         $inputOrderDetails=($input['details']);
+        $discount = $input['discount_percentage'];
+
 
         $temp_date = explode("-",$inputOrderMaster->order_date);
         if($temp_date[1]>3){
@@ -90,6 +92,7 @@ class OrderMasterController extends Controller
             $orderMaster->employee_id=$inputOrderMaster->employee_id;
             $orderMaster->date_of_order=$inputOrderMaster->order_date;
             $orderMaster->date_of_delivery=$inputOrderMaster->delivery_date;
+            $orderMaster->discount_percentage=$discount;
             $orderMaster->save();
 
             $data=Person::select('user_name')->where('id',$inputOrderMaster->customer_id)->first();
@@ -146,6 +149,7 @@ class OrderMasterController extends Controller
         $inputOrderMaster=(object)($input['master']);
         $inputOrderDetails=(object)($input['details']);
 
+
         $orderMaster= new OrderMaster();
         $orderMaster=OrderMaster::find($inputOrderMaster->id);
         $orderMaster->agent_id=$inputOrderMaster->agent_id;
@@ -153,6 +157,7 @@ class OrderMasterController extends Controller
         $orderMaster->employee_id=$inputOrderMaster->employee_id;
         $orderMaster->date_of_order=$inputOrderMaster->order_date;
         $orderMaster->date_of_delivery=$inputOrderMaster->delivery_date;
+
         $orderMaster->update();
 
         if($inputOrderDetails->id==null){

@@ -40,6 +40,7 @@ export class BillDetail{
   rate?: number;
   discount_amount?: number;
   billing_name?: string;
+  discount_percentage?: number;
 
 
   constructor() {

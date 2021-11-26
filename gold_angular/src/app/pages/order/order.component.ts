@@ -482,7 +482,7 @@ export class OrderComponent implements OnInit {
 
     this.orderMaster = this.orderMasterForm.value;
 
-    this.orderService.saveOrder(this.orderMaster , this.orderDetails).subscribe((response) => {
+    this.orderService.saveOrder(this.orderMaster , this.orderDetails , this.discount).subscribe((response) => {
         if (response.data){
           Swal.fire(
             'Saved!',

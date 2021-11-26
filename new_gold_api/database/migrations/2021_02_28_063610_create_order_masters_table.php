@@ -26,6 +26,8 @@ class CreateOrderMastersTable extends Migration
             $table->bigInteger('employee_id')->unsigned();
             $table ->foreign('employee_id')->references('id')->on('people');
 
+            $table->double('discount_percentage')->nullable(false);
+
             $table->date('date_of_order')->nullable(false);
             $table->date('date_of_delivery')->nullable(false);
             $table->timestamps();

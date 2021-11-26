@@ -87,7 +87,8 @@ export class OrderService {
       agent_id : new FormControl(null, [Validators.required]),
       order_date : new FormControl(this.order_date_format, [Validators.required]),
       delivery_date : new FormControl(this.delivery_date_format, [Validators.required]),
-      mv : new FormControl(null, [Validators.required])
+      mv : new FormControl(null, [Validators.required]),
+
 
     });
 
@@ -154,10 +155,10 @@ export class OrderService {
   }
 
 
-  saveOrder(orderMaster, orderDetails){
+  saveOrder(orderMaster, orderDetails , discount){
     // tslint:disable-next-line:max-line-length
     // tslint:disable-next-line:max-line-length
-       return this.http.post<OrderResponseData>( GlobalVariable.BASE_API_URL + '/orders', {master: orderMaster, details: orderDetails})
+       return this.http.post<OrderResponseData>( GlobalVariable.BASE_API_URL + '/orders', {master: orderMaster, details: orderDetails , discount_percentage: discount})
          .pipe(catchError(this._serverError), tap(((response: {success: number, data: OrderMaster}) => {
            // if (this.orderMaster.id === null) {
           //   this.orderMasterData.unshift(response.data);

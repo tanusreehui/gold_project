@@ -1,7 +1,7 @@
 <div fxLayout.xs="column" fxLayout="row" fxLayoutAlign="space-between stretch"  id="order-div">
-  <div class="page-loading" *ngIf="!customerList.length">
-    <app-loading-spinner></app-loading-spinner>
-  </div>
+<!--  <div class="page-loading" *ngIf="!customerList.length">-->
+<!--    <app-loading-spinner></app-loading-spinner>-->
+<!--  </div>-->
 
   <div *ngIf="customerList.length">
     <div fxLayout="column" fxFlex="30" class="mr-1">
@@ -204,8 +204,8 @@
           </tfoot>
         </table>
         <div>
-          <label>Discount Percentage</label>
-          <input matInput type="number" [(ngModel)]="discount" >
+          <label style="padding: 5px">Discount Percentage : </label>
+          <input  type="number" [(ngModel)]="discount" >
         </div>
         <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="30px" fxLayoutGap.xs="0" >
           <button mat-button  (click)="cancelOrder()" [disabled]="orderDetails.length<1" mat-stroked-button>Cancel Order</button>

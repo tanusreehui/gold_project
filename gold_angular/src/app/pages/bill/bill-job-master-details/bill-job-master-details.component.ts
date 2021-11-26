@@ -110,6 +110,7 @@ export class BillJobMasterDetailsComponent implements OnInit {
       });
 
     }
+    console.log('billDetailsData', this.billDetailsData);
   }
 
   viewBill(){
@@ -132,18 +133,23 @@ export class BillJobMasterDetailsComponent implements OnInit {
         customerId: this.billDetailsData[0].customer_id,
         agent_id: this.billDetailsData[0].agent_id,
         billDate: x.getFullYear() + '-' + parseInt(String(x.getMonth() + 1)) + '-' + x.getDate(),
-        discount: (this.billDetailsData[0].discount / 100) * this.originalCost
+        // discount: (this.billDetailsData[0].discount / 100) * this.originalCost
+        discount: (this.billDetailsData[0].discount_percentage / 100) * this.originalCost
       };
-      this.discount = (this.billDetailsData[0].discount / 100) * this.originalCost;
-      this.discountPercentage = this.billDetailsData[0].discount;
+      // this.discount = (this.billDetailsData[0].discount / 100) * this.originalCost;
+      this.discount = (this.billDetailsData[0].discount_percentage / 100) * this.originalCost;
+      // this.discountPercentage = this.billDetailsData[0].discount;
+      this.discountPercentage = this.billDetailsData[0].discount_percentage;
       this.totalCost = this.originalCost - this.discount;
     }
   }
 
   getDiscount(){
     // this.discountPercentage = this.billDetailsData[0].discount;
-    this.billDetailsData[0].discount = this.discountPercentage;
-    this.discount = (this.billDetailsData[0].discount / 100) * this.originalCost;
+    // this.billDetailsData[0].discount = this.discountPercentage;
+    this.billDetailsData[0].discount_percentage = this.discountPercentage;
+    // this.discount = (this.billDetailsData[0].discount / 100) * this.originalCost;
+    this.discount = (this.billDetailsData[0].discount_percentage / 100) * this.originalCost;
     console.log(this.discount);
     this.totalCost = this.originalCost - this.discount;
     this.billMasterData.discount = this.discount;
