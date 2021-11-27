@@ -146,17 +146,18 @@ export class OrderComponent implements OnInit {
     //       }
     //   });
 
-    // this.storage.get('orderContainer').subscribe((orderContainer: any) => {
-    //   if (orderContainer){
-    //     this.orderMaster = orderContainer.orderMaster;
-    //     this.orderDetails = orderContainer.orderDetails;
-    //     console.log(this.orderDetails);
-    //     this.orderMasterForm.setValue(orderContainer.orderMasterFormValue);
-    //     this.totalOrderAmount = orderContainer.totalAmount;
-    //     this.totalQuantity = orderContainer.totalQuantity;
-    //     this.totalApproxGold = orderContainer.totalApproxGold;
-    //   }
-    // }, (error) => {});
+    this.storage.get('orderContainer').subscribe((orderContainer: any) => {
+      if (orderContainer){
+        this.showProduct=true;
+        this.orderMaster = orderContainer.orderMaster;
+        this.orderDetails = orderContainer.orderDetails;
+        console.log(this.orderDetails);
+        this.orderMasterForm.setValue(orderContainer.orderMasterFormValue);
+        this.totalOrderAmount = orderContainer.totalAmount;
+        this.totalQuantity = orderContainer.totalQuantity;
+        this.totalApproxGold = orderContainer.totalApproxGold;
+      }
+    }, (error) => {});
   }
 
   updateMaster(){
@@ -190,10 +191,6 @@ export class OrderComponent implements OnInit {
   addOrderItem() {
     this.showProduct = true;
     const selectedCustomer = this.customerList.filter(customer => customer.id === this.orderMasterForm.value.customer_id);
-    console.log(selectedCustomer);
-    this.discount = selectedCustomer[0].discount;
-    this.orderMasterForm.patchValue({discount_percentage : selectedCustomer[0].discount});
-
     const index = this.orderDetails.findIndex(x => x.model_number === this.orderDetailsForm.value.model_number);
     if (index !== -1) {
       Swal.fire({
@@ -308,6 +305,8 @@ export class OrderComponent implements OnInit {
 
     this.orderDetailsForm.patchValue({id: item.id, product_id: item.product_id, model_number : item.model_number, p_loss: item.p_loss, price: item.price, price_code: item.price_code, quantity: item.quantity, amount: item.amount, approx_gold: item.approx_gold, size: item.size , material_id: item.material_id , product_mv: item.product_mv});
     this.product_id = item.product_id;
+    this.orderDetailsForm.markAsUntouched();
+    this.orderDetailsForm.markAsPristine();
   }
 
   getBackgroundColor(index: number) {
@@ -535,6 +534,7 @@ export class OrderComponent implements OnInit {
 
   cancelEditCurrentItem(item: OrderDetail) {
     this.editableItemIndex = -1;
+    this.orderDetailsForm.reset({material_id: 3});
   }
 
   // selectCustomerForOrder() {
@@ -629,7 +629,10 @@ export class OrderComponent implements OnInit {
   populateMV(){
     const selectedCustomer =  this.customerList.filter(x => x.id === this.orderMasterForm.value.customer_id);
     // console.log(data);
-    this.orderMasterForm.patchValue({mv : selectedCustomer[0].mv});
+    this.orderMasterForm.patchValue({mv : selectedCustomer[0].mv,discount_percentage : selectedCustomer[0].discount});
   }
 
+  updateOrderItem() {
+
+  }
 }

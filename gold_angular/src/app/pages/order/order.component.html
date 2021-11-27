@@ -138,7 +138,8 @@
           </form>
 
           <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end" fxLayoutGap="10px" fxLayoutGap.xs="0" >
-            <button mat-button (click)="addOrderItem()" mat-stroked-button [disabled]="!orderDetailsForm.valid " >Add Item</button>
+            <button mat-button (click)="addOrderItem()" mat-stroked-button *ngIf="editableItemIndex==-1" [disabled]="!orderDetailsForm.valid " >Add Item</button>
+            <button mat-button (click)="updateOrderItem()" mat-stroked-button *ngIf="editableItemIndex>=0" [disabled]="!orderDetailsForm.dirty " >Update Item</button>
             <button mat-button (click)="updateOrder()" mat-stroked-button [hidden]="!orderDetailsForm.value.id" [disabled]="!orderDetailsForm.dirty">Update Order</button>
             <button mat-button (click)="clearForm()" mat-stroked-button>clear</button>
           </div>
@@ -313,7 +314,9 @@
 <div fxLayout.xs="column" fxLayout="row" fxLayoutAlign="space-between stretch"  id="developer-div" *ngIf="showDeveloperDiv && !isProduction">
   <div fxLayout="column" fxFlex="25" class="mr-1" style="background-color: #dddddd">
     <pre>
-      orderData = {{orderMasterList | json}}
+      orderDetails touched = {{orderDetailsForm.touched | json}}
+      orderDetails dirty = {{orderDetailsForm.dirty | json}}
+      orderDetails pristine = {{orderDetailsForm.pristine | json}}
     </pre>
   </div>
   <div fxLayout="column" fxFlex="25" class="mr-1" style="background-color: #d9dd9b">
