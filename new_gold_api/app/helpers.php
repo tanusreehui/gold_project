@@ -61,8 +61,16 @@ if (! function_exists('get_next_month')) {
 if (! function_exists('get_short_name')) {
     function get_short_name($name) {
         $pieces = explode(" ", $name);
-        $x = substr($pieces[0],0,2); // piece1
-        $y = substr($pieces[1],0,2); // piece2
+        $x="";
+        $y="";
+        if(count($pieces)==1){
+            $x = substr($pieces[0],0,2); // piece1
+        }
+        if(count($pieces)>1){
+            $x = substr($pieces[0],0,2); // piece1
+            $y = substr($pieces[1],0,2); // piece1
+        }
+
         return $x.$y;
     }
 }
