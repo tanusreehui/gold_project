@@ -80,6 +80,7 @@ export class OrderComponent implements OnInit {
   p = 1;
 
   // tslint:disable-next-line:max-line-length
+  isFindingModel=false;
   constructor(private confirmationDialogService: ConfirmationDialogService, private customerService: CustomerService, private orderService: OrderService, private storage: StorageMap, private _snackBar: MatSnackBar , private  excelService: ExcelService, private  productService: ProductService) {
     this.orderMasterList = this.orderService.getOrderMaster();
     this.customerList = this.customerService.getCustomers();
@@ -445,11 +446,13 @@ export class OrderComponent implements OnInit {
   }
 
   findModel(){
-	console.log('findModel invoked');
+    this.isFindingModel=true;
+
     const index = this.customerList.findIndex(k => k.id === this.orderMasterForm.value.customer_id );
     // tslint:disable-next-line:max-line-length
     this.orderService.getProductData(this.orderDetailsForm.value.model_number, this.customerList[index].customer_category_id)
       .subscribe((responseProducts: {success: number, data: Product}) => {
+        this.isFindingModel=false;
       if (responseProducts.data){
         const tempProduct = responseProducts.data;
         // tslint:disable-next-line:max-line-length
@@ -633,6 +636,33 @@ export class OrderComponent implements OnInit {
   }
 
   updateOrderItem() {
+    this.orderDetails[this.editableItemIndex] = this.orderDetailsForm.value;
+    this.editableItemIndex = -1;
+    this.orderDetailsForm.reset({material_id: 3});
 
+    this.totalOrderAmount = this.orderDetails.reduce( (total, record) => {
+      // @ts-ignore
+      return total + (record.price * record.quantity);
+    }, 0);
+
+    this.totalQuantity = this.orderDetails.reduce( (total, record) => {
+      // @ts-ignore
+      return total + record.quantity;
+    }, 0);
+
+    this.totalApproxGold = this.orderDetails.reduce( (total, record) => {
+      // @ts-ignore
+      return total + parseFloat(record.approx_gold);
+    }, 0);
+    // tslint:disable-next-line:max-line-length
+    this.orderContainer = {
+      orderMaster: this.orderMaster,
+      orderDetails: this.orderDetails,
+      orderMasterFormValue: this.orderMasterForm.value,
+      totalAmount: this.totalOrderAmount,
+      totalQuantity: this.totalQuantity,
+      totalApproxGold: this.totalApproxGold
+    };
+    this.storage.set('orderContainer', this.orderContainer).subscribe(() => {});
   }
 }

@@ -87,10 +87,12 @@
                 bindValue="model_number"
                 formControlName="model_number"
                 placeholder="Model Number"
-                (blur)="findModel()">
+                (change)="findModel()">
               </ng-select>
-
-              <div class="container" fxLayout="row" fxFlex="50" fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="10px" fxLayoutGap.xs="0" *ngIf="orderDetailsForm.value.product_id">
+              <div *ngIf="isFindingModel==true">
+                <app-loading-spinner></app-loading-spinner>
+              </div>
+              <div class="container" fxLayout="row" fxFlex="50" fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="10px" fxLayoutGap.xs="0" *ngIf="orderDetailsForm.value.product_id && !isFindingModel">
                 <mat-form-field fxFlex="30">
                   <mat-placeholder>PLoss</mat-placeholder>
                   <input matInput type="number" formControlName="p_loss" [readonly]="true" class="text-right">
@@ -128,7 +130,7 @@
             <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
               <mat-form-field fxFlex="40" class="pr-4">
                 <mat-placeholder>Approx Gold</mat-placeholder>
-                <input matInput type="text"  formControlName="approx_gold" (change)="material_quantity_decimal()">
+                <input matInput type="number"  formControlName="approx_gold" (change)="material_quantity_decimal()">
               </mat-form-field>
               <mat-form-field fxFlex="40">
                 <mat-placeholder>Amount</mat-placeholder>
@@ -160,7 +162,7 @@
           <tr>
             <th class="w-2 text-center">SL No.</th>
             <th class="w-5 text-left">Model Number</th>
-            <th class="w-2 text-center">Price Code</th>
+            <th class="w-5 text-left">Size</th>
             <th class="w-2 text-right">PLoss</th>
             <th class="w-5 text-right">Approx Gold</th>
             <th class="w-2 text-right">Quantity</th>
@@ -173,8 +175,8 @@
           <tbody>
           <tr [ngStyle]="getBackgroundColor(indexOfElement)"  *ngFor="let item of orderDetails ; let indexOfElement = index;">
             <td class="text-center">{{(indexOfElement+1) | number:'2.0'}}</td>
-            <td class="text-center">{{item.model_number | uppercase}}</td>
-            <td  class="text-center">{{item.price_code}}</td>
+            <td class="text-center">{{item.model_number | uppercase}}-{{item.price_code}}</td>
+            <td class="text-center">{{item.size}}</td>
             <td class="text-right">{{item.p_loss | number:'1.3-3'}}</td>
             <td class="text-right">{{item.approx_gold | number:'1.3-3'}}</td>
             <td class="text-right">{{item.quantity}}</td>
@@ -200,7 +202,6 @@
           <tfoot>
           <tr>
             <td class="text-center" colspan="4">Total</td>
-  <!--          <td class="text-right">{{totalApproxGold | number:'1.3-3'}}</td>-->
             <td class="text-right">{{totalApproxGold}}</td>
             <td class="text-right">{{totalQuantity }}</td>
             <td class="text-right"></td>
