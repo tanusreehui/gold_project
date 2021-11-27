@@ -187,11 +187,13 @@ export class OrderComponent implements OnInit {
     }
   }
 
-  addOrder() {
+  addOrderItem() {
     this.showProduct = true;
     const selectedCustomer = this.customerList.filter(customer => customer.id === this.orderMasterForm.value.customer_id);
     console.log(selectedCustomer);
     this.discount = selectedCustomer[0].discount;
+    this.orderMasterForm.patchValue({discount_percentage : selectedCustomer[0].discount});
+
     const index = this.orderDetails.findIndex(x => x.model_number === this.orderDetailsForm.value.model_number);
     if (index !== -1) {
       Swal.fire({

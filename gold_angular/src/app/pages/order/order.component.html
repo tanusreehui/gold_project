@@ -138,7 +138,7 @@
           </form>
 
           <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end" fxLayoutGap="10px" fxLayoutGap.xs="0" >
-            <button mat-button (click)="addOrder()" mat-stroked-button [disabled]="!orderDetailsForm.valid " >Add Item</button>
+            <button mat-button (click)="addOrderItem()" mat-stroked-button [disabled]="!orderDetailsForm.valid " >Add Item</button>
             <button mat-button (click)="updateOrder()" mat-stroked-button [hidden]="!orderDetailsForm.value.id" [disabled]="!orderDetailsForm.dirty">Update Order</button>
             <button mat-button (click)="clearForm()" mat-stroked-button>clear</button>
           </div>
@@ -209,8 +209,13 @@
           </tfoot>
         </table>
         <div>
-          <label style="padding: 5px">Discount Percentage : </label>
-          <input  type="number" [(ngModel)]="discount" >
+          <form [formGroup] = orderMasterForm >
+            <mat-form-field fxFlex="20" class="pr-4">
+              <mat-placeholder>Discount Percentage</mat-placeholder>
+              <input matInput type="text" class="text-right"  formControlName="discount_percentage">
+            </mat-form-field>
+          </form>
+
         </div>
         <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="30px" fxLayoutGap.xs="0" >
           <button mat-button  (click)="cancelOrder()" [disabled]="orderDetails.length<1" mat-stroked-button>Cancel Order</button>

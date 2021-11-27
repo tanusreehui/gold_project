@@ -88,6 +88,7 @@ export class OrderService {
       order_date : new FormControl(this.order_date_format, [Validators.required]),
       delivery_date : new FormControl(this.delivery_date_format, [Validators.required]),
       mv : new FormControl(null, [Validators.required]),
+      discount_percentage : new FormControl(null, [Validators.required]),
 
 
     });
