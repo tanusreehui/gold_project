@@ -471,8 +471,15 @@ export class OrderComponent implements OnInit {
 
 
   clearForm(){
-    this.orderMasterForm.reset();
-    this.orderDetailsForm.reset();
+    const order_date = new Date();
+    const delivery_date = new Date();
+    delivery_date.setDate(order_date.getDate() + 3);
+    // const order_date_format = formatDate(order_date, 'yyyy-MM-dd', 'en');
+    const order_date_format = formatDate(order_date, 'yyyy-MM-dd', 'en');
+    // const delivery_date_format = formatDate(delivery_date, 'yyyy-MM-dd', 'en');
+    const delivery_date_format = formatDate(delivery_date, 'yyyy-MM-dd', 'en');
+    this.orderMasterForm.reset({order_date: order_date_format, delivery_date: delivery_date_format});
+    this.orderDetailsForm.reset({material_id: 3});
   }
 
   onSubmit(){
