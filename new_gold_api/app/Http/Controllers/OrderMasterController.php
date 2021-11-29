@@ -48,7 +48,7 @@ class OrderMasterController extends Controller
 
         $inputOrderMaster=(object)($input['master']);
         $inputOrderDetails=($input['details']);
-        $discount = $input['discount_percentage'];
+
 
 
         $temp_date = explode("-",$inputOrderMaster->order_date);
@@ -92,7 +92,7 @@ class OrderMasterController extends Controller
             $orderMaster->employee_id=$inputOrderMaster->employee_id;
             $orderMaster->date_of_order=$inputOrderMaster->order_date;
             $orderMaster->date_of_delivery=$inputOrderMaster->delivery_date;
-            $orderMaster->discount_percentage=$discount;
+            $orderMaster->discount_percentage=$inputOrderMaster->discount_percentage;
             $orderMaster->save();
 
             $data=Person::select('user_name')->where('id',$inputOrderMaster->customer_id)->first();
@@ -139,7 +139,7 @@ class OrderMasterController extends Controller
             DB::rollBack();
             return response()->json(['Success'=>0,'Exception'=>$e], 401);
         }
-        return response()->json(['success'=>1,'data'=> $orderMaster], 200);
+        return response()->json(['success'=>1,'data'=> new OrderResource($orderMaster)], 200);
 
     }
 
