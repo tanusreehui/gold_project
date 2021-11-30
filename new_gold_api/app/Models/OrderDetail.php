@@ -45,4 +45,8 @@ class OrderDetail extends Model
      * @var int|mixed
      */
     private $status_id;
+    public function product()
+    {
+        return $this->belongsTo('App\Models\Product','product_id');
+    }
 }
