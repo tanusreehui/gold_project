@@ -113,7 +113,7 @@ export class OrderService {
     forkJoin({
       requestAgents:  this.http.get<{success: number , data: any[]}>(GlobalVariable.BASE_API_URL + '/agents'),
       requestOrderMaterials:  this.http.get<{success: number , data: any[]}>(GlobalVariable.BASE_API_URL + '/orderMaterials'),
-      requestOrders:  this.http.get<{success: number , data: any[]}>(GlobalVariable.BASE_API_URL + '/orders'),
+      requestOrders:  this.http.get<{success: number , data: any[]}>(GlobalVariable.BASE_API_URL + '/orderMasters'),
       // tslint:disable-next-line:variable-name
     }).subscribe(({requestAgents, requestOrderMaterials, requestOrders}) => {
       this.agentData = requestAgents.data;
@@ -159,7 +159,7 @@ export class OrderService {
   saveOrder(orderMaster, orderDetails , discount){
     // tslint:disable-next-line:max-line-length
     // tslint:disable-next-line:max-line-length
-       return this.http.post<OrderResponseData>( GlobalVariable.BASE_API_URL + '/orders', {master: orderMaster, details: orderDetails , discount_percentage: discount})
+       return this.http.post<OrderResponseData>( GlobalVariable.BASE_API_URL + '/orders', {master: orderMaster, details: orderDetails})
          .pipe(catchError(this._serverError), tap(((response: {success: number, data: OrderMaster}) => {
            // if (this.orderMaster.id === null) {
           //   this.orderMasterData.unshift(response.data);
@@ -186,7 +186,7 @@ export class OrderService {
   // }
 
   fetchOrderDetails(order_master_id){
-    return this.http.post(GlobalVariable.BASE_API_URL + '/orderDetails', {orderMasterId: order_master_id});
+    return this.http.get(GlobalVariable.BASE_API_URL + '/orderDetails/'+order_master_id);
   }
 
   updateOrder(){

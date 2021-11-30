@@ -35,4 +35,8 @@ class OrderMaster extends Model
      * @var mixed
      */
     private $date_of_delivery;
+    /**
+     * @var mixed
+     */
+    private $discount_percentage;
 }

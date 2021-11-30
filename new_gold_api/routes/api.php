@@ -138,12 +138,18 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get('/orderMaterials', [MaterialController::class,'getOrderMaterials']);
 
     //order_master
-    Route::get('/orders', [OrderMasterController::class,'index']);
+    Route::get('/orderMasters', [OrderMasterController::class,'index']);
+    Route::get('/orderDetails/OrderMaster/{id}', [OrderDetailController::class,'getOrderDetailsByOrderMasterId']);
     Route::patch('/orders', [OrderMasterController::class,'updateOrder']);
     Route::patch('/orderMaster', [OrderMasterController::class,'updateMaster']);
     Route::delete('/orderMasterDelete/{id}', [OrderMasterController::class,'deleteOrderMaster']);
     Route::post('/orders', [OrderMasterController::class,'saveOrder']);
     Route::post('/testSaveOrder', [OrderMasterController::class,'testSaveOrder']);
+
+    Route::get('/orderDetails', [OrderDetailController::class,'index']);
+
+    //order
+    Route::get('/orders/orderMaster/{id}', [OrderMasterController::class,'getFullOrderByOrderMasterId']);
 
     //customer
     Route::get('/customers', [CustomerController::class,'index']);

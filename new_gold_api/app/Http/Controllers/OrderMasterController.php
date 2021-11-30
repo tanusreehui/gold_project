@@ -26,6 +26,11 @@ class OrderMasterController extends Controller
             ->get();
         return response()->json(['success'=>1,'data'=>OrderResource::collection($data)], 200,[],JSON_NUMERIC_CHECK);
     }
+    public function getFullOrderByOrderMasterId($id){
+        $orderMaster=OrderMaster::findOrFail($id);
+        $data['order_master']=$orderMaster;
+        return response()->json(['success'=>1,'data'=>OrderResource::collection($data)], 200,[],JSON_NUMERIC_CHECK);
+    }
 
     public function testSaveOrder(){
         $orderDetails=new OrderDetail();
