@@ -83,11 +83,11 @@
                 *ngIf="orderMasterForm.value.customer_id"
                 [items]="productList" fxFlex="40"
                 bindLabel="model_number"
-                class="custom"
+                class="custom text-right"
                 bindValue="model_number"
                 formControlName="model_number"
                 placeholder="Model Number"
-                (change)="findModel()">
+                (change)="findModel()" >
               </ng-select>
               <div *ngIf="isFindingModel==true">
                 <app-loading-spinner></app-loading-spinner>
@@ -118,23 +118,23 @@
 
               <mat-form-field fxFlex="35"  class="pr-4">
                 <mat-placeholder>Quantity</mat-placeholder>
-                <input matInput type="number"  formControlName="quantity" (change)="updateItemAmount()">
+                <input matInput type="number" class="text-right"  formControlName="quantity" (change)="updateItemAmount()">
               </mat-form-field>
 
               <mat-form-field fxFlex="35">
                 <mat-placeholder>Size</mat-placeholder>
-                <input matInput  formControlName="size">
+                <input matInput  formControlName="size" class="text-right">
               </mat-form-field>
             </div>
 
             <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
               <mat-form-field fxFlex="40" class="pr-4">
                 <mat-placeholder>Approx Gold</mat-placeholder>
-                <input matInput type="number"  formControlName="approx_gold" (change)="material_quantity_decimal()">
+                <input matInput type="number" class="text-right"  formControlName="approx_gold" (change)="material_quantity_decimal()">
               </mat-form-field>
               <mat-form-field fxFlex="40">
                 <mat-placeholder>Amount</mat-placeholder>
-                <input matInput type="number" formControlName="amount" readonly>
+                <input matInput type="number" class="text-right" formControlName="amount" readonly>
               </mat-form-field>
             </div>
           </form>
