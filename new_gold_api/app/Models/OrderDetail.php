@@ -45,6 +45,20 @@ class OrderDetail extends Model
      * @var int|mixed
      */
     private $status_id;
+    /**
+     * @var mixed
+     */
+    private $price_code;
+
+    /**
+     * @var mixed
+     */
+    private $cust_mv;
+    /**
+     * @var mixed
+     */
+    private $product_mv;
+
     public function product()
     {
         return $this->belongsTo('App\Models\Product','product_id');

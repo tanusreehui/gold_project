@@ -18,6 +18,7 @@ class CreateOrderDetailsTable extends Migration
             $table->bigInteger('order_master_id')->unsigned();
             $table ->foreign('order_master_id')->references('id')->on('order_masters');
 
+            $table->string('price_code',3);
             $table->integer('price');
             $table->double('p_loss');
             $table->double('approx_gold');

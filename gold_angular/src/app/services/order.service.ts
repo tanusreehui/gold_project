@@ -188,6 +188,9 @@ export class OrderService {
   fetchOrderDetails(order_master_id){
     return this.http.get(GlobalVariable.BASE_API_URL + '/orderDetails/'+order_master_id);
   }
+  fetchFullOrder(order_master_id){
+    return this.http.get(GlobalVariable.BASE_API_URL + '/orders/orderMaster/'+order_master_id);
+  }
 
   updateOrder(){
     // this.http.patch(GlobalVariable.BASE_API_URL + '/orders', {master: this.orderMaster, details: this.orderDetailUpdate})

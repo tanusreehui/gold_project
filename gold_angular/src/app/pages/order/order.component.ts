@@ -576,9 +576,10 @@ export class OrderComponent implements OnInit {
   }
 
   showOrderDetailsList(item){
-    this.orderService.fetchOrderDetails(item.id).subscribe((response: {success: number, data: OrderDetail[]}) => {
-      if (response.data){
-        this.orderDetails = response.data;
+    this.orderService.fetchFullOrder(item.id).subscribe((response: {success: number, data: {order_master: any, order_details: any[]}}) => {
+      console.log(response.data);
+      if (response.data.order_details){
+        this.orderDetails = response.data.order_details;
         // for viewing total approx gold ,total order amount and total quantity of the order details
         this.totalApproxGold = this.orderDetails.reduce( (total, record) => {
           // @ts-ignore

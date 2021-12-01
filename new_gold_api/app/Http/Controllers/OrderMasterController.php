@@ -120,6 +120,7 @@ class OrderMasterController extends Controller
 
                 $orderDetails=new OrderDetail();
                 $orderDetails->order_master_id=$orderMaster->id;
+                $orderDetails->price_code=$row['price_code'];
                 $orderDetails->price=$row['price'];
                 $orderDetails->p_loss=$row['p_loss'];
                 $orderDetails->approx_gold=$row['approx_gold'];
