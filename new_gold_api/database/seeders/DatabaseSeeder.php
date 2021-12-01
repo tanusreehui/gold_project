@@ -377,18 +377,21 @@ class DatabaseSeeder extends Seeder
 
 
 
+        //Sample Customers
+
+        Person::create(['user_name'=>'Angana Jewellers', 'billing_name'=>'M/s Angana Jewellers', 'mobile1'=>'9831397484', 'mobile2'=>'546546464', 'user_type_id'=>10, 'customer_category_id'=>1, 'city'=>'Shyamnagar', 'pin'=>'0']);
+        Person::create(['user_name'=>'Milan Kanak Sanj Jewellers', 'billing_name'=>'M/s Milan Kanak Sanj Jewellers', 'mobile1'=>'943382305', 'mobile2'=>'24338894', 'user_type_id'=>10, 'customer_category_id'=>1, 'city'=>'Baruipur', 'pin'=>'0']);
+        Person::create(['user_name'=>'Jewell Garden (Khardha)', 'billing_name'=>'M/s Jewell Garden ', 'mobile1'=>'33-25685776', 'mobile2'=>'', 'user_type_id'=>10, 'customer_category_id'=>1, 'city'=>'Khardha', 'pin'=>'0']);
+        Person::create(['user_name'=>'K . C Choudhury & Sons Jewellers', 'billing_name'=>'M/s K . C Choudhury & Sons Jewellers', 'mobile1'=>'33-25636117', 'mobile2'=>'', 'user_type_id'=>10, 'customer_category_id'=>1, 'city'=>'Khardha', 'pin'=>'0']);
+        Person::create(['user_name'=>'New Anjali Jewellers', 'billing_name'=>'M/s New Anjali Jewellers', 'mobile1'=>'9831033871', 'mobile2'=>'/26641248', 'user_type_id'=>10, 'customer_category_id'=>1, 'city'=>'Uttarpara', 'pin'=>'721158']);
+        Person::create(['user_name'=>'Sukanya Jewellery House', 'billing_name'=>'M/s Sukanya Jewellery House', 'mobile1'=>'33-25681502', 'mobile2'=>'', 'user_type_id'=>10, 'customer_category_id'=>1, 'city'=>'Khardha', 'pin'=>'0']);
+        Person::create(['user_name'=>'Subhasree Jewellers', 'billing_name'=>'M/s Subhasree Jewellers', 'mobile1'=>'7602429823', 'mobile2'=>'/8167802629', 'user_type_id'=>10, 'customer_category_id'=>1, 'city'=>'Mecheda', 'pin'=>'0']);
+        Person::create(['user_name'=>'S.S. Paul Jewellers', 'billing_name'=>'M/s S.S. Paul Jewellers', 'mobile1'=>'9830585936', 'mobile2'=>'', 'user_type_id'=>10, 'customer_category_id'=>1, 'city'=>'Dumdum', 'pin'=>'0']);
+        Person::create(['user_name'=>'Apan Jewellers', 'billing_name'=>'M/s Apan Jewellers', 'mobile1'=>'33-25386902', 'mobile2'=>'', 'user_type_id'=>10, 'customer_category_id'=>1, 'city'=>'Madhyamgram', 'pin'=>'0']);
+        Person::create(['user_name'=>'Venus Jewellers', 'billing_name'=>'M/s Venus Jewellers', 'mobile1'=>'33-253816750', 'mobile2'=>' , 983051222', 'user_type_id'=>10, 'customer_category_id'=>1, 'city'=>'Madhyamgram ', 'pin'=>'0']);
 
 
-//        Person::create(['user_name'=>'Angana Jewellers', 'billing_name'=>'M/s Angana Jewellers', 'mobile1'=>'9831397484', 'mobile2'=>'546546464', 'user_type_id'=>10, 'customer_category_id'=>1, 'city'=>'Shyamnagar', 'pin'=>'0']);
-//        Person::create(['user_name'=>'Milan Kanak Sanj Jewellers', 'billing_name'=>'M/s Milan Kanak Sanj Jewellers', 'mobile1'=>'943382305', 'mobile2'=>'24338894', 'user_type_id'=>10, 'customer_category_id'=>1, 'city'=>'Baruipur', 'pin'=>'0']);
-//        Person::create(['user_name'=>'Jewell Garden (Khardha)', 'billing_name'=>'M/s Jewell Garden ', 'mobile1'=>'33-25685776', 'mobile2'=>'', 'user_type_id'=>10, 'customer_category_id'=>1, 'city'=>'Khardha', 'pin'=>'0']);
-//        Person::create(['user_name'=>'K . C Choudhury & Sons Jewellers', 'billing_name'=>'M/s K . C Choudhury & Sons Jewellers', 'mobile1'=>'33-25636117', 'mobile2'=>'', 'user_type_id'=>10, 'customer_category_id'=>1, 'city'=>'Khardha', 'pin'=>'0']);
-//        Person::create(['user_name'=>'New Anjali Jewellers', 'billing_name'=>'M/s New Anjali Jewellers', 'mobile1'=>'9831033871', 'mobile2'=>'/26641248', 'user_type_id'=>10, 'customer_category_id'=>1, 'city'=>'Uttarpara', 'pin'=>'721158']);
-//        Person::create(['user_name'=>'Sukanya Jewellery House', 'billing_name'=>'M/s Sukanya Jewellery House', 'mobile1'=>'33-25681502', 'mobile2'=>'', 'user_type_id'=>10, 'customer_category_id'=>1, 'city'=>'Khardha', 'pin'=>'0']);
-//        Person::create(['user_name'=>'Subhasree Jewellers', 'billing_name'=>'M/s Subhasree Jewellers', 'mobile1'=>'7602429823', 'mobile2'=>'/8167802629', 'user_type_id'=>10, 'customer_category_id'=>1, 'city'=>'Mecheda', 'pin'=>'0']);
-//        Person::create(['user_name'=>'S.S. Paul Jewellers', 'billing_name'=>'M/s S.S. Paul Jewellers', 'mobile1'=>'9830585936', 'mobile2'=>'', 'user_type_id'=>10, 'customer_category_id'=>1, 'city'=>'Dumdum', 'pin'=>'0']);
-//        Person::create(['user_name'=>'Apan Jewellers', 'billing_name'=>'M/s Apan Jewellers', 'mobile1'=>'33-25386902', 'mobile2'=>'', 'user_type_id'=>10, 'customer_category_id'=>1, 'city'=>'Madhyamgram', 'pin'=>'0']);
-//        Person::create(['user_name'=>'Venus Jewellers', 'billing_name'=>'M/s Venus Jewellers', 'mobile1'=>'33-253816750', 'mobile2'=>' , 983051222', 'user_type_id'=>10, 'customer_category_id'=>1, 'city'=>'Madhyamgram ', 'pin'=>'0']);
+
 //        Person::create(['user_name'=>'Swarna Tarangini Jewellers', 'billing_name'=>'M/s Swarna Tarangini Jewellers', 'mobile1'=>'8538877077', 'mobile2'=>'', 'user_type_id'=>10, 'customer_category_id'=>1, 'city'=>'Maldha', 'pin'=>'0']);
 //        Person::create(['user_name'=>'Sachidananda Jewellers', 'billing_name'=>'M/s Sachidananda Jewellers', 'mobile1'=>'9475173012', 'mobile2'=>'', 'user_type_id'=>10, 'customer_category_id'=>1, 'city'=>'Raniganj', 'pin'=>'0']);
 //        Person::create(['user_name'=>'New Annapurna Jewellers', 'billing_name'=>'M/s New Annapurna Jewellers', 'mobile1'=>'9088808465', 'mobile2'=>'', 'user_type_id'=>10, 'customer_category_id'=>1, 'city'=>'Lakhsmikantapore', 'pin'=>'00000']);
