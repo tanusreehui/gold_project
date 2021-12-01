@@ -80,7 +80,8 @@ export class OrderComponent implements OnInit {
   p = 1;
 
   // tslint:disable-next-line:max-line-length
-  isFindingModel=false;
+  isFindingModel = false;
+  // tslint:disable-next-line:max-line-length
   constructor(private confirmationDialogService: ConfirmationDialogService, private customerService: CustomerService, private orderService: OrderService, private storage: StorageMap, private _snackBar: MatSnackBar , private  excelService: ExcelService, private  productService: ProductService) {
     this.orderMasterList = this.orderService.getOrderMaster();
     this.customerList = this.customerService.getCustomers();
@@ -149,7 +150,7 @@ export class OrderComponent implements OnInit {
 
     this.storage.get('orderContainer').subscribe((orderContainer: any) => {
       if (orderContainer){
-        this.showProduct=true;
+        this.showProduct = true;
         this.orderMaster = orderContainer.orderMaster;
         this.orderDetails = orderContainer.orderDetails;
         console.log(this.orderDetails);
@@ -599,7 +600,8 @@ export class OrderComponent implements OnInit {
         // for autopopulating order master form
         const index = this.orderMasterList.findIndex(x => x.id === item.id);
         this.editableOrderMaster = this.orderMasterList[index];
-        console.log(this.editableOrderMaster);
+        console.log('Editable Order Master', this.editableOrderMaster);
+        // tslint:disable-next-line:max-line-length
         this.orderMasterForm.patchValue({id : this.editableOrderMaster.id, customer_id : this.editableOrderMaster.customer_id, agent_id : this.editableOrderMaster.agent_id, order_date : this.editableOrderMaster.date_of_order, delivery_date : this.editableOrderMaster.date_of_delivery , mv: this.editableOrderMaster.cust_mv});
       }
     });
