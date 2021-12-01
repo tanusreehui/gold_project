@@ -26,6 +26,7 @@ class CustomerResource extends JsonResource
             'address1' => $this->address1,
             'address2' => $this->address2,
             'state' => $this->state,
+            'po' => $this->po,
             'area' => $this->area,
             'city' => $this->city,
             'pin' => $this->pin,

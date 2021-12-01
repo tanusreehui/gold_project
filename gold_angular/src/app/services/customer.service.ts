@@ -127,7 +127,12 @@ export class CustomerService implements OnDestroy{
   fillFormByUpdatebaleData(customer){
     // this.customerForm.controls['id'].setValue(customer.id);
     // this.customerForm.controls['password'].setValue(null);
-    this.customerForm.setValue(customer);
+    this.customerForm.patchValue({id: customer.id, user_name: customer.user_name,billing_name: customer.billing_name, mobile1:customer.mobile1,
+                                  mobile2:customer.mobile2, customer_category_id: customer.customer_category_id, address1: customer.address1,
+                                   address2: customer.address2, state:customer.state,po: customer.po, area: customer.area, city:customer.city,
+                                   pin: customer.pin, opening_balance_LC: customer.opening_balance_LC,opening_balance_Gold:customer.opening_balance_Gold,
+                                    mv: customer.mv, discount: customer.discount});
+    console.log(customer);
     // this.customerForm.patchValue({ id : customer.id, user_name : customer.user_name , email : customer.email, mobile1 : customer.mobile1, mobile2 : customer.mobile2, user_type_id :  customer.user_type_id, customer_category_id : customer.customer_category_id, address1 : customer.address1, address2 : customer.address2, state : customer.state , po : customer.po, area : customer.area, city : customer.city, pin : customer.pin, opening_balance_LC : customer.opening_balance_LC, opening_balance_Gold : customer.opening_balance_Gold, mv :customer.mv});
 
   }
