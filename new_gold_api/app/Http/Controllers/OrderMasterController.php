@@ -58,6 +58,9 @@ class OrderMasterController extends Controller
             ->join('people as agent', 'agent.id', '=', 'order_masters.agent_id')
             ->where('order_masters.id','=',$id)
             ->first();
+        if($orderMaster==null){
+            return response()->json(['success'=>0,'data'=>null], 503,[],JSON_NUMERIC_CHECK);
+        }
         $data['order_master']=new OrderResource($orderMaster);
         $orderDetails = OrderDetail::whereOrderMasterId($id)->get();
         $data['order_details']=OrderDetailResource::collection($orderDetails);
