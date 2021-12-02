@@ -41,13 +41,16 @@ class OrderMasterController extends Controller
         $order_aggregate['total_qty']=$total_qty;
 
         $total_cust_mv=OrderDetail::where('order_master_id','=',$id)->sum(DB::raw(('cust_mv*quantity')));
-        $order_aggregate['total_cust_mv']=$total_cust_mv;
+        $order_aggregate['total_cust_mv']=round($total_cust_mv,3);
 
         $total_ploss=OrderDetail::where('order_master_id','=',$id)->sum(DB::raw(('p_loss*quantity')));
-        $order_aggregate['total_ploss']=$total_ploss;
+        $order_aggregate['total_ploss']=round($total_ploss,3);
 
         $total_price=OrderDetail::where('order_master_id','=',$id)->sum(DB::raw(('price*quantity')));
         $order_aggregate['total_price']=$total_price;
+
+        $approx_gold_total=OrderDetail::where('order_master_id','=',$id)->sum(DB::raw(('approx_gold*quantity')));
+        $order_aggregate['approx_gold_total']=round($approx_gold_total,3);
 
         $data['order_aggregate']=$order_aggregate;
         return response()->json(['success'=>1,'data'=>$data], 200,[],JSON_NUMERIC_CHECK);
