@@ -675,4 +675,27 @@ export class OrderComponent implements OnInit {
     };
     this.storage.set('orderContainer', this.orderContainer).subscribe(() => {});
   }
+
+  printOrder(item: any) {
+    this.orderService.fetchFullOrder(item.id).subscribe((response: {success: number, data: {order_master: any, order_details: any[]}}) => {
+      if (response.data.order_details){
+        this.orderDetails = response.data.order_details;
+        // for viewing total approx gold ,total order amount and total quantity of the order details
+        this.totalApproxGold = this.orderDetails.reduce( (total, record) => {
+          // @ts-ignore
+          return total + record.approx_gold;
+        }, 0);
+        this.totalOrderAmount = this.orderDetails.reduce( (total, record) => {
+          // @ts-ignore
+          return total + (record.price * record.quantity);
+        }, 0);
+
+        this.totalQuantity = this.orderDetails.reduce( (total, record) => {
+          // @ts-ignore
+          return total + record.quantity;
+        }, 0);
+
+      }
+    });
+  }
 }

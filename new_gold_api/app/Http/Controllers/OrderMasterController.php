@@ -37,6 +37,19 @@ class OrderMasterController extends Controller
         $data['order_master']=new OrderResource($orderMaster);
         $orderDetails = OrderDetail::whereOrderMasterId($id)->get();
         $data['order_details']=OrderDetailResource::collection($orderDetails);
+        $total_qty=OrderDetail::where('order_master_id','=',$id)->sum('quantity');
+        $order_aggregate['total_qty']=$total_qty;
+
+        $total_cust_mv=OrderDetail::where('order_master_id','=',$id)->sum(DB::raw(('cust_mv*quantity')));
+        $order_aggregate['total_cust_mv']=$total_cust_mv;
+
+        $total_ploss=OrderDetail::where('order_master_id','=',$id)->sum(DB::raw(('p_loss*quantity')));
+        $order_aggregate['total_ploss']=$total_ploss;
+
+        $total_price=OrderDetail::where('order_master_id','=',$id)->sum(DB::raw(('price*quantity')));
+        $order_aggregate['total_price']=$total_price;
+
+        $data['order_aggregate']=$order_aggregate;
         return response()->json(['success'=>1,'data'=>$data], 200,[],JSON_NUMERIC_CHECK);
     }
 

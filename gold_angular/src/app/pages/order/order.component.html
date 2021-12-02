@@ -6,7 +6,8 @@
   <div *ngIf="customerList.length">
     <div fxLayout="column" fxFlex="30" class="mr-1">
       <mat-card class="ml-2 mt-2">
-        <div class="form-container-master">
+        <div>
+          <div class="form-container-master">
         <!--Order Master form-->
           <form [formGroup] = orderMasterForm >
             <div class="container material" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
@@ -63,7 +64,7 @@
               </div>
           </form>
         </div>
-        <div class="form-container-details">
+          <div class="form-container-details">
           <!--Order Details form-->
           <form [formGroup] = orderDetailsForm >
 
@@ -146,6 +147,7 @@
             <button mat-button (click)="clearForm()" mat-stroked-button>clear</button>
           </div>
   <!--        <pre>{{orderDetailsForm.value | json }}</pre>-->
+        </div>
         </div>
       </mat-card>
       <div style="background-color: aqua; color : black">
@@ -276,6 +278,9 @@
               <td class="text-center">
                 <button mat-icon-button color="primary" aria-label="Edit Product" (click)="showOrderDetailsList(item)" *ngIf="editableItemIndex != indexOfElement">
                   <mat-icon>description</mat-icon>
+                </button>
+                <button mat-icon-button color="primary" aria-label="Edit Product" (click)="printOrder(item)" *ngIf="editableItemIndex != indexOfElement">
+                  <mat-icon>print</mat-icon>
                 </button>
               </td>
             </tr>
