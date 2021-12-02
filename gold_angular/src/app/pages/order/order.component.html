@@ -149,6 +149,17 @@
   <!--        <pre>{{orderDetailsForm.value | json }}</pre>-->
         </div>
         </div>
+        <div id="order-print-div" *ngIf="printableOrder">
+          This is order print div
+          <div id="order-div-print-main-area">
+
+            <div>Order No. {{printableOrder.order_master.order_number}}</div>
+            <div>Order Date. {{printableOrder.order_master.date_of_order}}</div>
+            <div>Customer:</div>
+            <div>{{printableOrder.order_master.billing_name}}</div>
+            <div>{{printableOrder.order_master.address1}}</div>
+          </div>
+        </div>
       </mat-card>
       <div style="background-color: aqua; color : black">
       </div>
