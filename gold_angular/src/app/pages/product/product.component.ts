@@ -12,6 +12,7 @@ import {SncakBarComponent} from '../../common/sncak-bar/sncak-bar.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
 import {ConfirmationDialogService} from '../../common/confirmation-dialog/confirmation-dialog.service';
+import {environment} from '../../../environments/environment';
 
 
 @Component({
@@ -20,9 +21,10 @@ import {ConfirmationDialogService} from '../../common/confirmation-dialog/confir
   styleUrls: ['./product.component.scss']
 })
 export class ProductComponent implements OnInit {
-
+  isProduction = environment.production;
   public searchTerm: string;
   public currentError: any;
+  showDeveloperDiv = false;
   products: Product[] = [];
   priceCodes: PriceCode[] = [];
   productCategories: ProductCategory[] = [];

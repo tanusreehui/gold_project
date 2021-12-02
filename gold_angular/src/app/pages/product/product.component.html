@@ -30,14 +30,7 @@
               </mat-form-field>
             </div>
             <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
-              <mat-form-field class="example-full-width">
-                <mat-label>Choose a date</mat-label>
-                <input matInput [matDatepicker]="picker">
-                <mat-datepicker-toggle matSuffix [for]="picker">
-                  <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-                </mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-              </mat-form-field>
+
               <mat-form-field>
                 <mat-placeholder>Product MV</mat-placeholder>
                 <input matInput formControlName="product_mv" class="text-right">
@@ -119,6 +112,35 @@
         </pagination-controls>
       </div>
     </div>
+  </div>
+</div>
+
+<!--To enable developer div in development-->
+<div fxLayout.xs="column" fxLayout="row" fxLayoutAlign="space-between stretch"  *ngIf="!isProduction">
+  <mat-slide-toggle [(ngModel)]="showDeveloperDiv">Slide Toggle Checked: {{showDeveloperDiv}}</mat-slide-toggle>
+</div>
+
+<!--This is developer div-->
+<div fxLayout.xs="column" fxLayout="row" fxLayoutAlign="space-between stretch"  id="developer-div" *ngIf="showDeveloperDiv && !isProduction">
+  <div fxLayout="column" fxFlex="25" class="mr-1" style="background-color: #dddddd">
+    <pre>
+      productForm touched = {{productForm.touched | json}}
+      productForm dirty = {{productForm.dirty | json}}
+      productForm pristine = {{productForm.pristine | json}}
+    </pre>
+  </div>
+  <div fxLayout="column" fxFlex="25" class="mr-1" style="background-color: #d9dd9b">
+    <pre>
+      orderMasterList = {{products | json}}
+    </pre>
+  </div>
+  <div fxLayout="column" fxFlex="25" class="mr-1" style="background-color: #dddddd">
+
+  </div>
+  <div fxLayout="column" fxFlex="25" class="mr-1" style="background-color: #d9dd9b">
+    <pre>
+      productForm = {{productForm.value | json}}
+    </pre>
   </div>
 </div>
 
