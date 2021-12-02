@@ -99,7 +99,12 @@ export class OrderComponent implements OnInit {
     h2 : {border: 'solid 1px'},
     td: {border: '1px solid red', margin: '0px', padding: '3px'}
   };
-
+  orderPrintDivStyle = {
+    table: {'border-collapse': 'collapse' , width: '100%'},
+    h1 : {color: 'red'},
+    h2 : {border: 'solid 1px'},
+    td: {border: '1px solid red', margin: '0px', padding: '3px'}
+  };
   ngOnInit(): void {
 
 

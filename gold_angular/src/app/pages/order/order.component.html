@@ -150,7 +150,11 @@
         </div>
         </div>
         <div id="order-print-div" *ngIf="printableOrder">
-          This is order print div
+          <button
+            mat-stroked-button
+            [printStyle]="orderPrintDivStyle"
+            printSectionId="order-div-print-main-area"
+            ngxPrint><mat-icon>print</mat-icon></button>
           <div id="order-div-print-main-area">
 
             <div>Order No. {{printableOrder.order_master.order_number}}</div>
