@@ -15,7 +15,7 @@ class CreateJobTasksTable extends Migration
     {
         Schema::create('job_tasks', function (Blueprint $table) {
             $table->id();
-            $table->String('task_name');
+            $table->String('task_name')->unique();
             $table->tinyInteger('inforced')->default(1);
             $table->timestamps();
         });

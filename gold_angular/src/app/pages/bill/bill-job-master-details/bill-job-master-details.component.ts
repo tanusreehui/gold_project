@@ -76,7 +76,6 @@ export class BillJobMasterDetailsComponent implements OnInit {
       .subscribe((details: JobMaster[]) => {
         this.finishedJobData = details;
         this.mv = (this.finishedJobData[0].cust_mv + this.finishedJobData[0].product_mv) ;
-        console.log('finishedJobData', this.finishedJobData);
       });
   }
 
@@ -85,6 +84,7 @@ export class BillJobMasterDetailsComponent implements OnInit {
   }
 
   selectionForBill(data) {
+    console.log(data);
     const index = this.billDetailsData.findIndex(x => x.id === data.id);
     if (index >= 0) {
       this.total92Gold = this.total92Gold - Number(data.total);
@@ -110,7 +110,6 @@ export class BillJobMasterDetailsComponent implements OnInit {
       });
 
     }
-    console.log('billDetailsData', this.billDetailsData);
   }
 
   viewBill(){

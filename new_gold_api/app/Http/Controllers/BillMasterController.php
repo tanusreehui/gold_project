@@ -21,6 +21,9 @@ class BillMasterController extends Controller
         $newData = ($request->json()->all());
         $master = $newData['master'];
         $details = $newData['details'];
+        $data['master']=$master;
+        $data['details']=$details;
+        return response()->json(['success' => 1, 'data' => $data], 200, [], JSON_NUMERIC_CHECK);
 
 
         DB::beginTransaction();
