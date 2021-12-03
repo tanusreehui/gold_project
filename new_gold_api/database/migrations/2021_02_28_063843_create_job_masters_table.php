@@ -34,6 +34,12 @@ class CreateJobMastersTable extends Migration
 
             $table ->double('cust_mv')->default(0);
             $table ->double('product_mv')->default(0);
+
+            $table ->double('ploss')->default(0);
+
+            $table ->integer('quantity')->default(0);
+            $table ->integer('price')->default(0);
+
             $table->timestamps();
         });
     }

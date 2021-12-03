@@ -109,7 +109,10 @@ export class JobComponent implements OnInit {
       order_details_id: details.id,
       material_name: this.materialList[index].material_name,
       cust_mv: details.cust_mv,
-      product_mv: details.product_mv
+      product_mv: details.product_mv,
+      quantity: details.quantity,
+      ploss: details.p_loss,
+      price: details.price,
     });
     const user = JSON.parse(localStorage.getItem('user'));
     this.jobDetailsForm.value.employee_id = user.id;
@@ -120,7 +123,6 @@ export class JobComponent implements OnInit {
 
   onSubmit() {
     if(this.jobMasterForm.value.karigarh_id) {
-      console.log(this.jobMasterForm.value);
       this.confirmationDialogService.confirm('Please confirm..', 'Do you really want to send order to job ?')
         .then((confirmed) => {
           if (confirmed) {
