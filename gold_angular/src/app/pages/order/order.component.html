@@ -163,11 +163,12 @@
             <div>{{printableOrder.order_master.billing_name}}</div>
             <div>{{printableOrder.order_master.address1}}</div>
             <div>----------------------------------------------</div>
-            <table class="table table-responsive">
+            <table class="table table-responsive table-bordered">
               <thead>
               <tr>
                 <th class="text-left">SL</th>
                 <th class="text-left">Model</th>
+                <th class="text-left">Size</th>
                 <th class="text-left">Qty</th>
                 <th class="text-left">Rate</th>
                 <th class="text-left">Gold</th>
@@ -176,16 +177,22 @@
               <tbody>
               <tr *ngFor="let item of printableOrder.order_details ; let indexOfElement = index;">
                 <td>{{indexOfElement + 1}}</td>
-                <td class="text-left">{{item.model_number}}</td>
+                <td class="text-left">{{item.model_number}}-{{item.price_code}}</td>
+                <td class="text-left">{{item.size}}</td>
                 <td class="text-right">{{item.quantity}}</td>
                 <td class="text-right">{{item.price}}</td>
                 <td class="text-right">{{item.approx_gold}}</td>
               </tr>
               </tbody>
               <tfoot>
-
+                <tr>
+                  <td colspan="3">Total Qty</td>
+                  <td class="text-right">{{printableOrder.order_aggregate.total_qty}}</td>
+                </tr>
               </tfoot>
             </table>
+            <div>Total LC: {{printableOrder.order_aggregate.total_price}}</div>
+            <div>Total App. Gold: {{printableOrder.order_aggregate.approx_gold_total}}</div>
           </div>
         </div>
       </mat-card>
