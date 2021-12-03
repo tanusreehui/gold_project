@@ -164,7 +164,7 @@ export class BillJobMasterDetailsComponent implements OnInit {
       confirmButtonText: 'Yes, generate it!',
       cancelButtonText: 'No, cancel it'
     }).then((result) => {
-      if(result.value){
+      if (result.value){
         const x = new Date();
 
         // if (this.billDetailsData[0]) {
@@ -188,7 +188,6 @@ export class BillJobMasterDetailsComponent implements OnInit {
         //   };
         // }
         this.billService.saveBillMaster(this.billMasterData, this.billDetailsData).subscribe((response) => {
-          console.log(this.billDetailsData);
           this.billMasterData = {
             order_master_id: this.billDetailsData[0].order_master_id,
             orderNumber: this.billDetailsData[0].order_number,
@@ -208,10 +207,6 @@ export class BillJobMasterDetailsComponent implements OnInit {
             discount: this.discount,
             billNumber: response.data.bill_number
           };
-          // this.discount = (this.billDetailsData[0].discount / 100) * this.totalCost;
-          // this.discountPercentage = this.billDetailsData[0].discount;
-          // this.totalCost = this.totalCost - this.discount;
-
           this.discount = this.billMasterData.discount;
           // this.discountPercentage = this.billDetailsData[0].discount;
           this.totalCost = this.originalCost - this.discount;
