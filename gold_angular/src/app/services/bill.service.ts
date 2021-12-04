@@ -136,16 +136,18 @@ export class BillService {
       });
   }
 
-  getFinishedJobData(data){
-    console.log("data is ",data);
-    return this.http.post<ProductResponseData>(GlobalVariable.BASE_API_URL + '/getFinishedJobData', data)
+  getFinishedJobData(orderMasterID){
+    console.log("data is ",orderMasterID);
+    return this.http.get<ProductResponseData>(GlobalVariable.BASE_API_URL + '/getFinishedJobData/orderMaster/'+ orderMasterID)
       .subscribe((response: {success: number, data: JobMaster[]})  => {
         const {data} = response;
         this.finishedJobData = data;
-        console.log(this.finishedJobData);
+        console.log('this is finished job data', this.finishedJobData);
         this.finishedJobDataSub.next([...this.finishedJobData]);
       });
   }
+
+ 
 
   getBilledJobList(data){
     this.http.get(GlobalVariable.BASE_API_URL + '/getBilledJobList/' + data)

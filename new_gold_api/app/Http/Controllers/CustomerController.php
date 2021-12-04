@@ -302,10 +302,44 @@ class CustomerController extends Controller
         return response()->json(['success' => 1, 'data' => $data], 200, [], JSON_NUMERIC_CHECK);
     }
 
-    public function getFinishedJobData(Request $request)
+
+
+    public function getFinishedJobsByOrderMasterId($orderMasterId)
     {
-        $input = ($request->json()->all());
-        $data = JobMaster::select(DB::raw('order_masters.id as order_master_id'),'rates.price','products.model_number', DB::raw('karigarh.user_name as karigarh_name'), DB::raw('people.id as customer_id'), DB::raw('karigarh.id as karigarh_id'),'people.mv','people.customer_category_id', 'order_masters.order_number', 'order_masters.date_of_order', 'order_masters.agent_id','order_masters.discount_percentage','job_masters.gross_weight', 'products.model_number', 'order_details.size', 'order_details.quantity','order_details.material_id', 'order_details.price','order_details.discount','order_masters.date_of_order', 'job_masters.job_number', 'job_masters.cust_mv', 'job_masters.product_mv','people.user_name','people.billing_name', 'people.address1', 'people.mobile1', 'people.state', 'people.po', 'people.area', 'people.city', 'people.pin', 'job_masters.id','job_masters.status_id', DB::raw("if(job_masters.status_id = 100,'COMPLETED',if(job_masters.status_id = 102,'STOCK CREATED','WORK IN PROGRESS')) as status"))
+        $data = JobMaster::select(DB::raw('order_masters.id as order_master_id')
+            ,'rates.price'
+            ,'products.model_number'
+            , DB::raw('karigarh.user_name as karigarh_name')
+            , DB::raw('people.id as customer_id')
+            , DB::raw('karigarh.id as karigarh_id')
+            ,'people.mv','people.customer_category_id'
+            , 'order_masters.order_number'
+            , 'order_masters.date_of_order'
+            , 'order_masters.agent_id'
+            ,'order_masters.discount_percentage'
+            ,'job_masters.gross_weight'
+            , 'products.model_number'
+            , 'order_details.size'
+            , 'order_details.quantity'
+            ,'order_details.material_id'
+            , 'order_details.price'
+            ,'order_details.discount'
+            ,'order_masters.date_of_order'
+            , 'job_masters.job_number'
+            , 'job_masters.cust_mv'
+            , 'job_masters.product_mv'
+            ,'people.user_name'
+            ,'people.billing_name'
+            , 'people.address1'
+            , 'people.mobile1'
+            , 'people.state'
+            , 'people.po'
+            , 'people.area'
+            , 'people.city'
+            , 'people.pin'
+            , 'job_masters.id'
+            ,'job_masters.status_id'
+            , DB::raw("if(job_masters.status_id = 100,'COMPLETED',if(job_masters.status_id = 102,'STOCK CREATED','WORK IN PROGRESS')) as status"))
             ->join('people as karigarh', 'job_masters.karigarh_id', '=', 'karigarh.id')
             ->join('order_details', 'job_masters.order_details_id', '=', 'order_details.id')
             ->join('order_masters', 'order_details.order_master_id', '=', 'order_masters.id')
@@ -317,8 +351,19 @@ class CustomerController extends Controller
             })
 //            ->where('job_masters.bill_created','=',0)
             ->where('job_masters.bill_created','=',0)
-            ->where('order_masters.id', '=', $input)
+            ->where('order_masters.id', '=', $orderMasterId)
             ->get();
+        return response()->json(['success' => 1, 'data' => $data], 200, [], JSON_NUMERIC_CHECK);
+    }
+
+    public function getProformaInvoice($id, Request $request){
+        $input = ($request->json()->all());
+        $orderMaster=OrderMaster::findOrFail($id);
+        $data['order_master']=$orderMaster;
+        $customer=Person::findOrFail($orderMaster->person_id);
+        $data['customer']=$customer;
+        $job_master = JobMaster::wherein('id',$input['job_ids'])->get();
+        $data['job_master']=$job_master;
         return response()->json(['success' => 1, 'data' => $data], 200, [], JSON_NUMERIC_CHECK);
     }
 

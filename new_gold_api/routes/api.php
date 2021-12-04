@@ -168,7 +168,10 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get('/orders/billable/customer/{id}', [CustomerController::class,'getBillableOrdersByCustomerId']);
 
 
-    Route::post('/getFinishedJobData', [CustomerController::class,'getFinishedJobData']);
+
+    Route::get('/getFinishedJobData/orderMaster/{id}', [CustomerController::class,'getFinishedJobsByOrderMasterId']);
+    Route::post('/proformaInvoice/orderMaster/{id}', [CustomerController::class,'getProformaInvoice']);
+
     Route::get('/getGoldquantity/{id}', [CustomerController::class,'getGoldQuantityBill']);
     Route::get('/karigarhs', [CustomerController::class,'getKarigarhs']);
     Route::get('/getTotalGoldQuantity/{id}', [CustomerController::class,'getTotalGoldQuantity']);
