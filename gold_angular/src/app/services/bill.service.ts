@@ -147,7 +147,7 @@ export class BillService {
       });
   }
 
- 
+
 
   getBilledJobList(data){
     this.http.get(GlobalVariable.BASE_API_URL + '/getBilledJobList/' + data)

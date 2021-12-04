@@ -147,6 +147,7 @@ export class JobTaskService implements OnDestroy{
       .subscribe((response: {success: number, data: Material[]}) => {
         const {data} = response;
         this.materialData = data;
+        console.log('Materials: ',data);
         this.materialDataSub.next([...this.materialData]);
       });
   }

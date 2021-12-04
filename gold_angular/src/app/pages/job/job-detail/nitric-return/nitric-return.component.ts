@@ -57,7 +57,7 @@ export class NitricReturnComponent implements OnInit {
     }
   }
 
-  onSubmit(){
+  saveNitric(){
     if (this.jobTaskForm.value.return_quantity === null){
       this._snackBar.openFromComponent(SncakBarComponent, {
         duration: 4000, data: {message: 'Please enter quantity before submit'}
@@ -77,7 +77,7 @@ export class NitricReturnComponent implements OnInit {
       const user = JSON.parse(localStorage.getItem('user'));
       this.jobTaskForm.patchValue({
         job_Task_id: 7,
-        material_id: this.materialData[matIndex].id,
+        material_id: 7,
         id: this.jobMasterId,
         size: this.oneJobData.size,
         employee_id: user.id

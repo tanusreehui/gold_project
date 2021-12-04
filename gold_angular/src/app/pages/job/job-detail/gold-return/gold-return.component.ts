@@ -21,17 +21,20 @@ export class GoldReturnComponent implements OnInit {
   jobMasterId: number;
   jobTaskForm: FormGroup;
   savedJobsData: JobMaster[];
-  oneJobData: JobMaster;
+  currentJob: JobMaster;
   materialData: Material[];
   jobTaskData: JobDetail[];
-  returnMaterial: string;
+  returnMaterialName: string;
   total: number;
   showJobTaskData = false;
   public currentError: any;
+  private returnMaterial: Material;
 
   constructor(private jobTaskService: JobTaskService, private router: ActivatedRoute, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    this.materialData = this.jobTaskService.getMaterials();
+    console.log('Material Data ',this.materialData);
     this.total = 0;
     this.jobTaskForm = this.jobTaskService.jobTaskForm;
     this.savedJobsData = this.jobTaskService.getAllJobList();
@@ -40,18 +43,25 @@ export class GoldReturnComponent implements OnInit {
     });
     this.savedJobsData = this.jobTaskService.getAllJobList();
     const index = this.savedJobsData.findIndex(x => x.id === this.jobMasterId);
-    this.oneJobData = this.savedJobsData[index];
+    this.currentJob = this.savedJobsData[index];
+    console.log('Current Job',this.currentJob);
+
 
     this.jobTaskService.getMaterialDataUpdateListener().subscribe((response) => {
       this.materialData = response;
     });
-    this.materialData = this.jobTaskService.getMaterials();
-    const matIndex = this.materialData.findIndex(x => x.main_material_id === this.oneJobData.material_id);
-    this.returnMaterial = this.materialData[matIndex].material_name;
-
     this.jobTaskService.getJobTaskDataUpdateListener().subscribe((response) => {
       this.jobTaskData = response;
     });
+
+
+    // index of return gold
+    const matIndex = this.materialData.findIndex(x => x.main_material_id === this.currentJob.material_id);
+    // return material name
+    this.returnMaterial = this.materialData[matIndex];
+    this.returnMaterialName = this.returnMaterial.material_name;
+
+
   }
 
   material_quantity_decimal(){
@@ -61,6 +71,7 @@ export class GoldReturnComponent implements OnInit {
     }
   }
 
+  // saving gold return
   onSubmit(){
     if (this.jobTaskForm.value.return_quantity === null){
       this._snackBar.openFromComponent(SncakBarComponent, {
@@ -72,17 +83,19 @@ export class GoldReturnComponent implements OnInit {
       });
       this.savedJobsData = this.jobTaskService.getAllJobList();
       const index = this.savedJobsData.findIndex(x => x.id === this.jobMasterId);
-      this.oneJobData = this.savedJobsData[index];
+      this.currentJob = this.savedJobsData[index];
       this.jobTaskService.getMaterialDataUpdateListener().subscribe((response) => {
         this.materialData = response;
       });
-      const matIndex = this.materialData.findIndex(x => x.main_material_id === this.oneJobData.material_id);
+      const matIndex = this.materialData.findIndex(x => x.main_material_id === this.currentJob.material_id);
+      const materialGold = this.materialData[matIndex];
+      console.log('Main gold: ', materialGold);
       const user = JSON.parse(localStorage.getItem('user'));
       this.jobTaskForm.patchValue({
         job_Task_id: 2,
-        material_id: this.materialData[matIndex].id,
+        material_id: this.returnMaterial.id,
         id: this.jobMasterId,
-        size: this.oneJobData.size,
+        size: this.currentJob.size,
         employee_id: user.id
       });
       this.jobTaskForm.value.return_quantity = -this.jobTaskForm.value.return_quantity;
@@ -118,9 +131,9 @@ export class GoldReturnComponent implements OnInit {
     });
     this.savedJobsData = this.jobTaskService.getAllJobList();
     const index = this.savedJobsData.findIndex(x => x.id === this.jobMasterId);
-    this.oneJobData = this.savedJobsData[index];
+    this.currentJob = this.savedJobsData[index];
     const user = JSON.parse(localStorage.getItem('user'));
-    this.jobTaskForm.patchValue({ job_Task_id: 2, material_id: this.oneJobData.material_id, id: this.jobMasterId, size: this.oneJobData.size, employee_id: user.id });
+    this.jobTaskForm.patchValue({ job_Task_id: 2, material_id: this.currentJob.material_id, id: this.jobMasterId, size: this.currentJob.size, employee_id: user.id });
     this.jobTaskService.jobTaskData().subscribe((response) => {
       this.jobTaskData = response.data;
       // tslint:disable-next-line:prefer-for-of
