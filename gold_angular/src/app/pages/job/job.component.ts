@@ -14,6 +14,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {ProductService} from '../../services/product.service';
 import {Material} from '../../models/material.model';
 import Swal from "sweetalert2";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-job',
@@ -43,8 +44,14 @@ export class JobComponent implements OnInit {
   page: number;
   pageSize: number;
   p = 1;
+  private selectedOrderNumber: string;
 
-  constructor(private productService: ProductService, private _snackBar: MatSnackBar, private confirmationDialogService: ConfirmationDialogService, private jobService: JobService, private orderService: OrderService) {
+  constructor(private actRoute: ActivatedRoute ,private productService: ProductService, private _snackBar: MatSnackBar, private confirmationDialogService: ConfirmationDialogService, private jobService: JobService, private orderService: OrderService) {
+    // when order is selected
+    this.selectedOrderNumber = this.actRoute.snapshot.params.orderNumber;
+    if(this.selectedOrderNumber != undefined){
+      this.searchTerm = this.selectedOrderNumber;
+    }
     this.products = this.productService.getProducts();
     this.karigarhData = this.jobService.getAllKarigarhs();
     this.page = 1;
@@ -59,7 +66,6 @@ export class JobComponent implements OnInit {
     this.orderMasterData = this.orderService.getOrderMaster();
     this.jobService.getKarigarhUpdateListener().subscribe((responseProducts: Karigarh[]) => {
       this.karigarhData = responseProducts;
-      console.log(this.karigarhData);
     });
     this.orderService.getOrderUpdateListener().subscribe((responseProducts: OrderMaster[]) => {
       this.orderMasterData = responseProducts;

@@ -277,6 +277,17 @@ class CustomerController extends Controller
             ->get();
         return response()->json(['success' => 1, 'data' => $data], 200, [], JSON_NUMERIC_CHECK);
     }
+    public function getBillableOrdersByCustomerId($customer_id)
+    {
+        $data = OrderMaster::select(DB::raw(" distinct order_masters.order_number"), 'order_masters.id', 'people.user_name')
+            ->join('order_details', 'order_details.order_master_id', '=', 'order_masters.id')
+            ->join('job_masters', 'job_masters.order_details_id', '=', 'order_details.id')
+            ->join('people', 'order_masters.person_id', '=', 'people.id')
+            ->where('order_details.bill_created','=',0)
+            ->where('order_masters.person_id', '=', $customer_id)
+            ->get();
+        return response()->json(['success' => 1, 'data' => $data], 200, [], JSON_NUMERIC_CHECK);
+    }
 
     public function getCompletedBIllDetails(Request $request)
     {

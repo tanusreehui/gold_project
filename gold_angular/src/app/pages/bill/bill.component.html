@@ -1,7 +1,9 @@
 <div fxLayout.xs="column"   fxLayout="row" fxLayoutAlign="space-between stretch" fxFlexFill id="create-bill-div" >
   <div *ngIf="finshedJobs.length == 0" style="text-align: center; align-items: center"><h1>Nothing to show...</h1></div>
   <div  fxFlex="100" *ngIf="finshedJobs.length > 0"  >
+    <h1 class="text-center"> Billable Customers </h1>
     <div  fxLayout fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="30px" fxLayoutGap.xs="0">
+
       <mat-form-field class="example-full-width">
         <input matInput placeholder="Search..." [(ngModel)]="searchTerm" name="search" type="text" autofocus>
       </mat-form-field>

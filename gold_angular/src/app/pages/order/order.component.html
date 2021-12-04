@@ -318,6 +318,10 @@
                 <button mat-icon-button color="primary" aria-label="Edit Product" (click)="printOrder(item)" *ngIf="editableItemIndex != indexOfElement">
                   <mat-icon>print</mat-icon>
                 </button>
+                <!--                sending order_number to job selection-->
+                <button  mat-icon-button color="primary" aria-label="Open Details" style ="text-align: center" [routerLink] = "['/job/orderMaster',item.order_number]">
+                  <i class="material-icons">device_hub</i>
+                </button>
               </td>
             </tr>
             </tbody>

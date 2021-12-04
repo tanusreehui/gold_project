@@ -118,7 +118,7 @@ export class BillService {
   }
 
   getDetails(data){
-    return this.http.post<ProductResponseData>(GlobalVariable.BASE_API_URL + '/fetchingDetails', data)
+    return this.http.get<ProductResponseData>(GlobalVariable.BASE_API_URL + '/orders/billable/customer/'+ data)
       .subscribe((response: {success: number, data: OrderDetail[]})  => {
         const {data} = response;
         this.orderDetails = data;
@@ -137,6 +137,7 @@ export class BillService {
   }
 
   getFinishedJobData(data){
+    console.log("data is ",data);
     return this.http.post<ProductResponseData>(GlobalVariable.BASE_API_URL + '/getFinishedJobData', data)
       .subscribe((response: {success: number, data: JobMaster[]})  => {
         const {data} = response;

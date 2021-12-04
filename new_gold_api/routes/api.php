@@ -164,6 +164,10 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get('/showCompletedBills/{id}', [CustomerController::class,'showCompletedBills']);
     Route::get('/finishedJobsCustomers', [CustomerController::class,'finishedJobsCustomers']);
     Route::post('/fetchingDetails', [CustomerController::class,'getDetails']);
+
+    Route::get('/orders/billable/customer/{id}', [CustomerController::class,'getBillableOrdersByCustomerId']);
+
+
     Route::post('/getFinishedJobData', [CustomerController::class,'getFinishedJobData']);
     Route::get('/getGoldquantity/{id}', [CustomerController::class,'getGoldQuantityBill']);
     Route::get('/karigarhs', [CustomerController::class,'getKarigarhs']);
@@ -204,130 +208,130 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 });
 
 
-Route::group(array('prefix' => 'dev'), function() {
-
-    Route::get('/test', [CustomerController::class,'test']);
-
-    //cash_payment
-    Route::post('/saveCashPayment', [PaymentCashController::class,'saveCashPayment']);
-
-    //owner_transaction_type
-    Route::get('/getTransactionType', [TransactionTypeController::class,'getTransactionType']);
-
-    //gold_payment
-    Route::post('/saveGoldPayment', [PaymentGoldController::class,'saveGoldPayment']);
-
-    //bill_adjustment
-    Route::get('/getBillAdjustment', [BillAdjustmentController::class,'getBillAdjustment']);
-
-    //agent
-    Route::get('/agents', [AgentController::class,'index']);
-    Route::post('/agents', [AgentController::class,'saveAgent']);
-    Route::delete('/agents/{id}', [AgentController::class,'deleteAgent']);
-    Route::patch('/agents/{id}', [AgentController::class,'updateAgent']);
-    Route::get('/getDueByAgent',[AgentController::class,'getDueByAgent']);
-    Route::get('/getCustomerUnderAgent/{id}',[AgentController::class,'getCustomerUnderAgent']);
-
-    //customer_category
-    Route::get('/getCustomerCategory', [CustomerCategoryController::class,'getCustomerCategory']);
-
-    //product_category
-    Route::get('/productCategory', [ProductCategoryController::class,'getProductCategories']);
-
-    //stock_controller
-    Route::get('/getStockRecord',[StockController::class,'index']);
-
-    //price_code
-    Route::get('/priceCodes', [PriceCodeController::class,'getPriceCodes']);
-
-    //bill_master
-    Route::post('/saveBillMaster', [BillMasterController::class,'saveBillMaster']);
-    Route::get('/getBilledJobList/{id}', [BillMasterController::class,'getBilledJobList']);
-
-    //testing for stock bill save
-    Route::post('/testBillSave', [BillMasterController::class,'testBillSave']);
-
-    //job_task
-    Route::post('/getTotal', [JobTaskController::class,'getTotal']);
-    Route::get('/getAllTransactions/{id}', [JobTaskController::class,'getAllTransactions']);
-    Route::post('/saveReturn', [JobTaskController::class,'saveReturn']);
-    Route::post('/getJobTaskData', [JobTaskController::class,'getJobTaskData']);
-    Route::get('/savedJobs', [JobTaskController::class,'getSavedJobs']);
-    Route::get('/finishedJobs', [JobTaskController::class,'getFinishedJobs']);
-    Route::get('/getOneJobData/{id}', [JobTaskController::class,'getOneJobData']);
-    Route::get('/countTaskBadgeValue/{id}', [JobTaskController::class,'countTaskBadgeValue']);
-
-    //job_master
-    Route::post('/jobs', [JobMasterController::class,'saveJob']);
-    Route::post('/finishJob', [JobMasterController::class,'updateGrossWeight']);
-    Route::get('/getBilledJobInfo/{id}', [JobMasterController::class,'getBilledJobInfo']);
-
-    //rate
-    Route::get('/getRates', [RateController::class,'getRates']);
-    Route::post('/saveRate', [RateController::class,'newRate']);
-    Route::delete('/deleteRate/{id}', [RateController::class,'deleteRate']);
-    Route::put('/updateRate', [RateController::class,'updateRate']);
-
-    //product
-    Route::get('/products', [ProductController::class,'index']);
-    Route::post('/products', [ProductController::class,'saveProduct']);
-    Route::patch('/products', [ProductController::class,'updateProduct']);
-    Route::delete('/products/{id}', [ProductController::class,'deleteProduct']);
-    Route::post('/getProductData', [ProductController::class,'getProductData']);
-
-    //materials
-    Route::get('/materials', [MaterialController::class,'getMaterials']);
-//    Route::get('/orderMaterials', [MaterialController::class,'getOrderMaterials']);
-
-    //order_master
-    Route::get('/orders', [OrderMasterController::class,'index']);
-    Route::patch('/orders', [OrderMasterController::class,'updateOrder']);
-    Route::patch('/orderMaster', [OrderMasterController::class,'updateMaster']);
-    Route::delete('/orderMasterDelete/{id}', [OrderMasterController::class,'deleteOrderMaster']);
-    Route::post('/orders', [OrderMasterController::class,'saveOrder']);
-    Route::post('/testSaveOrder', [OrderMasterController::class,'testSaveOrder']);
-
-    //customer
-    Route::get('/customers', [CustomerController::class,'index']);
-    Route::get('/customers/{id}', [CustomerController::class,'getCustomer']);
-    Route::post('/customers', [CustomerController::class,'saveCustomer']);
-    Route::patch('/customers/{id}', [CustomerController::class,'updateCustomer']);
-    Route::delete('/customers/{id}', [CustomerController::class,'deleteCustomer']);
-
-    Route::get('/completedBillCustomers', [CustomerController::class,'completedBillCustomers']);
-    Route::post('/getCompletedBIllDetails', [CustomerController::class,'getCompletedBIllDetails']);
-    Route::post('/getFinishedBillData', [BillMasterController::class,'getFinishedBillData']);
-    Route::get('/showCompletedBills/{id}', [CustomerController::class,'showCompletedBills']);
-    Route::get('/finishedJobsCustomers', [CustomerController::class,'finishedJobsCustomers']);
-    Route::post('/fetchingDetails', [CustomerController::class,'getDetails']);
-    Route::post('/getFinishedJobData', [CustomerController::class,'getFinishedJobData']);
-    Route::get('/getGoldquantity/{id}', [CustomerController::class,'getGoldQuantityBill']);
-    Route::get('/karigarhs', [CustomerController::class,'getKarigarhs']);
-    Route::get('/getTotalGoldQuantity/{id}', [CustomerController::class,'getTotalGoldQuantity']);
-    Route::get('/testGetEmployeeMaterial', [CustomerController::class,'testGetEmployeeMaterial']);
-    Route::get('/getEmployeeMaterial', [CustomerController::class,'getEmployeeMaterial']);
-    Route::get('/getEmployeeStock', [CustomerController::class,'getEmployeeStock']);
-    Route::get('/getCustomerPassbook/{id}', [CustomerController::class,'CustomerTransactionTest']);
-
-    //order_detail
-    Route::post('/orderDetails', [OrderDetailController::class,'fetchingDetails']);
-    Route::delete('/ordersDetailsDelete/{id}', [OrderDetailController::class,'deleteOrder']);
-
-    //Stock Controller
-    Route::get('/getStockRecord',[StockController::class,'index']);
-    Route::post('/createStock',[StockController::class,'saveStock']);
-    Route::get('/getStockCustomer',[StockController::class,'getStockCustomer']);
-    Route::get('/getRecordByJobMasterId/{id}',[StockController::class,'getRecordByJobMasterId']);
-    Route::get('/getStockList',[StockController::class,'getStockList']);
-    Route::post('/updateStockByAgentId',[StockController::class,'updateStockByAgentId']);
-    Route::post('/updateStockByDefaultAgentId',[StockController::class,'updateStockByDefaultAgentId']);
-
-    //Material TransactionMaster Controller
-    Route::post('/saveTransaction',[MaterialController::class,'saveTransaction']);
-    Route::get('/getEmployees',[MaterialController::class,'getEmployees']);
-
-    //User Types Controller
-    Route::get('/showCompletedBills',[UserTypeController::class,'index']);
-    Route::post('/uploadPicture',[UserController::class,'uploadPicture']);
-});
+//Route::group(array('prefix' => 'dev'), function() {
+//
+//    Route::get('/test', [CustomerController::class,'test']);
+//
+//    //cash_payment
+//    Route::post('/saveCashPayment', [PaymentCashController::class,'saveCashPayment']);
+//
+//    //owner_transaction_type
+//    Route::get('/getTransactionType', [TransactionTypeController::class,'getTransactionType']);
+//
+//    //gold_payment
+//    Route::post('/saveGoldPayment', [PaymentGoldController::class,'saveGoldPayment']);
+//
+//    //bill_adjustment
+//    Route::get('/getBillAdjustment', [BillAdjustmentController::class,'getBillAdjustment']);
+//
+//    //agent
+//    Route::get('/agents', [AgentController::class,'index']);
+//    Route::post('/agents', [AgentController::class,'saveAgent']);
+//    Route::delete('/agents/{id}', [AgentController::class,'deleteAgent']);
+//    Route::patch('/agents/{id}', [AgentController::class,'updateAgent']);
+//    Route::get('/getDueByAgent',[AgentController::class,'getDueByAgent']);
+//    Route::get('/getCustomerUnderAgent/{id}',[AgentController::class,'getCustomerUnderAgent']);
+//
+//    //customer_category
+//    Route::get('/getCustomerCategory', [CustomerCategoryController::class,'getCustomerCategory']);
+//
+//    //product_category
+//    Route::get('/productCategory', [ProductCategoryController::class,'getProductCategories']);
+//
+//    //stock_controller
+//    Route::get('/getStockRecord',[StockController::class,'index']);
+//
+//    //price_code
+//    Route::get('/priceCodes', [PriceCodeController::class,'getPriceCodes']);
+//
+//    //bill_master
+//    Route::post('/saveBillMaster', [BillMasterController::class,'saveBillMaster']);
+//    Route::get('/getBilledJobList/{id}', [BillMasterController::class,'getBilledJobList']);
+//
+//    //testing for stock bill save
+//    Route::post('/testBillSave', [BillMasterController::class,'testBillSave']);
+//
+//    //job_task
+//    Route::post('/getTotal', [JobTaskController::class,'getTotal']);
+//    Route::get('/getAllTransactions/{id}', [JobTaskController::class,'getAllTransactions']);
+//    Route::post('/saveReturn', [JobTaskController::class,'saveReturn']);
+//    Route::post('/getJobTaskData', [JobTaskController::class,'getJobTaskData']);
+//    Route::get('/savedJobs', [JobTaskController::class,'getSavedJobs']);
+//    Route::get('/finishedJobs', [JobTaskController::class,'getFinishedJobs']);
+//    Route::get('/getOneJobData/{id}', [JobTaskController::class,'getOneJobData']);
+//    Route::get('/countTaskBadgeValue/{id}', [JobTaskController::class,'countTaskBadgeValue']);
+//
+//    //job_master
+//    Route::post('/jobs', [JobMasterController::class,'saveJob']);
+//    Route::post('/finishJob', [JobMasterController::class,'updateGrossWeight']);
+//    Route::get('/getBilledJobInfo/{id}', [JobMasterController::class,'getBilledJobInfo']);
+//
+//    //rate
+//    Route::get('/getRates', [RateController::class,'getRates']);
+//    Route::post('/saveRate', [RateController::class,'newRate']);
+//    Route::delete('/deleteRate/{id}', [RateController::class,'deleteRate']);
+//    Route::put('/updateRate', [RateController::class,'updateRate']);
+//
+//    //product
+//    Route::get('/products', [ProductController::class,'index']);
+//    Route::post('/products', [ProductController::class,'saveProduct']);
+//    Route::patch('/products', [ProductController::class,'updateProduct']);
+//    Route::delete('/products/{id}', [ProductController::class,'deleteProduct']);
+//    Route::post('/getProductData', [ProductController::class,'getProductData']);
+//
+//    //materials
+//    Route::get('/materials', [MaterialController::class,'getMaterials']);
+////    Route::get('/orderMaterials', [MaterialController::class,'getOrderMaterials']);
+//
+//    //order_master
+//    Route::get('/orders', [OrderMasterController::class,'index']);
+//    Route::patch('/orders', [OrderMasterController::class,'updateOrder']);
+//    Route::patch('/orderMaster', [OrderMasterController::class,'updateMaster']);
+//    Route::delete('/orderMasterDelete/{id}', [OrderMasterController::class,'deleteOrderMaster']);
+//    Route::post('/orders', [OrderMasterController::class,'saveOrder']);
+//    Route::post('/testSaveOrder', [OrderMasterController::class,'testSaveOrder']);
+//
+//    //customer
+//    Route::get('/customers', [CustomerController::class,'index']);
+//    Route::get('/customers/{id}', [CustomerController::class,'getCustomer']);
+//    Route::post('/customers', [CustomerController::class,'saveCustomer']);
+//    Route::patch('/customers/{id}', [CustomerController::class,'updateCustomer']);
+//    Route::delete('/customers/{id}', [CustomerController::class,'deleteCustomer']);
+//
+//    Route::get('/completedBillCustomers', [CustomerController::class,'completedBillCustomers']);
+//    Route::post('/getCompletedBIllDetails', [CustomerController::class,'getCompletedBIllDetails']);
+//    Route::post('/getFinishedBillData', [BillMasterController::class,'getFinishedBillData']);
+//    Route::get('/showCompletedBills/{id}', [CustomerController::class,'showCompletedBills']);
+//    Route::get('/finishedJobsCustomers', [CustomerController::class,'finishedJobsCustomers']);
+//    Route::post('/fetchingDetails', [CustomerController::class,'getDetails']);
+//    Route::post('/getFinishedJobData', [CustomerController::class,'getFinishedJobData']);
+//    Route::get('/getGoldquantity/{id}', [CustomerController::class,'getGoldQuantityBill']);
+//    Route::get('/karigarhs', [CustomerController::class,'getKarigarhs']);
+//    Route::get('/getTotalGoldQuantity/{id}', [CustomerController::class,'getTotalGoldQuantity']);
+//    Route::get('/testGetEmployeeMaterial', [CustomerController::class,'testGetEmployeeMaterial']);
+//    Route::get('/getEmployeeMaterial', [CustomerController::class,'getEmployeeMaterial']);
+//    Route::get('/getEmployeeStock', [CustomerController::class,'getEmployeeStock']);
+//    Route::get('/getCustomerPassbook/{id}', [CustomerController::class,'CustomerTransactionTest']);
+//
+//    //order_detail
+//    Route::post('/orderDetails', [OrderDetailController::class,'fetchingDetails']);
+//    Route::delete('/ordersDetailsDelete/{id}', [OrderDetailController::class,'deleteOrder']);
+//
+//    //Stock Controller
+//    Route::get('/getStockRecord',[StockController::class,'index']);
+//    Route::post('/createStock',[StockController::class,'saveStock']);
+//    Route::get('/getStockCustomer',[StockController::class,'getStockCustomer']);
+//    Route::get('/getRecordByJobMasterId/{id}',[StockController::class,'getRecordByJobMasterId']);
+//    Route::get('/getStockList',[StockController::class,'getStockList']);
+//    Route::post('/updateStockByAgentId',[StockController::class,'updateStockByAgentId']);
+//    Route::post('/updateStockByDefaultAgentId',[StockController::class,'updateStockByDefaultAgentId']);
+//
+//    //Material TransactionMaster Controller
+//    Route::post('/saveTransaction',[MaterialController::class,'saveTransaction']);
+//    Route::get('/getEmployees',[MaterialController::class,'getEmployees']);
+//
+//    //User Types Controller
+//    Route::get('/showCompletedBills',[UserTypeController::class,'index']);
+//    Route::post('/uploadPicture',[UserController::class,'uploadPicture']);
+//});
 

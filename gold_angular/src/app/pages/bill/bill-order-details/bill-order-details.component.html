@@ -1,4 +1,7 @@
 <div fxLayout.xs="column" [hidden]="disableDetails" fxLayout="row" fxLayoutAlign="space-between stretch" fxFlexFill >
+  <button  mat-icon-button color="primary" aria-label="Open Details" style ="text-align: center" [routerLink] = "['/bill']">
+    <i class="material-icons">arrow_back</i>
+  </button>
   <div  fxFlex="100" class="col" *ngIf="orderDetails" id ="bill-orderDetails-div">
     <table class="table"  *ngIf="orderDetails.length != 0">
       <thead>
