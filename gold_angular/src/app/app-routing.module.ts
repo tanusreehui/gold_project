@@ -41,6 +41,7 @@ import {EmployeeStockComponent} from './pages/employee-stock/employee-stock.comp
 import {BilledJobListComponent} from './pages/completed-bill/billed-job-list/billed-job-list.component';
 import {ChatComponent} from "./pages/chat/chat.component";
 import {PasswordResetComponent} from './pages/password-reset/password-reset.component';
+import {JobTaskResolver} from "./resolver/job-task.resolver";
 
 
 const routes: Routes = [
@@ -54,7 +55,9 @@ const routes: Routes = [
   {path: 'order', canActivate:  [AuthGuardService], component: OrderComponent},
   {path: 'job', canActivate:  [AuthGuardService], component: JobComponent},
   {path: 'job/orderMaster/:orderNumber', canActivate:  [AuthGuardService], component: JobComponent},
-  {path: 'job_task', canActivate : [AuthGuardService], component: JobTaskComponent},
+
+  {path: 'job_task', canActivate : [AuthGuardService], component: JobTaskComponent, resolve: {data: JobTaskResolver}},
+
   {path: 'cash_payment', canActivate : [AuthGuardService], component: PaymentComponent},
   {path: 'gold_payment', canActivate : [AuthGuardService], component: GoldPaymentComponent},
   {path: 'due_by_agent', canActivate : [AuthGuardService], component: DueByAgentComponent,

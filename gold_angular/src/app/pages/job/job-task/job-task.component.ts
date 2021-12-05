@@ -11,6 +11,7 @@ import { Material } from 'src/app/models/material.model';
 import {JobDetail} from 'src/app/models/jobDetail.model';
 import {Observable} from 'rxjs';
 import {JobService} from '../../../services/job.service';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-job-task',
@@ -36,13 +37,23 @@ export class JobTaskComponent implements OnInit {
   pageSize: number;
   p = 1;
 
-  constructor(private jobTaskService: JobTaskService , private _snackBar: MatSnackBar, private confirmationDialogService: ConfirmationDialogService, private orderService: OrderService , private  jobService: JobService) {
+  constructor(private activatedRoute: ActivatedRoute, private jobTaskService: JobTaskService , private _snackBar: MatSnackBar, private confirmationDialogService: ConfirmationDialogService, private orderService: OrderService , private  jobService: JobService) {
 
     this.page = 1;
     this.pageSize = 15;
   }
 
   ngOnInit(): void {
+    console.log(
+      'Activated route data in Component:::',
+      this.activatedRoute.data
+    );
+    this.activatedRoute.data.subscribe((response: any) => {
+      console.log('SAVED JOB FETCHING', response);
+
+      console.log('SAVED JOB FETCHED');
+    });
+
     this.showCompleteJobs = false;
     this.jobTaskForm = this.jobTaskService.jobTaskForm;
     this.jobService.getSavedJobsUpdateListener().subscribe((jobData: JobMaster[]) => {
