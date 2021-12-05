@@ -41,11 +41,11 @@ export class GoldReturnComponent implements OnInit {
     this.router.parent.params.subscribe(params => {
       this.jobMasterId = parseInt(params.id);
     });
-    this.savedJobsData = this.jobTaskService.getAllJobList();
     const index = this.savedJobsData.findIndex(x => x.id === this.jobMasterId);
-    this.currentJob = this.savedJobsData[index];
-    console.log('Current Job',this.currentJob);
-
+    if(index>-1) {
+      this.currentJob = this.savedJobsData[index];
+      console.log('Current Job', this.currentJob);
+    }
 
     this.jobTaskService.getMaterialDataUpdateListener().subscribe((response) => {
       this.materialData = response;
