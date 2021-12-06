@@ -56,10 +56,9 @@ const routes: Routes = [
   {path: 'job', canActivate:  [AuthGuardService], component: JobComponent},
   {path: 'job/orderMaster/:orderNumber', canActivate:  [AuthGuardService], component: JobComponent},
 
-
-  {path: 'job_task', canActivate : [AuthGuardService], component: JobTaskComponent
-    , resolve: {data: JobTaskResolver}
-    },
+  {path: 'job_task', canActivate : [AuthGuardService], component: JobTaskComponent,
+    resolve: {jobTask: JobTaskResolver}
+  },
 
 
   {path: 'cash_payment', canActivate : [AuthGuardService], component: PaymentComponent},
