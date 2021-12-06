@@ -157,7 +157,12 @@ export class JobTaskService implements OnDestroy{
       savedJobs:  this.http.get<any>(GlobalVariable.BASE_API_URL + '/savedJobs'),
       finishedJobs:  this.http.get<any>(GlobalVariable.BASE_API_URL + '/finishedJobs'),
       materials:  this.http.get<any>(GlobalVariable.BASE_API_URL + '/materials')
-    });
+    }).pipe(catchError(this._serverError), tap(((response: any) => {
+      console.log(response.savedJobs);
+      this.savedJobsList = response.savedJobs.data;
+      this.finishedJobsList = response.finishedJobs.data;
+      this.materialData = response.materials.data;
+    })));;
   }
 
   testObserble(){

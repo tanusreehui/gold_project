@@ -5,7 +5,6 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import {NewJobTaskService} from "../services/new-job-task.service";
 import {catchError} from "rxjs/operators";
 import {JobTaskService} from "../services/job-task.service";
 
@@ -16,7 +15,7 @@ export class JobTaskResolver implements Resolve<any> {
   constructor(private jobTaskService: JobTaskService){
     console.log("resolver created");
   }
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<any> | Observable<any> {
     console.log('Called Get Product in resolver...', route);
 
     return this.jobTaskService.getAll().pipe(

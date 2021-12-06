@@ -53,12 +53,9 @@ export class JobTaskComponent implements OnInit {
 
     this.showCompleteJobs = false;
     this.jobTaskForm = this.jobTaskService.jobTaskForm;
-    // this.jobService.getSavedJobsUpdateListener().subscribe((jobData: JobMaster[]) => {
-    //
-    //
-    //   this.savedJobsData = jobData;
-    //
-    // });
+    this.jobService.getSavedJobsUpdateListener().subscribe((jobData: JobMaster[]) => {
+      this.savedJobsData = jobData;
+    });
 
     // this.jobService.getFinishedJobsUpdateListener().subscribe((finishedjobData: JobMaster[]) => {
     //   this.finishedJobsList = finishedjobData;

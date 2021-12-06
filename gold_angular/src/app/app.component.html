@@ -9,6 +9,9 @@
   </div>
   <!--  This is our main working area-->
   <div class="working-area" fxFlex="1" fxLayout="column" flexLayoutAlign="none none" style="margin-top: 70px; height: 100vh">
+    <div *ngIf="isNavigating" id="loading-screen" class="text-center">
+      <app-loaidng-hourglass></app-loaidng-hourglass>
+    </div>
     <router-outlet></router-outlet>
   </div>
 

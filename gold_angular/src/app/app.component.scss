@@ -9,3 +9,8 @@ router-outlet{
 .working-area{
   min-height: 100vh;
 }
+#loading-screen{
+  width: 100vw;
+  height: 100vh;
+  background: rgba(50, 34, 10, 0.61);
+}
