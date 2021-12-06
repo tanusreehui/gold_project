@@ -55,8 +55,18 @@ export class JobDetailComponent implements OnInit {
               , private billService: BillService) {
 
     this.route.data.subscribe((response: any) => {
-      console.log('Printing from component: ',response.jobDetail[0].savedJobs.data);
-      console.log('Second Call : ',response.jobDetail[1]);
+      console.log('Printing from Saved Jobs: ',response.jobDetail[0].savedJobs.data);
+      console.log('Second Call : ',response.jobDetail[1].karigarhs.data);
+      console.log('Third Call : ',response.jobDetail[2].agents.data);
+      console.log('orderMaterials : ',response.jobDetail[2].orderMaterials.data);
+      console.log('orderMasters : ',response.jobDetail[2].orderMasters.data);
+      // console.log('completedBill : ',response.jobDetail[3].completedBill.data);
+
+      this.savedJobsData = response.jobDetail[0].savedJobs.data;
+      this.karigarhData = response.jobDetail[1].karigarhs.data;
+      this.materialList = response.jobDetail[2].orderMaterials.data;
+
+
     });
 
     this.jobTaskService.testObserble().subscribe((response) => {

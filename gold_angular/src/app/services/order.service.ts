@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Agent} from '../models/agent.model';
 
-import {forkJoin, Subject, throwError} from 'rxjs';
+import {forkJoin, Observable, Subject, throwError} from 'rxjs';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Material} from '../models/material.model';
 import {OrderMaster} from '../models/orderMaster.model';
@@ -81,6 +81,8 @@ export class OrderService {
     this.delivery_date_format = formatDate(delivery_date, 'yyyy-MM-dd', 'en');
 
 
+
+
     this.orderMasterForm = new FormGroup({
       id : new FormControl(null),
       customer_id : new FormControl(null, [Validators.required]),
@@ -125,6 +127,18 @@ export class OrderService {
       this.orderMasterData = requestOrders.data;
       this.orderSub.next([...this.orderMasterData]);
     });
+  }
+
+  getAll(): Observable<any>{
+    return forkJoin({
+      agents:  this.http.get<any>(GlobalVariable.BASE_API_URL + '/agents'),
+      orderMaterials:  this.http.get<any>(GlobalVariable.BASE_API_URL + '/orderMaterials'),
+      orderMasters:  this.http.get<any>(GlobalVariable.BASE_API_URL + '/orderMasters')
+    }).pipe(catchError(this._serverError), tap(((response: any) => {
+      this.agentData=response.agents.data;
+      this.materialData = response.orderMaterials.data;
+      this.orderMasterData = response.orderMasters.data;
+    })));
   }
 
   getOrderMaster(){

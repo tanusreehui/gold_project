@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {FinishedJobs} from "../models/finishedJobs";
 import {GlobalVariable} from "../shared/global";
 import {Karigarh} from "../models/karigarh.model";
-import {Subject, throwError} from "rxjs";
+import {forkJoin, Observable, Subject, throwError} from "rxjs";
 import {Product} from "../models/product.model";
 import {ProductResponseData} from "./product.service";
 import {OrderDetail} from "../models/orderDetail.model";
@@ -73,22 +73,31 @@ export class BillService {
 
 
   constructor(private http: HttpClient) {
-    this.http.get(GlobalVariable.BASE_API_URL + '/finishedJobsCustomers')
-      .subscribe((response: {success: number, data: FinishedJobs[]}) => {
-        const {data} = response;
-        this.finshedJobs = data;
-        this.finishedJobsSub.next([...this.finshedJobs]);
-      });
+    // this.http.get(GlobalVariable.BASE_API_URL + '/finishedJobsCustomers')
+    //   .subscribe((response: {success: number, data: FinishedJobs[]}) => {
+    //     const {data} = response;
+    //     this.finshedJobs = data;
+    //     this.finishedJobsSub.next([...this.finshedJobs]);
+    //   });
+    //
+    // this.http.get(GlobalVariable.BASE_API_URL + '/completedBillCustomers')
+    //   .subscribe((response: {success: number, data: FinishedJobs[]}) => {
+    //     const {data} = response;
+    //     this.completedBill = data;
+    //     this.completedBillDataSub.next([...this.completedBill]);
+    //   });
 
-    this.http.get(GlobalVariable.BASE_API_URL + '/completedBillCustomers')
-      .subscribe((response: {success: number, data: FinishedJobs[]}) => {
-        const {data} = response;
-        this.completedBill = data;
-        this.completedBillDataSub.next([...this.completedBill]);
-      });
 
 
-
+  }
+  getAll(): Observable<any> {
+    return forkJoin({
+      finishedJobs: this.http.get<any>(GlobalVariable.BASE_API_URL + '/finishedJobsCustomers'),
+      completedBill: this.http.get<any>(GlobalVariable.BASE_API_URL + '/completedBillCustomers')
+    }).pipe(catchError(this._serverError), tap(((response: any) => {
+      this.finshedJobs = response.finishedJobs.data;
+      this.completedBill = response.completedBill.data;
+    })));
   }
 
   getFinishedJobs(){
