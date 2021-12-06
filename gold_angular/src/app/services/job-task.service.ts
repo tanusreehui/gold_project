@@ -2,7 +2,7 @@ import {Injectable, OnDestroy} from '@angular/core';
 import {GlobalVariable} from '../shared/global';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {OrderDetail} from '../models/orderDetail.model';
-import {Subject, throwError} from 'rxjs';
+import {forkJoin, Observable, Subject, throwError} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {JobMaster} from '../models/jobMaster.model' ;
@@ -130,26 +130,34 @@ export class JobTaskService implements OnDestroy{
 
     // fetching the orders which are sent to job
 
-    this.http.get(GlobalVariable.BASE_API_URL + '/savedJobs')
-      .subscribe((response: {success: number, data: JobMaster[]}) => {
-        const {data} = response;
-        this.savedJobsSub.next([...this.savedJobsList]);
-      });
+    // this.http.get(GlobalVariable.BASE_API_URL + '/savedJobs')
+    //   .subscribe((response: {success: number, data: JobMaster[]}) => {
+    //     const {data} = response;
+    //     this.savedJobsSub.next([...this.savedJobsList]);
+    //   });
+    //
+    // this.http.get(GlobalVariable.BASE_API_URL + '/finishedJobs')
+    //   .subscribe((response: {success: number, data: JobMaster[]}) => {
+    //     const {data} = response;
+    //     this.finishedJobsList = data;
+    //     this.finishedJobsSub.next([...this.finishedJobsList]);
+    //   });
+    //
+    // this.http.get(GlobalVariable.BASE_API_URL + '/materials')
+    //   .subscribe((response: {success: number, data: Material[]}) => {
+    //     const {data} = response;
+    //     this.materialData = data;
+    //     console.log('Materials: ', data);
+    //     this.materialDataSub.next([...this.materialData]);
+    //   });
+  }
 
-    this.http.get(GlobalVariable.BASE_API_URL + '/finishedJobs')
-      .subscribe((response: {success: number, data: JobMaster[]}) => {
-        const {data} = response;
-        this.finishedJobsList = data;
-        this.finishedJobsSub.next([...this.finishedJobsList]);
-      });
-
-    this.http.get(GlobalVariable.BASE_API_URL + '/materials')
-      .subscribe((response: {success: number, data: Material[]}) => {
-        const {data} = response;
-        this.materialData = data;
-        console.log('Materials: ', data);
-        this.materialDataSub.next([...this.materialData]);
-      });
+  getAll(): Observable<any>{
+    return forkJoin({
+      savedJobs:  this.http.get<any>(GlobalVariable.BASE_API_URL + '/savedJobs'),
+      finishedJobs:  this.http.get<any>(GlobalVariable.BASE_API_URL + '/finishedJobs'),
+      materials:  this.http.get<any>(GlobalVariable.BASE_API_URL + '/materials')
+    });
   }
 
   testObserble(){
