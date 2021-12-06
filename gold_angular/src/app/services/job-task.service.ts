@@ -159,11 +159,10 @@ export class JobTaskService implements OnDestroy{
       materials:  this.http.get<any>(GlobalVariable.BASE_API_URL + '/materials'),
       karigarhs:  this.http.get<any>(GlobalVariable.BASE_API_URL + '/karigarhs')
     }).pipe(catchError(this._serverError), tap(((response: any) => {
-      console.log(response.savedJobs);
       this.savedJobsList = response.savedJobs.data;
       this.finishedJobsList = response.finishedJobs.data;
       this.materialData = response.materials.data;
-    })));;
+    })));
   }
 
   testObserble(){

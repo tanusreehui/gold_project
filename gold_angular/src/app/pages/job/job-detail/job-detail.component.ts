@@ -48,7 +48,17 @@ export class JobDetailComponent implements OnInit {
 
 
   // tslint:disable-next-line:max-line-length
-  constructor(private route: ActivatedRoute , private  jobTaskService: JobTaskService , private  jobService: JobService , private  orderService: OrderService, private billService: BillService) {
+  constructor(private route: ActivatedRoute
+              , private  jobTaskService: JobTaskService
+              , private  jobService: JobService
+              , private  orderService: OrderService
+              , private billService: BillService) {
+
+    this.route.data.subscribe((response: any) => {
+      console.log('Printing from component: ',response.jobDetail[0].savedJobs.data);
+      console.log('Second Call : ',response.jobDetail[1]);
+    });
+
     this.jobTaskService.testObserble().subscribe((response) => {
       this.btnControl = response;
     });

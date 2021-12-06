@@ -46,7 +46,12 @@ export class JobComponent implements OnInit {
   p = 1;
   private selectedOrderNumber: string;
 
-  constructor(private actRoute: ActivatedRoute ,private productService: ProductService, private _snackBar: MatSnackBar, private confirmationDialogService: ConfirmationDialogService, private jobService: JobService, private orderService: OrderService) {
+  constructor(private actRoute: ActivatedRoute
+              ,private productService: ProductService
+              , private _snackBar: MatSnackBar
+              , private confirmationDialogService: ConfirmationDialogService
+              , private jobService: JobService
+              , private orderService: OrderService) {
     // when order is selected
     this.selectedOrderNumber = this.actRoute.snapshot.params.orderNumber;
     if(this.selectedOrderNumber != undefined){

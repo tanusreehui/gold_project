@@ -42,6 +42,7 @@ import {BilledJobListComponent} from './pages/completed-bill/billed-job-list/bil
 import {ChatComponent} from "./pages/chat/chat.component";
 import {PasswordResetComponent} from './pages/password-reset/password-reset.component';
 import {JobTaskResolver} from "./resolver/job-task.resolver";
+import {JobDetailResolver} from "./resolver/job-detail.resolver";
 
 
 const routes: Routes = [
@@ -71,7 +72,7 @@ const routes: Routes = [
   {path: 'customer_under_agent/:id', canActivate : [AuthGuardService], component: CustomerUnderAgentComponent},
   {path: 'completed_bill_details/:id', canActivate : [AuthGuardService], component: CompletedBillDetailsComponent},
   {path: 'billedJobList/:id', canActivate : [AuthGuardService], component: BilledJobListComponent},
-  {path: 'job_detail/:id', canActivate : [AuthGuardService], component: JobDetailComponent,
+  {path: 'job_detail/:id', canActivate : [AuthGuardService], component: JobDetailComponent, resolve: {jobDetail: JobDetailResolver},
     children: [
       {path: '', component: JobTransactionComponent},
       {path: 'goldSubmit', component: GoldSubmitComponent},
