@@ -9,8 +9,8 @@ import {JobMaster} from '../models/jobMaster.model' ;
 import {JobDetail} from 'src/app/models/jobDetail.model';
 import {OrderMaster} from '../models/orderMaster.model';
 import {OrderResponseData} from './order.service';
-import {Material} from "../models/material.model";
-import {JobResponseData} from "./job.service";
+import {Material} from '../models/material.model';
+import {JobResponseData} from './job.service';
 
 @Injectable({
   providedIn: 'root'
@@ -113,7 +113,7 @@ export class JobTaskService implements OnDestroy{
     });
 
 
-    //---------------------------
+    // ---------------------------
 
     this.jobMasterForm = new FormGroup({
       id : new FormControl(null),
@@ -126,9 +126,9 @@ export class JobTaskService implements OnDestroy{
     });
 
 
-    //---------------------
+    // ---------------------
 
-    //fetching the orders which are sent to job
+    // fetching the orders which are sent to job
 
     this.http.get(GlobalVariable.BASE_API_URL + '/savedJobs')
       .subscribe((response: {success: number, data: JobMaster[]}) => {
@@ -147,7 +147,7 @@ export class JobTaskService implements OnDestroy{
       .subscribe((response: {success: number, data: Material[]}) => {
         const {data} = response;
         this.materialData = data;
-        console.log('Materials: ',data);
+        console.log('Materials: ', data);
         this.materialDataSub.next([...this.materialData]);
       });
   }
