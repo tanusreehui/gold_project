@@ -19,33 +19,40 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./job-task.component.scss']
 })
 export class JobTaskComponent implements OnInit {
+  formTaskDiv = false;
+  isShowJobMasterList = true;
+  showCompleteJobs = false;
+  isSendToTask = false;
 
   jobTaskForm: FormGroup;
   savedJobsData: JobMaster[] = [];
   finishedJobsList: JobMaster[] = [];
   materialList: Material[];
 
-  isSendToTask = false;
-  jobNumber: string;
-  formTaskDiv = false;
 
-  isShowJobMasterList = true;
-  showCompleteJobs = false;
+  jobNumber: string;
+
   public searchTerm: string;
   filter = new FormControl('');
   page: number;
   pageSize: number;
   p = 1;
 
-  constructor(private activatedRoute: ActivatedRoute, private jobTaskService: JobTaskService , private _snackBar: MatSnackBar, private confirmationDialogService: ConfirmationDialogService, private orderService: OrderService , private  jobService: JobService) {
+  constructor(private activatedRoute: ActivatedRoute
+              , private jobTaskService: JobTaskService
+              // , private  jobService: JobService
+              , private _snackBar: MatSnackBar
+              , private confirmationDialogService: ConfirmationDialogService
+              // , private orderService: OrderService
+  ) {
 
     this.page = 1;
     this.pageSize = 15;
   }
 
   ngOnInit(): void {
+    // active routing
     this.activatedRoute.data.subscribe((response: any) => {
-      console.log('SAVED JOB FETCHING', response.jobTask.savedJobs.data);
       this.savedJobsData = response.jobTask.savedJobs.data;
       this.finishedJobsList = response.jobTask.finishedJobs.data;
       this.materialList = response.jobTask.materials.data;
@@ -53,26 +60,23 @@ export class JobTaskComponent implements OnInit {
 
     this.showCompleteJobs = false;
     this.jobTaskForm = this.jobTaskService.jobTaskForm;
-    this.jobService.getSavedJobsUpdateListener().subscribe((jobData: JobMaster[]) => {
+    this.jobTaskService.getSavedJobsUpdateListener().subscribe((jobData: JobMaster[]) => {
       this.savedJobsData = jobData;
     });
 
-    // this.jobService.getFinishedJobsUpdateListener().subscribe((finishedjobData: JobMaster[]) => {
-    //   this.finishedJobsList = finishedjobData;
-    //
-    // });
+    this.jobTaskService.getFinishedJobsUpdateListener().subscribe((finishedJobList: JobMaster[]) => {
+      this.finishedJobsList = finishedJobList;
+    });
+    this.jobTaskService.getMaterialDataUpdateListener().subscribe((material: Material[]) => {
+        this.materialList = material;
+      });
 
-    // this.savedJobsData = this.jobService.getAllJobList();
-    // this.finishedJobsList = this.jobService.getFinishedJobList();
-
-    // this.orderService.getMaterialUpdateListener()
-    //   .subscribe((material: Material[]) => {
-    //     this.materialList = material;
-    //   });
+    this.savedJobsData = this.jobTaskService.getAllJobList();
+    this.finishedJobsList = this.jobTaskService.getFinishedJobList();
   }
 
   placeDetails(data){
-    this.materialList = this.orderService.getMaterials();
+    this.materialList = this.jobTaskService.getMaterials();
 
     this.isSendToTask = true;
     this.isShowJobMasterList = false;

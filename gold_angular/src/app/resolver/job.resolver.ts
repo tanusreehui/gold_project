@@ -7,16 +7,19 @@ import {
 import { Observable, of } from 'rxjs';
 import {catchError} from "rxjs/operators";
 import {JobTaskService} from "../services/job-task.service";
+import {JobService} from "../services/job.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class JobTaskResolver implements Resolve<any> {
-  constructor(private jobTaskService: JobTaskService){
-
+export class JobResolver implements Resolve<boolean> {
+  constructor(private jobService: JobService){
+    console.log("resolver created");
   }
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<any> | Observable<any> {
-    return this.jobTaskService.getAll().pipe(
+    console.log('Called Get job service in jobResolver...', route);
+
+    return this.jobService.getAll().pipe(
       catchError(error => {
         return of('No data');
       })

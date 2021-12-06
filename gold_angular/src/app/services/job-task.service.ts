@@ -156,7 +156,8 @@ export class JobTaskService implements OnDestroy{
     return forkJoin({
       savedJobs:  this.http.get<any>(GlobalVariable.BASE_API_URL + '/savedJobs'),
       finishedJobs:  this.http.get<any>(GlobalVariable.BASE_API_URL + '/finishedJobs'),
-      materials:  this.http.get<any>(GlobalVariable.BASE_API_URL + '/materials')
+      materials:  this.http.get<any>(GlobalVariable.BASE_API_URL + '/materials'),
+      karigarhs:  this.http.get<any>(GlobalVariable.BASE_API_URL + '/karigarhs')
     }).pipe(catchError(this._serverError), tap(((response: any) => {
       console.log(response.savedJobs);
       this.savedJobsList = response.savedJobs.data;

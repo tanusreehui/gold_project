@@ -4,7 +4,7 @@ import {Karigarh} from '../models/karigarh.model';
 import {GlobalVariable} from '../shared/global';
 import {Agent} from '../models/agent.model';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {Subject, throwError} from 'rxjs';
+import {forkJoin, Observable, Subject, throwError} from 'rxjs';
 import {OrderMaster} from '../models/orderMaster.model';
 import {catchError, tap} from 'rxjs/operators';
 import {OrderResponseData} from './order.service';
@@ -76,28 +76,38 @@ export class JobService {
     });
 
     //fetching karigarhs
-    this.http.get(GlobalVariable.BASE_API_URL + '/karigarhs')
-      .subscribe((response: {success: number, data: Karigarh[]}) => {
-        const {data} = response;
-        this.karigarhData = data;
-        this.karigarhSub.next([...this.karigarhData]);
-      });
+    // this.http.get(GlobalVariable.BASE_API_URL + '/karigarhs')
+    //   .subscribe((response: {success: number, data: Karigarh[]}) => {
+    //     const {data} = response;
+    //     this.karigarhData = data;
+    //     this.karigarhSub.next([...this.karigarhData]);
+    //   });
 
     //-----------------
-    this.http.get(GlobalVariable.BASE_API_URL + '/savedJobs')
-      .subscribe((response: {success: number, data: JobMaster[]}) => {
-        const {data} = response;
-        this.savedJobsList = data;
-        this.savedJobsSub.next([...this.savedJobsList]);
-      });
+    // this.http.get(GlobalVariable.BASE_API_URL + '/savedJobs')
+    //   .subscribe((response: {success: number, data: JobMaster[]}) => {
+    //     const {data} = response;
+    //     this.savedJobsList = data;
+    //     this.savedJobsSub.next([...this.savedJobsList]);
+    //   });
+    //
+    // this.http.get(GlobalVariable.BASE_API_URL + '/finishedJobs')
+    //   .subscribe((response: {success: number, data: JobMaster[]}) => {
+    //     const {data} = response;
+    //     this.finishedJobsList = data;
+    //     this.finishedJobsSub.next([...this.finishedJobsList]);
+    //   });
 
-    this.http.get(GlobalVariable.BASE_API_URL + '/finishedJobs')
-      .subscribe((response: {success: number, data: JobMaster[]}) => {
-        const {data} = response;
-        this.finishedJobsList = data;
-        this.finishedJobsSub.next([...this.finishedJobsList]);
-      });
-
+  }
+  getAll(): Observable<any>{
+    return forkJoin({
+      karigarhs:  this.http.get<any>(GlobalVariable.BASE_API_URL + '/karigarhs'),
+      // finishedJobs:  this.http.get<any>(GlobalVariable.BASE_API_URL + '/finishedJobs'),
+      // materials:  this.http.get<any>(GlobalVariable.BASE_API_URL + '/materials'),
+      // karigarhs:  this.http.get<any>(GlobalVariable.BASE_API_URL + '/karigarhs')
+    }).pipe(catchError(this._serverError), tap(((response: any) => {
+      this.karigarhData =response.karigarhs.data;
+    })));;
   }
 
   getAllKarigarhs(){
