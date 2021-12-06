@@ -44,37 +44,34 @@ export class JobTaskComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(
-      'Activated route data in Component:::',
-      this.activatedRoute.data
-    );
     this.activatedRoute.data.subscribe((response: any) => {
-      console.log('SAVED JOB FETCHING', response);
-
-      console.log('SAVED JOB FETCHED');
+      console.log('SAVED JOB FETCHING', response.jobTask.savedJobs.data);
+      this.savedJobsData = response.jobTask.savedJobs.data;
+      this.finishedJobsList = response.jobTask.finishedJobs.data;
+      this.materialList = response.jobTask.materials.data;
     });
 
     this.showCompleteJobs = false;
     this.jobTaskForm = this.jobTaskService.jobTaskForm;
-    this.jobService.getSavedJobsUpdateListener().subscribe((jobData: JobMaster[]) => {
+    // this.jobService.getSavedJobsUpdateListener().subscribe((jobData: JobMaster[]) => {
+    //
+    //
+    //   this.savedJobsData = jobData;
+    //
+    // });
 
+    // this.jobService.getFinishedJobsUpdateListener().subscribe((finishedjobData: JobMaster[]) => {
+    //   this.finishedJobsList = finishedjobData;
+    //
+    // });
 
-      this.savedJobsData = jobData;
+    // this.savedJobsData = this.jobService.getAllJobList();
+    // this.finishedJobsList = this.jobService.getFinishedJobList();
 
-    });
-
-    this.jobService.getFinishedJobsUpdateListener().subscribe((finishedjobData: JobMaster[]) => {
-      this.finishedJobsList = finishedjobData;
-
-    });
-
-    this.savedJobsData = this.jobService.getAllJobList();
-    this.finishedJobsList = this.jobService.getFinishedJobList();
-
-    this.orderService.getMaterialUpdateListener()
-      .subscribe((material: Material[]) => {
-        this.materialList = material;
-      });
+    // this.orderService.getMaterialUpdateListener()
+    //   .subscribe((material: Material[]) => {
+    //     this.materialList = material;
+    //   });
   }
 
   placeDetails(data){

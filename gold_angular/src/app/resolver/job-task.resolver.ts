@@ -17,7 +17,8 @@ export class JobTaskResolver implements Resolve<any> {
   }
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     console.log('Called Get Product in resolver...', route);
-    return this.newJobTaskService.getSavedJobs().pipe(
+
+    return this.newJobTaskService.getAll().pipe(
       catchError(error => {
         return of('No data');
       })
