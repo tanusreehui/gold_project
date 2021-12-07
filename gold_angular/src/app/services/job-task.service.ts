@@ -151,17 +151,23 @@ export class JobTaskService implements OnDestroy{
     //     this.materialDataSub.next([...this.materialData]);
     //   });
   }
+  getSavedJobList(){
+    return this.http.get<any>(GlobalVariable.BASE_API_URL + '/savedJobs').pipe(catchError(this._serverError), tap(((response: any) => {
+      console.log("Single call",response.data);
+      this.savedJobsList = response.response.data;
+    })));
+  }
 
   getAll(): Observable<any>{
     return forkJoin({
       savedJobs:  this.http.get<any>(GlobalVariable.BASE_API_URL + '/savedJobs'),
       finishedJobs:  this.http.get<any>(GlobalVariable.BASE_API_URL + '/finishedJobs'),
       materials:  this.http.get<any>(GlobalVariable.BASE_API_URL + '/materials'),
-      karigarhs:  this.http.get<any>(GlobalVariable.BASE_API_URL + '/karigarhs')
+      // karigarhs:  this.http.get<any>(GlobalVariable.BASE_API_URL + '/karigarhs')
     }).pipe(catchError(this._serverError), tap(((response: any) => {
-      this.savedJobsList = response.savedJobs.data;
       this.finishedJobsList = response.finishedJobs.data;
       this.materialData = response.materials.data;
+      this.savedJobsList = response.savedJobs.data;
     })));
   }
 

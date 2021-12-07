@@ -11,6 +11,7 @@ import {Karigarh} from '../../../models/karigarh.model';
 import {User} from '../../../models/user.model';
 import {JobDetail} from '../../../models/jobDetail.model';
 import {BillService} from '../../../services/bill.service';
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-job-detail',
@@ -18,6 +19,8 @@ import {BillService} from '../../../services/bill.service';
   styleUrls: ['./job-detail.component.scss']
 })
 export class JobDetailComponent implements OnInit {
+  showDeveloperDiv = false;
+  isProduction = environment.production;
   sub: object;
   id: number;
   job_number: string;
@@ -55,24 +58,22 @@ export class JobDetailComponent implements OnInit {
               , private billService: BillService) {
 
     this.route.data.subscribe((response: any) => {
-      console.log('Printing from Saved Jobs: ',response.jobDetail[0].savedJobs.data);
-      console.log('Second Call : ',response.jobDetail[1].karigarhs.data);
-      console.log('Third Call : ',response.jobDetail[2].agents.data);
-      console.log('orderMaterials : ',response.jobDetail[2].orderMaterials.data);
-      console.log('orderMasters : ',response.jobDetail[2].orderMasters.data);
-      // console.log('completedBill : ',response.jobDetail[3].completedBill.data);
-
-      this.savedJobsData = response.jobDetail[0].savedJobs.data;
-      this.karigarhData = response.jobDetail[1].karigarhs.data;
-      this.materialList = response.jobDetail[2].orderMaterials.data;
-
-
+     console.log("Response is: ", response.jobDetail);
+      // console.log('Printing from Saved Jobs: ',response.jobDetail.jobTask.savedJobs.data);
+      // console.log('Second Call : ',response.jobDetail[1].karigarhs.data);
+      // console.log('Third Call : ',response.jobDetail[2].agents.data);
+      // console.log('orderMaterials : ',response.jobDetail[2].orderMaterials.data);
+      // console.log('orderMasters : ',response.jobDetail[2].orderMasters.data);
+      // // console.log('completedBill : ',response.jobDetail[3].completedBill.data);
+      this.savedJobsData = response.jobDetail.jobTask.savedJobs.data;
+      this.karigarhData = response.jobDetail.job.karigarhs.data;
+      this.materialList = response.jobDetail.jobTask.orderMaterials.data;
     });
 
     this.jobTaskService.testObserble().subscribe((response) => {
       this.btnControl = response;
     });
-    this.karigarhData = this.jobService.getAllKarigarhs();
+    // this.karigarhData = this.jobService.getAllKarigarhs();
     this.FGWt = 0;
     // this. jobTaskService.getBadgeValue().subscribe((response) => {
     //   let index = response.findIndex(x => x.id === this.id);
@@ -106,12 +107,15 @@ export class JobDetailComponent implements OnInit {
   ngOnInit(): void {
     this.showTransactionDiv = true;
 
+
+
     this.jobTaskForm = this.jobTaskService.jobTaskForm;
     this.userData = JSON.parse(localStorage.getItem('user'));
 
     this.billService.getTotalGoldQuantityDataSubUpdateListener().subscribe((response) => {
       this.FGWt = response;
     });
+
 
     this.route.params.subscribe(params => {
       this.showTransactionDiv = false;
@@ -251,7 +255,6 @@ export class JobDetailComponent implements OnInit {
 
 
     });
-
 
 
 
