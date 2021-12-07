@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\JobDetailController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -115,6 +116,10 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get('/getOneJobData/{id}', [JobTaskController::class,'getOneJobData']);
 
     Route::get('/countTaskBadgeValue/{id}', [JobTaskController::class,'countTaskBadgeValue']);
+
+    Route::get('/jobDetail/jobMaster/{jobMasterId}/material/{materialId}', [JobDetailController::class,'getJobDetailsByJobAndMaterial']);
+
+
 
     //job_master
     Route::post('/jobs', [JobMasterController::class,'saveJob']);

@@ -12,9 +12,20 @@ class JobDetailController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getJobDetailsByJobAndMaterial($jobMasterId, $materialId)
     {
-        //
+        $record = JobDetail::select('job_details.id','people.user_name','job_details.created_at','job_details.material_quantity')
+            ->join('people','people.id','job_details.employee_id')
+            ->where('job_details.job_master_id','=',$jobMasterId)
+            ->where('job_details.material_id','=',$materialId)
+            ->get();
+        $data['record']=$record;
+        $total_material = JobDetail::
+                where('job_details.job_master_id','=',$jobMasterId)
+                ->where('job_details.material_id','=',$materialId)
+                ->sum('job_details.material_quantity');
+        $data['total_material']=round($total_material,3);
+        return response()->json(['success'=>1,'data'=>$data], 200,[],JSON_NUMERIC_CHECK);
     }
 
     /**

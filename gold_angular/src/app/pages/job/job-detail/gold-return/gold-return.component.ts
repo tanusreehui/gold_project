@@ -28,7 +28,8 @@ export class GoldReturnComponent implements OnInit {
   total: number;
   showJobTaskData = false;
   public currentError: any;
-  private returnMaterial: Material;
+  returnMaterial: Material;
+  returnGoldList: any;
 
   constructor(private jobTaskService: JobTaskService, private router: ActivatedRoute, private _snackBar: MatSnackBar) { }
 
@@ -123,7 +124,7 @@ export class GoldReturnComponent implements OnInit {
     }
   }
 
-  getTotal(){
+  getAll(){
     this.total = 0;
     this.showJobTaskData = true;
     this.router.parent.params.subscribe(params => {
@@ -140,6 +141,14 @@ export class GoldReturnComponent implements OnInit {
       for (let i = 0; i < this.jobTaskData.length; i++) {
         this.total = this.total + this.jobTaskData[i].material_quantity;
       }
+    });
+  }
+
+  getGoldReturnDetail(currentJob: any, returnMaterial: any) {
+    this.jobTaskService.getJobDetailsByJobAndMaterial(currentJob.id,returnMaterial.id).subscribe((response: {success: number, data: {record: any[], total_material: number}})=>{
+       this.returnGoldList = response.data;
+       console.log(this.returnGoldList.record);
+       this.showJobTaskData=true;
     });
   }
 }

@@ -91,6 +91,9 @@ export class JobTaskService implements OnDestroy{
   getBadgeValue(){
     return this.badgeValueSub.asObservable();
   }
+  getJobDetailsByJobAndMaterial(jobMasterId: number, materialId: number){
+    return this.http.get<any>(GlobalVariable.BASE_API_URL + '/jobDetail/jobMaster/'+jobMasterId+'/material/'+materialId);
+  }
 
 
   constructor(private http: HttpClient) {
