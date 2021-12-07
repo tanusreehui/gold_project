@@ -1,6 +1,7 @@
 <div fxLayout.xs="column" fxLayout="row" fxLayoutAlign="space-between stretch" fxFlexFill id="jobDetail-div">
   <div fxLayout="row" fxFlex="40" class="mr-1" id ="jobBill-div">
-    <div fxLayout="column" fxFlex="20" ></div>
+    <div fxLayout="column" fxFlex="20" >
+    </div>
     <div fxLayout="column" fxFlex="60" style="background-color: white" id="bill-div" >
       <div class="row">
         <div class="col">
@@ -137,7 +138,11 @@
 <!--      <button type="button" class="btn btn-warning" [routerLink]="['./job_finish']">Finish</button>-->
 <!--      <button type="button" class="btn btn-primary"  [hidden]="oneJobData.status_id==100"   [routerLink]="['./job_transaction']">Details</button>-->
 <!--    </div>-->
-
+    <div>
+      <button mat-icon-button color="warn"  aria-label="Edit Customer" [routerLink]="['/job_task']" >
+        <mat-icon> call_missed</mat-icon>
+      </button>
+    </div>
     <div class="m-2" *ngIf="true"  >
       <button mat-raised-button style="background-color: rgb(204, 199, 175)" class="btn ml-2 mt-1 mb-1" [matBadge] = "goldRetBadge" matBadgePosition="above before" [disabled] = this.btnControl [hidden]="currentJobData.status_id==100" [routerLink]="['./goldReturn']">Gold Return</button>
       <button mat-raised-button style="background-color: rgb(201, 191, 191)" class="btn ml-2 mt-1 mb-1" [matBadge] = "dalSendBadge" matBadgePosition="above before" [disabled] = this.btnControl [hidden]="currentJobData.status_id==100" [routerLink]="['./dalSubmit']">Dal Submit</button>

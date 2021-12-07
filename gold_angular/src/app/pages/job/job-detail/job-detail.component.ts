@@ -18,7 +18,7 @@ import {environment} from "../../../../environments/environment";
   styleUrls: ['./job-detail.component.scss']
 })
 export class JobDetailComponent implements OnInit {
-  showDeveloperDiv = false;
+  showDeveloperDiv = true;
   isProduction = environment.production;
   sub: object;
   id: number;
@@ -67,40 +67,40 @@ export class JobDetailComponent implements OnInit {
       this.karigarhData = response.jobDetail.job.karigarhs.data;
       this.materialList = response.jobDetail.jobTask.materials.data;
       this.jobTaskForm = this.jobTaskService.jobTaskForm;
-      console.log('check ', response.jobDetail.currentJob.data);
+      // console.log('check ', response.jobDetail.currentJob.data);
       this.currentJobData = response.jobDetail.currentJob.data;
-      this.jobTaskForm.patchValue({id: this.currentJobData.id});
+      // this.jobTaskForm.patchValue({id: this.currentJobData.id});
       this.job_number = this.currentJobData.job_number;
-      this.jobTaskForm.patchValue({size: this.currentJobData.size});
+      const index = this.materialList.findIndex(x => x.id === this.currentJobData.material_id);
+      const materialData = this.materialList[index];
+      this.jobTaskForm.patchValue({id: this.currentJobData.id,size: this.currentJobData.size,material_name: materialData.material_name});
       const index1 = this.karigarhData.findIndex(x => x.id === this.currentJobData.karigarh_id);
       this.karigarhName = this.karigarhData[index1].user_name;
-
       this.userData = JSON.parse(localStorage.getItem('user'));
-
       this.userData = JSON.parse(localStorage.getItem('user'));
       this.route.params.subscribe(params => {
         this.showTransactionDiv = false;
         // tslint:disable-next-line:radix
         this.id = parseInt(params.id);
         // tslint:disable-next-line:no-shadowed-variable
-        this.jobTaskService.getCurrentJobData(this.id).subscribe((response: {success: number , data: JobMaster}) => {
-          // this.currentJobData = response.data;
-          // this.jobTaskForm.patchValue({id: this.currentJobData.id});
-          // this.job_number = this.currentJobData.job_number;
-          // this.jobTaskForm.patchValue({size: this.currentJobData.size});
-          // const index1 = this.karigarhData.findIndex(x => x.id === this.currentJobData.karigarh_id);
-          // this.karigarhName = this.karigarhData[index1].user_name;
-          //
-          // this.userData = JSON.parse(localStorage.getItem('user'));
-          // console.log(this.userData);
-          // tslint:disable-next-line:no-shadowed-variable
-          this.orderService.getMaterialUpdateListener().subscribe((response) => {
-            this.materialList = response;
-            const index = this.materialList.findIndex(x => x.id === this.currentJobData.material_id);
-            const materialData = this.materialList[index];
-            this.jobTaskForm.patchValue({material_name: materialData.material_name});
-          });
-        });
+        // this.jobTaskService.getCurrentJobData(this.id).subscribe((response: {success: number , data: JobMaster}) => {
+        //   // this.currentJobData = response.data;
+        //   // this.jobTaskForm.patchValue({id: this.currentJobData.id});
+        //   // this.job_number = this.currentJobData.job_number;
+        //   // this.jobTaskForm.patchValue({size: this.currentJobData.size});
+        //   // const index1 = this.karigarhData.findIndex(x => x.id === this.currentJobData.karigarh_id);
+        //   // this.karigarhName = this.karigarhData[index1].user_name;
+        //   //
+        //   // this.userData = JSON.parse(localStorage.getItem('user'));
+        //   // console.log(this.userData);
+        //   // tslint:disable-next-line:no-shadowed-variable
+        //   // this.orderService.getMaterialUpdateListener().subscribe((response) => {
+        //   //   this.materialList = response;
+        //   //   const index = this.materialList.findIndex(x => x.id === this.currentJobData.material_id);
+        //   //   const materialData = this.materialList[index];
+        //   //   this.jobTaskForm.patchValue({material_name: materialData.material_name});
+        //   // });
+        // });
 
 
         this.jobTaskService.getBadgeValue().subscribe((response) => {
@@ -131,9 +131,9 @@ export class JobDetailComponent implements OnInit {
         this.jobTaskForm.patchValue({id: params.id});
 
 
-        this.jobTaskService.getUpdatedSavedJobs();
-        this.jobTaskService.getUpdatedFinishedJobs();
-        this.karigarhData = this.jobService.getAllKarigarhs();
+        // this.jobTaskService.getUpdatedSavedJobs();
+        // this.jobTaskService.getUpdatedFinishedJobs();
+        // this.karigarhData = this.jobService.getAllKarigarhs();
         this.jobService.getKarigarhUpdateListener().subscribe((response) => {
           this.karigarhData = response;
         });
