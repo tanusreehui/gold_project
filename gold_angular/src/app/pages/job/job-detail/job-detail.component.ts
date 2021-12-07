@@ -77,11 +77,24 @@ export class JobDetailComponent implements OnInit {
       const index1 = this.karigarhData.findIndex(x => x.id === this.currentJobData.karigarh_id);
       this.karigarhName = this.karigarhData[index1].user_name;
       this.userData = JSON.parse(localStorage.getItem('user'));
-      this.userData = JSON.parse(localStorage.getItem('user'));
+
+      this.jobTaskService.getBadgeValue().subscribe((response) => {
+        this.finishBadgeValue = response.finshBadgeValue || 0;
+        this.goldSendBadge = response.goldSendBadge;
+        this.goldRetBadge = response.goldRetBadge;
+        this.dalSendBadge = response.dalSendBadge;
+        this.dalRetBadge = response.dalRetBadge;
+        this.panSendBadge = response.panSendBadge;
+        this.panRetBadge = response.panRetBadge;
+        this.BronzeSendBadge = response.bronzeSendBadge;
+        this.nitricRetBadge = response.nitricRetBadge;
+      });
+      this.jobTaskService.getBatchCount(this.currentJobData.id);
+      this.showTransactionDiv = false;
       this.route.params.subscribe(params => {
-        this.showTransactionDiv = false;
+
         // tslint:disable-next-line:radix
-        this.id = parseInt(params.id);
+        // this.id = parseInt(params.id);
         // tslint:disable-next-line:no-shadowed-variable
         // this.jobTaskService.getCurrentJobData(this.id).subscribe((response: {success: number , data: JobMaster}) => {
         //   // this.currentJobData = response.data;
@@ -103,65 +116,55 @@ export class JobDetailComponent implements OnInit {
         // });
 
 
-        this.jobTaskService.getBadgeValue().subscribe((response) => {
-          this.finishBadgeValue = response.finshBadgeValue || 0;
-          this.goldSendBadge = response.goldSendBadge;
-          this.goldRetBadge = response.goldRetBadge;
-          this.dalSendBadge = response.dalSendBadge;
-          this.dalRetBadge = response.dalRetBadge;
-          this.panSendBadge = response.panSendBadge;
-          this.panRetBadge = response.panRetBadge;
-          this.BronzeSendBadge = response.bronzeSendBadge;
-          this.nitricRetBadge = response.nitricRetBadge;
-        });
-        this.jobTaskService.getBatchCount(params.id);
 
-        this.jobTaskService.testObserble().subscribe((response) => {
-          this.btnControl = response;
-          //this can also be done
-          // if(this.btnControl === true){
-          //   this.oneJobData.status_id = 100;
-          // }
-        });
+
+
+        // this.jobTaskService.testObserble().subscribe((response) => {
+        //   this.btnControl = response;
+        //   //this can also be done
+        //   // if(this.btnControl === true){
+        //   //   this.oneJobData.status_id = 100;
+        //   // }
+        // });
         //
         // this.billService.getTotalGoldQuantity(this.id).subscribe((response) => {
         //   this.FGWt = response.data.data;
         // });
 
-        this.jobTaskForm.patchValue({id: params.id});
+        // this.jobTaskForm.patchValue({id: params.id});
 
 
         // this.jobTaskService.getUpdatedSavedJobs();
         // this.jobTaskService.getUpdatedFinishedJobs();
         // this.karigarhData = this.jobService.getAllKarigarhs();
-        this.jobService.getKarigarhUpdateListener().subscribe((response) => {
-          this.karigarhData = response;
-        });
-        this.jobTaskService.getSavedJobsUpdateListener().subscribe((response) => {
-          this.savedJobsData = response;
-          const index = this.savedJobsData.findIndex(x => x.id === this.id);
-          // if (index === -1){
-          //   this.jobTaskService.getFinishedJobsUpdateListener().subscribe((response) => {
-          //     this.savedJobsData = response;
-          //     const index = this.savedJobsData.findIndex(x => x.id === this.id);
-          //     this.oneJobData = this.savedJobsData[index];
-          //     this.jobTaskForm.patchValue({id: this.oneJobData.id});
-          //     this.jobTaskForm.value.id = this.oneJobData.id;
-          //     this.job_number = this.oneJobData.job_number;
-          //     const index1 = this.karigarhData.findIndex(x => x.id === this.oneJobData.karigarh_id);
-          //     this.karigarhName = this.karigarhData[index1].person_name;
-          //   });
-          // }
-          // else{
-          //   this.oneJobData = this.savedJobsData[index];
-          //   this.jobTaskForm.patchValue({id: this.oneJobData.id});
-          //   this.job_number = this.oneJobData.job_number;
-          // }
-          // if (this.karigarhData && this.oneJobData){
-          //   const index = this.karigarhData.findIndex(x => x.id === this.oneJobData.karigarh_id);
-          //   this.karigarhName = this.karigarhData[index].person_name;
-          // }
-        });
+        // this.jobService.getKarigarhUpdateListener().subscribe((response) => {
+        //   this.karigarhData = response;
+        // });
+        // this.jobTaskService.getSavedJobsUpdateListener().subscribe((response) => {
+        //   this.savedJobsData = response;
+        //   const index = this.savedJobsData.findIndex(x => x.id === this.id);
+        //   // if (index === -1){
+        //   //   this.jobTaskService.getFinishedJobsUpdateListener().subscribe((response) => {
+        //   //     this.savedJobsData = response;
+        //   //     const index = this.savedJobsData.findIndex(x => x.id === this.id);
+        //   //     this.oneJobData = this.savedJobsData[index];
+        //   //     this.jobTaskForm.patchValue({id: this.oneJobData.id});
+        //   //     this.jobTaskForm.value.id = this.oneJobData.id;
+        //   //     this.job_number = this.oneJobData.job_number;
+        //   //     const index1 = this.karigarhData.findIndex(x => x.id === this.oneJobData.karigarh_id);
+        //   //     this.karigarhName = this.karigarhData[index1].person_name;
+        //   //   });
+        //   // }
+        //   // else{
+        //   //   this.oneJobData = this.savedJobsData[index];
+        //   //   this.jobTaskForm.patchValue({id: this.oneJobData.id});
+        //   //   this.job_number = this.oneJobData.job_number;
+        //   // }
+        //   // if (this.karigarhData && this.oneJobData){
+        //   //   const index = this.karigarhData.findIndex(x => x.id === this.oneJobData.karigarh_id);
+        //   //   this.karigarhName = this.karigarhData[index].person_name;
+        //   // }
+        // });
         // this.userData = JSON.parse(localStorage.getItem('user'));
         // this.orderService.getMaterialUpdateListener().subscribe((response) => {
         //   this.materialList = response;
@@ -219,9 +222,9 @@ export class JobDetailComponent implements OnInit {
       });
     });
 
-    this.jobTaskService.testObserble().subscribe((response) => {
-      this.btnControl = response;
-    });
+    // this.jobTaskService.testObserble().subscribe((response) => {
+    //   this.btnControl = response;
+    // });
     // this.karigarhData = this.jobService.getAllKarigarhs();
     this.FGWt = 0;
     // this. jobTaskService.getBadgeValue().subscribe((response) => {

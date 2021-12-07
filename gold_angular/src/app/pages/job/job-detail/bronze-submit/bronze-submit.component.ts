@@ -57,7 +57,7 @@ export class BronzeSubmitComponent implements OnInit {
       const user = JSON.parse(localStorage.getItem('user'));
       this.jobTaskForm.patchValue({
         job_Task_id: 8,
-        material_id: this.oneJobData.material_id,
+        material_id: 12,
         id: this.jobMasterId,
         size: this.oneJobData.size,
         employee_id: user.id

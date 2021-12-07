@@ -312,6 +312,7 @@ export class JobTaskService implements OnDestroy{
   }
 
   getBatchCount(data){
+    console.log('data: ',data);
     this.http.get(GlobalVariable.BASE_API_URL + '/countTaskBadgeValue/' + data)
       .subscribe((response: {success: number, data: object}) => {
         const a = {

@@ -75,7 +75,7 @@ export class PanReturnComponent implements OnInit {
       this.jobTaskForm.patchValue({
         job_Task_id: 6,
         material_name: this.materialData[matIndex].material_name,
-        material_id: this.materialData[matIndex].id,
+        material_id: 4,
         id: this.jobMasterId,
         size: this.oneJobData.size,
         employee_id: this.oneJobData.karigarh_id

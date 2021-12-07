@@ -63,7 +63,7 @@ export class DalSubmitComponent implements OnInit {
       const user = JSON.parse(localStorage.getItem('user'));
       this.jobTaskForm.patchValue({
         job_Task_id: 3,
-        material_id: this.oneJobData.material_id,
+        material_id: 6,
         id: this.jobMasterId,
         size: this.oneJobData.size,
         employee_id: this.oneJobData.karigarh_id

@@ -83,6 +83,8 @@ class DatabaseSeeder extends Seeder
         Material::create(['material_name' => '92 Ginnie Return ','material_category_id'=>1,'gold'=>92,'silver'=>0,'is_main_production_material'=>1,'is_base_material'=>1,'main_material_id'=>3,'bill_percentage'=>1]);
         Material::create(['material_name' => 'Dal Return','material_category_id'=>6,'gold'=>10,'silver'=>70,'is_main_production_material'=>1,'is_base_material'=>0,'main_material_id'=>6,'bill_percentage'=>1]);
         Material::create(['material_name' => 'Pan Return','material_category_id'=>1,'gold'=>40,'silver'=>20,'is_main_production_material'=>1,'is_base_material'=>0,'main_material_id'=>4,'bill_percentage'=>0.4]);
+        Material::create(['material_name' => 'Bronze','material_category_id'=>4,'gold'=>0,'silver'=>0,'is_main_production_material'=>1,'is_base_material'=>0,'main_material_id'=>0,'bill_percentage'=>0]);
+        Material::create(['material_name' => 'Bronze Return','material_category_id'=>4,'gold'=>0,'silver'=>0,'is_main_production_material'=>1,'is_base_material'=>0,'main_material_id'=>13,'bill_percentage'=>0.4]);
        // Material::create(['material_name' => 'Nitric Return','material_category_id'=>1,'gold'=>88,'silver'=>0,'is_main_production_material'=>0,'is_base_material'=>0,'main_material_id'=>7,'bill_percentage'=>1]);
 
 

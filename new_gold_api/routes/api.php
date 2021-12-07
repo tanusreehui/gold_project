@@ -113,6 +113,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get('/savedJobs', [JobTaskController::class,'getSavedJobs']);
     Route::get('/finishedJobs', [JobTaskController::class,'getFinishedJobs']);
     Route::get('/getOneJobData/{id}', [JobTaskController::class,'getOneJobData']);
+
     Route::get('/countTaskBadgeValue/{id}', [JobTaskController::class,'countTaskBadgeValue']);
 
     //job_master
