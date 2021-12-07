@@ -26,20 +26,20 @@
       <div id="printSummery">
       <mat-card class="ml-2 mt-2">
         <div class="form-container">
-          <div class="container" *ngIf="oneJobData" fxLayout="column" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
-            <label style="text-align: center"><b>Job ID : {{oneJobData.job_number}}</b></label>
-            <label>Challan No : &nbsp;{{oneJobData.order_number}}</label>
-            <label>Date : &nbsp;{{oneJobData.date | date :'dd/MM/yy'}}&nbsp;&nbsp; DD : {{oneJobData.date_of_delivery | date :'dd/MM/yy'}} </label>
-            <label>Model : &nbsp;<b>{{oneJobData.model_number}}</b>&nbsp;&nbsp; Pcs : <b>{{oneJobData.quantity}}</b>&nbsp;&nbsp;Size :<b>{{oneJobData.size}}</b></label>
+          <div class="container" *ngIf="currentJobData" fxLayout="column" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="10px" fxLayoutGap.xs="0">
+            <label style="text-align: center"><b>Job ID : {{currentJobData.job_number}}</b></label>
+            <label>Challan No : &nbsp;{{currentJobData.order_number}}</label>
+            <label>Date : &nbsp;{{currentJobData.date | date :'dd/MM/yy'}}&nbsp;&nbsp; DD : {{currentJobData.date_of_delivery | date :'dd/MM/yy'}} </label>
+            <label>Model : &nbsp;<b>{{currentJobData.model_number}}</b>&nbsp;&nbsp; Pcs : <b>{{currentJobData.quantity}}</b>&nbsp;&nbsp;Size :<b>{{currentJobData.size}}</b></label>
             <table style=""  *ngIf="totalData">
               <tbody>
               <tr>
                 <td colspan="2" class="col-6">Thokai :</td>
-                <td colspan="2" class="col-6">Tonch : {{oneJobData.material_name}}</td>
+                <td colspan="2" class="col-6">Tonch : {{currentJobData.material_name}}</td>
               </tr>
               <tr>
                 <td colspan="2" class="col-6">Ring W. :</td>
-                <td colspan="2" class="col-6">A Wt. : {{oneJobData.approx_gold.toFixed(3)}}</td>
+                <td colspan="2" class="col-6">A Wt. : {{currentJobData.approx_gold.toFixed(3)}}</td>
               </tr>
               <tr>
                 <td colspan="2" class="col-6">Mina :</td>
@@ -73,7 +73,7 @@
 
               <tr>
                 <td colspan="2" class="col-6">Bnz : {{tempTotalData[7] ? tempTotalData[7].toFixed(3) : 0}}</td>
-                <td colspan="2" class="col-6">PLoss+ :{{oneJobData.p_loss}}</td>
+                <td colspan="2" class="col-6">PLoss+ :{{currentJobData.p_loss}}</td>
               </tr>
               <tr>
                 <td colspan="2" class="col-6">Bati No :</td>
@@ -124,7 +124,7 @@
 
   </div>
 
-  <div fxLayout="column" fxFlex="60" class="mr-1" id ="jobTask-div" style="background-color: #e8af0a" *ngIf="oneJobData">
+  <div fxLayout="column" fxFlex="60" class="mr-1" id ="jobTask-div" style="background-color: #e8af0a" *ngIf="currentJobData">
 <!--    <div class="m-2">-->
 <!--      <button type="button"  class="btn btn-warning" [hidden]="oneJobData.status_id==100" [routerLink]="['./goldReturn']">Gold Return</button>-->
 <!--      <button type="button"  class="btn btn-primary" [hidden]="oneJobData.status_id==100" [routerLink]="['./dalSubmit']">Dal Submit</button>-->
@@ -139,16 +139,16 @@
 <!--    </div>-->
 
     <div class="m-2" *ngIf="true"  >
-      <button mat-raised-button style="background-color: rgb(204, 199, 175)" class="btn ml-2 mt-1 mb-1" [matBadge] = "goldRetBadge"  matBadgePosition="above before" [disabled] = this.btnControl [hidden]="oneJobData.status_id==100" [routerLink]="['./goldReturn']">Gold Return</button>
-      <button mat-raised-button style="background-color: rgb(201, 191, 191)" class="btn ml-2 mt-1 mb-1" [matBadge] = "dalSendBadge"  matBadgePosition="above before" [disabled] = this.btnControl [hidden]="oneJobData.status_id==100" [routerLink]="['./dalSubmit']">Dal Submit</button>
-      <button mat-raised-button style="background-color: rgb(176, 204, 185)" class="btn ml-2 mt-1 mb-1" [matBadge] = "BronzeSendBadge"  matBadgePosition="above before" [disabled] = this.btnControl [hidden]="oneJobData.status_id==100" [routerLink]="['./bronzeSubmit']">Bronze Submit</button>
-      <button mat-raised-button style="background-color: rgb(180, 190, 209)" class="btn ml-2 mt-1 mb-1" [matBadge] = "panSendBadge"  matBadgePosition="above before" [disabled] = this.btnControl [hidden]="oneJobData.status_id==100" [routerLink]="['./panSubmit']">Pan Submit</button>
-      <button mat-raised-button style="background-color: rgb(218, 202, 201)" class="btn ml-2 mt-1 mb-1" [matBadge] = "panRetBadge"  matBadgePosition="above before" [disabled] = this.btnControl [hidden]="oneJobData.status_id==100" [routerLink]="['./panReturn']">Pan Return</button>
-      <button mat-raised-button style="background-color: rgb(174, 175, 175)" class="btn ml-2 mt-1 mb-1" [matBadge] = "dalRetBadge" matBadgePosition="above before" [disabled] = this.btnControl [hidden]="oneJobData.status_id==100" [routerLink]="['./dalReturn']">Dal Return</button>
-      <button mat-raised-button style="background-color: rgb(182, 155, 170)" class="btn ml-2 mt-1 mb-1" [matBadge] = "goldSendBadge" matBadgePosition="above before" [disabled] = this.btnControl [hidden]="oneJobData.status_id==100" [routerLink]="['./goldSubmit']">Gold Submit</button>
-      <button mat-raised-button style="background-color: rgb(163, 211, 205)" class="btn ml-2 mt-1 mb-1" [matBadge] = "nitricRetBadge"  matBadgePosition="above before" [disabled] = this.btnControl [hidden]="oneJobData.status_id==100" [routerLink]="['./nitricReturn']">Nitric Return</button>
+      <button mat-raised-button style="background-color: rgb(204, 199, 175)" class="btn ml-2 mt-1 mb-1" [matBadge] = "goldRetBadge" matBadgePosition="above before" [disabled] = this.btnControl [hidden]="currentJobData.status_id==100" [routerLink]="['./goldReturn']">Gold Return</button>
+      <button mat-raised-button style="background-color: rgb(201, 191, 191)" class="btn ml-2 mt-1 mb-1" [matBadge] = "dalSendBadge" matBadgePosition="above before" [disabled] = this.btnControl [hidden]="currentJobData.status_id==100" [routerLink]="['./dalSubmit']">Dal Submit</button>
+      <button mat-raised-button style="background-color: rgb(176, 204, 185)" class="btn ml-2 mt-1 mb-1" [matBadge] = "BronzeSendBadge" matBadgePosition="above before" [disabled] = this.btnControl [hidden]="currentJobData.status_id==100" [routerLink]="['./bronzeSubmit']">Bronze Submit</button>
+      <button mat-raised-button style="background-color: rgb(180, 190, 209)" class="btn ml-2 mt-1 mb-1" [matBadge] = "panSendBadge" matBadgePosition="above before" [disabled] = this.btnControl [hidden]="currentJobData.status_id==100" [routerLink]="['./panSubmit']">Pan Submit</button>
+      <button mat-raised-button style="background-color: rgb(218, 202, 201)" class="btn ml-2 mt-1 mb-1" [matBadge] = "panRetBadge" matBadgePosition="above before" [disabled] = this.btnControl [hidden]="currentJobData.status_id==100" [routerLink]="['./panReturn']">Pan Return</button>
+      <button mat-raised-button style="background-color: rgb(174, 175, 175)" class="btn ml-2 mt-1 mb-1" [matBadge] = "dalRetBadge" matBadgePosition="above before" [disabled] = this.btnControl [hidden]="currentJobData.status_id==100" [routerLink]="['./dalReturn']">Dal Return</button>
+      <button mat-raised-button style="background-color: rgb(182, 155, 170)" class="btn ml-2 mt-1 mb-1" [matBadge] = "goldSendBadge" matBadgePosition="above before" [disabled] = this.btnControl [hidden]="currentJobData.status_id==100" [routerLink]="['./goldSubmit']">Gold Submit</button>
+      <button mat-raised-button style="background-color: rgb(163, 211, 205)" class="btn ml-2 mt-1 mb-1" [matBadge] = "nitricRetBadge" matBadgePosition="above before" [disabled] = this.btnControl [hidden]="currentJobData.status_id==100" [routerLink]="['./nitricReturn']">Nitric Return</button>
 <!--      <button type="button" class="btn btn-warning" [disabled] = this.btnControl [hidden]="oneJobData.status_id==100" [routerLink]="['./job_finish']">Finish</button>-->
-      <button mat-raised-button class="btn btn-light ml-2 mt-1 mb-1" [matBadge]="finshBadgeValue" matBadgePosition="above before" [disabled] = this.btnControl [hidden]="oneJobData.status_id==100" [routerLink]="['./job_finish']">Finish</button>
+      <button mat-raised-button class="btn btn-light ml-2 mt-1 mb-1" [matBadge]="finishBadgeValue" matBadgePosition="above before" [disabled] = this.btnControl [hidden]="currentJobData.status_id==100" [routerLink]="['./job_finish']">Finish</button>
     </div>
 <!--    this is used to change the detail button look-->
     <div class="example-button-row">
@@ -175,12 +175,16 @@
 <div fxLayout.xs="column" fxLayout="row" fxLayoutAlign="space-between stretch"  id="developer-div" *ngIf="showDeveloperDiv && !isProduction">
   <div fxLayout="column" fxFlex="25" class="mr-1" style="background-color: #dddddd">
     <pre>
-
+      savedJobsData = {{savedJobsData | json}}
+      ---------------------------------------
+      karigarhData = {{karigarhData | json}}
+      ---------------------------------------
+      materialList = {{materialList | json}}
     </pre>
   </div>
   <div fxLayout="column" fxFlex="25" class="mr-1" style="background-color: #d9dd9b">
     <pre>
-      orderMasterList = {{oneJobData | json}}
+
     </pre>
   </div>
   <div fxLayout="column" fxFlex="25" class="mr-1" style="background-color: #dddddd">
