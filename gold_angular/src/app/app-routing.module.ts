@@ -43,6 +43,7 @@ import {ChatComponent} from "./pages/chat/chat.component";
 import {PasswordResetComponent} from './pages/password-reset/password-reset.component';
 import {JobTaskResolver} from "./resolver/job-task.resolver";
 import {JobDetailResolver} from "./resolver/job-detail.resolver";
+import {JobResolver} from './resolver/job.resolver';
 
 
 const routes: Routes = [
@@ -54,7 +55,7 @@ const routes: Routes = [
   {path: 'auth', component: AuthComponent},
   {path: 'owner', canActivate:  [AuthGuardService], component: OwnerComponent},
   {path: 'order', canActivate:  [AuthGuardService], component: OrderComponent},
-  {path: 'job', canActivate:  [AuthGuardService], component: JobComponent},
+  {path: 'job', canActivate:  [AuthGuardService], component: JobComponent, resolve: {job: JobResolver}},
   {path: 'job/orderMaster/:orderNumber', canActivate:  [AuthGuardService], component: JobComponent},
 
   {path: 'job_task', canActivate : [AuthGuardService], component: JobTaskComponent,

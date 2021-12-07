@@ -5,12 +5,12 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 import {forkJoin, Observable, of} from 'rxjs';
-import {JobService} from "../services/job.service";
-import {JobTaskService} from "../services/job-task.service";
-import {catchError, map} from "rxjs/operators";
-import {OrderService} from "../services/order.service";
-import {BillService} from "../services/bill.service";
-import {ErrorService} from "../services/error.service";
+import {JobService} from '../services/job.service';
+import {JobTaskService} from '../services/job-task.service';
+import {catchError, map} from 'rxjs/operators';
+import {OrderService} from '../services/order.service';
+import {BillService} from '../services/bill.service';
+import {ErrorService} from '../services/error.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,16 +22,22 @@ export class JobDetailResolver implements Resolve<any> {
               , private billService: BillService
               , private errorService: ErrorService
   ){
-    console.log("resolver created");
+    console.log('resolver created');
   }
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):  Observable<any> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     console.log('Job detail resolver working');
-    let a= this.jobTaskService.getAll().pipe(
+    console.log('current route parameter is: ', route.params.id);
+    const a = this.jobTaskService.getAll().pipe(
       catchError(error => {
         return of(false);
       }));
-    let b= this.jobService.getAll().pipe(
+    const b = this.jobService.getAll().pipe(
       catchError(error => {
+        return of(false);
+      }));
+    const c = this.jobTaskService.getCurrentJobData(route.params.id).pipe(
+      catchError(error => {
+        console.log('Error is: ', error);
         return of(false);
       }));
     // let c= this.orderService.getAll();
@@ -39,10 +45,11 @@ export class JobDetailResolver implements Resolve<any> {
     // let d= this.billService.getAll();
     // let b= observable(2);
     // let c= observable(3);
-    let join = forkJoin(a,b).pipe(catchError(this.errorService.serverError),map((allResponses) => {
+    const join = forkJoin(a, b, c).pipe(catchError(this.errorService.serverError), map((allResponses) => {
       return {
         jobTask: allResponses[0],
-        job: allResponses[1]
+        job: allResponses[1],
+        currentJob: allResponses[2]
       };
     }));
 

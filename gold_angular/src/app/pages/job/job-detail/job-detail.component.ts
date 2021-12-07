@@ -67,20 +67,31 @@ export class JobDetailComponent implements OnInit {
       this.karigarhData = response.jobDetail.job.karigarhs.data;
       this.materialList = response.jobDetail.jobTask.materials.data;
       this.jobTaskForm = this.jobTaskService.jobTaskForm;
+      console.log('check ', response.jobDetail.currentJob.data);
+      this.currentJobData = response.jobDetail.currentJob.data;
+      this.jobTaskForm.patchValue({id: this.currentJobData.id});
+      this.job_number = this.currentJobData.job_number;
+      this.jobTaskForm.patchValue({size: this.currentJobData.size});
+      const index1 = this.karigarhData.findIndex(x => x.id === this.currentJobData.karigarh_id);
+      this.karigarhName = this.karigarhData[index1].user_name;
+
+      this.userData = JSON.parse(localStorage.getItem('user'));
+
       this.userData = JSON.parse(localStorage.getItem('user'));
       this.route.params.subscribe(params => {
         this.showTransactionDiv = false;
         // tslint:disable-next-line:radix
         this.id = parseInt(params.id);
+        // tslint:disable-next-line:no-shadowed-variable
         this.jobTaskService.getCurrentJobData(this.id).subscribe((response: {success: number , data: JobMaster}) => {
-          this.currentJobData = response.data;
-          this.jobTaskForm.patchValue({id: this.currentJobData.id});
-          this.job_number = this.currentJobData.job_number;
-          this.jobTaskForm.patchValue({size: this.currentJobData.size});
-          const index1 = this.karigarhData.findIndex(x => x.id === this.currentJobData.karigarh_id);
-          this.karigarhName = this.karigarhData[index1].user_name;
-
-          this.userData = JSON.parse(localStorage.getItem('user'));
+          // this.currentJobData = response.data;
+          // this.jobTaskForm.patchValue({id: this.currentJobData.id});
+          // this.job_number = this.currentJobData.job_number;
+          // this.jobTaskForm.patchValue({size: this.currentJobData.size});
+          // const index1 = this.karigarhData.findIndex(x => x.id === this.currentJobData.karigarh_id);
+          // this.karigarhName = this.karigarhData[index1].user_name;
+          //
+          // this.userData = JSON.parse(localStorage.getItem('user'));
           // console.log(this.userData);
           // tslint:disable-next-line:no-shadowed-variable
           this.orderService.getMaterialUpdateListener().subscribe((response) => {

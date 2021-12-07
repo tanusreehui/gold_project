@@ -4,25 +4,42 @@ import {
   RouterStateSnapshot,
   ActivatedRouteSnapshot
 } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import {catchError} from "rxjs/operators";
+import {forkJoin, Observable, of} from 'rxjs';
+import {catchError, map} from 'rxjs/operators';
 import {JobTaskService} from "../services/job-task.service";
 import {JobService} from "../services/job.service";
+import {ErrorService} from '../services/error.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class JobResolver implements Resolve<boolean> {
-  constructor(private jobService: JobService){
-    console.log("resolver created");
+  constructor(private jobService: JobService, private errorService: ErrorService){
+    console.log('resolver created for Job');
   }
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<any> | Observable<any> {
-    console.log('Called Get job service in jobResolver...', route);
-
-    return this.jobService.getAll().pipe(
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
+    console.log('Job detail resolver working');
+    const a = this.jobService.getAll().pipe(
       catchError(error => {
-        return of('No data');
-      })
-    );
+        return of(false);
+      }));
+    const join = forkJoin(a).pipe(catchError(this.errorService.serverError), map((allResponses) => {
+      return {
+        jobServiceResponse: allResponses[0]
+      };
+    }));
+
+    return join;
+    // return forkJoin(a,b,c);
+    // return of(true);
   }
+  // resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<any> | Observable<any> {
+  //   console.log('Called Get job service in jobResolver...', route);
+  //
+  //   return this.jobService.getAll().pipe(
+  //     catchError(error => {
+  //       return of('No data');
+  //     })
+  //   );
+  // }
 }

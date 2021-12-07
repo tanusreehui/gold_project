@@ -46,21 +46,25 @@ export class JobComponent implements OnInit {
   p = 1;
   private selectedOrderNumber: string;
 
-  constructor(private actRoute: ActivatedRoute
+  constructor(private activatedRoute: ActivatedRoute
               ,private productService: ProductService
-              , private _snackBar: MatSnackBar
-              , private confirmationDialogService: ConfirmationDialogService
-              , private jobService: JobService
-              , private orderService: OrderService) {
+              ,private _snackBar: MatSnackBar
+              ,private confirmationDialogService: ConfirmationDialogService
+              ,private jobService: JobService
+              ,private orderService: OrderService) {
     // when order is selected
-    this.selectedOrderNumber = this.actRoute.snapshot.params.orderNumber;
+    this.selectedOrderNumber = this.activatedRoute.snapshot.params.orderNumber;
     if(this.selectedOrderNumber != undefined){
       this.searchTerm = this.selectedOrderNumber;
     }
     this.products = this.productService.getProducts();
-    this.karigarhData = this.jobService.getAllKarigarhs();
+    // this.karigarhData = this.jobService.getAllKarigarhs();
     this.page = 1;
     this.pageSize = 15;
+    this.activatedRoute.data.subscribe((response: any) => {
+      console.log(response);
+      this.karigarhData = response.job.jobServiceResponse.karigarhs.data;
+    });
   }
 
   ngOnInit(): void {
