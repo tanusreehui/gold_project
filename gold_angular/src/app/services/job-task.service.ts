@@ -314,27 +314,52 @@ export class JobTaskService implements OnDestroy{
   getBatchCount(data){
     console.log('data: ',data);
     this.http.get(GlobalVariable.BASE_API_URL + '/countTaskBadgeValue/' + data)
-      .subscribe((response: {success: number, data: object}) => {
+      .subscribe((response: {success: number, data: any}) => {
+        // this.goldSendBadge = response.data[0].badgeValue;
+        // this.goldRetBadge = response.data[1].badgeValue;
+        // this.dalSendBadge = response.data[2].badgeValue;
+        // this.dalRetBadge = response.data[3].badgeValue;
+        // this.panSendBadge = response.data[4].badgeValue;
+        // this.panRetBadge = response.data[5].badgeValue;
+        // this.bronzeSendBadge = response.data[7].badgeValue;
+        // this.nitricRetBadge = response.data[6].badgeValue;
+        response.data.forEach(element => {
+          if(element.id===1){
+            this.goldSendBadge=element.badgeValue;
+          }
+          if(element.id===2){
+            this.goldRetBadge=element.badgeValue;
+          }
+          if(element.id===3){
+            this.dalSendBadge=element.badgeValue;
+          }
+          if(element.id===4){
+            this.dalRetBadge=element.badgeValue;
+          }
+          if(element.id===5){
+            this.panSendBadge=element.badgeValue;
+          }
+          if(element.id===6){
+            this.panRetBadge=element.badgeValue;
+          }
+          if(element.id===7){
+            this.nitricRetBadge=element.badgeValue;
+          }
+          if(element.id===8){
+            this.bronzeSendBadge=element.badgeValue;
+          }
+
+        });
         const a = {
-          goldSendBadge : response.data[0].badgeValue,
-          goldRetBadge : response.data[1].badgeValue,
-          dalSendBadge : response.data[2].badgeValue,
-          dalRetBadge : response.data[3].badgeValue,
-          panSendBadge : response.data[4].badgeValue,
-          panRetBadge : response.data[5].badgeValue,
-          bronzeSendBadge : response.data[7].badgeValue,
-          nitricRetBadge : response.data[6].badgeValue
+          goldSendBadge : this.goldSendBadge,
+          goldRetBadge : this.goldRetBadge,
+          dalSendBadge : this.dalSendBadge,
+          dalRetBadge : this.dalRetBadge,
+          panSendBadge : this.panSendBadge,
+          panRetBadge : this.panRetBadge,
+          bronzeSendBadge : this.bronzeSendBadge,
+          nitricRetBadge : this.nitricRetBadge
         };
-
-        this.goldSendBadge = response.data[0].badgeValue;
-        this.goldRetBadge = response.data[1].badgeValue;
-        this.dalSendBadge = response.data[2].badgeValue;
-        this.dalRetBadge = response.data[3].badgeValue;
-        this.panSendBadge = response.data[4].badgeValue;
-        this.panRetBadge = response.data[5].badgeValue;
-        this.bronzeSendBadge = response.data[7].badgeValue;
-        this.nitricRetBadge = response.data[6].badgeValue;
-
         this.badgeValueSub.next(a);
       });
   }

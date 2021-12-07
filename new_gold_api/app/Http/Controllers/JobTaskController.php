@@ -143,6 +143,7 @@ class JobTaskController extends Controller
                 $join->on('job_tasks.id', '=', 'table1.job_task_id');
             })
             ->groupBy('table1.job_task_id','job_tasks.id','job_tasks.task_name')
+            ->orderBy('job_tasks.id')
             ->get();
 
         return response()->json(['success'=>1,'data'=>$result], 200,[],JSON_NUMERIC_CHECK);
