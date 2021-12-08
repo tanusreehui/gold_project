@@ -75,6 +75,13 @@ if (! function_exists('get_short_name')) {
     }
 }
 
+if (! function_exists('changeDateFormUTCtoLocal')) {
+    function changeDateFormUTCtoLocal($date) {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('Y-m-d H:i');
+    }
+}
+
+
 
 
 
