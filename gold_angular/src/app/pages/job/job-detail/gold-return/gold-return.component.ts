@@ -73,18 +73,23 @@ export class GoldReturnComponent implements OnInit {
   }
 
   // saving gold return
-  onSubmit(){
+  onSubmit(currentJob,returnMaterial){
     if (this.jobTaskForm.value.return_quantity === null){
       this._snackBar.openFromComponent(SncakBarComponent, {
         duration: 4000, data: {message: 'Please enter quantity before submit'}
       });
     }else {
-      this.router.parent.params.subscribe(params => {
-        this.jobMasterId = parseInt(params.id);
-      });
-      this.savedJobsData = this.jobTaskService.getAllJobList();
-      const index = this.savedJobsData.findIndex(x => x.id === this.jobMasterId);
-      this.currentJob = this.savedJobsData[index];
+      this.jobMasterId = currentJob.id;
+      // this.router.parent.params.subscribe(params => {
+      //   this.jobMasterId = parseInt(params.id);
+      // });
+
+      // this.savedJobsData = this.jobTaskService.getAllJobList();
+      // const index = this.savedJobsData.findIndex(x => x.id === this.jobMasterId);
+      // this.currentJob = this.savedJobsData[index];
+
+      this.currentJob=currentJob;
+
       this.jobTaskService.getMaterialDataUpdateListener().subscribe((response) => {
         this.materialData = response;
       });
@@ -102,6 +107,10 @@ export class GoldReturnComponent implements OnInit {
       this.jobTaskForm.value.return_quantity = -this.jobTaskForm.value.return_quantity;
       this.jobTaskService.jobReturn().subscribe((response) => {
         if (response.success === 1) {
+          this.jobTaskService.getJobDetailsByJobAndMaterial(currentJob.id,returnMaterial.id).subscribe((response: {success: number, data: {record: any[], total_material: number}})=>{
+            this.returnGoldList = response.data;
+            this.showJobTaskData=true;
+          });
           this._snackBar.openFromComponent(SncakBarComponent, {
             duration: 4000, data: {message: 'Gold Returned'}
           });
@@ -147,7 +156,6 @@ export class GoldReturnComponent implements OnInit {
   getGoldReturnDetail(currentJob: any, returnMaterial: any) {
     this.jobTaskService.getJobDetailsByJobAndMaterial(currentJob.id,returnMaterial.id).subscribe((response: {success: number, data: {record: any[], total_material: number}})=>{
        this.returnGoldList = response.data;
-       console.log(this.returnGoldList.record);
        this.showJobTaskData=true;
     });
   }

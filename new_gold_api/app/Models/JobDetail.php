@@ -22,10 +22,6 @@ class JobDetail extends Model
         return changeDateFormUTCtoLocal($this->attributes['created_at']);
     }
 
-    /**
-     * This will change date according to timezone.
-     * @param String path
-     */
     public function getUpdatedAtAttribute($value)
     {
         return changeDateFormUTCtoLocal($this->attributes['updated_at']);

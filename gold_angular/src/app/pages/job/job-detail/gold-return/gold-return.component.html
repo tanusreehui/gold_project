@@ -18,7 +18,7 @@
         </div>
       </form>
       <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end" fxLayoutGap="10px" fxLayoutGap.xs="0" >
-        <button mat-button  mat-stroked-button class="btn btn-primary"(click)="onSubmit()">Save</button>
+        <button mat-button  mat-stroked-button class="btn btn-primary"(click)="onSubmit(currentJob,returnMaterial)">Save</button>
 <!--        <button mat-button  mat-stroked-button class="btn btn-primary" (click)="getGoldReturnDetail()" >Get Detail</button>-->
         <button mat-button  mat-stroked-button class="btn btn-primary" (click)="getGoldReturnDetail(currentJob,returnMaterial)" >Get Gold Return Detail</button>
       </div>
