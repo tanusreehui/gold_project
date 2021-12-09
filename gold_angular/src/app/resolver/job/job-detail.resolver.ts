@@ -5,12 +5,12 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 import {forkJoin, Observable, of} from 'rxjs';
-import {JobService} from '../services/job.service';
-import {JobTaskService} from '../services/job-task.service';
+import {JobService} from '../../services/job.service';
+import {JobTaskService} from '../../services/job-task.service';
 import {catchError, map} from 'rxjs/operators';
-import {OrderService} from '../services/order.service';
-import {BillService} from '../services/bill.service';
-import {ErrorService} from '../services/error.service';
+import {OrderService} from '../../services/order.service';
+import {BillService} from '../../services/bill.service';
+import {ErrorService} from '../../services/error.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,6 @@ export class JobDetailResolver implements Resolve<any> {
               , private billService: BillService
               , private errorService: ErrorService
   ){
-    console.log('resolver created');
   }
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | boolean {
     const a = this.jobTaskService.getAll();

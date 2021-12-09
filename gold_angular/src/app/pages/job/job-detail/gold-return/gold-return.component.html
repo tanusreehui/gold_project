@@ -6,11 +6,10 @@
           <div class="container" fxLayout="row">
             <h2 class="m-3">Gold Return</h2>
             <h2 class="m-3" *ngIf="currentJob.material_name">{{returnMaterialName}}</h2>
+            <h2 class="m-3" >Size: {{currentJob.size}}</h2>
+            {{jobTaskForm.valid}}
           </div>
           <div class="container" fxLayout="row">
-            <mat-form-field class="col-2">
-              <input matInput placeholder="Size" [readonly]="true" formControlName="size">
-            </mat-form-field>
             <mat-form-field class="col-2">
               <input  style ="text-align: right;" type="text"autofocus matInput placeholder="Weight" (change)="material_quantity_decimal()" formControlName="return_quantity">
             </mat-form-field>
@@ -18,7 +17,7 @@
         </div>
       </form>
       <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end" fxLayoutGap="10px" fxLayoutGap.xs="0" >
-        <button mat-button  mat-stroked-button class="btn btn-primary"(click)="onSubmit(currentJob,returnMaterial)">Save</button>
+        <button mat-button  mat-stroked-button class="btn btn-primary" [disabled]="!jobTaskForm.valid"   (click)="saveGoldReturn(currentJob,returnMaterial)">Save Gold Return</button>
 <!--        <button mat-button  mat-stroked-button class="btn btn-primary" (click)="getGoldReturnDetail()" >Get Detail</button>-->
         <button mat-button  mat-stroked-button class="btn btn-primary" (click)="getGoldReturnDetail(currentJob,returnMaterial)" >Get Gold Return Detail</button>
       </div>

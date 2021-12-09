@@ -50,11 +50,15 @@ export class JobDetailComponent implements OnInit {
 
 
   // tslint:disable-next-line:max-line-length
+  currentJobId: number;
   constructor(private route: ActivatedRoute
               , private  jobTaskService: JobTaskService
               , private  jobService: JobService
               , private  orderService: OrderService) {
 
+    this.route.params.subscribe((params: any) => {
+      this.currentJobId = params.id;
+    });
     this.route.data.subscribe((response: any) => {
      // console.log("Response is: ", response.jobDetail);
       // console.log('Printing from Saved Jobs: ',response.jobDetail.jobTask.savedJobs.data);

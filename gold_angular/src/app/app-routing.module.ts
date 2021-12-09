@@ -41,9 +41,10 @@ import {EmployeeStockComponent} from './pages/employee-stock/employee-stock.comp
 import {BilledJobListComponent} from './pages/completed-bill/billed-job-list/billed-job-list.component';
 import {ChatComponent} from "./pages/chat/chat.component";
 import {PasswordResetComponent} from './pages/password-reset/password-reset.component';
-import {JobTaskResolver} from "./resolver/job-task.resolver";
-import {JobDetailResolver} from "./resolver/job-detail.resolver";
-import {JobResolver} from './resolver/job.resolver';
+import {JobTaskResolver} from "./resolver/job/job-task.resolver";
+import {JobDetailResolver} from "./resolver/job/job-detail.resolver";
+import {JobResolver} from './resolver/job/job.resolver';
+import {GoldReturnResolver} from "./resolver/job/gold-return.resolver";
 
 
 const routes: Routes = [
@@ -77,7 +78,7 @@ const routes: Routes = [
     children: [
       {path: '', component: JobTransactionComponent},
       {path: 'goldSubmit', component: GoldSubmitComponent},
-      {path: 'goldReturn', component: GoldReturnComponent},
+      {path: 'goldReturn/:id', component: GoldReturnComponent, resolve: {goldReturn: GoldReturnResolver}},
       {path: 'dalSubmit', component: DalSubmitComponent},
       {path: 'dalReturn', component: DalReturnComponent},
       {path: 'panSubmit', component: PanSubmitComponent},

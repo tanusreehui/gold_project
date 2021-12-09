@@ -102,14 +102,12 @@ export class JobTaskService implements OnDestroy{
 
 
     this.jobTaskForm = new FormGroup({
+      //this is actually job_master_id
       id : new FormControl(null),
-      // job_number : new FormControl(null, [Validators.required]),
-      // approx_gold : new FormControl(null, [Validators.required]),
-      // p_loss : new FormControl(null, [Validators.required]),
-      size : new FormControl(null, [Validators.required]),
+      // size : new FormControl(null, [Validators.required]),
       // price : new FormControl(null, [Validators.required]),
       return_quantity : new FormControl(null, [Validators.required]),
-      material_name : new FormControl({value: null, disabled: true}, [Validators.required]),
+      // material_name : new FormControl({value: null, disabled: true}, [Validators.required]),
       material_id : new FormControl(null, [Validators.required]),
       job_Task_id : new FormControl(null, [Validators.required]),
       employee_id : new FormControl(null, [Validators.required])
@@ -160,7 +158,12 @@ export class JobTaskService implements OnDestroy{
       this.savedJobsList = response.response.data;
     })));
   }
-
+  fetchAllMaterials(){
+    return this.http.get<any>(GlobalVariable.BASE_API_URL + '/materials')
+      .pipe(catchError(this._serverError), tap(((response: any) => {
+      this.materialData = response.data;
+    })));
+  }
   getAll(): Observable<any>{
     return forkJoin({
       savedJobs:  this.http.get<any>(GlobalVariable.BASE_API_URL + '/savedJobs'),
@@ -172,6 +175,9 @@ export class JobTaskService implements OnDestroy{
       this.materialData = response.materials.data;
       this.savedJobsList = response.savedJobs.data;
     })));
+  }
+  getCurrentSavedJobByJobId(job_id: any){
+    return this.http.get<any>(GlobalVariable.BASE_API_URL + '/savedJobs/'+job_id);
   }
 
   testObserble(){

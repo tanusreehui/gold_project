@@ -6,9 +6,9 @@ import {
 } from '@angular/router';
 import {forkJoin, Observable, of} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
-import {JobTaskService} from "../services/job-task.service";
-import {JobService} from "../services/job.service";
-import {ErrorService} from '../services/error.service';
+import {JobTaskService} from "../../services/job-task.service";
+import {JobService} from "../../services/job.service";
+import {ErrorService} from '../../services/error.service';
 
 @Injectable({
   providedIn: 'root'

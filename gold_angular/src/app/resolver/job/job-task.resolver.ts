@@ -6,7 +6,7 @@ import {
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import {catchError} from "rxjs/operators";
-import {JobTaskService} from "../services/job-task.service";
+import {JobTaskService} from "../../services/job-task.service";
 
 @Injectable({
   providedIn: 'root'
