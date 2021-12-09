@@ -40,7 +40,7 @@
               </tr>
               <tr>
                 <td colspan="2" class="col-6">Ring W. :</td>
-                <td colspan="2" class="col-6">A Wt. : {{currentJobData.approx_gold.toFixed(3)}}</td>
+                <td colspan="2" class="col-6">A Wt. : {{currentJobData.approx_gold}}</td>
               </tr>
               <tr>
                 <td colspan="2" class="col-6">Mina :</td>
@@ -48,11 +48,11 @@
               </tr>
               <tr>
                 <td colspan="2" class="col-6">M.C. :</td>
-                <td colspan="2" class="col-6">Gold : {{tempTotalData[0] ? tempTotalData[0].toFixed(3) : 0}} </td>
+                <td colspan="2" class="col-6">Gold : {{jobDetailSummarised.goldSend }} </td>
               </tr>
               <tr>
                 <td colspan="2" class="col-6">H.M.C :</td>
-                <td colspan="2" class="col-6">RGW- :{{tempTotalData[1] ? tempTotalData[1].toFixed(3) : 0}}</td>
+                <td colspan="2" class="col-6">RGW- :{{jobDetailSummarised.goldReturn}}</td>
               </tr>
               <tr>
                 <td colspan="2" class="col-6">H.C. :</td>
@@ -189,7 +189,7 @@
   </div>
   <div fxLayout="column" fxFlex="25" class="mr-1" style="background-color: #d9dd9b">
     <pre>
-
+        jobDetailSummarised = {{jobDetailSummarised | json}}
     </pre>
   </div>
   <div fxLayout="column" fxFlex="25" class="mr-1" style="background-color: #dddddd">

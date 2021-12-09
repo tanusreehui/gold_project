@@ -11,6 +11,7 @@ import {Karigarh} from '../../../models/karigarh.model';
 import {User} from '../../../models/user.model';
 import {JobDetail} from '../../../models/jobDetail.model';
 import {environment} from "../../../../environments/environment";
+import {JobSummarisedModel} from "../../../models/job-summarised.model";
 
 @Component({
   selector: 'app-job-detail',
@@ -48,6 +49,7 @@ export class JobDetailComponent implements OnInit {
   BronzeSendBadge = 0;
   nitricRetBadge = 0;
 
+  public jobDetailSummarised: JobSummarisedModel;
 
   // tslint:disable-next-line:max-line-length
   currentJobId: number;
@@ -55,9 +57,12 @@ export class JobDetailComponent implements OnInit {
               , private  jobTaskService: JobTaskService
               , private  jobService: JobService
               , private  orderService: OrderService) {
-
+    this.jobDetailSummarised=this.jobTaskService.getJobDetailSummarisation();
     this.route.params.subscribe((params: any) => {
       this.currentJobId = params.id;
+    });
+    this.jobTaskService.getJobSummarisationUpdateListener().subscribe(response=>{
+      this.jobDetailSummarised = response;
     });
     this.route.data.subscribe((response: any) => {
      // console.log("Response is: ", response.jobDetail);

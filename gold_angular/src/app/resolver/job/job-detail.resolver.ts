@@ -27,16 +27,19 @@ export class JobDetailResolver implements Resolve<any> {
     const a = this.jobTaskService.getAll();
     const b = this.jobService.getAll();
     const c = this.jobTaskService.getCurrentJobData(route.params.id);
+    const d = this.jobTaskService.fetchJobSummarisation(route.params.id);
+
     // let c= this.orderService.getAll();
     // let savedJobList= this.jobTaskService.getSavedJobList();
     // let d= this.billService.getAll();
     // let b= observable(2);
     // let c= observable(3);
-    const join = forkJoin(a, b, c).pipe(map((allResponses) => {
+    const join = forkJoin(a, b, c,d).pipe(map((allResponses) => {
       return {
         jobTask: allResponses[0],
         job: allResponses[1],
-        currentJob: allResponses[2]
+        currentJob: allResponses[2],
+        JobSummarisation: allResponses[3]
       };
     }));
 

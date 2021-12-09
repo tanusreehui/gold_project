@@ -115,12 +115,12 @@ class JobTaskController extends Controller
         return response()->json(['success'=>1,'data'=> $total], 200,[],JSON_NUMERIC_CHECK);
     }
 
-    public function getJobTotalByJobMasterId($id){
+    public function getJobSummarisationByJobMasterId($id){
 
 //        $input=$request->json()->all();
 //        $data=(object)($input['data']);
 
-        $total = JobDetail::select(DB::raw("abs(sum(job_details.material_quantity))  as total")
+        $total = JobDetail::select(DB::raw("abs(sum(job_details.material_quantity))  as total_material_quantity")
                     ,'job_tasks.task_name'
                     , DB::raw('job_tasks.id as job_task_id')
                     , 'job_details.job_master_id','job_masters.gross_weight')

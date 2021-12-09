@@ -12,6 +12,7 @@ import {OrderResponseData} from './order.service';
 import {Material} from '../models/material.model';
 import {JobResponseData} from './job.service';
 import {CustomValidator} from "../CustomValidator/custom-validtor";
+import {JobSummarisedModel} from "../models/job-summarised.model";
 
 @Injectable({
   providedIn: 'root'
@@ -64,6 +65,53 @@ export class JobTaskService implements OnDestroy{
   private badgeValueSub = new Subject<any>();
   private btnControlSub: Subject<boolean> = new Subject<boolean>();
 
+  public jobDetailSummarised: JobSummarisedModel = {goldSend:0, goldReturn:0, dalSubmit:0, dalReturn: 0, panSubmit:0, panReturn:0, nitricReturn: 0, bronzeSubmit:0, bronzeReturn:0 };
+  private jobDetailSummarisedSubject = new Subject<JobSummarisedModel>();
+
+  getJobDetailSummarisation(){
+      return {...this.jobDetailSummarised};
+  }
+
+  fetchJobSummarisation(jobId:number){
+    return this.http.get<any>(GlobalVariable.BASE_API_URL + '/jobSummarisation/JobMaster/'+jobId)
+      .pipe(catchError(this._serverError), tap(((response: {success: number, data: any}) => {
+        response.data.forEach(element => {
+          if(element.job_task_id === 1){
+            this.jobDetailSummarised.goldSend = element.total_material_quantity;
+          }
+          if(element.job_task_id === 2){
+            this.jobDetailSummarised.goldReturn = element.total_material_quantity;
+          }
+          if(element.job_task_id === 3){
+            this.jobDetailSummarised.dalSubmit = element.total_material_quantity;
+          }
+          if(element.job_task_id === 4){
+            this.jobDetailSummarised.dalReturn = element.total_material_quantity;
+          }
+          if(element.job_task_id === 5){
+            this.jobDetailSummarised.panSubmit = element.total_material_quantity;
+          }
+          if(element.job_task_id === 6){
+            this.jobDetailSummarised.panReturn = element.total_material_quantity;
+          }
+          if(element.job_task_id === 7){
+            this.jobDetailSummarised.nitricReturn = element.total_material_quantity;
+          }
+          if(element.job_task_id === 8){
+            this.jobDetailSummarised.bronzeSubmit = element.total_material_quantity;
+          }
+          if(element.job_task_id === 9){
+            this.jobDetailSummarised.bronzeReturn = element.total_material_quantity;
+          }
+        });
+
+        this.jobDetailSummarisedSubject.next({...this.jobDetailSummarised});
+    })));
+  }
+
+  getJobSummarisationUpdateListener(){
+    return this.jobDetailSummarisedSubject.asObservable();
+  }
 
   getSavedJobsUpdateListener(){
     return this.savedJobsSub.asObservable();
@@ -451,5 +499,10 @@ export class JobTaskService implements OnDestroy{
       return throwError ({status: err.status, message: 'You are not authorised', statusText: err.statusText});
     }
     return throwError(err);
+  }
+
+  updateGoldReturn(goldReturnQuantity: number) {
+    this.jobDetailSummarised.goldReturn=this.jobDetailSummarised.goldReturn + goldReturnQuantity;
+    this.jobDetailSummarisedSubject.next({...this.jobDetailSummarised});
   }
 }

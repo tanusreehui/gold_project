@@ -121,10 +121,12 @@ export class GoldReturnComponent implements OnInit {
 
 
       // making return as negative
+      let goldReturnQuantity = parseFloat(this.jobTaskForm.value.return_quantity);
       this.jobTaskForm.value.return_quantity = -this.jobTaskForm.value.return_quantity;
       // saving data to jobDetails
       this.jobTaskService.saveJobDetail().subscribe((response) => {
         if (response.success === 1) {
+          this.jobTaskService.updateGoldReturn(goldReturnQuantity);
           this.jobTaskService.getJobDetailsByJobAndMaterial(currentJob.id, returnMaterial.id)
           // tslint:disable-next-line:no-shadowed-variable
             .subscribe((response: {success: number, data: {record: any[], total_material: number}}) => {
