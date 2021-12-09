@@ -13,6 +13,7 @@ import {Material} from '../models/material.model';
 import {JobResponseData} from './job.service';
 import {CustomValidator} from "../CustomValidator/custom-validtor";
 import {JobSummarisedModel} from "../models/job-summarised.model";
+import {JobBadgeModel} from "../models/job-badge.model";
 
 @Injectable({
   providedIn: 'root'
@@ -68,6 +69,9 @@ export class JobTaskService implements OnDestroy{
   public jobDetailSummarised: JobSummarisedModel = {goldSend:0, goldReturn:0, dalSubmit:0, dalReturn: 0, panSubmit:0, panReturn:0, nitricReturn: 0, bronzeSubmit:0, bronzeReturn:0 };
   private jobDetailSummarisedSubject = new Subject<JobSummarisedModel>();
 
+  public jobBadges: JobBadgeModel = {finishBadge:0, goldSendBadge: 0, goldReturnBadge:0,dalSendBadge:0, dalReturnBadge:0, panSendBadge:0,panReturnBadge:0,bronzeSendBadge:0,nitricReturnBadge:0};
+  private jobBadgesSubject = new Subject<JobBadgeModel>();
+
   getJobDetailSummarisation(){
       return {...this.jobDetailSummarised};
   }
@@ -111,6 +115,13 @@ export class JobTaskService implements OnDestroy{
 
   getJobSummarisationUpdateListener(){
     return this.jobDetailSummarisedSubject.asObservable();
+  }
+
+  getJobBadges(){
+    return {...this.jobBadges};
+  }
+  getJobBadgesUpdateListener(){
+    return this.jobBadgesSubject.asObservable();
   }
 
   getSavedJobsUpdateListener(){
@@ -369,57 +380,38 @@ export class JobTaskService implements OnDestroy{
     //   });
   }
 
-  getBatchCount(data){
-    console.log('data: ',data);
-    this.http.get(GlobalVariable.BASE_API_URL + '/countTaskBadgeValue/' + data)
-      .subscribe((response: {success: number, data: any}) => {
-        // this.goldSendBadge = response.data[0].badgeValue;
-        // this.goldRetBadge = response.data[1].badgeValue;
-        // this.dalSendBadge = response.data[2].badgeValue;
-        // this.dalRetBadge = response.data[3].badgeValue;
-        // this.panSendBadge = response.data[4].badgeValue;
-        // this.panRetBadge = response.data[5].badgeValue;
-        // this.bronzeSendBadge = response.data[7].badgeValue;
-        // this.nitricRetBadge = response.data[6].badgeValue;
+  fetchBadges(jobId: number){
+    return this.http.get<any>(GlobalVariable.BASE_API_URL + '/countTaskBadgeValue/' + jobId)
+      .pipe(catchError(this._serverError), tap(((response: {success: number, data: any}) => {
         response.data.forEach(element => {
           if(element.id===1){
-            this.goldSendBadge=element.badgeValue;
+            this.jobBadges.goldSendBadge=element.badgeValue;
           }
           if(element.id===2){
-            this.goldRetBadge=element.badgeValue;
+            this.jobBadges.goldReturnBadge=element.badgeValue;
           }
           if(element.id===3){
-            this.dalSendBadge=element.badgeValue;
+            this.jobBadges.dalSendBadge=element.badgeValue;
           }
           if(element.id===4){
-            this.dalRetBadge=element.badgeValue;
+            this.jobBadges.dalReturnBadge=element.badgeValue;
           }
           if(element.id===5){
-            this.panSendBadge=element.badgeValue;
+            this.jobBadges.panSendBadge=element.badgeValue;
           }
           if(element.id===6){
-            this.panRetBadge=element.badgeValue;
+            this.jobBadges.panReturnBadge=element.badgeValue;
           }
           if(element.id===7){
-            this.nitricRetBadge=element.badgeValue;
+            this.jobBadges.nitricReturnBadge=element.badgeValue;
           }
           if(element.id===8){
-            this.bronzeSendBadge=element.badgeValue;
+            this.jobBadges.bronzeSendBadge=element.badgeValue;
           }
 
         });
-        const a = {
-          goldSendBadge : this.goldSendBadge,
-          goldRetBadge : this.goldRetBadge,
-          dalSendBadge : this.dalSendBadge,
-          dalRetBadge : this.dalRetBadge,
-          panSendBadge : this.panSendBadge,
-          panRetBadge : this.panRetBadge,
-          bronzeSendBadge : this.bronzeSendBadge,
-          nitricRetBadge : this.nitricRetBadge
-        };
-        this.badgeValueSub.next(a);
-      });
+        this.jobBadgesSubject.next({...this.jobBadges});
+      })));
   }
 
 

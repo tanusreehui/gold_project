@@ -12,6 +12,7 @@ import {User} from '../../../models/user.model';
 import {JobDetail} from '../../../models/jobDetail.model';
 import {environment} from "../../../../environments/environment";
 import {JobSummarisedModel} from "../../../models/job-summarised.model";
+import {JobBadgeModel} from "../../../models/job-badge.model";
 
 @Component({
   selector: 'app-job-detail',
@@ -50,7 +51,7 @@ export class JobDetailComponent implements OnInit {
   nitricRetBadge = 0;
 
   public jobDetailSummarised: JobSummarisedModel;
-
+  public jobBadges: JobBadgeModel = {finishBadge:0, goldSendBadge: 0, goldReturnBadge:0,dalSendBadge:0, dalReturnBadge:0, panSendBadge:0,panReturnBadge:0,bronzeSendBadge:0,nitricReturnBadge:0};
   // tslint:disable-next-line:max-line-length
   currentJobId: number;
   constructor(private route: ActivatedRoute
@@ -64,6 +65,13 @@ export class JobDetailComponent implements OnInit {
     this.jobTaskService.getJobSummarisationUpdateListener().subscribe(response=>{
       this.jobDetailSummarised = response;
     });
+
+    this.jobBadges = this.jobTaskService.getJobBadges();
+
+    this.jobTaskService.getJobBadgesUpdateListener().subscribe(response => {
+      this.jobBadges = response;
+    });
+
     this.route.data.subscribe((response: any) => {
      // console.log("Response is: ", response.jobDetail);
       // console.log('Printing from Saved Jobs: ',response.jobDetail.jobTask.savedJobs.data);
@@ -98,7 +106,7 @@ export class JobDetailComponent implements OnInit {
         this.BronzeSendBadge = response.bronzeSendBadge;
         this.nitricRetBadge = response.nitricRetBadge;
       });
-      this.jobTaskService.getBatchCount(this.currentJobData.id);
+      this.jobTaskService.fetchBadges(this.currentJobData.id);
       this.showTransactionDiv = false;
       this.route.params.subscribe(params => {
 
@@ -230,28 +238,7 @@ export class JobDetailComponent implements OnInit {
 
       });
     });
-
-    // this.jobTaskService.testObserble().subscribe((response) => {
-    //   this.btnControl = response;
-    // });
-    // this.karigarhData = this.jobService.getAllKarigarhs();
     this.FGWt = 0;
-    // this. jobTaskService.getBadgeValue().subscribe((response) => {
-    //   let index = response.findIndex(x => x.id === this.id);
-    //   if (index === -1){
-    //     this.goldSendBadge = 1;
-    //   }
-    //   else{
-    //     this.goldSendBadge = response[index].GS;
-    //   }
-    // });
-
-
-
-
-    // this.FGWt = this.billService.FGWt;
-
-
   }
 
   printDivStyle = {
