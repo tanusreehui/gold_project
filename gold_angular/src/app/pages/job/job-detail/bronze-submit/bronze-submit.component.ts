@@ -63,7 +63,7 @@ export class BronzeSubmitComponent implements OnInit {
         employee_id: user.id
       });
       this.jobTaskForm.value.return_quantity = parseFloat(this.jobTaskForm.value.return_quantity);
-      this.jobTaskService.jobReturn().subscribe((response) => {
+      this.jobTaskService.saveJobDetail().subscribe((response) => {
         if (response.success === 1) {
           this._snackBar.openFromComponent(SncakBarComponent, {
             duration: 4000, data: {message: 'Bronze Submitted'}

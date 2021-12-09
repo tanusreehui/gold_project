@@ -86,16 +86,47 @@ class JobTaskController extends Controller
 
         return response()->json(['success'=>1,'data'=> $result], 200,[],JSON_NUMERIC_CHECK);
     }
+    public function getJobTaskDataByJobTaskIdAndJobMasterId($jobTasjId, $jobMasterId){
+        $result = JobDetail:: select('job_details.id','job_details.job_master_id','job_details.employee_id','job_details.material_id','job_details.job_task_id','people.user_name','job_tasks.task_name',DB::Raw("abs(material_quantity) as material_quantity"),DB::raw("TIME(job_details.created_at) as time"),DB::raw(" DATE_FORMAT(job_details.created_at, \"%M %d %Y\") as date"))
+            ->join('job_tasks','job_details.job_task_id','job_tasks.id')
+            ->join('people','job_details.employee_id','people.id')
+            ->where('job_details.job_task_id','=',$jobTasjId)
+            ->where('job_details.job_master_id','=', $jobMasterId)
+            ->get();
+
+        return response()->json(['success'=>1,'data'=> $result], 200,[],JSON_NUMERIC_CHECK);
+    }
 
     public function getTotal(Request $request){
 
         $input=$request->json()->all();
         $data=(object)($input['data']);
 
-        $total = JobDetail::select(DB::raw("abs(sum(job_details.material_quantity))  as total"),'job_tasks.task_name', 'job_tasks.id', 'job_details.job_master_id','job_masters.gross_weight')
+        $total = JobDetail::select(DB::raw("abs(sum(job_details.material_quantity))  as total"),'job_tasks.task_name'
+            ,  DB::raw('job_tasks.id as job_task_id')
+            , 'job_details.job_master_id','job_masters.gross_weight')
             ->join('job_tasks','job_details.job_task_id','=','job_tasks.id')
             ->join('job_masters','job_masters.id','=','job_details.job_master_id')
             ->where('job_details.job_master_id','=',$data->id)
+            ->groupBy('job_tasks.id')
+            ->groupBy('job_details.job_master_id','job_tasks.task_name','job_masters.gross_weight')
+            ->get();
+
+        return response()->json(['success'=>1,'data'=> $total], 200,[],JSON_NUMERIC_CHECK);
+    }
+
+    public function getJobTotalByJobMasterId($id){
+
+//        $input=$request->json()->all();
+//        $data=(object)($input['data']);
+
+        $total = JobDetail::select(DB::raw("abs(sum(job_details.material_quantity))  as total")
+                    ,'job_tasks.task_name'
+                    , DB::raw('job_tasks.id as job_task_id')
+                    , 'job_details.job_master_id','job_masters.gross_weight')
+            ->join('job_tasks','job_details.job_task_id','=','job_tasks.id')
+            ->join('job_masters','job_masters.id','=','job_details.job_master_id')
+            ->where('job_details.job_master_id','=',$id)
             ->groupBy('job_tasks.id')
             ->groupBy('job_details.job_master_id','job_tasks.task_name','job_masters.gross_weight')
             ->get();

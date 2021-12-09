@@ -31,7 +31,8 @@ export class GoldReturnComponent implements OnInit {
   returnMaterial: Material;
   returnGoldList: any;
 
-  constructor(private activatedRoute: ActivatedRoute ,private jobTaskService: JobTaskService, private router: ActivatedRoute, private _snackBar: MatSnackBar) {
+  // tslint:disable-next-line:max-line-length
+  constructor(private activatedRoute: ActivatedRoute , private jobTaskService: JobTaskService, private router: ActivatedRoute, private _snackBar: MatSnackBar) {
     this.activatedRoute.data.subscribe((response: any) => {
       this.currentJob = response.goldReturn.currentJob.data;
       this.jobMasterId = this.currentJob.id;
@@ -98,7 +99,7 @@ export class GoldReturnComponent implements OnInit {
         duration: 4000, data: {message: 'Please enter quantity before submit'}
       });
     }else {
-      this.jobMasterId = currentJob.id;
+      // this.jobMasterId = currentJob.id;
       // this.router.parent.params.subscribe(params => {
       //   this.jobMasterId = parseInt(params.id);
       // });
@@ -107,7 +108,7 @@ export class GoldReturnComponent implements OnInit {
       // const index = this.savedJobsData.findIndex(x => x.id === this.jobMasterId);
       // this.currentJob = this.savedJobsData[index];
 
-      this.currentJob=currentJob;
+      // this.currentJob = currentJob;
 
       // this.jobTaskService.getMaterialDataUpdateListener().subscribe((response) => {
       //   this.materialData = response;
@@ -119,21 +120,26 @@ export class GoldReturnComponent implements OnInit {
       // const user = JSON.parse(localStorage.getItem('user'));
 
 
+      // making return as negative
       this.jobTaskForm.value.return_quantity = -this.jobTaskForm.value.return_quantity;
-      this.jobTaskService.jobReturn().subscribe((response) => {
+      // saving data to jobDetails
+      this.jobTaskService.saveJobDetail().subscribe((response) => {
         if (response.success === 1) {
-          this.jobTaskService.getJobDetailsByJobAndMaterial(currentJob.id,returnMaterial.id).subscribe((response: {success: number, data: {record: any[], total_material: number}})=>{
+          this.jobTaskService.getJobDetailsByJobAndMaterial(currentJob.id, returnMaterial.id)
+          // tslint:disable-next-line:no-shadowed-variable
+            .subscribe((response: {success: number, data: {record: any[], total_material: number}}) => {
             this.returnGoldList = response.data;
-            this.showJobTaskData=true;
+            this.showJobTaskData = true;
           });
           this._snackBar.openFromComponent(SncakBarComponent, {
             duration: 4000, data: {message: 'Gold Returned'}
           });
           this.total = this.total + Math.abs(parseFloat(this.jobTaskForm.value.return_quantity));
-          this.jobTaskService.getTotal().subscribe();
-          this.jobTaskService.jobTaskData().subscribe((response) => {
-            this.jobTaskData = response.data;
-          });
+          // this.jobTaskService.getTotal().subscribe();
+          // tslint:disable-next-line:no-shadowed-variable
+          // this.jobTaskService.jobTaskData().subscribe((response) => {
+          //   this.jobTaskData = response.data;
+          // });
           this.jobTaskForm.controls.return_quantity.reset();
         }
         this.currentError = null;
@@ -158,6 +164,7 @@ export class GoldReturnComponent implements OnInit {
   //   // const index = this.savedJobsData.findIndex(x => x.id === this.jobMasterId);
   //   // this.currentJob = this.savedJobsData[index];
   //   const user = JSON.parse(localStorage.getItem('user'));
+  // tslint:disable-next-line:max-line-length
   //   this.jobTaskForm.patchValue({ job_Task_id: 2, material_id: this.currentJob.material_id, id: this.jobMasterId, size: this.currentJob.size, employee_id: user.id });
   //   this.jobTaskService.jobTaskData().subscribe((response) => {
   //     this.jobTaskData = response.data;
@@ -169,9 +176,11 @@ export class GoldReturnComponent implements OnInit {
   // }
 
   getGoldReturnDetail(currentJob: any, returnMaterial: any) {
-    this.jobTaskService.getJobDetailsByJobAndMaterial(currentJob.id,returnMaterial.id).subscribe((response: {success: number, data: {record: any[], total_material: number}})=>{
+    // tslint:disable-next-line:max-line-length
+    this.jobTaskService.getJobDetailsByJobAndMaterial(currentJob.id, returnMaterial.id)
+      .subscribe((response: {success: number, data: {record: any[], total_material: number}}) => {
        this.returnGoldList = response.data;
-       this.showJobTaskData=true;
+       this.showJobTaskData = true;
     });
   }
 }

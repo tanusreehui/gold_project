@@ -77,7 +77,7 @@ export class JobDetailComponent implements OnInit {
       this.job_number = this.currentJobData.job_number;
       const index = this.materialList.findIndex(x => x.id === this.currentJobData.material_id);
       const materialData = this.materialList[index];
-      this.jobTaskForm.patchValue({id: this.currentJobData.id,size: this.currentJobData.size,material_name: materialData.material_name});
+      this.jobTaskForm.patchValue({id: this.currentJobData.id});
       const index1 = this.karigarhData.findIndex(x => x.id === this.currentJobData.karigarh_id);
       this.karigarhName = this.karigarhData[index1].user_name;
       this.userData = JSON.parse(localStorage.getItem('user'));

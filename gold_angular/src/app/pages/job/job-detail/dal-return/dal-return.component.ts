@@ -87,7 +87,7 @@ export class DalReturnComponent implements OnInit {
       });
       this.jobTaskForm.value.return_quantity = -this.jobTaskForm.value.return_quantity;
 
-      this.jobTaskService.jobReturn().subscribe((response) => {
+      this.jobTaskService.saveJobDetail().subscribe((response) => {
         if (response.success === 1) {
           this._snackBar.openFromComponent(SncakBarComponent, {
             duration: 4000, data: {message: 'Dal Returned'}

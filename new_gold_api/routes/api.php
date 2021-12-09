@@ -108,9 +108,18 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     //job_task
     Route::post('/getTotal', [JobTaskController::class,'getTotal']);
+
+
+    Route::get('/getJobTotal/JobMaster/{id}', [JobTaskController::class,'getJobTotalByJobMasterId']);
+
+
     Route::get('/getAllTransactions/{id}', [JobTaskController::class,'getAllTransactions']);
     Route::post('/saveReturn', [JobTaskController::class,'saveReturn']);
+
     Route::post('/getJobTaskData', [JobTaskController::class,'getJobTaskData']);
+
+    Route::get('/getJobTaskData/{jobTaskId}/jobMaster/{jobMasterId}', [JobTaskController::class,'getJobTaskDataByJobTaskIdAndJobMasterId']);
+
     Route::get('/savedJobs', [JobTaskController::class,'getSavedJobs']);
     Route::get('/finishedJobs', [JobTaskController::class,'getFinishedJobs']);
     Route::get('/getOneJobData/{id}', [JobTaskController::class,'getOneJobData']);

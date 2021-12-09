@@ -89,7 +89,7 @@ export class GoldSubmitComponent implements OnInit {
       this.jobTaskForm.patchValue({ job_Task_id: 1, material_id: this.oneJobData.material_id, id: this.jobMasterId, size: this.oneJobData.size, employee_id: user.id });
       this.jobTaskForm.value.return_quantity = parseFloat(this.jobTaskForm.value.return_quantity);
       // this.jobTaskService.getBatchCount(this.jobTaskForm.value.job_Task_id);
-      this.jobTaskService.jobReturn().subscribe((response ) => {
+      this.jobTaskService.saveJobDetail().subscribe((response ) => {
         if (response.success === 1){
           this._snackBar.openFromComponent(SncakBarComponent, {
             duration: 4000, data: {message: 'Gold Submitted'}
