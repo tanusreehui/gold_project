@@ -11,6 +11,7 @@ import {OrderMaster} from '../models/orderMaster.model';
 import {OrderResponseData} from './order.service';
 import {Material} from '../models/material.model';
 import {JobResponseData} from './job.service';
+import {CustomValidator} from "../CustomValidator/custom-validtor";
 
 @Injectable({
   providedIn: 'root'
@@ -106,7 +107,7 @@ export class JobTaskService implements OnDestroy{
       id : new FormControl(null),
       // size : new FormControl(null, [Validators.required]),
       // price : new FormControl(null, [Validators.required]),
-      return_quantity : new FormControl(null, [Validators.required]),
+      return_quantity : new FormControl(null, [Validators.required, CustomValidator.numeric]),
       // material_name : new FormControl({value: null, disabled: true}, [Validators.required]),
       material_id : new FormControl(null, [Validators.required]),
       job_Task_id : new FormControl(null, [Validators.required]),
