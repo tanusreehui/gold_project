@@ -45,6 +45,7 @@ import {JobTaskResolver} from "./resolver/job/job-task.resolver";
 import {JobDetailResolver} from "./resolver/job/job-detail.resolver";
 import {JobResolver} from './resolver/job/job.resolver';
 import {GoldReturnResolver} from "./resolver/job/gold-return.resolver";
+import {DalSubmitResolver} from "./resolver/job/dal-submit.resolver";
 
 
 const routes: Routes = [
@@ -79,7 +80,7 @@ const routes: Routes = [
       {path: '', component: JobTransactionComponent},
       {path: 'goldSubmit', component: GoldSubmitComponent},
       {path: 'goldReturn/:id', component: GoldReturnComponent, resolve: {goldReturn: GoldReturnResolver}},
-      {path: 'dalSubmit', component: DalSubmitComponent},
+      {path: 'dalSubmit/:id', component: DalSubmitComponent, resolve: {dalSubmit: DalSubmitResolver}},
       {path: 'dalReturn', component: DalReturnComponent},
       {path: 'panSubmit', component: PanSubmitComponent},
       {path: 'panReturn', component: PanReturnComponent},
