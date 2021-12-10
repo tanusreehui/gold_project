@@ -127,6 +127,8 @@ export class GoldReturnComponent implements OnInit {
       this.jobTaskService.saveJobDetail().subscribe((response) => {
         if (response.success === 1) {
           this.jobTaskService.updateGoldReturn(goldReturnQuantity);
+          // updating Badge count after saving data
+          this.jobTaskService.incrementJobBadgesGoldReturnCount();
           this.jobTaskService.getJobDetailsByJobAndMaterial(currentJob.id, returnMaterial.id)
           // tslint:disable-next-line:no-shadowed-variable
             .subscribe((response: {success: number, data: {record: any[], total_material: number}}) => {

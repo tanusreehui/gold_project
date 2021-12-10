@@ -414,6 +414,11 @@ export class JobTaskService implements OnDestroy{
       })));
   }
 
+  incrementJobBadgesGoldReturnCount(){
+    this.jobBadges.goldReturnBadge+=1;
+    this.jobBadgesSubject.next({...this.jobBadges});
+  }
+
 
   // jobTaskData(task_id) {
   //   this.http.get(GlobalVariable.BASE_API_URL + '/getJobTaskData/' + task_id)
