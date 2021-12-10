@@ -120,7 +120,7 @@ class JobTaskController extends Controller
 //        $input=$request->json()->all();
 //        $data=(object)($input['data']);
 
-        $total = JobDetail::select(DB::raw("abs(sum(job_details.material_quantity))  as total_material_quantity")
+        $total = JobDetail::select(DB::raw("round(abs(sum(job_details.material_quantity)),3)  as total_material_quantity")
                     ,'job_tasks.task_name'
                     , DB::raw('job_tasks.id as job_task_id')
                     , 'job_details.job_master_id','job_masters.gross_weight')

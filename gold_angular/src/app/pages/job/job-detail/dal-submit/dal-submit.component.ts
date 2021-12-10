@@ -30,10 +30,13 @@ export class DalSubmitComponent implements OnInit {
   total: number;
   dalSubmitList: { record: any[]; total_material: number };
 
-  constructor(private activatedRoute: ActivatedRoute, private jobTaskService: JobTaskService, private router: ActivatedRoute, private _snackBar: MatSnackBar) {
+  // tslint:disable-next-line:max-line-length
+  constructor(private activatedRoute: ActivatedRoute
+              , private jobTaskService: JobTaskService
+              , private router: ActivatedRoute
+              , private _snackBar: MatSnackBar) {
     this.activatedRoute.data.subscribe((response: any) => {
       this.currentJob = response.dalSubmit.currentJob.data;
-      console.log('Current Job',this.currentJob);
       this.jobMasterId = this.currentJob.id;
       this.materialData = response.dalSubmit.materials.data;
       this.jobTaskForm = this.jobTaskService.jobTaskForm;
@@ -43,9 +46,6 @@ export class DalSubmitComponent implements OnInit {
       const matIndex = this.materialData.findIndex(x => x.id === 6);
       // return material name
       this.returnMaterial = this.materialData[matIndex];
-      console.log('Return Material ', this.returnMaterial);
-      // this.returnMaterialName = this.returnMaterial.material_name;
-
       this.jobTaskForm.patchValue({
         job_Task_id: 3,
         material_id: 6,
@@ -55,12 +55,13 @@ export class DalSubmitComponent implements OnInit {
       });
 
     });
-  }
+  } // end of constructor
 
   ngOnInit(): void {
     this.total = 0;
     this.jobTaskForm = this.jobTaskService.jobTaskForm;
     this.router.parent.params.subscribe(params => {
+      // tslint:disable-next-line:radix
       this.jobMasterId = parseInt(params.id);
     });
     this.savedJobsData = this.jobTaskService.getAllJobList();
@@ -86,14 +87,13 @@ export class DalSubmitComponent implements OnInit {
       });
     }else {
       // making return as negative
-      let goldReturnQuantity = parseFloat(this.jobTaskForm.value.return_quantity);
-      this.jobTaskForm.value.return_quantity = -this.jobTaskForm.value.return_quantity;
+      const dalSubmitWeight = parseFloat(this.jobTaskForm.value.return_quantity);
       // saving data to jobDetails
       this.jobTaskService.saveJobDetail().subscribe((response) => {
         if (response.success === 1) {
-          this.jobTaskService.updateGoldReturn(goldReturnQuantity);
+          this.jobTaskService.updateDalSubmit(dalSubmitWeight);
           // updating Badge count after saving data
-          this.jobTaskService.incrementJobBadgesGoldReturnCount();
+          this.jobTaskService.incrementJobBadgesDalSendCount();
           this.jobTaskService.getJobDetailsByJobAndMaterial(this.currentJob.id, 6)
             // tslint:disable-next-line:no-shadowed-variable
             .subscribe((response: {success: number, data: {record: any[], total_material: number}}) => {
@@ -125,27 +125,4 @@ export class DalSubmitComponent implements OnInit {
         this.showJobTaskData = true;
       });
   }
-
-  // getTotal(){
-  //   this.total = 0;
-  //   this.showJobTaskData = true;
-  //   this.router.parent.params.subscribe(params => {
-  //     this.jobMasterId = params.id;
-  //   });
-  //   this.savedJobsData = this.jobTaskService.getAllJobList();
-  //   const index = this.savedJobsData.findIndex(x => x.id === this.jobMasterId);
-  //   this.oneJobData = this.savedJobsData[index];
-  //   const user = JSON.parse(localStorage.getItem('user'));
-  //   this.jobTaskForm.patchValue({ job_Task_id: 3, material_id: this.oneJobData.material_id, id: this.jobMasterId, size: this.oneJobData.size, employee_id: user.id });
-  //   this.jobTaskService.jobTaskData().subscribe((response) => {
-  //     this.jobTaskData = response.data;
-  //     // tslint:disable-next-line:prefer-for-of
-  //     for (let i = 0; i < this.jobTaskData.length; i++){
-  //       this.total = this.total + this.jobTaskData[i].material_quantity;
-  //     }
-  //   });
-  // }
-
-
-
 }

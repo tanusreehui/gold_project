@@ -5,8 +5,8 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 import {forkJoin, Observable, of} from 'rxjs';
-import {map} from "rxjs/operators";
-import {JobTaskService} from "../../services/job-task.service";
+import {map} from 'rxjs/operators';
+import {JobTaskService} from '../../services/job-task.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class DalSubmitResolver implements Resolve<boolean> {
   }
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | boolean {
     const a = this.jobTaskService.getCurrentJobData(route.params.id);
-    let b= this.jobTaskService.fetchAllMaterials();
+    const b = this.jobTaskService.fetchAllMaterials();
     // let savedJobList= this.jobTaskService.getSavedJobList();
     // let d= this.billService.getAll();
     // let b= observable(2);

@@ -76,7 +76,7 @@ export class GoldReturnComponent implements OnInit {
       });
     }else {
       // making return as negative
-      let goldReturnQuantity = parseFloat(this.jobTaskForm.value.return_quantity);
+      const goldReturnQuantity = parseFloat(this.jobTaskForm.value.return_quantity);
       this.jobTaskForm.value.return_quantity = -this.jobTaskForm.value.return_quantity;
       // saving data to jobDetails
       this.jobTaskService.saveJobDetail().subscribe((response) => {

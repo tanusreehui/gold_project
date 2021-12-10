@@ -51,14 +51,22 @@ export class JobDetailComponent implements OnInit {
   nitricRetBadge = 0;
 
   public jobDetailSummarised: JobSummarisedModel;
-  public jobBadges: JobBadgeModel = {finishBadge:0, goldSendBadge: 0, goldReturnBadge:0,dalSendBadge:0, dalReturnBadge:0, panSendBadge:0,panReturnBadge:0,bronzeSendBadge:0,nitricReturnBadge:0};
+  public jobBadges: JobBadgeModel = {finishBadge: 0
+                                      , goldSendBadge: 0
+                                      , goldReturnBadge: 0
+                                      , dalSendBadge: 0
+                                      , dalReturnBadge: 0
+                                      , panSendBadge: 0
+                                      , panReturnBadge: 0
+                                      , bronzeSendBadge: 0
+                                      , nitricReturnBadge: 0};
   // tslint:disable-next-line:max-line-length
   currentJobId: number;
   constructor(private route: ActivatedRoute
               , private  jobTaskService: JobTaskService
               , private  jobService: JobService
               , private  orderService: OrderService) {
-    this.jobDetailSummarised=this.jobTaskService.getJobDetailSummarisation();
+    this.jobDetailSummarised = this.jobTaskService.getJobDetailSummarisation();
     this.route.params.subscribe((params: any) => {
       this.currentJobId = params.id;
     });
@@ -97,7 +105,8 @@ export class JobDetailComponent implements OnInit {
       this.karigarhName = this.karigarhData[index1].user_name;
       this.userData = JSON.parse(localStorage.getItem('user'));
 
-      this.jobTaskService.getBadgeValue().subscribe((response) => {
+      // tslint:disable-next-line:no-shadowed-variable
+      this.jobTaskService.getBadgeValue().subscribe(response => {
         this.finishBadgeValue = response.finshBadgeValue || 0;
         this.goldSendBadge = response.goldSendBadge;
         this.goldRetBadge = response.goldRetBadge;

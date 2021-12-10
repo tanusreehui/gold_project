@@ -384,29 +384,29 @@ export class JobTaskService implements OnDestroy{
     return this.http.get<any>(GlobalVariable.BASE_API_URL + '/countTaskBadgeValue/' + jobId)
       .pipe(catchError(this._serverError), tap(((response: {success: number, data: any}) => {
         response.data.forEach(element => {
-          if(element.id===1){
-            this.jobBadges.goldSendBadge=element.badgeValue;
+          if(element.id === 1){
+            this.jobBadges.goldSendBadge = element.badgeValue;
           }
-          if(element.id===2){
-            this.jobBadges.goldReturnBadge=element.badgeValue;
+          if(element.id === 2){
+            this.jobBadges.goldReturnBadge = element.badgeValue;
           }
-          if(element.id===3){
-            this.jobBadges.dalSendBadge=element.badgeValue;
+          if(element.id === 3){
+            this.jobBadges.dalSendBadge = element.badgeValue;
           }
-          if(element.id===4){
-            this.jobBadges.dalReturnBadge=element.badgeValue;
+          if(element.id === 4){
+            this.jobBadges.dalReturnBadge = element.badgeValue;
           }
-          if(element.id===5){
-            this.jobBadges.panSendBadge=element.badgeValue;
+          if(element.id === 5){
+            this.jobBadges.panSendBadge = element.badgeValue;
           }
-          if(element.id===6){
-            this.jobBadges.panReturnBadge=element.badgeValue;
+          if(element.id === 6){
+            this.jobBadges.panReturnBadge = element.badgeValue;
           }
-          if(element.id===7){
-            this.jobBadges.nitricReturnBadge=element.badgeValue;
+          if(element.id === 7){
+            this.jobBadges.nitricReturnBadge = element.badgeValue;
           }
-          if(element.id===8){
-            this.jobBadges.bronzeSendBadge=element.badgeValue;
+          if(element.id === 8){
+            this.jobBadges.bronzeSendBadge = element.badgeValue;
           }
 
         });
@@ -415,11 +415,15 @@ export class JobTaskService implements OnDestroy{
   }
 
   incrementJobBadgesGoldReturnCount(){
-    this.jobBadges.goldReturnBadge+=1;
+    this.jobBadges.goldReturnBadge += 1;
     this.jobBadgesSubject.next({...this.jobBadges});
   }
   incrementJobBadgesGoldSendCount(){
-    this.jobBadges.goldSendBadge+=1;
+    this.jobBadges.goldSendBadge += 1;
+    this.jobBadgesSubject.next({...this.jobBadges});
+  }
+  incrementJobBadgesDalSendCount(){
+    this.jobBadges.dalSendBadge += 1;
     this.jobBadgesSubject.next({...this.jobBadges});
   }
 
@@ -502,8 +506,12 @@ export class JobTaskService implements OnDestroy{
     return throwError(err);
   }
 
-  updateGoldReturn(goldReturnQuantity: number) {
-    this.jobDetailSummarised.goldReturn=this.jobDetailSummarised.goldReturn + goldReturnQuantity;
+  updateGoldReturn(materialWeight: number) {
+    this.jobDetailSummarised.goldReturn = this.jobDetailSummarised.goldReturn + materialWeight;
+    this.jobDetailSummarisedSubject.next({...this.jobDetailSummarised});
+  }
+  updateDalSubmit(materialWeight: number) {
+    this.jobDetailSummarised.dalSubmit += materialWeight;
     this.jobDetailSummarisedSubject.next({...this.jobDetailSummarised});
   }
 }
