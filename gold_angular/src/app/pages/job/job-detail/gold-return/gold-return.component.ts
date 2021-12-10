@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {JobService} from '../../../../services/job.service';
 import {FormGroup} from '@angular/forms';
 import {JobTaskService} from '../../../../services/job-task.service';
 import {ActivatedRoute} from '@angular/router';
 import {JobMaster} from '../../../../models/jobMaster.model';
-import {OrderService} from '../../../../services/order.service';
 import {Material} from '../../../../models/material.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {SncakBarComponent} from '../../../../common/sncak-bar/sncak-bar.component';
@@ -58,38 +56,16 @@ export class GoldReturnComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.materialData = this.jobTaskService.getMaterials();
+
     this.total = 0;
-    // this.jobTaskForm = this.jobTaskService.jobTaskForm;
-    // this.savedJobsData = this.jobTaskService.getAllJobList();
-    // this.router.parent.params.subscribe(params => {
-    //   this.jobMasterId = parseInt(params.id);
-    // });
-    // const index = this.savedJobsData.findIndex(x => x.id === this.jobMasterId);
-    // if(index>-1) {
-    //   this.currentJob = this.savedJobsData[index];
-    //   console.log('Current Job', this.currentJob);
-    // }
-
-    // this.jobTaskService.getMaterialDataUpdateListener().subscribe((response) => {
-    //   this.materialData = response;
-    // });
-    // this.jobTaskService.getJobTaskDataUpdateListener().subscribe((response) => {
-    //   this.jobTaskData = response;
-    // });
-
-
-
-
-
   }
 
-  material_quantity_decimal(){
-    const x = this.jobTaskForm.value.return_quantity.split('.');
-    if (!x[1]){
-      this.jobTaskForm.patchValue({return_quantity : (this.jobTaskForm.value.return_quantity / 1000)});
-    }
-  }
+  // material_quantity_decimal(){
+  //   const x = this.jobTaskForm.value.return_quantity.split('.');
+  //   if (!x[1]){
+  //     this.jobTaskForm.patchValue({return_quantity : (this.jobTaskForm.value.return_quantity / 1000)});
+  //   }
+  // }
 
   // saving gold return
   saveGoldReturn(currentJob, returnMaterial){
@@ -99,27 +75,6 @@ export class GoldReturnComponent implements OnInit {
         duration: 4000, data: {message: 'Please enter quantity before submit'}
       });
     }else {
-      // this.jobMasterId = currentJob.id;
-      // this.router.parent.params.subscribe(params => {
-      //   this.jobMasterId = parseInt(params.id);
-      // });
-
-      // this.savedJobsData = this.jobTaskService.getAllJobList();
-      // const index = this.savedJobsData.findIndex(x => x.id === this.jobMasterId);
-      // this.currentJob = this.savedJobsData[index];
-
-      // this.currentJob = currentJob;
-
-      // this.jobTaskService.getMaterialDataUpdateListener().subscribe((response) => {
-      //   this.materialData = response;
-      // });
-      // const matIndex = this.materialData.findIndex(x => x.main_material_id === this.currentJob.material_id);
-      // const materialGold = this.materialData[matIndex];
-      // console.log('Main gold: ', materialGold);
-
-      // const user = JSON.parse(localStorage.getItem('user'));
-
-
       // making return as negative
       let goldReturnQuantity = parseFloat(this.jobTaskForm.value.return_quantity);
       this.jobTaskForm.value.return_quantity = -this.jobTaskForm.value.return_quantity;
@@ -139,17 +94,10 @@ export class GoldReturnComponent implements OnInit {
             duration: 4000, data: {message: 'Gold Returned'}
           });
           this.total = this.total + Math.abs(parseFloat(this.jobTaskForm.value.return_quantity));
-          // this.jobTaskService.getTotal().subscribe();
-          // tslint:disable-next-line:no-shadowed-variable
-          // this.jobTaskService.jobTaskData().subscribe((response) => {
-          //   this.jobTaskData = response.data;
-          // });
           this.jobTaskForm.controls.return_quantity.reset();
         }
         this.currentError = null;
       }, (error) => {
-        console.log('error occured ');
-        console.log(error);
         this.currentError = error;
         this._snackBar.openFromComponent(SncakBarComponent, {
           duration: 4000, data: {message: error.message}
@@ -158,26 +106,6 @@ export class GoldReturnComponent implements OnInit {
     }
   }
 
-  // getAll(){
-  //   this.total = 0;
-  //   this.showJobTaskData = true;
-  //   // this.router.parent.params.subscribe(params => {
-  //   //   this.jobMasterId = params.id;
-  //   // });
-  //   // this.savedJobsData = this.jobTaskService.getAllJobList();
-  //   // const index = this.savedJobsData.findIndex(x => x.id === this.jobMasterId);
-  //   // this.currentJob = this.savedJobsData[index];
-  //   const user = JSON.parse(localStorage.getItem('user'));
-  // tslint:disable-next-line:max-line-length
-  //   this.jobTaskForm.patchValue({ job_Task_id: 2, material_id: this.currentJob.material_id, id: this.jobMasterId, size: this.currentJob.size, employee_id: user.id });
-  //   this.jobTaskService.jobTaskData().subscribe((response) => {
-  //     this.jobTaskData = response.data;
-  //     // tslint:disable-next-line:prefer-for-of
-  //     for (let i = 0; i < this.jobTaskData.length; i++) {
-  //       this.total = this.total + this.jobTaskData[i].material_quantity;
-  //     }
-  //   });
-  // }
 
   getGoldReturnDetail(currentJob: any, returnMaterial: any) {
     // tslint:disable-next-line:max-line-length
