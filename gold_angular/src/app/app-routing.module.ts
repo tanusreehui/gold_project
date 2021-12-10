@@ -46,6 +46,7 @@ import {JobDetailResolver} from "./resolver/job/job-detail.resolver";
 import {JobResolver} from './resolver/job/job.resolver';
 import {GoldReturnResolver} from "./resolver/job/gold-return.resolver";
 import {DalSubmitResolver} from "./resolver/job/dal-submit.resolver";
+import {BronzeSubmitResolver} from './resolver/job/bronze-submit-resolver.service';
 
 
 const routes: Routes = [
@@ -85,7 +86,7 @@ const routes: Routes = [
       {path: 'panSubmit', component: PanSubmitComponent},
       {path: 'panReturn', component: PanReturnComponent},
       {path: 'nitricReturn', component: NitricReturnComponent},
-      {path: 'bronzeSubmit', component: BronzeSubmitComponent},
+      {path: 'bronzeSubmit/:id', component: BronzeSubmitComponent, resolve: {bronzeSubmit: BronzeSubmitResolver}},
       {path: 'job_transaction', component: JobTransactionComponent},
       {path: 'job_finish', component: FinishJobComponent}
       // {path: 'albums', component: ArtistAlbumListComponent},

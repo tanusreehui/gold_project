@@ -69,15 +69,23 @@ export class JobTaskService implements OnDestroy{
   public jobDetailSummarised: JobSummarisedModel = {goldSend:0, goldReturn:0, dalSubmit:0, dalReturn: 0, panSubmit:0, panReturn:0, nitricReturn: 0, bronzeSubmit:0, bronzeReturn:0 };
   private jobDetailSummarisedSubject = new Subject<JobSummarisedModel>();
 
-  public jobBadges: JobBadgeModel = {finishBadge:0, goldSendBadge: 0, goldReturnBadge:0,dalSendBadge:0, dalReturnBadge:0, panSendBadge:0,panReturnBadge:0,bronzeSendBadge:0,nitricReturnBadge:0};
+  public jobBadges: JobBadgeModel = {finishBadge: 0
+                                      , goldSendBadge: 0
+                                      , goldReturnBadge: 0
+                                      , dalSendBadge: 0
+                                      , dalReturnBadge: 0
+                                      , panSendBadge: 0
+                                      , panReturnBadge: 0
+                                      , bronzeSendBadge: 0
+                                      , nitricReturnBadge: 0};
   private jobBadgesSubject = new Subject<JobBadgeModel>();
 
   getJobDetailSummarisation(){
       return {...this.jobDetailSummarised};
   }
 
-  fetchJobSummarisation(jobId:number){
-    return this.http.get<any>(GlobalVariable.BASE_API_URL + '/jobSummarisation/JobMaster/'+jobId)
+  fetchJobSummarisation(jobId: number){
+    return this.http.get<any>(GlobalVariable.BASE_API_URL + '/jobSummarisation/JobMaster/' + jobId)
       .pipe(catchError(this._serverError), tap(((response: {success: number, data: any}) => {
         response.data.forEach(element => {
           if(element.job_task_id === 1){
@@ -512,6 +520,10 @@ export class JobTaskService implements OnDestroy{
   }
   updateDalSubmit(materialWeight: number) {
     this.jobDetailSummarised.dalSubmit += materialWeight;
+    this.jobDetailSummarisedSubject.next({...this.jobDetailSummarised});
+  }
+  updateBronzeSubmit(materialWeight: number) {
+    this.jobDetailSummarised.bronzeSubmit += materialWeight;
     this.jobDetailSummarisedSubject.next({...this.jobDetailSummarised});
   }
 }
