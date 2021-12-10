@@ -434,6 +434,10 @@ export class JobTaskService implements OnDestroy{
     this.jobBadges.dalSendBadge += 1;
     this.jobBadgesSubject.next({...this.jobBadges});
   }
+  incrementJobBadgesBronzeSendCount(){
+    this.jobBadges.bronzeSendBadge += 1;
+    this.jobBadgesSubject.next({...this.jobBadges});
+  }
 
 
   // jobTaskData(task_id) {

@@ -106,17 +106,17 @@ export class JobDetailComponent implements OnInit {
       this.userData = JSON.parse(localStorage.getItem('user'));
 
       // tslint:disable-next-line:no-shadowed-variable
-      this.jobTaskService.getBadgeValue().subscribe(response => {
-        this.finishBadgeValue = response.finshBadgeValue || 0;
-        this.goldSendBadge = response.goldSendBadge;
-        this.goldRetBadge = response.goldRetBadge;
-        this.dalSendBadge = response.dalSendBadge;
-        this.dalRetBadge = response.dalRetBadge;
-        this.panSendBadge = response.panSendBadge;
-        this.panRetBadge = response.panRetBadge;
-        this.BronzeSendBadge = response.bronzeSendBadge;
-        this.nitricRetBadge = response.nitricRetBadge;
-      });
+      // this.jobTaskService.getBadgeValue().subscribe(response => {
+      //   this.finishBadgeValue = response.finshBadgeValue || 0;
+      //   this.goldSendBadge = response.goldSendBadge;
+      //   this.goldRetBadge = response.goldRetBadge;
+      //   this.dalSendBadge = response.dalSendBadge;
+      //   this.dalRetBadge = response.dalRetBadge;
+      //   this.panSendBadge = response.panSendBadge;
+      //   this.panRetBadge = response.panRetBadge;
+      //   this.bronzeSendBadge = response.bronzeSendBadge;
+      //   this.nitricRetBadge = response.nitricRetBadge;
+      // });
       this.jobTaskService.fetchBadges(this.currentJobData.id);
       this.showTransactionDiv = false;
       this.route.params.subscribe(params => {
@@ -279,5 +279,9 @@ export class JobDetailComponent implements OnInit {
 
 
 
+  }
+
+  actionMethod($event: MouseEvent) {
+    console.log($event);
   }
 }

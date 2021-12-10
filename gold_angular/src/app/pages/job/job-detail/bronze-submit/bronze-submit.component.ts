@@ -20,7 +20,7 @@ export class BronzeSubmitComponent implements OnInit {
   currentJob: JobMaster;
   materialData: Material[];
   bronzeSubmitList: { record: any[]; total_material: number };
-  returnMaterial: Material;
+  currentMaterial: Material;
 
   jobMasterId: number;
   jobTaskForm: FormGroup;
@@ -49,10 +49,10 @@ export class BronzeSubmitComponent implements OnInit {
       // index of return gold
       const matIndex = this.materialData.findIndex(x => x.id === 12);
       // return material name
-      this.returnMaterial = this.materialData[matIndex];
+      this.currentMaterial = this.materialData[matIndex];
       this.jobTaskForm.patchValue({
-        job_Task_id: 3,
-        material_id: this.returnMaterial.id,
+        job_Task_id: 8,
+        material_id: this.currentMaterial.id,
         id: this.currentJob.id,
         // size: this.currentJob.size,
         employee_id: user.id
@@ -88,8 +88,8 @@ export class BronzeSubmitComponent implements OnInit {
         if (response.success === 1) {
           this.jobTaskService.updateBronzeSubmit(bronzeSubmitWeight);
           // updating Badge count after saving data
-          this.jobTaskService.incrementJobBadgesDalSendCount();
-          this.jobTaskService.getJobDetailsByJobAndMaterial(this.currentJob.id, this.returnMaterial.id)
+          this.jobTaskService.incrementJobBadgesBronzeSendCount();
+          this.jobTaskService.getJobDetailsByJobAndMaterial(this.currentJob.id, this.currentMaterial.id)
           // tslint:disable-next-line:no-shadowed-variable
             .subscribe((response: {success: number, data: {record: any[], total_material: number}}) => {
               this.bronzeSubmitList = response.data;
@@ -120,7 +120,7 @@ export class BronzeSubmitComponent implements OnInit {
 
   getBronzeSubmitDetail() {
     // tslint:disable-next-line:max-line-length
-    this.jobTaskService.getJobDetailsByJobAndMaterial(this.currentJob.id, this.returnMaterial.id)
+    this.jobTaskService.getJobDetailsByJobAndMaterial(this.currentJob.id, this.currentMaterial.id)
       .subscribe((response: {success: number, data: {record: any[], total_material: number}}) => {
         this.bronzeSubmitList = response.data;
         this.showJobTaskData = true;
