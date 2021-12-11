@@ -122,13 +122,11 @@ class JobTaskController extends Controller
 
         $total = JobDetail::select(DB::raw("round(abs(sum(job_details.material_quantity)),3)  as total_material_quantity")
                     ,'job_tasks.task_name'
-                    , DB::raw('job_tasks.id as job_task_id')
-                    , 'job_details.job_master_id','job_masters.gross_weight')
+                    , DB::raw('job_tasks.id as job_task_id'))
             ->join('job_tasks','job_details.job_task_id','=','job_tasks.id')
             ->join('job_masters','job_masters.id','=','job_details.job_master_id')
             ->where('job_details.job_master_id','=',$id)
-            ->groupBy('job_tasks.id')
-            ->groupBy('job_details.job_master_id','job_tasks.task_name','job_masters.gross_weight')
+            ->groupBy('job_tasks.id','job_tasks.task_name')
             ->get();
 
         return response()->json(['success'=>1,'data'=> $total], 200,[],JSON_NUMERIC_CHECK);

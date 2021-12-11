@@ -52,7 +52,7 @@
               </tr>
               <tr>
                 <td colspan="2" class="col-6">H.M.C :</td>
-                <td colspan="2" class="col-6">RGW- :{{jobDetailSummarised.goldReturn}}</td>
+                <td colspan="2" class="col-6" [ngStyle]="isSelectedTask('goldReturn')?{'color':'red'}: {'color':'blue'}">RGW- :{{jobDetailSummarised.goldReturn}}</td>
               </tr>
               <tr>
                 <td colspan="2" class="col-6">H.C. :</td>
@@ -60,10 +60,10 @@
               </tr>
               <tr>
                 <td colspan="2" class="col-6">Polish :</td>
-                <td colspan="2" class="col-6">NGR- : {{jobDetailSummarised.nitricReturn  | number : '1.3'}}</td>
+                <td colspan="2" class="col-6"  >NGR- : {{jobDetailSummarised.nitricReturn  | number : '1.3'}}</td>
               </tr>
               <tr>
-                <td colspan="2" class="col-6">Dal: {{jobDetailSummarised.dalSubmit  | number : '1.3'}}</td>
+                <td colspan="2" class="col-6" [ngStyle]="isSelectedTask('dalSend')?{'color':'red'}: {'color':'blue'}">Dal: {{jobDetailSummarised.dalSubmit  | number : '1.3'}}</td>
                 <td colspan="2" class="col-6">Pan+ : {{jobDetailSummarised.panSubmit  | number : '1.3'}}</td>
               </tr>
 
@@ -144,16 +144,16 @@
       </button>
     </div>
     <div class="m-2" *ngIf="true"  >
-      <button mat-raised-button style="background-color: rgb(204, 199, 175)" class="btn ml-2 mt-1 mb-1" [matBadge] = "jobBadges.goldReturnBadge" matBadgePosition="above before"  [disabled] = this.btnControl [hidden]="currentJobData.status_id==100" [routerLink]="['./goldReturn',currentJobId]" (click)="actionMethod($event)">Gold Return</button>
-      <button mat-raised-button style="background-color: rgb(201, 191, 191)" class="btn ml-2 mt-1 mb-1" [matBadge] = "jobBadges.dalSendBadge" matBadgePosition="above before" [disabled] = this.btnControl [hidden]="currentJobData.status_id==100" [routerLink]="['./dalSubmit',currentJobId]">Dal Submit</button>
-      <button mat-raised-button style="background-color: rgb(176, 204, 185)" class="btn ml-2 mt-1 mb-1" [matBadge] = "jobBadges.bronzeSendBadge" matBadgePosition="above before" [disabled] = this.btnControl [hidden]="currentJobData.status_id==100" [routerLink]="['./bronzeSubmit',currentJobId]">Bronze Submit</button>
-      <button mat-raised-button style="background-color: rgb(180, 190, 209)" class="btn ml-2 mt-1 mb-1" [matBadge] = "jobBadges.panSendBadge" matBadgePosition="above before" [disabled] = this.btnControl [hidden]="currentJobData.status_id==100" [routerLink]="['./panSubmit',currentJobId]">Pan Submit</button>
-      <button mat-raised-button style="background-color: rgb(218, 202, 201)" class="btn ml-2 mt-1 mb-1" [matBadge] = "jobBadges.panReturnBadge" matBadgePosition="above before" [disabled] = this.btnControl [hidden]="currentJobData.status_id==100" [routerLink]="['./panReturn',currentJobId]">Pan Return</button>
-      <button mat-raised-button style="background-color: rgb(174, 175, 175)" class="btn ml-2 mt-1 mb-1" [matBadge] = "jobBadges.dalReturnBadge" matBadgePosition="above before" [disabled] = this.btnControl [hidden]="currentJobData.status_id==100" [routerLink]="['./dalReturn',currentJobId]">Dal Return</button>
-      <button mat-raised-button style="background-color: rgb(182, 155, 170)" class="btn ml-2 mt-1 mb-1" [matBadge] = "jobBadges.goldSendBadge" matBadgePosition="above before" [disabled] = this.btnControl [hidden]="currentJobData.status_id==100" [routerLink]="['./goldSubmit',currentJobId]">Gold Submit</button>
-      <button mat-raised-button style="background-color: rgb(163, 211, 205)" class="btn ml-2 mt-1 mb-1" [matBadge] = "jobBadges.nitricReturnBadge" matBadgePosition="above before" [disabled] = this.btnControl [hidden]="currentJobData.status_id==100" [routerLink]="['./nitricReturn',currentJobId]">Nitric Return</button>
+      <button mat-raised-button style="background-color: rgb(204, 199, 175)" class="btn ml-2 mt-1 mb-1" [matBadge] = "jobBadges.goldReturnBadge" matBadgePosition="above before" [ngStyle]="selectedColor('goldReturn')"  [disabled] ="isSelectedTask('goldReturn')" [hidden]="currentJobData.status_id==100" [routerLink]="['./goldReturn',currentJobId]" (click)="setSelectedTask('goldReturn')">Gold Return</button>
+      <button mat-raised-button style="background-color: rgb(201, 191, 191)" class="btn ml-2 mt-1 mb-1" [matBadge] = "jobBadges.dalSendBadge" matBadgePosition="above before" [ngStyle]="selectedColor('dalSend')" [disabled] = "isSelectedTask('dalSend')" [hidden]="currentJobData.status_id==100" [routerLink]="['./dalSubmit',currentJobId]" (click)="setSelectedTask('dalSend')">Dal Submit</button>
+      <button mat-raised-button style="background-color: rgb(176, 204, 185)" class="btn ml-2 mt-1 mb-1" [matBadge] = "jobBadges.bronzeSendBadge" matBadgePosition="above before" [ngStyle]="selectedColor('bronzeSend')" [disabled] = "isSelectedTask('bronzeSend')" [hidden]="currentJobData.status_id==100" [routerLink]="['./bronzeSubmit',currentJobId]" (click)="setSelectedTask('bronzeSend')">Bronze Submit</button>
+      <button mat-raised-button style="background-color: rgb(180, 190, 209)" class="btn ml-2 mt-1 mb-1" [matBadge] = "jobBadges.panSendBadge" matBadgePosition="above before" [ngStyle]="selectedColor('panSend')" [disabled] = this.btnControl [hidden]="currentJobData.status_id==100" [routerLink]="['./panSubmit',currentJobId]">Pan Submit</button>
+      <button mat-raised-button style="background-color: rgb(218, 202, 201)" class="btn ml-2 mt-1 mb-1" [matBadge] = "jobBadges.panReturnBadge" matBadgePosition="above before" [ngStyle]="selectedColor('panReturn')" [disabled] = this.btnControl [hidden]="currentJobData.status_id==100" [routerLink]="['./panReturn',currentJobId]">Pan Return</button>
+      <button mat-raised-button style="background-color: rgb(174, 175, 175)" class="btn ml-2 mt-1 mb-1" [matBadge] = "jobBadges.dalReturnBadge" matBadgePosition="above before" [ngStyle]="selectedColor('dalReturn')" [disabled] = this.btnControl [hidden]="currentJobData.status_id==100" [routerLink]="['./dalReturn',currentJobId]">Dal Return</button>
+      <button mat-raised-button style="background-color: rgb(182, 155, 170)" class="btn ml-2 mt-1 mb-1" [matBadge] = "jobBadges.goldSendBadge" matBadgePosition="above before" [ngStyle]="selectedColor('goldSend')" [disabled] = this.btnControl [hidden]="currentJobData.status_id==100" [routerLink]="['./goldSubmit',currentJobId]">Gold Submit</button>
+      <button mat-raised-button style="background-color: rgb(163, 211, 205)" class="btn ml-2 mt-1 mb-1" [matBadge] = "jobBadges.nitricReturnBadge" matBadgePosition="above before" [ngStyle]="selectedColor('nitricReturn')" [disabled] = this.btnControl [hidden]="currentJobData.status_id==100" [routerLink]="['./nitricReturn',currentJobId]">Nitric Return</button>
 <!--      <button type="button" class="btn btn-warning" [disabled] = this.btnControl [hidden]="oneJobData.status_id==100" [routerLink]="['./job_finish']">Finish</button>-->
-      <button mat-raised-button class="btn btn-light ml-2 mt-1 mb-1" [matBadge]="finishBadgeValue" matBadgePosition="above before" [disabled] = this.btnControl [hidden]="currentJobData.status_id==100" [routerLink]="['./job_finish']">Finish</button>
+      <button mat-raised-button class="btn btn-light ml-2 mt-1 mb-1" [matBadge]="finishBadgeValue" matBadgePosition="above before" [ngStyle]="selectedColor('finishJob')" [disabled] = this.btnControl [hidden]="currentJobData.status_id==100" [routerLink]="['./job_finish']">Finish</button>
     </div>
 <!--    this is used to change the detail button look-->
     <div class="example-button-row">

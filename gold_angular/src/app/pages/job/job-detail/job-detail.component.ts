@@ -38,6 +38,7 @@ export class JobDetailComponent implements OnInit {
   btnControl: boolean = null;
   tempTotalData = [0, 0 , 0 , 0 , 0 , 0, 0, 0];
   FGWt: number;
+  selectedTask: string = null;
 
   // we have to change this values dynamically
   finishBadgeValue = 0;
@@ -263,6 +264,7 @@ export class JobDetailComponent implements OnInit {
   };
 
 
+
   ngOnInit(): void {
     this.showTransactionDiv = true;
 
@@ -281,7 +283,18 @@ export class JobDetailComponent implements OnInit {
 
   }
 
-  actionMethod($event: MouseEvent) {
-    console.log($event);
+  isSelectedTask(taskName){
+    return this.selectedTask === taskName;
+  }
+  setSelectedTask(taskName){
+    this.selectedTask = taskName;
+  }
+
+  selectedColor(taskName: string ) {
+    if(this.isSelectedTask(taskName)){
+      return {
+        'color': 'red'
+      }
+    }
   }
 }
