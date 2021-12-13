@@ -87,17 +87,16 @@ export class JobTaskService implements OnDestroy{
   fetchJobSummarisation(jobId: number){
     return this.http.get<any>(GlobalVariable.BASE_API_URL + '/jobSummarisation/JobMaster/' + jobId)
       .pipe(catchError(this._serverError), tap(((response: {success: number, data: any}) => {
+        this.jobDetailSummarised.goldSend=0;
+        this.jobDetailSummarised.goldReturn=0;
+        this.jobDetailSummarised.dalSubmit=0;
+        this.jobDetailSummarised.dalReturn=0;
+        this.jobDetailSummarised.panSubmit=0;
+        this.jobDetailSummarised.panReturn=0;
+        this.jobDetailSummarised.nitricReturn=0;
+        this.jobDetailSummarised.bronzeSubmit=0;
+        this.jobDetailSummarised.bronzeReturn=0;
         response.data.forEach(element => {
-          this.jobDetailSummarised.goldSend=0;
-          this.jobDetailSummarised.goldReturn=0;
-          this.jobDetailSummarised.dalSubmit=0;
-          this.jobDetailSummarised.dalReturn=0;
-          this.jobDetailSummarised.panSubmit=0;
-          this.jobDetailSummarised.panReturn=0;
-          this.jobDetailSummarised.nitricReturn=0;
-          this.jobDetailSummarised.bronzeSubmit=0;
-          this.jobDetailSummarised.bronzeReturn=0;
-
           if(element.job_task_id === 1){
             this.jobDetailSummarised.goldSend = element.total_material_quantity;
           }
@@ -126,7 +125,7 @@ export class JobTaskService implements OnDestroy{
             this.jobDetailSummarised.bronzeReturn = element.total_material_quantity;
           }
         });
-
+        console.log(this.jobDetailSummarised);
         this.jobDetailSummarisedSubject.next({...this.jobDetailSummarised});
     })));
   }

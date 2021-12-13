@@ -71,6 +71,7 @@ export class JobDetailComponent implements OnInit {
     this.route.params.subscribe((params: any) => {
       this.currentJobId = params.id;
     });
+    this.jobDetailSummarised = this.jobTaskService.getJobDetailSummarisation();
     this.jobTaskService.getJobSummarisationUpdateListener().subscribe(response => {
       this.jobDetailSummarised = response;
     });
@@ -92,6 +93,9 @@ export class JobDetailComponent implements OnInit {
       this.savedJobsData = response.jobDetail.jobTask.savedJobs.data;
       this.karigarhData = response.jobDetail.job.karigarhs.data;
       this.materialList = response.jobDetail.jobTask.materials.data;
+      // this.jobTaskService.getJobSummarisationUpdateListener().subscribe((response: any) => {
+      //   this.jobDetailSummarised=response;
+      // });
 
 
 
