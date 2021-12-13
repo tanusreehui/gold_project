@@ -308,7 +308,7 @@ export class JobTaskService implements OnDestroy{
 
 
   getMaterials(){
-    return[...this.materialData];
+    return [...this.materialData];
   }
 
   ngOnDestroy(): void {

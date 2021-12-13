@@ -34,7 +34,12 @@ export class GoldReturnComponent implements OnInit {
     this.activatedRoute.data.subscribe((response: any) => {
       this.currentJob = response.goldReturn.currentJob.data;
       this.jobMasterId = this.currentJob.id;
-      this.materialData = response.goldReturn.materials.data;
+      // this.materialData = response.goldReturn.materials.data;
+      this.materialData = this.jobTaskService.getMaterials();
+      // tslint:disable-next-line:no-shadowed-variable
+      this.jobTaskService.getMaterialDataUpdateListener().subscribe(response => {
+        this.materialData = response;
+      });
       this.jobTaskForm = this.jobTaskService.jobTaskForm;
       const user = JSON.parse(localStorage.getItem('user'));
 

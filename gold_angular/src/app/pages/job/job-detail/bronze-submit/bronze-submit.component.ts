@@ -31,10 +31,6 @@ export class BronzeSubmitComponent implements OnInit {
   jobTaskData: JobDetail[];
   total: number;
 
-
-
-
-
   constructor(private activatedRoute: ActivatedRoute
     , private jobTaskService: JobTaskService
     , private router: ActivatedRoute
@@ -42,11 +38,16 @@ export class BronzeSubmitComponent implements OnInit {
     this.activatedRoute.data.subscribe((response: any) => {
       this.currentJob = response.bronzeSubmit.currentJob.data;
       this.jobMasterId = this.currentJob.id;
-      this.materialData = response.bronzeSubmit.materials.data;
+      // this.materialData = response.bronzeSubmit.materials.data;
+      this.materialData = this.jobTaskService.getMaterials();
+      // tslint:disable-next-line:no-shadowed-variable
+      this.jobTaskService.getMaterialDataUpdateListener().subscribe(response => {
+        this.materialData = response;
+      });
       this.jobTaskForm = this.jobTaskService.jobTaskForm;
       const user = JSON.parse(localStorage.getItem('user'));
 
-      // index of return gold
+      // index of bronze in material list
       const matIndex = this.materialData.findIndex(x => x.id === 12);
       // return material name
       this.currentMaterial = this.materialData[matIndex];
@@ -54,7 +55,6 @@ export class BronzeSubmitComponent implements OnInit {
         job_Task_id: 8,
         material_id: this.currentMaterial.id,
         id: this.currentJob.id,
-        // size: this.currentJob.size,
         employee_id: user.id
       });
 

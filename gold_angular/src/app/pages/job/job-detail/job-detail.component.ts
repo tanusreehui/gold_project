@@ -67,11 +67,11 @@ export class JobDetailComponent implements OnInit {
               , private  jobTaskService: JobTaskService
               , private  jobService: JobService
               , private  orderService: OrderService) {
-    this.jobDetailSummarised = this.jobTaskService.getJobDetailSummarisation();
+    // this.jobDetailSummarised = this.jobTaskService.getJobDetailSummarisation();
     this.route.params.subscribe((params: any) => {
       this.currentJobId = params.id;
     });
-    this.jobTaskService.getJobSummarisationUpdateListener().subscribe(response=>{
+    this.jobTaskService.getJobSummarisationUpdateListener().subscribe(response => {
       this.jobDetailSummarised = response;
     });
 
@@ -92,7 +92,8 @@ export class JobDetailComponent implements OnInit {
       this.savedJobsData = response.jobDetail.jobTask.savedJobs.data;
       this.karigarhData = response.jobDetail.job.karigarhs.data;
       this.materialList = response.jobDetail.jobTask.materials.data;
-      // this.jobBadges = response.jobDetail.jobBadges.data;
+
+
 
       this.jobTaskForm = this.jobTaskService.jobTaskForm;
       // console.log('check ', response.jobDetail.currentJob.data);

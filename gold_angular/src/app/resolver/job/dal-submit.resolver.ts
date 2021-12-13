@@ -18,11 +18,7 @@ export class DalSubmitResolver implements Resolve<boolean> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | boolean {
     const a = this.jobTaskService.getCurrentJobData(route.params.id);
     const b = this.jobTaskService.fetchAllMaterials();
-    // let savedJobList= this.jobTaskService.getSavedJobList();
-    // let d= this.billService.getAll();
-    // let b= observable(2);
-    // let c= observable(3);
-    const join = forkJoin(a,b).pipe(map((allResponses) => {
+    const join = forkJoin(a, b).pipe(map((allResponses) => {
       return {
         currentJob: allResponses[0],
         materials: allResponses[1]

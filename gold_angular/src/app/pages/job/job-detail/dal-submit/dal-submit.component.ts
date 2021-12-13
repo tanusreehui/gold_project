@@ -6,7 +6,7 @@ import {ActivatedRoute} from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {SncakBarComponent} from '../../../../common/sncak-bar/sncak-bar.component';
 import {JobDetail} from '../../../../models/jobDetail.model';
-import {Material} from "../../../../models/material.model";
+import {Material} from '../../../../models/material.model';
 
 
 @Component({
@@ -38,7 +38,13 @@ export class DalSubmitComponent implements OnInit {
     this.activatedRoute.data.subscribe((response: any) => {
       this.currentJob = response.dalSubmit.currentJob.data;
       this.jobMasterId = this.currentJob.id;
-      this.materialData = response.dalSubmit.materials.data;
+      // this.materialData = response.dalSubmit.materials.data;
+      this.materialData = this.jobTaskService.getMaterials();
+      // tslint:disable-next-line:no-shadowed-variable
+      this.jobTaskService.getMaterialDataUpdateListener().subscribe(response => {
+        this.materialData = response;
+      });
+
       this.jobTaskForm = this.jobTaskService.jobTaskForm;
       const user = JSON.parse(localStorage.getItem('user'));
 
