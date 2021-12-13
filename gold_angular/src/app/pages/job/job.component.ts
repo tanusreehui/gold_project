@@ -52,6 +52,10 @@ export class JobComponent implements OnInit {
               ,private confirmationDialogService: ConfirmationDialogService
               ,private jobService: JobService
               ,private orderService: OrderService) {
+    this.activatedRoute.data.subscribe((response: any) => {
+      // this.currentJob = response.job.currentJob.data;
+      this.karigarhData =  response.job.jobServiceResponse.karigarhs;
+    });
     // when order is selected
     this.selectedOrderNumber = this.activatedRoute.snapshot.params.orderNumber;
     if(this.selectedOrderNumber != undefined){
@@ -61,10 +65,6 @@ export class JobComponent implements OnInit {
     // this.karigarhData = this.jobService.getAllKarigarhs();
     this.page = 1;
     this.pageSize = 15;
-    this.activatedRoute.data.subscribe((response: any) => {
-      console.log(response);
-      this.karigarhData = response.job.jobServiceResponse.karigarhs.data;
-    });
   }
 
   ngOnInit(): void {
