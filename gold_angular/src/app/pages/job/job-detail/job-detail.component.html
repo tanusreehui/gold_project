@@ -68,7 +68,7 @@
               </tr>
 
               <tr>
-                <td colspan="2" class="col-6">DalR-: {{jobDetailSummarised.dalReturn  | number : '1.3'}}</td>
+                <td colspan="2" class="col-6" [ngStyle]="isSelectedTask('dalReturn')?{'color':'red'}: {'color':'blue'}">DalR-: {{jobDetailSummarised.dalReturn  | number : '1.3'}}</td>
                 <td colspan="2" class="col-6" [ngStyle]="isSelectedTask('panReturn')?{'color':'red'}: {'color':'blue'}">PanR- : {{jobDetailSummarised.panReturn  | number : '1.3'}}</td>
               </tr>
 
@@ -203,9 +203,10 @@
               [matBadge] = "jobBadges.dalReturnBadge"
               matBadgePosition="above before"
               [ngStyle]="selectedColor('dalReturn')"
-              [disabled] = this.btnControl
+              [disabled] = "isSelectedTask('dalReturn')"
               [hidden]="currentJobData.status_id==100"
-              [routerLink]="['./dalReturn',currentJobId]">Dal Return</button>
+              [routerLink]="['./dalReturn']"
+              (click)="setSelectedTask('dalReturn')">Dal Return</button>
       <!--      Gold Send-->
       <button mat-raised-button
               style="background-color: rgb(182, 155, 170)" class="btn ml-2 mt-1 mb-1"
@@ -224,7 +225,7 @@
               [ngStyle]="selectedColor('nitricReturn')"
               [disabled] = this.btnControl
               [hidden]="currentJobData.status_id==100"
-              [routerLink]="['./nitricReturn',currentJobId]">Nitric Return</button>
+              [routerLink]="['./nitricReturn']">Nitric Return</button>
 
       <!--      Finish-->
       <button mat-raised-button

@@ -64,7 +64,7 @@ export class DalSubmitComponent implements OnInit {
       material_id: 6,
       id: this.currentJob.id,
       // size: this.currentJob.size,
-      employee_id: user.id
+      employee_id: this.currentJob.karigarh_id
     });
   }
 

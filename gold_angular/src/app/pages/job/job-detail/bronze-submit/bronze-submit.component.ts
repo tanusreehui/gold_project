@@ -62,7 +62,7 @@ export class BronzeSubmitComponent implements OnInit {
       material_id: 12,
       id: this.currentJob.id,
       // size: this.currentJob.size,
-      employee_id: user.id
+      employee_id: this.currentJob.karigarh_id
     });
   }
   saveBronzeSubmit(){

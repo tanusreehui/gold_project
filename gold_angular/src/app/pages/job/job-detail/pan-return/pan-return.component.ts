@@ -54,14 +54,13 @@ export class PanReturnComponent implements OnInit {
       material_id: this.currentMaterial.id,
       id: this.currentJob.id,
       // size: this.currentJob.size,
-      employee_id: user.id
+      employee_id: this.currentJob.karigarh_id
     });
   }
 
 
 
   savePanReturn(){
-
     if (this.jobTaskForm.value.return_quantity === null){
       this._snackBar.openFromComponent(SncakBarComponent, {
         duration: 4000, data: {message: 'Please enter quantity before submit'}

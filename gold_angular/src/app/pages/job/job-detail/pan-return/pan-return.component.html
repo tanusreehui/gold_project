@@ -33,7 +33,7 @@
         <tbody>
         <tr  *ngFor="let data of returnPanList.record ; let indexOfelement = index;">
           <td colspan="3" style="text-align: center">{{indexOfelement+1}}</td>
-          <td colspan="3" style="text-align: center">Gold Return</td>
+          <td colspan="3" style="text-align: center">{{data.task_name}}</td>
           <td colspan="3" style="text-align: right">{{data.material_quantity.toFixed(3)}}</td>
           <td colspan="3" style="text-align: center">{{data.user_name}}</td>
           <td colspan="3" style="text-align: center">{{data.created_at}}</td>
