@@ -458,6 +458,10 @@ export class JobTaskService implements OnDestroy{
     this.jobBadges.panSendBadge += 1;
     this.jobBadgesSubject.next({...this.jobBadges});
   }
+  incrementJobBadgesPanReturnCount(){
+    this.jobBadges.panReturnBadge += 1;
+    this.jobBadgesSubject.next({...this.jobBadges});
+  }
 
 
   // jobTaskData(task_id) {
@@ -551,6 +555,10 @@ export class JobTaskService implements OnDestroy{
   }
   updatePanSubmit(materialWeight: number) {
     this.jobDetailSummarised.panSubmit += materialWeight;
+    this.jobDetailSummarisedSubject.next({...this.jobDetailSummarised});
+  }
+  updatePanReturn(materialWeight: number) {
+    this.jobDetailSummarised.panReturn += materialWeight;
     this.jobDetailSummarisedSubject.next({...this.jobDetailSummarised});
   }
 }

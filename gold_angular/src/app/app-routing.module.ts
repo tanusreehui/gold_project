@@ -80,7 +80,7 @@ const routes: Routes = [
     children: [
       {path: '', component: JobTransactionComponent},
       {path: 'goldSubmit', component: GoldSubmitComponent},
-      {path: 'goldReturn/:id', component: GoldReturnComponent, resolve: {goldReturn: GoldReturnResolver}},
+      {path: 'goldReturn', component: GoldReturnComponent},
       {path: 'dalSubmit', component: DalSubmitComponent},
       {path: 'dalReturn', component: DalReturnComponent},
       {path: 'panSubmit', component: PanSubmitComponent},
