@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import {SncakBarComponent} from '../../../../common/sncak-bar/sncak-bar.component';
 import {JobDetail} from '../../../../models/jobDetail.model';
 import {Material} from '../../../../models/material.model';
+import {environment} from "../../../../../environments/environment";
 
 
 @Component({
@@ -15,6 +16,7 @@ import {Material} from '../../../../models/material.model';
   styleUrls: ['./dal-submit.component.scss']
 })
 export class DalSubmitComponent implements OnInit {
+  isProduction = environment.production;
   currentJob: JobMaster;
   materialList: Material[];
   returnMaterial: Material;
@@ -27,7 +29,7 @@ export class DalSubmitComponent implements OnInit {
   jobTaskData: JobDetail[];
   total: number;
   dalSubmitList: { record: any[]; total_material: number };
-  showDeveloperDiv = true;
+  showDeveloperDiv = false;
 
   // tslint:disable-next-line:max-line-length
   constructor(private activatedRoute: ActivatedRoute
@@ -35,18 +37,8 @@ export class DalSubmitComponent implements OnInit {
               , private router: ActivatedRoute
               , private _snackBar: MatSnackBar) {
     this.currentJob = this.jobTaskService.getCurrentJob();
-    this.activatedRoute.data.subscribe((response: any) => {
-      // this.currentJob = response.dalSubmit.currentJob.data;
-
-      // this.materialData = response.dalSubmit.materials.data;
-      // this.materialData = this.jobTaskService.getMaterials();
-      // tslint:disable-next-line:no-shadowed-variable
-
-
-
-
-    });
   } // end of constructor
+
 
   ngOnInit(): void {
     this.total = 0;

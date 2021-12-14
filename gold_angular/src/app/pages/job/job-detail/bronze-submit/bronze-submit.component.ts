@@ -18,7 +18,7 @@ import {Material} from '../../../../models/material.model';
 export class BronzeSubmitComponent implements OnInit {
 
   currentJob: JobMaster;
-  materialData: Material[];
+  materialList: Material[];
   bronzeSubmitList: { record: any[]; total_material: number };
   currentMaterial: Material;
 
@@ -30,50 +30,40 @@ export class BronzeSubmitComponent implements OnInit {
   showJobTaskData = false;
   jobTaskData: JobDetail[];
   total: number;
+  returnMaterial: Material;
 
   constructor(private activatedRoute: ActivatedRoute
     , private jobTaskService: JobTaskService
     , private router: ActivatedRoute
     , private _snackBar: MatSnackBar) {
-    this.activatedRoute.data.subscribe((response: any) => {
-      this.currentJob = response.bronzeSubmit.currentJob.data;
-      this.jobMasterId = this.currentJob.id;
-      // this.materialData = response.bronzeSubmit.materials.data;
-      this.materialData = this.jobTaskService.getMaterials();
-      // tslint:disable-next-line:no-shadowed-variable
-      this.jobTaskService.getMaterialDataUpdateListener().subscribe(response => {
-        this.materialData = response;
-      });
-      this.jobTaskForm = this.jobTaskService.jobTaskForm;
-      const user = JSON.parse(localStorage.getItem('user'));
-
-      // index of bronze in material list
-      const matIndex = this.materialData.findIndex(x => x.id === 12);
-      // return material name
-      this.currentMaterial = this.materialData[matIndex];
-      this.jobTaskForm.patchValue({
-        job_Task_id: 8,
-        material_id: this.currentMaterial.id,
-        id: this.currentJob.id,
-        employee_id: user.id
-      });
-
-    });
+    this.currentJob = this.jobTaskService.getCurrentJob();
   } // end of constructor
 
   ngOnInit(): void {
     this.total = 0;
-    // this.jobTaskForm = this.jobTaskService.jobTaskForm;
-    // this.router.parent.params.subscribe(params => {
-    //   this.jobMasterId = params.id;
-    // });
-    // this.savedJobsData = this.jobTaskService.getAllJobList();
-    // const index = this.savedJobsData.findIndex(x => x.id == this.jobMasterId);
-    // this.oneJobData = this.savedJobsData[index];
-    // // this.jobTaskForm.patchValue({material_name: this.oneJobData.material_name});
-    // this.jobTaskService.getJobTaskDataUpdateListener().subscribe((response) => {
-    //   this.jobTaskData = response;
-    // });
+    this.materialList = this.jobTaskService.getMaterials();
+    this.jobTaskService.getMaterialDataUpdateListener().subscribe(response => {
+      this.materialList = response;
+    });
+
+    this.jobTaskService.getCurrentJobUpdateListener().subscribe(response => {
+      this.currentJob = response;
+    });
+
+    this.jobTaskForm = this.jobTaskService.jobTaskForm;
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    // index of return gold
+    const matIndex = this.materialList.findIndex(x => x.id === 12);
+    // return material name
+    this.currentMaterial = this.materialList[matIndex];
+    this.jobTaskForm.patchValue({
+      job_Task_id: 8,
+      material_id: 12,
+      id: this.currentJob.id,
+      // size: this.currentJob.size,
+      employee_id: user.id
+    });
   }
   saveBronzeSubmit(){
     if (this.jobTaskForm.value.return_quantity === null){
@@ -126,28 +116,6 @@ export class BronzeSubmitComponent implements OnInit {
         this.showJobTaskData = true;
       });
   }
-
-  // getTotal(){
-  //   this.total = 0;
-  //   this.showJobTaskData = true;
-  //   this.router.parent.params.subscribe(params => {
-  //     this.jobMasterId = params.id;
-  //   });
-  //   this.savedJobsData = this.jobTaskService.getAllJobList();
-  //   const index = this.savedJobsData.findIndex(x => x.id === this.jobMasterId);
-  //   this.oneJobData = this.savedJobsData[index];
-  //   const user = JSON.parse(localStorage.getItem('user'));
-  //   // tslint:disable-next-line:max-line-length
-  //   this.jobTaskForm.patchValue({ job_Task_id: 8, material_id: this.oneJobData.material_id, id: this.jobMasterId, size: this.oneJobData.size, employee_id: user.id });
-  //   this.jobTaskService.jobTaskData().subscribe((response) => {
-  //     this.jobTaskData = response.data;
-  //     // tslint:disable-next-line:prefer-for-of
-  //     for (let i = 0; i < this.jobTaskData.length; i++){
-  //       this.total = this.total + this.jobTaskData[i].material_quantity;
-  //     }
-  //   });
-  // }
-
 }
 
 // }

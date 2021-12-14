@@ -11,7 +11,14 @@ import { Material } from 'src/app/models/material.model';
 import {JobDetail} from 'src/app/models/jobDetail.model';
 import {Observable} from 'rxjs';
 import {JobService} from '../../../services/job.service';
-import {ActivatedRoute} from "@angular/router";
+import {
+  ActivatedRoute,
+  NavigationCancel,
+  NavigationEnd,
+  NavigationError,
+  NavigationStart,
+  Router
+} from "@angular/router";
 
 @Component({
   selector: 'app-job-task',
@@ -38,7 +45,7 @@ export class JobTaskComponent implements OnInit {
   pageSize: number;
   p = 1;
 
-  constructor(private activatedRoute: ActivatedRoute
+  constructor(public router: Router, private activatedRoute: ActivatedRoute
               , private jobTaskService: JobTaskService
               // , private  jobService: JobService
               , private _snackBar: MatSnackBar
@@ -46,17 +53,20 @@ export class JobTaskComponent implements OnInit {
               // , private orderService: OrderService
   ) {
 
+
+    this.activatedRoute.data.subscribe((response: any) => {
+      this.savedJobsData = response.jobTask.savedJobs.data;
+      this.finishedJobsList = response.jobTask.finishedJobs.data;
+      this.materialList = response.jobTask.materials.data;
+    });
+
     this.page = 1;
     this.pageSize = 15;
   }
 
   ngOnInit(): void {
     // active routing
-    this.activatedRoute.data.subscribe((response: any) => {
-      this.savedJobsData = response.jobTask.savedJobs.data;
-      this.finishedJobsList = response.jobTask.finishedJobs.data;
-      this.materialList = response.jobTask.materials.data;
-    });
+
 
     this.showCompleteJobs = false;
     this.jobTaskForm = this.jobTaskService.jobTaskForm;

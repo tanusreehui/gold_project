@@ -86,6 +86,7 @@ export class JobDetailComponent implements OnInit {
       this.karigarhData = response.jobDetail.karigarhs.data;
       this.materialList = response.jobDetail.materials.data;
       this.currentJobData = response.jobDetail.currentJob.data;
+      this.jobTransactionData = response.jobDetail.allJobTransactions.data;
 
       this.jobTaskForm = this.jobTaskService.jobTaskForm;
       // console.log('check ', response.jobDetail.currentJob.data);
@@ -132,9 +133,9 @@ export class JobDetailComponent implements OnInit {
         this.jobTaskService.getJobTransactionDataUpdateListener().subscribe((response) => {
           this.jobTransactionData = response;
         });
-        this.jobTaskService.getAllTransactions(this.id).subscribe((response) => {
-          this.jobTransactionData = response.data;
-        });
+        // this.jobTaskService.getAllTransactions(this.id).subscribe((response) => {
+        //   this.jobTransactionData = response.data;
+        // });
       });
     });
     this.FGWt = 0;

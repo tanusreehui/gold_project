@@ -6,6 +6,7 @@ import {ActivatedRoute} from "@angular/router";
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {SncakBarComponent} from "../../../../common/sncak-bar/sncak-bar.component";
 import {JobDetail} from "../../../../models/jobDetail.model";
+import {Material} from "../../../../models/material.model";
 
 @Component({
   selector: 'app-pan-submit',
@@ -22,21 +23,38 @@ export class PanSubmitComponent implements OnInit {
   showJobTaskData = false;
   jobTaskData: JobDetail[];
   total: number;
-  constructor(private jobTaskService: JobTaskService, private router: ActivatedRoute, private _snackBar: MatSnackBar) { }
+  currentJob: JobMaster;
+  materialList: Material[];
+  currentMaterial: Material;
+  panSubmitList: { record: any[]; total_material: number };
+  constructor(private jobTaskService: JobTaskService, private router: ActivatedRoute, private _snackBar: MatSnackBar) {
+    this.currentJob = this.jobTaskService.getCurrentJob();
+  }
 
   ngOnInit(): void {
     this.total = 0;
-    this.jobTaskForm = this.jobTaskService.jobTaskForm;
-    this.router.parent.params.subscribe(params =>{
-      this.jobMasterId = parseInt(params.id);
+    this.materialList = this.jobTaskService.getMaterials();
+    this.jobTaskService.getMaterialDataUpdateListener().subscribe(response => {
+      this.materialList = response;
     });
-    this.savedJobsData = this.jobTaskService.getAllJobList();
-    const index = this.savedJobsData.findIndex(x => x.id === this.jobMasterId);
-    this.oneJobData = this.savedJobsData[index];
-    // this.jobTaskForm.patchValue({material_name: this.oneJobData.material_name});
-    // this.jobTaskForm.patchValue({material_name: 'test'});
-    this.jobTaskService.getJobTaskDataUpdateListener().subscribe((response) => {
-      this.jobTaskData = response;
+
+    this.jobTaskService.getCurrentJobUpdateListener().subscribe(response => {
+      this.currentJob = response;
+    });
+
+    this.jobTaskForm = this.jobTaskService.jobTaskForm;
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    // index of return gold
+    const matIndex = this.materialList.findIndex(x => x.id === 4);
+    // return material name
+    this.currentMaterial = this.materialList[matIndex];
+    this.jobTaskForm.patchValue({
+      job_Task_id: 5,
+      material_id: 4,
+      id: this.currentJob.id,
+      // size: this.currentJob.size,
+      employee_id: user.id
     });
   }
 
@@ -48,71 +66,48 @@ export class PanSubmitComponent implements OnInit {
   }
 
 
-  onSubmit(){
-    if(this.jobTaskForm.value.return_quantity === null){
+  savePanSubmit(){
+    if (this.jobTaskForm.value.return_quantity === null){
       this._snackBar.openFromComponent(SncakBarComponent, {
         duration: 4000, data: {message: 'Please enter quantity before submit'}
       });
     }else {
-      this.router.parent.params.subscribe(params => {
-        this.jobMasterId = parseInt(params.id);
-      });
-      this.savedJobsData = this.jobTaskService.getAllJobList();
-      const index = this.savedJobsData.findIndex(x => x.id === this.jobMasterId);
-      this.oneJobData = this.savedJobsData[index];
-      const user = JSON.parse(localStorage.getItem('user'));
-      this.jobTaskForm.patchValue({
-        job_Task_id: 5,
-        material_name: this.oneJobData.material_name,
-        material_id: this.oneJobData.material_id,
-        id: this.jobMasterId,
-        size: this.oneJobData.size,
-        employee_id: this.oneJobData.karigarh_id
-      });
-      this.jobTaskForm.value.return_quantity = parseFloat(this.jobTaskForm.value.return_quantity);
+      // making return as negative
+      const panSubmitWeight = parseFloat(this.jobTaskForm.value.return_quantity);
+      // saving data to jobDetails
       this.jobTaskService.saveJobDetail().subscribe((response) => {
         if (response.success === 1) {
+          this.jobTaskService.updatePanSubmit(panSubmitWeight);
+          // updating Badge count after saving data
+          this.jobTaskService.incrementJobBadgesPanSendCount();
+          this.jobTaskService.getJobDetailsByJobAndMaterial(this.currentJob.id, this.currentMaterial.id)
+            // tslint:disable-next-line:no-shadowed-variable
+            .subscribe((response: {success: number, data: {record: any[], total_material: number}}) => {
+              this.panSubmitList = response.data;
+              this.showJobTaskData = true;
+            });
           this._snackBar.openFromComponent(SncakBarComponent, {
             duration: 4000, data: {message: 'Pan Submitted'}
           });
-          this.total = this.total + parseFloat(this.jobTaskForm.value.return_quantity);
-          this.jobTaskService.getTotal().subscribe();
-          this.jobTaskService.jobTaskData().subscribe((response) => {
-            this.jobTaskData = response.data;
-
-          });
-          this.jobTaskForm.controls['return_quantity'].reset();
+          // this.total = this.total + Math.abs(parseFloat(this.jobTaskForm.value.return_quantity));
+          this.jobTaskForm.controls.return_quantity.reset();
         }
         this.currentError = null;
-
       }, (error) => {
-        console.log('error occured ');
-        console.log(error);
         this.currentError = error;
         this._snackBar.openFromComponent(SncakBarComponent, {
           duration: 4000, data: {message: error.message}
         });
       });
     }
-
   }
-  getTotal(){
-    this.total=0;
-    this.showJobTaskData = true;
-    this.router.parent.params.subscribe(params =>{
-      this.jobMasterId=params.id;
-    });
-    this.savedJobsData = this.jobTaskService.getAllJobList();
-    const index = this.savedJobsData.findIndex(x => x.id == this.jobMasterId);
-    this.oneJobData = this.savedJobsData[index];
-    const user = JSON.parse(localStorage.getItem('user'));
-    // this.jobTaskForm.patchValue({ job_Task_id:1, material_name: this.oneJobData.material_name, material_id: this.oneJobData.material_id,id:this.jobMasterId, size:this.oneJobData.size,employee_id: user.id });
-    this.jobTaskForm.patchValue({ job_Task_id:5, material_id: this.oneJobData.material_id,id:this.jobMasterId, size:this.oneJobData.size,employee_id: user.id });
-    this.jobTaskService.jobTaskData().subscribe((response) => {
-      this.jobTaskData = response.data;
-      for(let i=0;i<this.jobTaskData.length;i++){
-        this.total=this.total+this.jobTaskData[i].material_quantity;
-      }
-    });
+
+  getDalSubmitDetail() {
+    // tslint:disable-next-line:max-line-length
+    this.jobTaskService.getJobDetailsByJobAndMaterial(this.currentJob.id, this.currentMaterial.id)
+      .subscribe((response: {success: number, data: {record: any[], total_material: number}}) => {
+        this.panSubmitList = response.data;
+        this.showJobTaskData = true;
+      });
   }
 }

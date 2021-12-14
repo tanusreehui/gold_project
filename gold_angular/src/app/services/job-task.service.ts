@@ -454,6 +454,10 @@ export class JobTaskService implements OnDestroy{
     this.jobBadges.bronzeSendBadge += 1;
     this.jobBadgesSubject.next({...this.jobBadges});
   }
+  incrementJobBadgesPanSendCount(){
+    this.jobBadges.panSendBadge += 1;
+    this.jobBadgesSubject.next({...this.jobBadges});
+  }
 
 
   // jobTaskData(task_id) {
@@ -497,7 +501,6 @@ export class JobTaskService implements OnDestroy{
       .pipe(catchError(this._serverError), tap(((response: { success: number, data: JobDetail[] }) => {
         this.jobTransactionData = response.data;
         this.jobTransactionSub.next([...this.jobTransactionData]);
-
       })));
   }
     getCurrentJobData(data){
@@ -544,6 +547,10 @@ export class JobTaskService implements OnDestroy{
   }
   updateBronzeSubmit(materialWeight: number) {
     this.jobDetailSummarised.bronzeSubmit += materialWeight;
+    this.jobDetailSummarisedSubject.next({...this.jobDetailSummarised});
+  }
+  updatePanSubmit(materialWeight: number) {
+    this.jobDetailSummarised.panSubmit += materialWeight;
     this.jobDetailSummarisedSubject.next({...this.jobDetailSummarised});
   }
 }

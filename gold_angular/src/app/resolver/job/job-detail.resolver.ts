@@ -23,27 +23,29 @@ export class JobDetailResolver implements Resolve<any> {
               , private errorService: ErrorService
   ){
   }
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | boolean {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
     // const a = this.jobTaskService.getAll();
     const b = this.jobService.fetchKarigarhs();
     const c = this.jobTaskService.getCurrentJobData(route.params.id);
     const d = this.jobTaskService.fetchJobSummarisation(route.params.id);
     const e = this.jobTaskService.fetchBadges(route.params.id);
     const f = this.jobTaskService.fetchAllMaterials();
+    const g = this.jobTaskService.getAllTransactions(route.params.id);
 
     // let c= this.orderService.getAll();
     // let savedJobList= this.jobTaskService.getSavedJobList();
     // let d= this.billService.getAll();
     // let b= observable(2);
     // let c= observable(3);
-    const join = forkJoin(b, c, d, e,f).pipe(map((allResponses) => {
+    const join = forkJoin(b, c, d, e,f,g).pipe(map((allResponses) => {
       return {
         // jobTask: allResponses[0],
         karigarhs: allResponses[0],
         currentJob: allResponses[1],
         JobSummarisation: allResponses[2],
         jobBadges: allResponses[3],
-        materials: allResponses[4]
+        materials: allResponses[4],
+        allJobTransactions: allResponses[5]
       };
     }));
 
