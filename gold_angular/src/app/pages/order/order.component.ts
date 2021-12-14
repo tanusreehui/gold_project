@@ -56,8 +56,12 @@ export class OrderComponent implements OnInit {
   isAddEnabled = true;
   yourModelDate: string;
   productList: Product[];
-  minDate = new Date(2010, 11, 2);
-  maxDate = new Date(2021, 3, 2);
+  // const order_date = new Date();
+  // const delivery_date = new Date();
+  currentDAte = new Date();
+
+  minDate = new Date(this.currentDAte.getFullYear(), this.currentDAte.getMonth() - 1, 1);
+  maxDate = new Date(this.currentDAte.getFullYear(), this.currentDAte.getMonth() + 1, 15);
   startDate = new Date(2020, 0, 2);
 
   discount: number ;

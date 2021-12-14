@@ -53,9 +53,6 @@ export class JobComponent implements OnInit {
               ,private jobService: JobService
               ,private orderService: OrderService) {
     this.activatedRoute.data.subscribe((response: any) => {
-      // this.currentJob = response.job.currentJob.data;
-      // this.karigarhData =  response.job.jobServiceResponse.karigarhs;
-      // console.log('from resolver',response.job.jobServiceResponse.karigarhs.data);
       this.karigarhData = response.job.jobServiceResponse.karigarhs.data;
     });
     // when order is selected

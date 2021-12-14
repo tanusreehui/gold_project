@@ -125,7 +125,6 @@ export class JobTaskService implements OnDestroy{
             this.jobDetailSummarised.bronzeReturn = element.total_material_quantity;
           }
         });
-        console.log(this.jobDetailSummarised);
         this.jobDetailSummarisedSubject.next({...this.jobDetailSummarised});
     })));
   }

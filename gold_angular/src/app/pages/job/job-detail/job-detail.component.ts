@@ -83,6 +83,7 @@ export class JobDetailComponent implements OnInit {
     });
 
     this.route.data.subscribe((response: any) => {
+      console.log(response.jobDetail);
      // console.log("Response is: ", response.jobDetail);
       // console.log('Printing from Saved Jobs: ',response.jobDetail.jobTask.savedJobs.data);
       // console.log('Second Call : ',response.jobDetail[1].karigarhs.data);
@@ -90,9 +91,13 @@ export class JobDetailComponent implements OnInit {
       // console.log('orderMaterials : ',response.jobDetail[2].orderMaterials.data);
       // console.log('orderMasters : ',response.jobDetail[2].orderMasters.data);
       // // console.log('completedBill : ',response.jobDetail[3].completedBill.data);
-      this.savedJobsData = response.jobDetail.jobTask.savedJobs.data;
-      this.karigarhData = response.jobDetail.job.karigarhs.data;
-      this.materialList = response.jobDetail.jobTask.materials.data;
+
+      // this.savedJobsData = response.jobDetail.jobTask.savedJobs.data;
+
+      this.karigarhData = response.jobDetail.karigarhs.data;
+
+      this.materialList = response.jobDetail.materials.data;
+
       // this.jobTaskService.getJobSummarisationUpdateListener().subscribe((response: any) => {
       //   this.jobDetailSummarised=response;
       // });
@@ -111,127 +116,23 @@ export class JobDetailComponent implements OnInit {
       this.karigarhName = this.karigarhData[index1].user_name;
       this.userData = JSON.parse(localStorage.getItem('user'));
 
-      // tslint:disable-next-line:no-shadowed-variable
-      // this.jobTaskService.getBadgeValue().subscribe(response => {
-      //   this.finishBadgeValue = response.finshBadgeValue || 0;
-      //   this.goldSendBadge = response.goldSendBadge;
-      //   this.goldRetBadge = response.goldRetBadge;
-      //   this.dalSendBadge = response.dalSendBadge;
-      //   this.dalRetBadge = response.dalRetBadge;
-      //   this.panSendBadge = response.panSendBadge;
-      //   this.panRetBadge = response.panRetBadge;
-      //   this.bronzeSendBadge = response.bronzeSendBadge;
-      //   this.nitricRetBadge = response.nitricRetBadge;
-      // });
       this.jobTaskService.fetchBadges(this.currentJobData.id);
       this.showTransactionDiv = false;
       this.route.params.subscribe(params => {
-
-        // tslint:disable-next-line:radix
-        // this.id = parseInt(params.id);
-        // tslint:disable-next-line:no-shadowed-variable
-        // this.jobTaskService.getCurrentJobData(this.id).subscribe((response: {success: number , data: JobMaster}) => {
-        //   // this.currentJobData = response.data;
-        //   // this.jobTaskForm.patchValue({id: this.currentJobData.id});
-        //   // this.job_number = this.currentJobData.job_number;
-        //   // this.jobTaskForm.patchValue({size: this.currentJobData.size});
-        //   // const index1 = this.karigarhData.findIndex(x => x.id === this.currentJobData.karigarh_id);
-        //   // this.karigarhName = this.karigarhData[index1].user_name;
-        //   //
-        //   // this.userData = JSON.parse(localStorage.getItem('user'));
-        //   // console.log(this.userData);
-        //   // tslint:disable-next-line:no-shadowed-variable
-        //   // this.orderService.getMaterialUpdateListener().subscribe((response) => {
-        //   //   this.materialList = response;
-        //   //   const index = this.materialList.findIndex(x => x.id === this.currentJobData.material_id);
-        //   //   const materialData = this.materialList[index];
-        //   //   this.jobTaskForm.patchValue({material_name: materialData.material_name});
-        //   // });
+        // this.jobTaskService.getTotalData();
+        // this.jobTaskService.getTotal().subscribe((response) => {
+        //   this.totalData = response.data;
+        //   for (let i = 1; i <= 8; i ++){
+        //     const index = this.totalData.findIndex(x => x.id === i);
+        //     if (index >= 0)
+        //     {
+        //       this.tempTotalData[i - 1] = this.totalData[index].total;
+        //     }
+        //     else{
+        //       this.tempTotalData[i - 1] = 0;
+        //     }
+        //   }
         // });
-
-
-
-
-
-        // this.jobTaskService.testObserble().subscribe((response) => {
-        //   this.btnControl = response;
-        //   //this can also be done
-        //   // if(this.btnControl === true){
-        //   //   this.oneJobData.status_id = 100;
-        //   // }
-        // });
-        //
-        // this.billService.getTotalGoldQuantity(this.id).subscribe((response) => {
-        //   this.FGWt = response.data.data;
-        // });
-
-        // this.jobTaskForm.patchValue({id: params.id});
-
-
-        // this.jobTaskService.getUpdatedSavedJobs();
-        // this.jobTaskService.getUpdatedFinishedJobs();
-        // this.karigarhData = this.jobService.getAllKarigarhs();
-        // this.jobService.getKarigarhUpdateListener().subscribe((response) => {
-        //   this.karigarhData = response;
-        // });
-        // this.jobTaskService.getSavedJobsUpdateListener().subscribe((response) => {
-        //   this.savedJobsData = response;
-        //   const index = this.savedJobsData.findIndex(x => x.id === this.id);
-        //   // if (index === -1){
-        //   //   this.jobTaskService.getFinishedJobsUpdateListener().subscribe((response) => {
-        //   //     this.savedJobsData = response;
-        //   //     const index = this.savedJobsData.findIndex(x => x.id === this.id);
-        //   //     this.oneJobData = this.savedJobsData[index];
-        //   //     this.jobTaskForm.patchValue({id: this.oneJobData.id});
-        //   //     this.jobTaskForm.value.id = this.oneJobData.id;
-        //   //     this.job_number = this.oneJobData.job_number;
-        //   //     const index1 = this.karigarhData.findIndex(x => x.id === this.oneJobData.karigarh_id);
-        //   //     this.karigarhName = this.karigarhData[index1].person_name;
-        //   //   });
-        //   // }
-        //   // else{
-        //   //   this.oneJobData = this.savedJobsData[index];
-        //   //   this.jobTaskForm.patchValue({id: this.oneJobData.id});
-        //   //   this.job_number = this.oneJobData.job_number;
-        //   // }
-        //   // if (this.karigarhData && this.oneJobData){
-        //   //   const index = this.karigarhData.findIndex(x => x.id === this.oneJobData.karigarh_id);
-        //   //   this.karigarhName = this.karigarhData[index].person_name;
-        //   // }
-        // });
-        // this.userData = JSON.parse(localStorage.getItem('user'));
-        // this.orderService.getMaterialUpdateListener().subscribe((response) => {
-        //   this.materialList = response;
-        //   const index = this.materialList.findIndex(x => x.id === this.oneJobData.material_id);
-        //   const materialData = this.materialList[index];
-        //   this.jobTaskForm.patchValue({material_name: materialData.material_name , size: this.oneJobData.size});
-        // });
-        // this.karigarhData = this.jobService.getAllKarigarhs();
-        // this.jobService.getKarigarhUpdateListener().subscribe((response) => {
-        //   this.karigarhData = response;
-        //
-        //   const index = this.karigarhData.findIndex(x => x.id === this.oneJobData.karigarh_id);
-        //   this.karigarhName = this.karigarhData[index].person_name;
-        //
-        // });
-        // if (this.oneJobData){
-        //   // const index = this.karigarhData.findIndex(x => x.id === this.oneJobData.karigarh_id);
-        //   // this.karigarhName = this.karigarhData[index].person_name;
-        // }
-        this.jobTaskService.getTotalData();
-        this.jobTaskService.getTotal().subscribe((response) => {
-          this.totalData = response.data;
-          for (let i = 1; i <= 8; i ++){
-            const index = this.totalData.findIndex(x => x.id === i);
-            if (index >= 0)
-            {
-              this.tempTotalData[i - 1] = this.totalData[index].total;
-            }
-            else{
-              this.tempTotalData[i - 1] = 0;
-            }
-          }
-        });
         this.jobTaskService.getTotalDataUpdateListener().subscribe((response) => {
           this.totalData = response;
           for (let i = 1; i <= 8; i ++){
@@ -251,8 +152,6 @@ export class JobDetailComponent implements OnInit {
         this.jobTaskService.getAllTransactions(this.id).subscribe((response) => {
           this.jobTransactionData = response.data;
         });
-
-
       });
     });
     this.FGWt = 0;

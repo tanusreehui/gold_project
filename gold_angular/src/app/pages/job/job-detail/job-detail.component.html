@@ -32,7 +32,7 @@
             <label>Challan No : &nbsp;{{currentJobData.order_number}}</label>
             <label>Date : &nbsp;{{currentJobData.date | date :'dd/MM/yy'}}&nbsp;&nbsp; DD : {{currentJobData.date_of_delivery | date :'dd/MM/yy'}} </label>
             <label>Model : &nbsp;<b>{{currentJobData.model_number}}</b>&nbsp;&nbsp; Pcs : <b>{{currentJobData.quantity}}</b>&nbsp;&nbsp;Size :<b>{{currentJobData.size}}</b></label>
-            <table style=""  *ngIf="totalData">
+            <table style="">
               <tbody>
               <tr>
                 <td colspan="2" class="col-6">Thokai :</td>
@@ -82,7 +82,7 @@
               </tr>
               <tr>
                 <td colspan="2" class="col-6"></td>
-                <td colspan="2" class="col-6">B. Wt. : {{totalData[0].gross_weight}}</td>
+                <td colspan="2" class="col-6">B. Wt. : XX</td>
               </tr>
               </tbody>
             </table>

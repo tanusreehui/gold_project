@@ -110,6 +110,12 @@ export class JobService {
       this.karigarhSub.next([...this.karigarhData]);
     })));
   }
+  fetchKarigarhs(): Observable<any>{
+    return this.http.get<any>(GlobalVariable.BASE_API_URL + '/karigarhs').pipe(catchError(this._serverError),tap(response => {
+      this.karigarhData = response.data;
+      this.karigarhSub.next([...this.karigarhData]);
+    }));
+  }
 
   getAllKarigarhs(){
     return [...this.karigarhData];

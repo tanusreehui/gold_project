@@ -68,8 +68,8 @@ export class OrderService {
   //   return this.productDataSub.asObservable();
   // }
 
-  order_date_format: string;
-  delivery_date_format: String;
+  order_date_format: any;
+  delivery_date_format: any;
 
   constructor(private http: HttpClient) {
     const order_date = new Date();
