@@ -50,6 +50,9 @@ export class JobDetailResolver implements Resolve<any> {
     return join;
    // return forkJoin(a,b,c);
     // return of(true);
+
+
+
   }
 
   // resolve(route: ActivatedRouteSnapshot,state: RouterStateSnapshot,): Observable<any> {

@@ -503,7 +503,6 @@ export class JobTaskService implements OnDestroy{
     getCurrentJobData(data){
       return this.http.get(GlobalVariable.BASE_API_URL + '/getOneJobData/' + data )
         .pipe(catchError(this._serverError), tap(((response: { success: number, data: JobMaster}) => {
-          console.log('Current Job', response.data);
           this.currentJob = response.data;
         })));
     }
