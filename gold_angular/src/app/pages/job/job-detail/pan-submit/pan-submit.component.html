@@ -28,24 +28,26 @@
     <div  class="col-12" *ngIf="panSubmitList" [hidden]="!showJobTaskData">
       <table class="jobTaskData-table-div col-12">
         <thead>
-        <th colspan="3" style="text-align: center">SL No.</th>
-        <th colspan="3" style="text-align: center">Task Name</th>
-        <th colspan="3" style="text-align: center">Quantity</th>
-        <th colspan="3" style="text-align: center">User Name</th>
-        <th colspan="3" style="text-align: center">Date</th>
+        <th colspan="" style="text-align: center">SL No.</th>
+        <th colspan="" style="text-align: center">Task Name</th>
+        <th colspan="" style="text-align: center">Quantity</th>
+        <th colspan="" style="text-align: center">User Name</th>
+        <th colspan="" style="text-align: center">Material</th>
+        <th colspan="" style="text-align: center">Date</th>
         </thead>
         <tbody>
         <tr  *ngFor="let data of panSubmitList.record ; let indexOfelement = index;">
-          <td colspan="3" style="text-align: center">{{indexOfelement+1}}</td>
-          <td colspan="3" style="text-align: center">Gold Return</td>
-          <td colspan="3" style="text-align: right">{{data.material_quantity.toFixed(3)}}</td>
-          <td colspan="3" style="text-align: center">{{data.user_name}}</td>
-          <td colspan="3" style="text-align: center">{{data.created_at}}</td>
+          <td colspan="" style="text-align: center">{{indexOfelement+1}}</td>
+          <td colspan="" style="text-align: center">{{data.task_name}}</td>
+          <td colspan="" style="text-align: right">{{data.material_quantity.toFixed(3)}}</td>
+          <td colspan="" style="text-align: center">{{data.user_name}}</td>
+          <td colspan="" style="text-align: center">{{data.material_name}}</td>
+          <td colspan="" style="text-align: center">{{data.created_at}}</td>
         </tr>
         <tr>
-          <td colspan="3"  style="text-align: center ; background-color: yellow; font-weight: bolder">Total</td>
-          <td colspan="3"  style="text-align: center ; background-color: yellow; font-weight: bolder">Gold Return</td>
-          <td colspan="3"  style="text-align: right ; background-color: yellow; font-weight: bolder">{{panSubmitList.total_material.toFixed(3)}}</td>
+          <td colspan=""  style="text-align: center ; background-color: yellow; font-weight: bolder">Total</td>
+          <td colspan=""  style="text-align: center ; background-color: yellow; font-weight: bolder">Gold Return</td>
+          <td colspan=""  style="text-align: right ; background-color: yellow; font-weight: bolder">{{panSubmitList.total_material.toFixed(3)}}</td>
         </tr>
         </tbody>
       </table>

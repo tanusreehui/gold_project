@@ -14,9 +14,10 @@ class JobDetailController extends Controller
      */
     public function getJobDetailsByJobAndMaterial($jobMasterId, $materialId)
     {
-        $record = JobDetail::select('job_details.id','job_tasks.task_name','people.user_name','job_details.created_at','job_details.material_quantity')
+        $record = JobDetail::select('job_details.id','job_tasks.task_name','people.user_name','materials.material_name','job_details.created_at','job_details.material_quantity')
             ->join('people','people.id','job_details.employee_id')
             ->join('job_tasks','job_tasks.id','job_details.job_task_id')
+            ->join('materials','materials.id','job_details.material_id')
             ->where('job_details.job_master_id','=',$jobMasterId)
             ->where('job_details.material_id','=',$materialId)
             ->get();
