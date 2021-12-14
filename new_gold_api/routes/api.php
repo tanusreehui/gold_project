@@ -225,6 +225,12 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
 });
 
+Route::group(array('prefix' => 'dev'), function() {
+    Route::get('/getEmployees',[UserController::class,'getEmployees']);
+    Route::get('/testJob/{id}', [JobMasterController::class,'getJobs']);
+    Route::get('/testJobs', [User::class,'getJobs']);
+});
+
 
 //Route::group(array('prefix' => 'dev'), function() {
 //
