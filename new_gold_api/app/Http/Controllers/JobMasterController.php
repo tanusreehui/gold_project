@@ -12,6 +12,12 @@ use App\Models\CustomVoucher;
 
 class JobMasterController extends Controller
 {
+    public function getJobs($id){
+        $data = JobMaster::select()->where('job_number',$id)->first();
+        return response()->json(['success'=>1,'data'=> $data], 200);
+    }
+
+
     public function saveJob(Request $request)
     {
         $input=($request->json()->all());
