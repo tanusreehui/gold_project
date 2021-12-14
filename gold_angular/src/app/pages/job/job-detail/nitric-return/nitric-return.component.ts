@@ -20,33 +20,44 @@ export class NitricReturnComponent implements OnInit {
   jobTaskForm: FormGroup;
   savedJobsData: JobMaster[];
   oneJobData: JobMaster;
-  materialData: Material[];
+  materialList: Material[];
   returnMaterial: string;
   public currentError: any;
   showJobTaskData = false;
   jobTaskData: JobDetail[];
   total: number;
+  currentJob: JobMaster;
+  currentMaterial: Material;
+  returnNitricList: { record: any[]; total_material: number };
 
-  constructor(private jobTaskService: JobTaskService, private router: ActivatedRoute, private _snackBar: MatSnackBar, private billService: BillService) { }
+  constructor(private jobTaskService: JobTaskService, private router: ActivatedRoute, private _snackBar: MatSnackBar, private billService: BillService) {
+    this.currentJob = this.jobTaskService.getCurrentJob();
+  }
 
   ngOnInit(): void {
     this.total = 0;
+    this.materialList = this.jobTaskService.getMaterials();
+    this.jobTaskService.getMaterialDataUpdateListener().subscribe(response => {
+      this.materialList = response;
+    });
+
+    this.jobTaskService.getCurrentJobUpdateListener().subscribe(response => {
+      this.currentJob = response;
+    });
+
     this.jobTaskForm = this.jobTaskService.jobTaskForm;
-    this.savedJobsData = this.jobTaskService.getAllJobList();
-    this.router.parent.params.subscribe(params => {
-      this.jobMasterId = parseInt(params.id);
-    });
-    const index = this.savedJobsData.findIndex(x => x.id === this.jobMasterId);
-    this.oneJobData = this.savedJobsData[index];
-    this.jobTaskService.getMaterialDataUpdateListener().subscribe((response) => {
-      this.materialData = response;
-    });
-    this.materialData = this.jobTaskService.getMaterials();
-    const matIndex = this.materialData.findIndex(x => x.main_material_id === this.oneJobData.material_id);
-    // this.jobTaskForm.patchValue({material_name: this.materialData[matIndex].material_name});
-    this.returnMaterial = this.materialData[matIndex].material_name;
-    this.jobTaskService.getJobTaskDataUpdateListener().subscribe((response) => {
-      this.jobTaskData = response;
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    // index of return gold
+    const matIndex = this.materialList.findIndex(x => x.id === 7);
+    // return material name
+    this.currentMaterial = this.materialList[matIndex];
+    this.jobTaskForm.patchValue({
+      job_Task_id: 7,
+      material_id: this.currentMaterial.id,
+      id: this.currentJob.id,
+      // size: this.currentJob.size,
+      employee_id: user.id
     });
   }
 
@@ -63,38 +74,23 @@ export class NitricReturnComponent implements OnInit {
         duration: 4000, data: {message: 'Please enter quantity before submit'}
       });
     }else {
-      this.router.parent.params.subscribe(params => {
-        this.jobMasterId = parseInt(params.id);
-      });
-      this.savedJobsData = this.jobTaskService.getAllJobList();
-      const index = this.savedJobsData.findIndex(x => x.id === this.jobMasterId);
-      this.oneJobData = this.savedJobsData[index];
-      this.jobTaskService.getMaterialDataUpdateListener().subscribe((response) => {
-        this.materialData = response;
-      });
-      const matIndex = this.materialData.findIndex(x => x.main_material_id === this.oneJobData.material_id);
-
-      const user = JSON.parse(localStorage.getItem('user'));
-      this.jobTaskForm.patchValue({
-        job_Task_id: 7,
-        material_id: 7,
-        id: this.jobMasterId,
-        size: this.oneJobData.size,
-        employee_id: user.id
-      });
+      // making return as negative
+      const NitricReturnQuantity = parseFloat(this.jobTaskForm.value.return_quantity);
       this.jobTaskForm.value.return_quantity = -this.jobTaskForm.value.return_quantity;
+      // saving data to jobDetails
       this.jobTaskService.saveJobDetail().subscribe((response) => {
         if (response.success === 1) {
+          this.jobTaskService.updateNitricReturn(NitricReturnQuantity);
+          // updating Badge count after saving data
+          this.jobTaskService.incrementJobBadgesNitricReturnCount();
+          this.jobTaskService.getJobDetailsByJobAndMaterial(this.currentJob.id, this.currentMaterial.id)
+            // tslint:disable-next-line:no-shadowed-variable
+            .subscribe((response: {success: number, data: {record: any[], total_material: number}}) => {
+              this.returnNitricList = response.data;
+              this.showJobTaskData = true;
+            });
           this._snackBar.openFromComponent(SncakBarComponent, {
-            duration: 4000, data: {message: 'Nitric Returned'}
-          });
-          this.total = this.total + Math.abs(parseFloat(this.jobTaskForm.value.return_quantity));
-          this.jobTaskService.getTotal().subscribe();
-
-          this.billService.getTotalGoldQuantity(this.oneJobData.id).subscribe();
-
-          this.jobTaskService.jobTaskData().subscribe((response) => {
-            this.jobTaskData = response.data;
+            duration: 4000, data: {message: 'Dal Returned'}
           });
           this.jobTaskForm.controls.return_quantity.reset();
         }
@@ -107,24 +103,12 @@ export class NitricReturnComponent implements OnInit {
       });
     }
   }
-  getTotal(){
-    this.total = 0;
-    this.showJobTaskData = true;
-    this.router.parent.params.subscribe(params => {
-      this.jobMasterId = params.id;
-    });
-    this.savedJobsData = this.jobTaskService.getAllJobList();
-    const index = this.savedJobsData.findIndex(x => x.id === this.jobMasterId);
-    this.oneJobData = this.savedJobsData[index];
-    const user = JSON.parse(localStorage.getItem('user'));
+  getNitricReturnDetail() {
     // tslint:disable-next-line:max-line-length
-    this.jobTaskForm.patchValue({ job_Task_id: 7, material_id: this.oneJobData.material_id, id: this.jobMasterId, size: this.oneJobData.size, employee_id: user.id });
-    this.jobTaskService.jobTaskData().subscribe((response) => {
-      this.jobTaskData = response.data;
-      // tslint:disable-next-line:prefer-for-of
-      for (let i = 0; i < this.jobTaskData.length; i++){
-        this.total = this.total + this.jobTaskData[i].material_quantity;
-      }
-    });
+    this.jobTaskService.getJobDetailsByJobAndMaterial(this.currentJob.id, this.currentMaterial.id)
+      .subscribe((response: {success: number, data: {record: any[], total_material: number}}) => {
+        this.returnNitricList = response.data;
+        this.showJobTaskData = true;
+      });
   }
 }

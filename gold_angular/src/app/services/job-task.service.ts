@@ -466,6 +466,12 @@ export class JobTaskService implements OnDestroy{
     this.jobBadges.dalReturnBadge += 1;
     this.jobBadgesSubject.next({...this.jobBadges});
   }
+  incrementJobBadgesNitricReturnCount(){
+    this.jobBadges.nitricReturnBadge += 1;
+    this.jobBadgesSubject.next({...this.jobBadges});
+  }
+
+
 
 
   // jobTaskData(task_id) {
@@ -567,6 +573,14 @@ export class JobTaskService implements OnDestroy{
   }
   updateDalReturn(materialWeight: number) {
     this.jobDetailSummarised.dalReturn += materialWeight;
+    this.jobDetailSummarisedSubject.next({...this.jobDetailSummarised});
+  }
+  updateGoldSubmit(materialWeight: number) {
+    this.jobDetailSummarised.goldSend += materialWeight;
+    this.jobDetailSummarisedSubject.next({...this.jobDetailSummarised});
+  }
+  updateNitricReturn(materialWeight: number) {
+    this.jobDetailSummarised.nitricReturn += materialWeight;
     this.jobDetailSummarisedSubject.next({...this.jobDetailSummarised});
   }
 }
