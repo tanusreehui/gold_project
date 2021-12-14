@@ -16,12 +16,12 @@ export class DalSubmitResolver implements Resolve<boolean> {
 
   }
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | boolean {
-    const a = this.jobTaskService.getCurrentJobData(route.params.id);
-    const b = this.jobTaskService.fetchAllMaterials();
-    const join = forkJoin(a, b).pipe(map((allResponses) => {
+    // const a = this.jobTaskService.getCurrentJobData(route.params.id);
+    // const b = this.jobTaskService.fetchAllMaterials();
+    const join = forkJoin().pipe(map((allResponses) => {
       return {
-        currentJob: allResponses[0],
-        materials: allResponses[1]
+        // currentJob: allResponses[0]
+        // materials: allResponses[1]
       };
     }));
 

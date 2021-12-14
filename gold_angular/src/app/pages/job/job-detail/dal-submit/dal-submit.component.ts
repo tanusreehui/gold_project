@@ -15,10 +15,8 @@ import {Material} from '../../../../models/material.model';
   styleUrls: ['./dal-submit.component.scss']
 })
 export class DalSubmitComponent implements OnInit {
-
-  jobMasterId: number;
   currentJob: JobMaster;
-  materialData: Material[];
+  materialList: Material[];
   returnMaterial: Material;
 
   jobTaskForm: FormGroup;
@@ -29,54 +27,53 @@ export class DalSubmitComponent implements OnInit {
   jobTaskData: JobDetail[];
   total: number;
   dalSubmitList: { record: any[]; total_material: number };
+  showDeveloperDiv = true;
 
   // tslint:disable-next-line:max-line-length
   constructor(private activatedRoute: ActivatedRoute
               , private jobTaskService: JobTaskService
               , private router: ActivatedRoute
               , private _snackBar: MatSnackBar) {
+    this.currentJob = this.jobTaskService.getCurrentJob();
     this.activatedRoute.data.subscribe((response: any) => {
-      this.currentJob = response.dalSubmit.currentJob.data;
-      this.jobMasterId = this.currentJob.id;
+      // this.currentJob = response.dalSubmit.currentJob.data;
+
       // this.materialData = response.dalSubmit.materials.data;
-      this.materialData = this.jobTaskService.getMaterials();
+      // this.materialData = this.jobTaskService.getMaterials();
       // tslint:disable-next-line:no-shadowed-variable
-      this.jobTaskService.getMaterialDataUpdateListener().subscribe(response => {
-        this.materialData = response;
-      });
 
-      this.jobTaskForm = this.jobTaskService.jobTaskForm;
-      const user = JSON.parse(localStorage.getItem('user'));
 
-      // index of return gold
-      const matIndex = this.materialData.findIndex(x => x.id === 6);
-      // return material name
-      this.returnMaterial = this.materialData[matIndex];
-      this.jobTaskForm.patchValue({
-        job_Task_id: 3,
-        material_id: 6,
-        id: this.jobMasterId,
-        // size: this.currentJob.size,
-        employee_id: user.id
-      });
+
 
     });
   } // end of constructor
 
   ngOnInit(): void {
     this.total = 0;
-    // this.jobTaskForm = this.jobTaskService.jobTaskForm;
-    // this.router.parent.params.subscribe(params => {
-    //   // tslint:disable-next-line:radix
-    //   this.jobMasterId = parseInt(params.id);
-    // });
-    // this.savedJobsData = this.jobTaskService.getAllJobList();
-    // const index = this.savedJobsData.findIndex(x => x.id === this.jobMasterId);
-    // this.oneJobData = this.savedJobsData[index];
-    // // this.jobTaskForm.patchValue({material_name: this.oneJobData.material_name});
-    // this.jobTaskService.getJobTaskDataUpdateListener().subscribe((response) => {
-    //   this.jobTaskData = response;
-    // });
+
+    this.materialList = this.jobTaskService.getMaterials();
+    this.jobTaskService.getMaterialDataUpdateListener().subscribe(response => {
+      this.materialList = response;
+    });
+
+    this.jobTaskService.getCurrentJobUpdateListener().subscribe(response => {
+      this.currentJob = response;
+    });
+
+    this.jobTaskForm = this.jobTaskService.jobTaskForm;
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    // index of return gold
+    const matIndex = this.materialList.findIndex(x => x.id === 6);
+    // return material name
+    this.returnMaterial = this.materialList[matIndex];
+    this.jobTaskForm.patchValue({
+      job_Task_id: 3,
+      material_id: 6,
+      id: this.currentJob.id,
+      // size: this.currentJob.size,
+      employee_id: user.id
+    });
   }
 
   material_quantity_decimal(){
@@ -107,9 +104,9 @@ export class DalSubmitComponent implements OnInit {
               this.showJobTaskData = true;
             });
           this._snackBar.openFromComponent(SncakBarComponent, {
-            duration: 4000, data: {message: 'Gold Returned'}
+            duration: 4000, data: {message: 'Dal Submitted'}
           });
-          this.total = this.total + Math.abs(parseFloat(this.jobTaskForm.value.return_quantity));
+          // this.total = this.total + Math.abs(parseFloat(this.jobTaskForm.value.return_quantity));
           this.jobTaskForm.controls.return_quantity.reset();
         }
         this.currentError = null;

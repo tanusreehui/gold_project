@@ -34,6 +34,7 @@ export class JobTaskService implements OnDestroy{
   jobReturnData: JobDetail;
   totalData: JobDetail[];
   jobTransactionData: JobDetail[];
+  currentJob: JobMaster;
 
   // btnControl: boolean;
   btnControl = false;
@@ -55,6 +56,7 @@ export class JobTaskService implements OnDestroy{
   bronzeSendBadge = 0;
   nitricRetBadge = 0;
 
+  private currentJobsSub = new Subject<JobMaster>();
   private savedJobsSub = new Subject<JobMaster[]>();
   private materialDataSub = new Subject<Material[]>();
   private getJobTaskDataSub = new Subject<JobDetail[]>();
@@ -66,7 +68,7 @@ export class JobTaskService implements OnDestroy{
   private badgeValueSub = new Subject<any>();
   private btnControlSub: Subject<boolean> = new Subject<boolean>();
 
-  public jobDetailSummarised: JobSummarisedModel = {goldSend:0, goldReturn:0, dalSubmit:0, dalReturn: 0, panSubmit:0, panReturn:0, nitricReturn: 0, bronzeSubmit:0, bronzeReturn:0 };
+  public jobDetailSummarised: JobSummarisedModel = {goldSend: 0, goldReturn: 0, dalSubmit: 0, dalReturn: 0, panSubmit: 0, panReturn:0, nitricReturn: 0, bronzeSubmit: 0, bronzeReturn: 0 };
   private jobDetailSummarisedSubject = new Subject<JobSummarisedModel>();
 
   public jobBadges: JobBadgeModel = {finishBadge: 0
@@ -79,8 +81,13 @@ export class JobTaskService implements OnDestroy{
                                       , bronzeSendBadge: 0
                                       , nitricReturnBadge: 0};
   private jobBadgesSubject = new Subject<JobBadgeModel>();
-  currentJob: JobMaster;
 
+  getCurrentJob(){
+    return {...this.currentJob};
+  }
+  getCurrentJobUpdateListener(){
+    return this.currentJobsSub.asObservable();
+  }
   getJobDetailSummarisation(){
       return {...this.jobDetailSummarised};
   }

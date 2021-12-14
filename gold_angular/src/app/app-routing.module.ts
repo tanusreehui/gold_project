@@ -81,7 +81,7 @@ const routes: Routes = [
       {path: '', component: JobTransactionComponent},
       {path: 'goldSubmit', component: GoldSubmitComponent},
       {path: 'goldReturn/:id', component: GoldReturnComponent, resolve: {goldReturn: GoldReturnResolver}},
-      {path: 'dalSubmit/:id', component: DalSubmitComponent, resolve: {dalSubmit: DalSubmitResolver}},
+      {path: 'dalSubmit/:id', component: DalSubmitComponent},
       {path: 'dalReturn', component: DalReturnComponent},
       {path: 'panSubmit', component: PanSubmitComponent},
       {path: 'panReturn', component: PanReturnComponent},

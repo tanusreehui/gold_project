@@ -83,26 +83,9 @@ export class JobDetailComponent implements OnInit {
     });
 
     this.route.data.subscribe((response: any) => {
-      console.log(response.jobDetail);
-     // console.log("Response is: ", response.jobDetail);
-      // console.log('Printing from Saved Jobs: ',response.jobDetail.jobTask.savedJobs.data);
-      // console.log('Second Call : ',response.jobDetail[1].karigarhs.data);
-      // console.log('Third Call : ',response.jobDetail[2].agents.data);
-      // console.log('orderMaterials : ',response.jobDetail[2].orderMaterials.data);
-      // console.log('orderMasters : ',response.jobDetail[2].orderMasters.data);
-      // // console.log('completedBill : ',response.jobDetail[3].completedBill.data);
-
-      // this.savedJobsData = response.jobDetail.jobTask.savedJobs.data;
-
       this.karigarhData = response.jobDetail.karigarhs.data;
       this.materialList = response.jobDetail.materials.data;
       this.currentJobData = response.jobDetail.currentJob.data;
-
-      // this.jobTaskService.getJobSummarisationUpdateListener().subscribe((response: any) => {
-      //   this.jobDetailSummarised=response;
-      // });
-
-
 
       this.jobTaskForm = this.jobTaskService.jobTaskForm;
       // console.log('check ', response.jobDetail.currentJob.data);
@@ -132,15 +115,16 @@ export class JobDetailComponent implements OnInit {
         //     }
         //   }
         // });
-        this.jobTaskService.getTotalDataUpdateListener().subscribe((response) => {
+        // tslint:disable-next-line:no-shadowed-variable
+        this.jobTaskService.getTotalDataUpdateListener().subscribe(response => {
           this.totalData = response;
           for (let i = 1; i <= 8; i ++){
+            // tslint:disable-next-line:no-shadowed-variable
             const index = this.totalData.findIndex(x => x.id === i);
-            if (index >= 0)
-            {
+            if (index >= 0) {
+
               this.tempTotalData[i - 1] = this.totalData[index].total;
-            }
-            else{
+            } else {
               this.tempTotalData[i - 1] = 0;
             }
           }

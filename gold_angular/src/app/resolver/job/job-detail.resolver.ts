@@ -24,7 +24,6 @@ export class JobDetailResolver implements Resolve<any> {
   ){
   }
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | boolean {
-    console.log(route.params.id);
     // const a = this.jobTaskService.getAll();
     const b = this.jobService.fetchKarigarhs();
     const c = this.jobTaskService.getCurrentJobData(route.params.id);
