@@ -18,7 +18,6 @@ export class JobResolver implements Resolve<boolean> {
     console.log('resolver created for Job');
   }
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-    console.log('Job detail resolver working');
     const a = this.jobService.getAll().pipe(
       catchError(error => {
         return of(false);

@@ -107,7 +107,8 @@ export class JobService {
       // karigarhs:  this.http.get<any>(GlobalVariable.BASE_API_URL + '/karigarhs')
     }).pipe(catchError(this._serverError), tap(((response: any) => {
       this.karigarhData = response.karigarhs.data;
-    })));;
+      this.karigarhSub.next([...this.karigarhData]);
+    })));
   }
 
   getAllKarigarhs(){
