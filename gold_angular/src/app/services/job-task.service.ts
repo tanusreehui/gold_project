@@ -79,6 +79,7 @@ export class JobTaskService implements OnDestroy{
                                       , bronzeSendBadge: 0
                                       , nitricReturnBadge: 0};
   private jobBadgesSubject = new Subject<JobBadgeModel>();
+  currentJob: JobMaster;
 
   getJobDetailSummarisation(){
       return {...this.jobDetailSummarised};
@@ -495,7 +496,8 @@ export class JobTaskService implements OnDestroy{
     getCurrentJobData(data){
       return this.http.get(GlobalVariable.BASE_API_URL + '/getOneJobData/' + data )
         .pipe(catchError(this._serverError), tap(((response: { success: number, data: JobMaster}) => {
-          // this.oneJobData = response.data;
+          console.log('Current Job', response.data);
+          this.currentJob = response.data;
         })));
     }
 

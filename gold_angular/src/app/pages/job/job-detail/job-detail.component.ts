@@ -95,8 +95,8 @@ export class JobDetailComponent implements OnInit {
       // this.savedJobsData = response.jobDetail.jobTask.savedJobs.data;
 
       this.karigarhData = response.jobDetail.karigarhs.data;
-
       this.materialList = response.jobDetail.materials.data;
+      this.currentJobData = response.jobDetail.currentJob.data;
 
       // this.jobTaskService.getJobSummarisationUpdateListener().subscribe((response: any) => {
       //   this.jobDetailSummarised=response;
@@ -106,7 +106,6 @@ export class JobDetailComponent implements OnInit {
 
       this.jobTaskForm = this.jobTaskService.jobTaskForm;
       // console.log('check ', response.jobDetail.currentJob.data);
-      this.currentJobData = response.jobDetail.currentJob.data;
       // this.jobTaskForm.patchValue({id: this.currentJobData.id});
       this.job_number = this.currentJobData.job_number;
       const index = this.materialList.findIndex(x => x.id === this.currentJobData.material_id);
