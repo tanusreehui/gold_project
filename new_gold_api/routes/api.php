@@ -117,6 +117,9 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post('/saveReturn', [JobTaskController::class,'saveReturn']);
 
     Route::post('/getJobTaskData', [JobTaskController::class,'getJobTaskData']);
+    Route::get('/jobSummarizationForBill/{id}', [JobMasterController::class,'getJobSummaryByIdForBill']);
+
+
 
     Route::get('/getJobTaskData/{jobTaskId}/jobMaster/{jobMasterId}', [JobTaskController::class,'getJobTaskDataByJobTaskIdAndJobMasterId']);
 

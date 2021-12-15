@@ -233,70 +233,118 @@ class JobMasterController extends Controller
         return response()->json(['success'=>1,'data'=>$result3,'data2'=>$result4], 200,[],JSON_NUMERIC_CHECK);
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function getJobSummaryByIdForBill($jobMasterId)
     {
-        //
+
+        $gold_send_records=JobDetail::select('materials.material_name'
+            , 'people.user_name'
+            , 'job_tasks.task_name'
+            , 'job_details.material_quantity'
+            , DB::raw('materials.bill_percentage * 100 as bill_percentage')
+            , DB::raw('job_details.material_quantity * materials.bill_percentage as bill_quantity')
+            )
+            ->whereJobMasterIdAndJobTaskId($jobMasterId,1)
+            ->join('materials','job_details.material_id','=','materials.id')
+            ->join('people','job_details.employee_id','=','people.id')
+            ->join('job_tasks','job_details.job_task_id','=','job_tasks.id')
+            ->get();
+        $gold_send['records'] = $gold_send_records;
+
+        $gold_send_actual=JobDetail::whereJobMasterIdAndJobTaskId($jobMasterId,1)
+            ->sum('job_details.material_quantity');
+        $gold_send['actual_total'] = $gold_send_actual;
+
+
+        $gold_send_billed=JobDetail::whereJobMasterIdAndJobTaskId($jobMasterId,1)
+            ->join('materials','job_details.material_id','=','materials.id')
+            ->sum(DB::raw('job_details.material_quantity * materials.bill_percentage'));
+        $gold_send['bill_total'] = $gold_send_billed;
+
+        $results['gold_send'] = $gold_send;
+        /* GoOLD SEND COMPLETED */
+
+        $gold_return_records=JobDetail::select('materials.material_name'
+            , 'people.user_name'
+            , 'job_tasks.task_name'
+            , 'job_details.material_quantity'
+            , DB::raw('materials.bill_percentage * 100 as bill_percentage')
+            , DB::raw('job_details.material_quantity * materials.bill_percentage as bill_quantity')
+        )
+            ->whereJobMasterIdAndJobTaskId($jobMasterId,2)
+            ->join('materials','job_details.material_id','=','materials.id')
+            ->join('people','job_details.employee_id','=','people.id')
+            ->join('job_tasks','job_details.job_task_id','=','job_tasks.id')
+            ->get();
+
+        $gold_return['records'] = $gold_return_records;
+
+        $gold_return_actual=JobDetail::whereJobMasterIdAndJobTaskId($jobMasterId,2)
+            ->sum('job_details.material_quantity');
+        $gold_return['actual_total'] = round($gold_return_actual,3);
+
+        $gold_return_billed=JobDetail::whereJobMasterIdAndJobTaskId($jobMasterId,2)
+            ->join('materials','job_details.material_id','=','materials.id')
+            ->sum(DB::raw('job_details.material_quantity * materials.bill_percentage'));
+        $gold_return['bill_total'] = round($gold_return_billed,3);
+
+        $results['gold_return'] = $gold_return;
+        /* GoOLD RETURN COMPLETED */
+
+        $pan_send_records=JobDetail::select('materials.material_name'
+            , 'people.user_name'
+            , 'job_tasks.task_name'
+            , 'job_details.material_quantity'
+            , DB::raw('materials.bill_percentage * 100 as bill_percentage')
+            , DB::raw('round(job_details.material_quantity * materials.bill_percentage,3) as bill_quantity')
+        )
+            ->whereJobMasterIdAndJobTaskId($jobMasterId,5)
+            ->join('materials','job_details.material_id','=','materials.id')
+            ->join('people','job_details.employee_id','=','people.id')
+            ->join('job_tasks','job_details.job_task_id','=','job_tasks.id')
+            ->get();
+
+        $pan_send['records'] = $pan_send_records;
+
+        $pan_send_actual_total=JobDetail::whereJobMasterIdAndJobTaskId($jobMasterId,5)
+            ->sum('job_details.material_quantity');
+        $pan_send['actual_total'] = round($pan_send_actual_total,3);
+
+        $pan_send_billed=JobDetail::whereJobMasterIdAndJobTaskId($jobMasterId,5)
+            ->join('materials','job_details.material_id','=','materials.id')
+            ->sum(DB::raw('job_details.material_quantity * materials.bill_percentage'));
+        $pan_send['bill_total'] = round($pan_send_billed,3);
+
+        $results['pan_send'] = $pan_send;
+        /* PAN SEND COMPLETED */
+
+        $records=JobDetail::select('materials.material_name'
+            , 'people.user_name'
+            , 'job_tasks.task_name'
+            , 'job_details.material_quantity'
+            , DB::raw('materials.bill_percentage * 100 as bill_percentage')
+            , DB::raw('job_details.material_quantity * materials.bill_percentage as bill_quantity')
+        )
+            ->whereJobMasterIdAndJobTaskId($jobMasterId,6)
+            ->join('materials','job_details.material_id','=','materials.id')
+            ->join('people','job_details.employee_id','=','people.id')
+            ->join('job_tasks','job_details.job_task_id','=','job_tasks.id')
+            ->get();
+
+        $pan_return['records'] = $records;
+
+        $actual_total=JobDetail::whereJobMasterIdAndJobTaskId($jobMasterId,6)
+            ->sum('job_details.material_quantity');
+        $pan_return['actual_total'] = round($actual_total,3);
+
+        $bill_total=JobDetail::whereJobMasterIdAndJobTaskId($jobMasterId,6)
+            ->join('materials','job_details.material_id','=','materials.id')
+            ->sum(DB::raw('job_details.material_quantity * materials.bill_percentage'));
+        $pan_return['bill_total'] = round($bill_total,3);
+
+        $results['pan_return'] = $pan_return;
+
+
+        return response()->json(['success'=>1,'data'=>$results], 200,[],JSON_NUMERIC_CHECK);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\JobMaster  $jobMaster
-     * @return \Illuminate\Http\Response
-     */
-    public function show(JobMaster $jobMaster)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\JobMaster  $jobMaster
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(JobMaster $jobMaster)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\JobMaster  $jobMaster
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, JobMaster $jobMaster)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\JobMaster  $jobMaster
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(JobMaster $jobMaster)
-    {
-        //
-    }
 }
