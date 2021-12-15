@@ -59,7 +59,7 @@ const routes: Routes = [
   {path: 'owner', canActivate:  [AuthGuardService], component: OwnerComponent},
   {path: 'order', canActivate:  [AuthGuardService], component: OrderComponent},
   {path: 'job', canActivate:  [AuthGuardService], component: JobComponent, resolve: {job: JobResolver}},
-  {path: 'job/orderMaster/:orderNumber', canActivate:  [AuthGuardService], component: JobComponent},
+  {path: 'job/orderMaster/:orderNumber', canActivate:  [AuthGuardService], component: JobComponent, resolve: {job: JobResolver}},
 
   {path: 'job_task', canActivate : [AuthGuardService], component: JobTaskComponent,
     resolve: {jobTask: JobTaskResolver}
