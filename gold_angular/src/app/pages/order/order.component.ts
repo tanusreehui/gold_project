@@ -194,8 +194,9 @@ export class OrderComponent implements OnInit {
   }
 
   material_quantity_decimal(){
+    const inputLength = String(this.orderDetailsForm.value.approx_gold).length;
     const x = String(this.orderDetailsForm.value.approx_gold).split('.');
-    if (!x[1]){
+    if (!x[1] && inputLength > 3){
       this.orderDetailsForm.patchValue({approx_gold : Number(this.orderDetailsForm.value.approx_gold / 1000)});
     }
   }
