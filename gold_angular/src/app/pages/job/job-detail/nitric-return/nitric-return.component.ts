@@ -90,7 +90,7 @@ export class NitricReturnComponent implements OnInit {
               this.showJobTaskData = true;
             });
           this._snackBar.openFromComponent(SncakBarComponent, {
-            duration: 4000, data: {message: 'Dal Returned'}
+            duration: 4000, data: {message: 'Nitric Returned'}
           });
           this.jobTaskForm.controls.return_quantity.reset();
         }

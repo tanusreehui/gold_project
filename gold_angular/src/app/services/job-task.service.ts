@@ -521,6 +521,7 @@ export class JobTaskService implements OnDestroy{
       return this.http.get(GlobalVariable.BASE_API_URL + '/getOneJobData/' + data )
         .pipe(catchError(this._serverError), tap(((response: { success: number, data: JobMaster}) => {
           this.currentJob = response.data;
+          this.currentJobsSub.next({...this.currentJob});
         })));
     }
 
@@ -582,5 +583,12 @@ export class JobTaskService implements OnDestroy{
   updateNitricReturn(materialWeight: number) {
     this.jobDetailSummarised.nitricReturn += materialWeight;
     this.jobDetailSummarisedSubject.next({...this.jobDetailSummarised});
+  }
+
+  updateCurrentJobOnFinish(grossWeight: number) {
+    this.currentJob.status_id=100;
+    this.currentJob.gross_weight=grossWeight;
+    console.log('Current Job After Finish: ',this.currentJob);
+    this.currentJobsSub.next({...this.currentJob});
   }
 }

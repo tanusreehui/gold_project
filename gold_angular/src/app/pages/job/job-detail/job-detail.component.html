@@ -82,7 +82,7 @@
               </tr>
               <tr>
                 <td colspan="2" class="col-6"></td>
-                <td colspan="2" class="col-6">B. Wt. : XX</td>
+                <td colspan="2" class="col-6" [ngStyle]="isSelectedTask('finishJob')?{'color':'red'}: {'color':'blue'}">B. Wt. : {{currentJobData.gross_weight  | number : '1.3'}}</td>
               </tr>
               </tbody>
             </table>
@@ -151,7 +151,7 @@
               matBadgePosition="above before"
               [ngStyle]="selectedColor('goldReturn')"
               [disabled] ="isSelectedTask('goldReturn')"
-              [hidden]="currentJobData.status_id==100"
+              [hidden]="currentJobData.status_id >= 100"
               [routerLink]="['./goldReturn']"
               (click)="setSelectedTask('goldReturn')">Gold Return</button>
       <!--      Dal Return-->
@@ -161,7 +161,7 @@
               matBadgePosition="above before"
               [ngStyle]="selectedColor('dalSend')"
               [disabled] = "isSelectedTask('dalSend')"
-              [hidden]="currentJobData.status_id==100"
+              [hidden]="currentJobData.status_id >= 100"
               [routerLink]="['./dalSubmit']"
               (click)="setSelectedTask('dalSend')">Dal Submit</button>
       <!--      Bronze Submit-->
@@ -171,73 +171,74 @@
               matBadgePosition="above before"
               [ngStyle]="selectedColor('bronzeSend')"
               [disabled] = "isSelectedTask('bronzeSend')"
-              [hidden]="currentJobData.status_id==100"
+              [hidden]="currentJobData.status_id >= 100"
               [routerLink]="['./bronzeSubmit']"
               (click)="setSelectedTask('bronzeSend')">Bronze Submit</button>
-      <!--      Pan Submit-->
-      <button
-        mat-raised-button style="background-color: rgb(180, 190, 209)"
-        class="btn ml-2 mt-1 mb-1"
-        [matBadge] = "jobBadges.panSendBadge"
-        matBadgePosition="above before"
-        [ngStyle]="selectedColor('panSend')"
-        [disabled] = "isSelectedTask('panSend')"
-        [hidden]="currentJobData.status_id==100"
-        [routerLink]="['./panSubmit']"
-        (click)="setSelectedTask('panSend')">Pan Submit</button>
+              <!--      Pan Submit-->
+              <button
+                mat-raised-button style="background-color: rgb(180, 190, 209)"
+                class="btn ml-2 mt-1 mb-1"
+                [matBadge] = "jobBadges.panSendBadge"
+                matBadgePosition="above before"
+                [ngStyle]="selectedColor('panSend')"
+                [disabled] = "isSelectedTask('panSend')"
+                [hidden]="currentJobData.status_id >= 100"
+                [routerLink]="['./panSubmit']"
+                (click)="setSelectedTask('panSend')">Pan Submit</button>
 
-      <!--      Pan Return  -->
-      <button mat-raised-button
-              style="background-color: rgb(218, 202, 201)"
-              class="btn ml-2 mt-1 mb-1"
-              [matBadge] = "jobBadges.panReturnBadge"
-              matBadgePosition="above before"
-              [ngStyle]="selectedColor('panReturn')"
-              [disabled] = "isSelectedTask('panReturn')"
-              [hidden]="currentJobData.status_id==100"
-              [routerLink]="['./panReturn']"
-              (click)="setSelectedTask('panReturn')">Pan Return</button>
-      <!--      Dal Return-->
-      <button mat-raised-button
-              style="background-color: rgb(174, 175, 175)" class="btn ml-2 mt-1 mb-1"
-              [matBadge] = "jobBadges.dalReturnBadge"
-              matBadgePosition="above before"
-              [ngStyle]="selectedColor('dalReturn')"
-              [disabled] = "isSelectedTask('dalReturn')"
-              [hidden]="currentJobData.status_id==100"
-              [routerLink]="['./dalReturn']"
-              (click)="setSelectedTask('dalReturn')">Dal Return</button>
-      <!--      Gold Send-->
-      <button mat-raised-button
-              style="background-color: rgb(182, 155, 170)" class="btn ml-2 mt-1 mb-1"
-              [matBadge] = "jobBadges.goldSendBadge"
-              matBadgePosition="above before"
-              [ngStyle]="selectedColor('goldSend')"
-              [disabled] = "isSelectedTask('goldSend')"
-              [hidden]="currentJobData.status_id==100"
-              [routerLink]="['./goldSubmit']"
-              (click)="setSelectedTask('goldSend')">Gold Submit</button>
+              <!--      Pan Return  -->
+              <button mat-raised-button
+                      style="background-color: rgb(218, 202, 201)"
+                      class="btn ml-2 mt-1 mb-1"
+                      [matBadge] = "jobBadges.panReturnBadge"
+                      matBadgePosition="above before"
+                      [ngStyle]="selectedColor('panReturn')"
+                      [disabled] = "isSelectedTask('panReturn')"
+                      [hidden]="currentJobData.status_id >= 100"
+                      [routerLink]="['./panReturn']"
+                      (click)="setSelectedTask('panReturn')">Pan Return</button>
+              <!--      Dal Return-->
+              <button mat-raised-button
+                      style="background-color: rgb(174, 175, 175)" class="btn ml-2 mt-1 mb-1"
+                      [matBadge] = "jobBadges.dalReturnBadge"
+                      matBadgePosition="above before"
+                      [ngStyle]="selectedColor('dalReturn')"
+                      [disabled] = "isSelectedTask('dalReturn')"
+                      [hidden]="currentJobData.status_id >= 100"
+                      [routerLink]="['./dalReturn']"
+                      (click)="setSelectedTask('dalReturn')">Dal Return</button>
+              <!--      Gold Send-->
+              <button mat-raised-button
+                      style="background-color: rgb(182, 155, 170)" class="btn ml-2 mt-1 mb-1"
+                      [matBadge] = "jobBadges.goldSendBadge"
+                      matBadgePosition="above before"
+                      [ngStyle]="selectedColor('goldSend')"
+                      [disabled] = "isSelectedTask('goldSend')"
+                      [hidden]="currentJobData.status_id >= 100"
+                      [routerLink]="['./goldSubmit']"
+                      (click)="setSelectedTask('goldSend')">Gold Submit</button>
 
-      <!--      Nitric Return-->
-      <button mat-raised-button
-              style="background-color: rgb(163, 211, 205)" class="btn ml-2 mt-1 mb-1"
-              [matBadge] = "jobBadges.nitricReturnBadge"
-              matBadgePosition="above before"
-              [ngStyle]="selectedColor('nitricReturn')"
-              [disabled] = "isSelectedTask('nitricReturn')"
-              [hidden]="currentJobData.status_id==100"
-              [routerLink]="['./nitricReturn']"
-              (click)="setSelectedTask('nitricReturn')">Nitric Return</button>
+              <!--      Nitric Return-->
+              <button mat-raised-button
+                      style="background-color: rgb(163, 211, 205)" class="btn ml-2 mt-1 mb-1"
+                      [matBadge] = "jobBadges.nitricReturnBadge"
+                      matBadgePosition="above before"
+                      [ngStyle]="selectedColor('nitricReturn')"
+                      [disabled] = "isSelectedTask('nitricReturn')"
+                      [hidden]="currentJobData.status_id >= 100"
+                      [routerLink]="['./nitricReturn']"
+                      (click)="setSelectedTask('nitricReturn')">Nitric Return</button>
 
-      <!--      Finish-->
-      <button mat-raised-button
-              class="btn btn-light ml-2 mt-1 mb-1"
-              [matBadge]="finishBadgeValue"
-              matBadgePosition="above before"
-              [ngStyle]="selectedColor('finishJob')"
-              [disabled] = this.btnControl
-              [hidden]="currentJobData.status_id==100"
-              [routerLink]="['./job_finish']">Finish</button>
+              <!--      Finish-->
+              <button mat-raised-button
+                      class="btn btn-light ml-2 mt-1 mb-1"
+                      [matBadge]="finishBadgeValue"
+                      matBadgePosition="above before"
+                      [ngStyle]="selectedColor('finishJob')"
+                      [disabled] = "jobBadges.nitricReturnBadge == 0"
+                      [hidden]="currentJobData.status_id >= 100"
+                      [routerLink]="['./job_finish']"
+                      (click)="setSelectedTask('finishJob')">Finish</button>
     </div>
 <!--    this is used to change the detail button look-->
     <div class="example-button-row">

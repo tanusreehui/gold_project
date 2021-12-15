@@ -32,7 +32,7 @@ export class FinishJobComponent implements OnInit {
     }
   }
 
-  onSubmit(){
+  saveFinishJob(){
     if (this.jobMasterForm.value.gross_weight == null){
       this._snackBar.openFromComponent(SncakBarComponent, {
         duration: 4000, data: {message: 'Enter gross weight before save'}
@@ -51,16 +51,17 @@ export class FinishJobComponent implements OnInit {
                  this.id = params.id;
                  this.jobMasterForm.patchValue({id: this.id});
                });
-
+               const grossWeight = parseFloat(this.jobMasterForm.value.gross_weight);
                this.jobService.finishJob().subscribe((response) => {
 
                  if (response.data) {
-                   this.jobTaskService.getTotal().subscribe();
-                   this.jobService.getSavedJobsUpdateListener().subscribe();
-                   this.jobService.getFinishedJobsUpdateListener().subscribe();
-                   this.billService.getFinishedJobsCustomers();
+                   this.jobTaskService.updateCurrentJobOnFinish(grossWeight);
+                   // this.jobTaskService.getTotal().subscribe();
+                   // this.jobService.getSavedJobsUpdateListener().subscribe();
+                   // this.jobService.getFinishedJobsUpdateListener().subscribe();
+                   // this.billService.getFinishedJobsCustomers();
                    // this.stockService.getUpdatedStockRecord();
-                   this.stockService.getUpdatedStockList();
+                   // this.stockService.getUpdatedStockList();
                    // this.jobTaskService.getOneJobData(this.id).subscribe((response) => {
                    // });
                    this.jobTaskService.getCurrentJobData(this.id).subscribe();
@@ -69,8 +70,8 @@ export class FinishJobComponent implements OnInit {
                      'The job has been finished',
                      'success'
                    );
-                   this.jobTaskService.resolve(true);
-                   this.isSubmitEnabled = false;
+                   // this.jobTaskService.resolve(true);
+                   // this.isSubmitEnabled = false;
                    this.jobMasterForm.controls.gross_weight.reset();
                  }
                }, (error) => {

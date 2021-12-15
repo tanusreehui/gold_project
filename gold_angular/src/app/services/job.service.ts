@@ -174,13 +174,13 @@ export class JobService {
     return this.http.post<JobResponseData>( GlobalVariable.BASE_API_URL + '/finishJob', {master: this.jobMasterForm.value})
       .pipe(catchError(this._serverError), tap(((response: {success: number, data: JobMaster}) => {
         if(response.data){
-          let index = this.savedJobsList.findIndex(x=> x.id === response.data.id);
-          this.savedJobsList[index].status_id = response.data.status_id;
-          this.finishedJobsList.unshift(this.savedJobsList[index]);
-          this.savedJobsList.splice(index,1);
+          // let index = this.savedJobsList.findIndex(x=> x.id === response.data.id);
+          // this.savedJobsList[index].status_id = response.data.status_id;
+          // this.finishedJobsList.unshift(this.savedJobsList[index]);
+          // this.savedJobsList.splice(index,1);
 
-          this.finishedJobsSub.next([...this.finishedJobsList]);
-          this.savedJobsSub.next([...this.savedJobsList]);
+          // this.finishedJobsSub.next([...this.finishedJobsList]);
+          // this.savedJobsSub.next([...this.savedJobsList]);
         }
       })));
   }
