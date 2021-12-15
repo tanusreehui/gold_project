@@ -342,6 +342,122 @@ class JobMasterController extends Controller
         $pan_return['bill_total'] = round($bill_total,3);
 
         $results['pan_return'] = $pan_return;
+        /* PAN RETURN COMPLETED */
+
+
+
+        $records=JobDetail::select('materials.material_name'
+            , 'people.user_name'
+            , 'job_tasks.task_name'
+            , 'job_details.material_quantity'
+            , DB::raw('materials.bill_percentage * 100 as bill_percentage')
+            , DB::raw('job_details.material_quantity * materials.bill_percentage as bill_quantity')
+        )
+            ->whereJobMasterIdAndJobTaskId($jobMasterId,7)
+            ->join('materials','job_details.material_id','=','materials.id')
+            ->join('people','job_details.employee_id','=','people.id')
+            ->join('job_tasks','job_details.job_task_id','=','job_tasks.id')
+            ->get();
+
+        $nitric_submit['records'] = $records;
+
+        $actual_total=JobDetail::whereJobMasterIdAndJobTaskId($jobMasterId,7)
+            ->sum('job_details.material_quantity');
+        $nitric_submit['actual_total'] = round($actual_total,3);
+
+        $bill_total=JobDetail::whereJobMasterIdAndJobTaskId($jobMasterId,7)
+            ->join('materials','job_details.material_id','=','materials.id')
+            ->sum(DB::raw('job_details.material_quantity * materials.bill_percentage'));
+        $nitric_submit['bill_total'] = round($bill_total,3);
+
+        $results['nitric_return'] = $nitric_submit;
+        /* NITRIC RETURN COMPLETED */
+
+
+        $records=JobDetail::select('materials.material_name'
+            , 'people.user_name'
+            , 'job_tasks.task_name'
+            , 'job_details.material_quantity'
+            , DB::raw('materials.bill_percentage * 100 as bill_percentage')
+            , DB::raw('job_details.material_quantity * materials.bill_percentage as bill_quantity')
+        )
+            ->whereJobMasterIdAndJobTaskId($jobMasterId,3)
+            ->join('materials','job_details.material_id','=','materials.id')
+            ->join('people','job_details.employee_id','=','people.id')
+            ->join('job_tasks','job_details.job_task_id','=','job_tasks.id')
+            ->get();
+
+        $dal_submit['records'] = $records;
+
+        $actual_total=JobDetail::whereJobMasterIdAndJobTaskId($jobMasterId,3)
+            ->sum('job_details.material_quantity');
+        $dal_submit['actual_total'] = round($actual_total,3);
+
+        $bill_total=JobDetail::whereJobMasterIdAndJobTaskId($jobMasterId,3)
+            ->join('materials','job_details.material_id','=','materials.id')
+            ->sum(DB::raw('job_details.material_quantity * materials.bill_percentage'));
+        $dal_submit['bill_total'] = round($bill_total,3);
+
+        $results['dal_submit'] = $dal_submit;
+        /* DAL SUBMIT COMPLETED */
+
+        $records=JobDetail::select('materials.material_name'
+            , 'people.user_name'
+            , 'job_tasks.task_name'
+            , 'job_details.material_quantity'
+            , DB::raw('materials.bill_percentage * 100 as bill_percentage')
+            , DB::raw('job_details.material_quantity * materials.bill_percentage as bill_quantity')
+        )
+            ->whereJobMasterIdAndJobTaskId($jobMasterId,4)
+            ->join('materials','job_details.material_id','=','materials.id')
+            ->join('people','job_details.employee_id','=','people.id')
+            ->join('job_tasks','job_details.job_task_id','=','job_tasks.id')
+            ->get();
+
+        $dal_return['records'] = $records;
+
+        $actual_total=JobDetail::whereJobMasterIdAndJobTaskId($jobMasterId,4)
+            ->sum('job_details.material_quantity');
+        $dal_return['actual_total'] = round($actual_total,3);
+
+        $bill_total=JobDetail::whereJobMasterIdAndJobTaskId($jobMasterId,4)
+            ->join('materials','job_details.material_id','=','materials.id')
+            ->sum(DB::raw('job_details.material_quantity * materials.bill_percentage'));
+        $dal_return['bill_total'] = round($bill_total,3);
+
+        $results['dal_return'] = $dal_return;
+        /* DAL RETURN COMPLETED */
+
+        $records=JobDetail::select('materials.material_name'
+            , 'people.user_name'
+            , 'job_tasks.task_name'
+            , 'job_details.material_quantity'
+            , DB::raw('materials.bill_percentage * 100 as bill_percentage')
+            , DB::raw('job_details.material_quantity * materials.bill_percentage as bill_quantity')
+        )
+            ->whereJobMasterIdAndJobTaskId($jobMasterId,8)
+            ->join('materials','job_details.material_id','=','materials.id')
+            ->join('people','job_details.employee_id','=','people.id')
+            ->join('job_tasks','job_details.job_task_id','=','job_tasks.id')
+            ->get();
+
+        $bronze_submit['records'] = $records;
+
+        $actual_total=JobDetail::whereJobMasterIdAndJobTaskId($jobMasterId,8)
+            ->sum('job_details.material_quantity');
+        $bronze_submit['actual_total'] = round($actual_total,3);
+
+        $bill_total=JobDetail::whereJobMasterIdAndJobTaskId($jobMasterId,8)
+            ->join('materials','job_details.material_id','=','materials.id')
+            ->sum(DB::raw('job_details.material_quantity * materials.bill_percentage'));
+        $bronze_submit['bill_total'] = round($bill_total,3);
+
+        $results['bronze_submit'] = $bronze_submit;
+        /* BRONZE SUBMIT COMPLETED */
+
+
+
+
 
 
         return response()->json(['success'=>1,'data'=>$results], 200,[],JSON_NUMERIC_CHECK);
