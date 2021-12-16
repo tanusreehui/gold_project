@@ -19,6 +19,7 @@ use Illuminate\Support\Carbon;
  * @property mixed ploss
  * @property mixed quantity
  * @property mixed price
+ * @property mixed status_type
  */
 class JobMasterResource extends JsonResource
 {
@@ -34,9 +35,9 @@ class JobMasterResource extends JsonResource
             'id' => $this->id,
             'job_number' => $this->job_number,
             'date' => Carbon::parse($this->date)->format('d/m/Y'),
-            'karigarh' => $this->karigarh,
-            'karigarh_id' => $this->karigarh_id,
+            'karigarh' => new KarigarhResource($this->karigarh),
             'order_details_id' => $this->order_details_id,
+            'status_type' => $this->status_type,
             'status_id' => $this->status_id,
             'gross_weight' => $this->gross_weight,
             'bill_created' => $this->bill_created,

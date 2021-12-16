@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\JobResource;
 use App\Models\JobTask;
 use Illuminate\Http\Request;
 use App\Models\OrderDetail;
@@ -34,7 +35,7 @@ class JobTaskController extends Controller
             ->where('job_masters.status_id','=',1)
             ->get();
 
-        return response()->json(['success'=>1,'data'=>$data], 200,[],JSON_NUMERIC_CHECK);
+        return response()->json(['success'=>1,'data'=>JobResource::collection($data)], 200,[],JSON_NUMERIC_CHECK);
 
     }
 

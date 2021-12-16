@@ -1,0 +1,36 @@
+<div fxLayout.xs="column" fxLayout="row" fxLayoutAlign="space-between stretch"  id="job-report-div">
+
+
+</div>
+
+<!--To enable developer div in development-->
+<div fxLayout.xs="column" fxLayout="row" fxLayoutAlign="space-between stretch"  *ngIf="!isProduction">
+  <mat-slide-toggle [(ngModel)]="showDeveloperDiv">Slide Toggle Checked: {{showDeveloperDiv}}</mat-slide-toggle>
+</div>
+
+<!--This is developer div-->
+<div fxLayout.xs="column" fxLayout="row" fxLayoutAlign="space-between stretch"  id="developer-div" *ngIf="showDeveloperDiv && !isProduction">
+  <div fxLayout="column" fxFlex="25" class="mr-1" style="background-color: #dddddd">
+    <pre>
+        savedJobsList = {{savedJobsList | json}}
+    </pre>
+  </div>
+  <div fxLayout="column" fxFlex="25" class="mr-1" style="background-color: #d9dd9b">
+    <pre>
+        finishedJobsList = {{finishedJobsList | json}}
+    </pre>
+  </div>
+  <div fxLayout="column" fxFlex="25" class="mr-1" style="background-color: #dddddd">
+    <pre>
+
+    </pre>
+  </div>
+  <div fxLayout="column" fxFlex="25" class="mr-1" style="background-color: #d9dd9b">
+    <pre>
+
+    </pre>
+  </div>
+</div>
+
+
+

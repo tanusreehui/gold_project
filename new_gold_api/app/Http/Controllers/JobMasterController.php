@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\JobMasterResource;
 use App\Models\JobMaster;
+use App\Models\Material;
 use Illuminate\Http\Request;
 use App\Models\BillAdjustment;
 use App\Models\JobDetail;
@@ -458,6 +459,14 @@ class JobMasterController extends Controller
 
         $jobMaster = JobMaster::find($jobMasterId);
         $results['job_master'] = new JobMasterResource($jobMaster);
+
+        $material_id = JobDetail::whereJobMasterIdAndJobTaskId($jobMasterId,1)->first()->material_id;
+        $results['material'] =Material::find($material_id);
+
+
+        $bill_gold_total =round(($results['gold_send']['bill_total'] + $results['gold_return']['bill_total'] + $results['pan_send']['bill_total'] + $results['pan_return']['bill_total'] + $results['nitric_return']['bill_total'] + ($results['job_master']['ploss'])*($results['job_master']['quantity']) +($results['job_master']['cust_mv']*$results['job_master']['quantity']) + ($results['job_master']['product_mv']*$results['job_master']['quantity'])),3);
+        $results['bill_gold_total'] = $bill_gold_total;
+        $results['bill_fine_total'] = $bill_gold_total * $results['material']['gold']/100;
 
         return response()->json(['success'=>1,'data'=>$results], 200,[],JSON_NUMERIC_CHECK);
     }

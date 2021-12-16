@@ -12,4 +12,8 @@ class JobMaster extends Model
     {
         return $this->belongsTo('App\Models\Person','karigarh_id');
     }
+    public function status_type()
+    {
+        return $this->belongsTo('App\Models\StatusType','status_id');
+    }
 }

@@ -110,6 +110,17 @@ export class JobService {
       this.karigarhSub.next([...this.karigarhData]);
     })));
   }
+  getAllJobs(): Observable<any>{
+    return forkJoin({
+      finishedJobs:  this.http.get<any>(GlobalVariable.BASE_API_URL + '/finishedJobs'),
+      savedJobs:  this.http.get<any>(GlobalVariable.BASE_API_URL + '/savedJobs')
+    }).pipe(catchError(this._serverError), tap(((response: any) => {
+      this.finishedJobsList = response.finishedJobs.data;
+      this.finishedJobsSub.next([...this.finishedJobsList]);
+      this.savedJobsList = response.savedJobs.data;
+      this.savedJobsSub.next([...this.savedJobsList]);
+    })));
+  }
   fetchKarigarhs(): Observable<any>{
     return this.http.get<any>(GlobalVariable.BASE_API_URL + '/karigarhs').pipe(catchError(this._serverError),tap(response => {
       this.karigarhData = response.data;

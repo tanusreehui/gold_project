@@ -75,6 +75,7 @@ import { NgSelectModule} from "@ng-select/ng-select";
 import { BilledJobListComponent } from './pages/completed-bill/billed-job-list/billed-job-list.component';
 import { ChatComponent } from './pages/chat/chat.component';
 import { PasswordResetComponent } from './pages/password-reset/password-reset.component';
+import { JobReportComponent } from './pages/job/job-report/job-report.component';
 
 
 
@@ -131,6 +132,7 @@ import { PasswordResetComponent } from './pages/password-reset/password-reset.co
     BilledJobListComponent,
     ChatComponent,
     PasswordResetComponent,
+    JobReportComponent,
 
 
   ],

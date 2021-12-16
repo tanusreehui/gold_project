@@ -958,101 +958,13 @@
       <button mat-button >About Us</button>
     </mat-toolbar-row>
   </mat-toolbar>
-  <!--For Manager-->
-<!--  <mat-toolbar [ngStyle]="myStyle()" *ngIf="isAuthenticated && isManager">-->
-<!--    <mat-toolbar-row fxLayoutAlign="space-between center">-->
-<!--      <div fxLayout="row">-->
-<!--        <button mat-button class="rounded-circle" [matMenuTriggerFor]="test1">-->
-<!--          <div class="rounded-circle" style="width: 56px; height: 55px; border: #e8c50e solid">-->
-<!--            <img  class="rounded-circle" style="width: 50px; height: 50px" [src]="imageSrc" (error)="imageSrc = defaultPicture">-->
-<!--          </div>-->
-<!--        </button>-->
-<!--        <mat-menu #test1="matMenu">-->
-<!--          <input type="file" (change)="onChange($event)" name="filename">-->
-<!--          &lt;!&ndash;          <button  mat-menu-item (click)="upload()">Upload Image</button>&ndash;&gt;-->
-<!--          &lt;!&ndash;          <button (click)="onUpload()"&ndash;&gt;-->
-<!--          &lt;!&ndash;                  class="btn btn-success">&ndash;&gt;-->
-<!--          &lt;!&ndash;            Upload&ndash;&gt;-->
-<!--          &lt;!&ndash;          </button>&ndash;&gt;-->
-<!--        </mat-menu>-->
-<!--        <div *ngIf="!deviceXs">-->
-<!--          <label style="color: #e8c50e; text-align: center; padding-top: 3vh;">{{userInfo.userName}}</label>-->
-<!--        </div>-->
-<!--        <div class="mr-5"></div>-->
-
-<!--        <button mat-button [routerLink]="['/transaction']" routerLinkActive="MyActiveMenu">Transaction</button>-->
-
-
-<!--        &lt;!&ndash;for huge menus&ndash;&gt;-->
-<!--        &lt;!&ndash;        <button mat-button [matMenuTriggerFor]="billInfo">Bills</button>&ndash;&gt;-->
-<!--        &lt;!&ndash;        <button mat-button [matMenuTriggerFor]="stockInfo">Stock</button>&ndash;&gt;-->
 
 
 
-<!--        &lt;!&ndash;        <mat-menu #billInfo="matMenu">&ndash;&gt;-->
-<!--        &lt;!&ndash;          <button mat-menu-item [matMenuTriggerFor]="bills">Bills</button>&ndash;&gt;-->
-<!--        &lt;!&ndash;          <button mat-menu-item [matMenuTriggerFor]="receipts">Receipts</button>&ndash;&gt;-->
-<!--        &lt;!&ndash;          <button mat-menu-item [routerLink]="['/due_by_agent']">Due</button>&ndash;&gt;-->
-<!--        &lt;!&ndash;        </mat-menu>&ndash;&gt;-->
 
-<!--        &lt;!&ndash;        <mat-menu #stockInfo="matMenu">&ndash;&gt;-->
-<!--        &lt;!&ndash;          <button  mat-menu-item  [routerLink]="['/stock']">View Stocks</button>&ndash;&gt;-->
-<!--        &lt;!&ndash;          <button mat-menu-item [routerLink]="['/agentAllocation']">Allocate Agent</button>&ndash;&gt;-->
-<!--        &lt;!&ndash;          <button mat-menu-item [routerLink]="['/stockBill']">Stock Bill</button>&ndash;&gt;-->
-<!--        &lt;!&ndash;        </mat-menu>&ndash;&gt;-->
 
-<!--        &lt;!&ndash;        <mat-menu #bills="matMenu">&ndash;&gt;-->
-<!--        &lt;!&ndash;          <button mat-menu-item [routerLink]="['/bill']" >Create Bill</button>&ndash;&gt;-->
-<!--        &lt;!&ndash;          <button mat-menu-item [routerLink]="['/completed_bills']" >Completed Bills</button>&ndash;&gt;-->
-<!--        &lt;!&ndash;          &lt;!&ndash;          <button mat-menu-item [matMenuTriggerFor]="reptiles">Reptiles</button>&ndash;&gt;&ndash;&gt;-->
-<!--        &lt;!&ndash;          &lt;!&ndash;          <button mat-menu-item>Birds</button>&ndash;&gt;&ndash;&gt;-->
-<!--        &lt;!&ndash;          &lt;!&ndash;          <button mat-menu-item>Mammals</button>&ndash;&gt;&ndash;&gt;-->
-<!--        &lt;!&ndash;        </mat-menu>&ndash;&gt;-->
 
-<!--        &lt;!&ndash;        <mat-menu #receipts="matMenu">&ndash;&gt;-->
-<!--        &lt;!&ndash;          <button mat-menu-item [routerLink]="['/gold_receipt']">Gold Receipts</button>&ndash;&gt;-->
-<!--        &lt;!&ndash;          <button mat-menu-item [routerLink]="['/lc_receipt']">L.C. Receipts</button>&ndash;&gt;-->
-<!--        &lt;!&ndash;        </mat-menu>&ndash;&gt;-->
 
-<!--        <mat-menu #fish="matMenu">-->
-<!--          <button mat-menu-item>Baikal oilfish</button>-->
-<!--          <button mat-menu-item>Bala shark</button>-->
-<!--          <button mat-menu-item>Ballan wrasse</button>-->
-<!--          <button mat-menu-item>Bamboo shark</button>-->
-<!--          <button mat-menu-item>Banded killifish</button>-->
-<!--        </mat-menu>-->
-
-<!--        <mat-menu #amphibians="matMenu">-->
-<!--          <button mat-menu-item>Sonoran desert toad</button>-->
-<!--          <button mat-menu-item>Western toad</button>-->
-<!--          <button mat-menu-item>Arroyo toad</button>-->
-<!--          <button mat-menu-item>Yosemite toad</button>-->
-<!--        </mat-menu>-->
-
-<!--        <mat-menu #reptiles="matMenu">-->
-<!--          <button mat-menu-item>Banded Day Gecko</button>-->
-<!--          <button mat-menu-item>Banded Gila Monster</button>-->
-<!--          <button mat-menu-item>Black Tree Monitor</button>-->
-<!--          <button mat-menu-item>Blue Spiny Lizard</button>-->
-<!--          <button mat-menu-item disabled>Velociraptor</button>-->
-<!--        </mat-menu>-->
-<!--        &lt;!&ndash;for huge menus&ndash;&gt;-->
-<!--      </div>-->
-<!--      <button mat-button mat-raised-button *ngIf="isAuthenticated" (click)="logout()">Logout</button>-->
-<!--      <div>-->
-<!--        <button  mat-button>-->
-<!--          <mat-icon *ngIf="deviceXs">more_vert</mat-icon>-->
-<!--          <span *ngIf="!deviceXs">Menu</span>-->
-<!--        </button>-->
-<!--      </div>-->
-<!--    </mat-toolbar-row>-->
-
-<!--    <mat-toolbar-row *ngIf="deviceXs" fxLayoutAlign="space-between end">-->
-<!--      <button mat-button >Home</button>-->
-<!--      <button mat-button >Contact Us</button>-->
-<!--      <button mat-button >About Us</button>-->
-<!--    </mat-toolbar-row>-->
-<!--  </mat-toolbar>-->
 
   <mat-toolbar [ngStyle]="myStyle()" *ngIf="isAuthenticated && isManager">
     <mat-toolbar-row fxLayoutAlign="space-between center">
@@ -1105,23 +1017,10 @@
         <button mat-button [matMenuTriggerFor]="billInfo">
           Bills<mat-icon>arrow_drop_down</mat-icon>
         </button>
-        <button mat-button [matMenuTriggerFor]="stockInfo">
-          Stock<mat-icon>arrow_drop_down</mat-icon>
-        </button>
-
-
-
         <mat-menu #billInfo="matMenu">
           <button mat-menu-item [matMenuTriggerFor]="bills">Bills</button>
-          <!--          <button mat-menu-item [matMenuTriggerFor]="receipts">Receipts</button>-->
           <button mat-menu-item [routerLink]="['/due_by_agent']">Due</button>
           <button mat-menu-item [routerLink]="['/employeeStock']">View Employee Stock</button>
-        </mat-menu>
-
-        <mat-menu #stockInfo="matMenu">
-          <button  mat-menu-item  [routerLink]="['/stock']">View Stocks</button>
-          <button mat-menu-item [routerLink]="['/agentAllocation']">Allocate Agent</button>
-          <button mat-menu-item [routerLink]="['/stockBill']">Stock Bill</button>
         </mat-menu>
 
         <mat-menu #bills="matMenu">
@@ -1132,46 +1031,38 @@
           <!--          <button mat-menu-item>Mammals</button>-->
         </mat-menu>
 
+
+
+        <button mat-button [matMenuTriggerFor]="stockInfo">
+          Stock<mat-icon>arrow_drop_down</mat-icon>
+        </button>
+        <mat-menu #stockInfo="matMenu">
+          <button  mat-menu-item  [routerLink]="['/stock']">View Stocks</button>
+          <button mat-menu-item [routerLink]="['/agentAllocation']">Allocate Agent</button>
+          <button mat-menu-item [routerLink]="['/stockBill']">Stock Bill</button>
+        </mat-menu>
+
+
+
+
+        <button mat-button [matMenuTriggerFor]="reportInfo">
+          Report<mat-icon>arrow_drop_down</mat-icon>
+        </button>
+        <mat-menu #reportInfo="matMenu">
+          <button  mat-menu-item  [routerLink]="['/jobReport']">Job Report</button>
+        </mat-menu>
+
+
+
+
+
+
         <mat-menu #receipts="matMenu">
           <button mat-menu-item [routerLink]="['/gold_receipt']">Gold Receipts</button>
           <button mat-menu-item [routerLink]="['/lc_receipt']">L.C. Receipts</button>
         </mat-menu>
 
 
-
-
-        <!--for huge menus-->
-        <!--        <button mat-button [matMenuTriggerFor]="billInfo">Bills</button>-->
-        <!--        <button mat-button [matMenuTriggerFor]="stockInfo">Stock</button>-->
-
-
-
-        <!--        <mat-menu #billInfo="matMenu">-->
-        <!--          <button mat-menu-item [matMenuTriggerFor]="bills">Bills</button>-->
-        <!--          <button mat-menu-item [matMenuTriggerFor]="receipts">Receipts</button>-->
-        <!--          <button mat-menu-item [routerLink]="['/due_by_agent']">Due</button>-->
-        <!--        </mat-menu>-->
-
-        <!--        <mat-menu #stockInfo="matMenu">-->
-        <!--          <button  mat-menu-item  [routerLink]="['/stock']">View Stocks</button>-->
-        <!--          <button mat-menu-item [routerLink]="['/agentAllocation']">Allocate Agent</button>-->
-        <!--          <button mat-menu-item [routerLink]="['/stockBill']">Stock Bill</button>-->
-        <!--        </mat-menu>-->
-
-        <!--        <mat-menu #bills="matMenu">-->
-        <!--          <button mat-menu-item [routerLink]="['/bill']" >Create Bill</button>-->
-        <!--          <button mat-menu-item [routerLink]="['/completed_bills']" >Completed Bills</button>-->
-        <!--          &lt;!&ndash;          <button mat-menu-item [matMenuTriggerFor]="reptiles">Reptiles</button>&ndash;&gt;-->
-        <!--          &lt;!&ndash;          <button mat-menu-item>Birds</button>&ndash;&gt;-->
-        <!--          &lt;!&ndash;          <button mat-menu-item>Mammals</button>&ndash;&gt;-->
-        <!--        </mat-menu>-->
-
-        <!--        <mat-menu #receipts="matMenu">-->
-        <!--          <button mat-menu-item [routerLink]="['/gold_receipt']">Gold Receipts</button>-->
-        <!--          <button mat-menu-item [routerLink]="['/lc_receipt']">L.C. Receipts</button>-->
-        <!--        </mat-menu>-->
-
-        <!--for huge menus-->
       </div>
       <button mat-button mat-raised-button *ngIf="isAuthenticated" (click)="logout()"><mat-icon>power_settings_new</mat-icon></button>
 <!--      <div>-->
@@ -1188,6 +1079,14 @@
       <button mat-button >About Us</button>
     </mat-toolbar-row>
   </mat-toolbar>
+
+
+
+
+
+
+
+
 
   <!--For Owner-->
   <mat-toolbar [ngStyle]="myStyle()" *ngIf="isAuthenticated && isOwner">

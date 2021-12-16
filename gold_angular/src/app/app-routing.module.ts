@@ -47,6 +47,8 @@ import {JobResolver} from './resolver/job/job.resolver';
 import {GoldReturnResolver} from "./resolver/job/gold-return.resolver";
 import {DalSubmitResolver} from "./resolver/job/dal-submit.resolver";
 import {BronzeSubmitResolver} from './resolver/job/bronze-submit-resolver.service';
+import {JobReportComponent} from "./pages/job/job-report/job-report.component";
+import {JobReportResolver} from "./resolver/job/job-report.resolver";
 
 
 const routes: Routes = [
@@ -113,6 +115,7 @@ const routes: Routes = [
   {path: 'employeeStock', canActivate: [AuthGuardService], component: EmployeeStockComponent },
   {path: 'chat', canActivate: [AuthGuardService], component: ChatComponent },
   {path: 'passwordReset', canActivate: [AuthGuardService], component: PasswordResetComponent },
+  {path: 'jobReport', canActivate: [AuthGuardService], component: JobReportComponent, resolve: {jobReport: JobReportResolver}},
 
 ];
 
