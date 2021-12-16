@@ -127,6 +127,9 @@ export class JobService {
       this.karigarhSub.next([...this.karigarhData]);
     }));
   }
+  fetchJobSummaryForBill(jobId: number): Observable<any>{
+    return this.http.get<any>(GlobalVariable.BASE_API_URL + '/jobSummarizationForBill/'+jobId);
+  }
 
   getAllKarigarhs(){
     return [...this.karigarhData];

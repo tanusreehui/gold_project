@@ -1,6 +1,52 @@
 <div fxLayout.xs="column" fxLayout="row" fxLayoutAlign="space-between stretch"  id="job-report-div">
+  <div fxLayout="column" fxFlex="40" class="mr-1" id="left-div">
+    <div id="saved-job-list">
+      <table class="table table-striped" id="order-master-table">
+        <thead>
+        <tr>
+          <th class="w-2 text-center">SL No.</th>
+          <th class="w-15 text-left">Date</th>
+          <th class="w-2 text-center">Job No.</th>
+          <th class="w-5 text-right">Size</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr   *ngFor= "let item of savedJobsList | filter : searchTerm | paginate: { itemsPerPage: pageSize, currentPage: p } let indexOfElement = index ">
+          <td class="text-center">{{(indexOfElement+1) }}</td>
+          <td class="text-left">{{item.date }}</td>
+          <td  class="text-left">{{item.job_number}}</td>
+          <td class="text-center">{{item.size }}</td>
+          <td class="text-center">
+            <button mat-icon-button color="primary" aria-label="Edit Product" (click)="fetchJobSummaryForBill(item)">
+              <mat-icon>description</mat-icon>
+            </button>
+          </td>
 
-
+        </tr>
+        </tbody>
+      </table>
+      <div fxLayout.xs="column" fxLayout="column" fxFlexFill>
+        <!--    https://www.npmjs.com/package/ngx-pagination-->
+        <!--    npm i ngx-pagination-->
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        <pagination-controls  id="some_id"
+                              (pageChange)="p=($event)"
+                              maxSize="5"
+                              directionLinks="true"
+                              autoHide="true"
+                              responsive="true"
+                              previousLabel="Previous"
+                              nextLabel="Next"
+                              screenReaderPaginationLabel="Pagination"
+                              screenReaderPageLabel="page"
+                              screenReaderCurrentLabel="You're on page">
+        </pagination-controls>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="column" fxFlex="60" class="mr-1" id="right-div">
+    Right Div
+  </div>
 </div>
 
 <!--To enable developer div in development-->
