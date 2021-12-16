@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\JobMasterResource;
 use App\Models\JobMaster;
 use Illuminate\Http\Request;
 use App\Models\BillAdjustment;
@@ -455,10 +456,8 @@ class JobMasterController extends Controller
         $results['bronze_submit'] = $bronze_submit;
         /* BRONZE SUBMIT COMPLETED */
 
-
-
-
-
+        $jobMaster = JobMaster::find($jobMasterId);
+        $results['job_master'] = new JobMasterResource($jobMaster);
 
         return response()->json(['success'=>1,'data'=>$results], 200,[],JSON_NUMERIC_CHECK);
     }
