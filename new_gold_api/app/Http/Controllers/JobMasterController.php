@@ -254,13 +254,13 @@ class JobMasterController extends Controller
 
         $gold_send_actual=JobDetail::whereJobMasterIdAndJobTaskId($jobMasterId,1)
             ->sum('job_details.material_quantity');
-        $gold_send['actual_total'] = $gold_send_actual;
+        $gold_send['actual_total'] = round($gold_send_actual,3);
 
 
         $gold_send_billed=JobDetail::whereJobMasterIdAndJobTaskId($jobMasterId,1)
             ->join('materials','job_details.material_id','=','materials.id')
             ->sum(DB::raw('job_details.material_quantity * materials.bill_percentage'));
-        $gold_send['bill_total'] = $gold_send_billed;
+        $gold_send['bill_total'] = round($gold_send_billed,3);
 
         $results['gold_send'] = $gold_send;
         /* GoOLD SEND COMPLETED */
