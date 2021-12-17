@@ -454,7 +454,7 @@ class JobMasterController extends Controller
             ->sum(DB::raw('job_details.material_quantity * materials.bill_percentage'));
         $bronze_submit['bill_total'] = round($bill_total,3);
 
-        $results['bronze_submit'] = $bronze_submit;
+        $results['bronze_send'] = $bronze_submit;
         /* BRONZE SUBMIT COMPLETED */
 
         $jobMaster = JobMaster::find($jobMasterId);
