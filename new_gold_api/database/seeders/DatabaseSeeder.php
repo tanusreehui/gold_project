@@ -355,9 +355,22 @@ class DatabaseSeeder extends Seeder
         Person::create(['user_name'=>'Arindam Ghosh','billing_name'=>' ','mobile1'=>'98364411221','mobile2'=>'','user_type_id'=>2]);
         Person::create(['user_name'=>'Arindam Biswas','billing_name'=>' ','mobile1'=>'7003031560','mobile2'=>'','user_type_id'=>3]);
 
+        // Agent Entry
 
-        Person::create(['user_name'=>'Sameeran Majumdar','billing_name'=>' ','mobile1'=>'9830530463','mobile2'=>'','user_type_id'=>7]);
+        Person::create(['user_name'=>'Sidhartha Dhara','billing_name'=>'Sidhartha Dhara','mobile1'=>'9830530463','mobile2'=>'','user_type_id'=>7]);
+        Person::create(['user_name'=>'Arabinda Karmakar','billing_name'=>'Arabinda Karmakar','mobile1'=>'9830530463','mobile2'=>'','user_type_id'=>7]);
+        Person::create(['user_name'=>'Sameeran Majumdar','billing_name'=>'Sameeran Majumdar','mobile1'=>'9830530463','mobile2'=>'','user_type_id'=>7]);
+        Person::create(['user_name'=>'Suman Ghosh','billing_name'=>'Suman Ghosh','mobile1'=>'9830530463','mobile2'=>'','user_type_id'=>7]);
+        Person::create(['user_name'=>'Anupam Rakhsit','billing_name'=>'Anupam Rakhsit','mobile1'=>'9830530463','mobile2'=>'','user_type_id'=>7]);
+        Person::create(['user_name'=>'Arindam Biwasw','billing_name'=>'Arindam Biwasw','mobile1'=>'9830530463','mobile2'=>'','user_type_id'=>7]);
+        Person::create(['user_name'=>'Surajit Dhara','billing_name'=>'Surajit Dhara','mobile1'=>'9830530463','mobile2'=>'','user_type_id'=>7]);
+        Person::create(['user_name'=>'Subham Kundu','billing_name'=>'Subham Kundu','mobile1'=>'9830530463','mobile2'=>'','user_type_id'=>7]);
+        Person::create(['user_name'=>'Anup Pal','billing_name'=>'Anup Pal','mobile1'=>'9830530463','mobile2'=>'','user_type_id'=>7]);
 
+
+
+
+        //Karigars
         Person::create(['user_name'=>'Jit Das','billing_name'=>' ','mobile1'=>'9830530463','mobile2'=>'','user_type_id'=>11]);
         Person::create(['user_name'=>'Asit Pal','billing_name'=>' ','mobile1'=>'9830530463','mobile2'=>'','user_type_id'=>11]);
         Person::create(['user_name'=>'Manik Sen','billing_name'=>' ','mobile1'=>'9830530463','mobile2'=>'','user_type_id'=>11]);
