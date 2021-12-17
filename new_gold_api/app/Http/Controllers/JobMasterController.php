@@ -400,7 +400,7 @@ class JobMasterController extends Controller
             ->sum(DB::raw('job_details.material_quantity * materials.bill_percentage'));
         $dal_submit['bill_total'] = round($bill_total,3);
 
-        $results['dal_submit'] = $dal_submit;
+        $results['dal_send'] = $dal_submit;
         /* DAL SUBMIT COMPLETED */
 
         $records=JobDetail::select('materials.material_name'

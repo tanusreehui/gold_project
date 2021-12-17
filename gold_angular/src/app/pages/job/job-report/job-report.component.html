@@ -187,6 +187,55 @@
         </tr>
         <!--        end of Nitric Return minus pan_return-->
 
+        <!--        Dal Send-->
+        <ng-container id="dal-send-details" *ngIf="showDetail">
+          <tr   *ngFor= "let item of jobSummaryForBill.dal_send.records  let indexOfElement = index ">
+            <th scope="row" class="text-center">{{(indexOfElement+1) }}</th>
+            <td class="text-left">{{item.user_name }}</td>
+            <td class="text-left">{{item.material_name }}</td>
+            <td  class="text-right">{{item.material_quantity | number: '1.3'}}</td>
+            <td class="text-center">{{item.bill_percentage }}%</td>
+            <td class="text-right">{{item.bill_quantity | number: '1.3' }}</td>
+          </tr>
+        </ng-container>
+        <tr>
+          <th class="text-left" colspan="3">Total Dal Send</th>
+          <th class="text-right">{{jobSummaryForBill.dal_send.actual_total}}</th>
+          <th></th>
+          <th class="text-right">{{jobSummaryForBill.dal_send.bill_total}}</th>
+        </tr>
+        <!--        End of Dal Send-->
+
+        <!--        Dal Return-->
+        <ng-container id="dal-return-details" *ngIf="showDetail">
+          <tr   *ngFor= "let item of jobSummaryForBill.dal_return.records  let indexOfElement = index ">
+            <th scope="row" class="text-center">{{(indexOfElement+1) }}</th>
+            <td class="text-left">{{item.user_name }}</td>
+            <td class="text-left">{{item.material_name }}</td>
+            <td  class="text-right">{{item.material_quantity | number: '1.3'}}</td>
+            <td class="text-center">{{item.bill_percentage }}%</td>
+            <td class="text-right">{{item.bill_quantity | number: '1.3' }}</td>
+          </tr>
+        </ng-container>
+        <tr>
+          <th class="text-left" colspan="3">Total Dal Return</th>
+          <th class="text-right">{{jobSummaryForBill.dal_return.actual_total}}</th>
+          <th></th>
+          <th class="text-right">{{jobSummaryForBill.dal_return.bill_total}}</th>
+        </tr>
+        <!--        End of Dal Return-->
+
+
+        <!--        dal_send minus dal_return-->
+        <tr class="bg-danger">
+          <th class="text-center" colspan="3">Total Dal Used</th>
+          <th class="text-right">{{(jobSummaryForBill.dal_send.actual_total + jobSummaryForBill.dal_return.actual_total) | number: '1.3'}}</th>
+          <th class="text-center">
+            {{((jobSummaryForBill.dal_send.bill_total + jobSummaryForBill.dal_return.bill_total)/(jobSummaryForBill.dal_send.actual_total + jobSummaryForBill.dal_return.actual_total)*100) | number: '1.0-2'}}%
+          </th>
+          <th class="text-right">{{(jobSummaryForBill.dal_send.bill_total + jobSummaryForBill.dal_return.bill_total) | number: '1.3'}}</th>
+        </tr>
+        <!--        end of dal_send minus dal_return-->
 
 
         </tbody>
