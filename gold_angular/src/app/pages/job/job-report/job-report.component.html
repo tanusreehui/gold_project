@@ -67,7 +67,7 @@
             <th scope="row" class="text-center">{{(indexOfElement+1) }}</th>
             <td class="text-left">{{item.user_name }}</td>
             <td class="text-left">{{item.material_name }}</td>
-            <td  class="text-right">{{item.material_quantity}}</td>
+            <td  class="text-right">{{item.material_quantity | number: '1.3'}}</td>
             <td class="text-center">{{item.bill_percentage }}%</td>
             <td class="text-right">{{item.bill_quantity | number: '1.3'}}</td>
           </tr>
@@ -82,9 +82,9 @@
         </ng-container>
         <tr>
           <th class="text-left" colspan="3">Total Gold Send</th>
-          <th class="text-right">{{jobSummaryForBill.gold_send.actual_total}}</th>
+          <th class="text-right">{{jobSummaryForBill.gold_send.actual_total | number: '1.3'}}</th>
           <th></th>
-          <th class="text-right">{{jobSummaryForBill.gold_send.bill_total}}</th>
+          <th class="text-right">{{jobSummaryForBill.gold_send.bill_total | number: '1.3'}}</th>
         </tr>
         <!--        End of Gold Send-->
 
@@ -94,16 +94,16 @@
             <th scope="row" class="text-center">{{(indexOfElement+1) }}</th>
             <td class="text-left">{{item.user_name }}</td>
             <td class="text-left">{{item.material_name }}</td>
-            <td  class="text-right">{{item.material_quantity}}</td>
+            <td  class="text-right">{{item.material_quantity | number: '1.3'}}</td>
             <td class="text-center">{{item.bill_percentage }}%</td>
             <td class="text-right">{{item.bill_quantity | number: '1.3' }}</td>
           </tr>
         </ng-container>
         <tr>
           <th class="text-left" colspan="3">Total Gold Return</th>
-          <th class="text-right">{{jobSummaryForBill.gold_return.actual_total}}</th>
+          <th class="text-right">{{jobSummaryForBill.gold_return.actual_total | number: '1.3'}}</th>
           <th></th>
-          <th class="text-right">{{jobSummaryForBill.gold_return.bill_total}}</th>
+          <th class="text-right">{{jobSummaryForBill.gold_return.bill_total | number: '1.3'}}</th>
         </tr>
         <!--        End of Gold Return-->
         <!--        gold_send minus gold_return-->
@@ -130,9 +130,9 @@
         </ng-container>
         <tr>
           <th class="text-left" colspan="3">Total Pan Send</th>
-          <th class="text-right">{{jobSummaryForBill.pan_send.actual_total}}</th>
+          <th class="text-right">{{jobSummaryForBill.pan_send.actual_total | number: '1.3'}}</th>
           <th></th>
-          <th class="text-right">{{jobSummaryForBill.pan_send.bill_total}}</th>
+          <th class="text-right">{{jobSummaryForBill.pan_send.bill_total | number: '1.3'}}</th>
         </tr>
         <!--        End of Pan Send-->
 
@@ -149,9 +149,9 @@
         </ng-container>
         <tr>
           <th class="text-left" colspan="3">Total Pan Return</th>
-          <th class="text-right">{{jobSummaryForBill.pan_return.actual_total}}</th>
+          <th class="text-right">{{jobSummaryForBill.pan_return.actual_total | number: '1.3'}}</th>
           <th></th>
-          <th class="text-right">{{jobSummaryForBill.pan_return.bill_total}}</th>
+          <th class="text-right">{{jobSummaryForBill.pan_return.bill_total | number: '1.3'}}</th>
         </tr>
         <!--        End of Pan Return-->
 
@@ -179,11 +179,11 @@
         </ng-container>
         <tr class="bg-danger">
           <th class="text-left" colspan="3">Total Nitric Return</th>
-          <th class="text-right">{{jobSummaryForBill.nitric_return.actual_total}}</th>
+          <th class="text-right">{{jobSummaryForBill.nitric_return.actual_total | number: '1.3'}}</th>
           <th class="text-center">
             {{(jobSummaryForBill.nitric_return.bill_total/jobSummaryForBill.nitric_return.actual_total*100) | number: '1.0-2'}}%
           </th>
-          <th class="text-right">{{jobSummaryForBill.nitric_return.bill_total}}</th>
+          <th class="text-right">{{jobSummaryForBill.nitric_return.bill_total | number: '1.3'}}</th>
         </tr>
         <!--        end of Nitric Return minus pan_return-->
 
@@ -200,9 +200,9 @@
         </ng-container>
         <tr>
           <th class="text-left" colspan="3">Total Dal Send</th>
-          <th class="text-right">{{jobSummaryForBill.dal_send.actual_total}}</th>
+          <th class="text-right">{{jobSummaryForBill.dal_send.actual_total | number: '1.3'}}</th>
           <th></th>
-          <th class="text-right">{{jobSummaryForBill.dal_send.bill_total}}</th>
+          <th class="text-right">{{jobSummaryForBill.dal_send.bill_total | number: '1.3'}}</th>
         </tr>
         <!--        End of Dal Send-->
 
@@ -219,9 +219,9 @@
         </ng-container>
         <tr>
           <th class="text-left" colspan="3">Total Dal Return</th>
-          <th class="text-right">{{jobSummaryForBill.dal_return.actual_total}}</th>
+          <th class="text-right">{{jobSummaryForBill.dal_return.actual_total | number: '1.3'}}</th>
           <th></th>
-          <th class="text-right">{{jobSummaryForBill.dal_return.bill_total}}</th>
+          <th class="text-right">{{jobSummaryForBill.dal_return.bill_total | number: '1.3'}}</th>
         </tr>
         <!--        End of Dal Return-->
 
@@ -250,9 +250,9 @@
         </ng-container>
         <tr>
           <th class="text-left" colspan="3">Total Bronze Send</th>
-          <th class="text-right">{{jobSummaryForBill.bronze_send.actual_total}}</th>
+          <th class="text-right">{{jobSummaryForBill.bronze_send.actual_total | number: '1.3'}}</th>
           <th></th>
-          <th class="text-right">{{jobSummaryForBill.bronze_send.bill_total}}</th>
+          <th class="text-right">{{jobSummaryForBill.bronze_send.bill_total | number: '1.3'}}</th>
         </tr>
         <!--        End of Bronze-->
 
