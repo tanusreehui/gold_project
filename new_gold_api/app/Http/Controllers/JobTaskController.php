@@ -49,10 +49,11 @@ class JobTaskController extends Controller
             ->join('products','order_details.product_id','=','products.id')
             ->where('order_details.status_id','=',1)
             ->where('job_masters.status_id','=',1)
+            ->orderBy('job_masters.updated_at')
             ->get();
 
         return response()->json(['success'=>1,'data'=>JobResource::collection($data)], 200,[],JSON_NUMERIC_CHECK);
-   
+
 
     }
 
@@ -67,6 +68,7 @@ class JobTaskController extends Controller
             ->join('products','order_details.product_id','=','products.id')
             ->where('order_details.status_id','=',100)
             ->where('job_masters.status_id','=',100)
+            ->orderBy('job_masters.updated_at')
             ->get();
 
         return response()->json(['success'=>1,'data'=>$data], 200,[],JSON_NUMERIC_CHECK);

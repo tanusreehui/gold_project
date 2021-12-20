@@ -160,8 +160,8 @@ class CreateJobProceduresAndFunctions extends Migration
                     END;'
         );
 
-        DB::unprepared('DROP FUNCTION IF EXISTS gold_db.get_gold_used_for_bill_by_job_master;
-                            CREATE FUNCTION gold_db.`get_gold_used_for_bill_by_job_master`(`param_job_master_id` INT) RETURNS double
+        DB::unprepared('DROP FUNCTION IF EXISTS get_gold_used_for_bill_by_job_master;
+                            CREATE FUNCTION `get_gold_used_for_bill_by_job_master`(`param_job_master_id` INT) RETURNS double
                                 DETERMINISTIC
                             BEGIN
                             DECLARE temp_total_gold_used double;
@@ -172,6 +172,19 @@ class CreateJobProceduresAndFunctions extends Migration
                                 RETURN temp_total_gold_used;
                             END;'
         );
+        DB::unprepared('DROP FUNCTION IF EXISTS get_pan_used_for_bill_by_job_master;
+                                CREATE FUNCTION `get_pan_used_for_bill_by_job_master`(`param_job_master_id` INT) RETURNS double
+                                    DETERMINISTIC
+                                BEGIN
+                            DECLARE temp_total_pan_used_for_bill double;
+                            select sum(material_quantity*(select bill_percentage from materials where id=job_details.material_id)) into temp_total_pan_used_for_bill from job_details where job_master_id=1 and job_task_id in (5,6);
+                            IF temp_total_pan_used_for_bill IS NULL THEN
+                                RETURN 0;
+                            END IF;
+                                RETURN temp_total_pan_used_for_bill;
+                            END;'
+        );
+
 
 
 

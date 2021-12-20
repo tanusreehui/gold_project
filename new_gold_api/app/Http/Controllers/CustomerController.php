@@ -364,15 +364,17 @@ class CustomerController extends Controller
         $data['customer']=$customer;
         $job_master = JobMaster::select(
              'job_number'
-            , DB::raw('get_gold_used_by_job_master(id) as gold_used')
+            , DB::raw('get_gold_used_for_bill_by_job_master(id) as gold_used_for_bill')
             , DB::raw('get_dal_used_by_job_master(id) as dal_used')
-            , DB::raw('get_pan_used_by_job_master(id) as pan_used')
-            , DB::raw('get_nitric_returned_by_job_master(id) as nitric')
+            , DB::raw('get_pan_used_for_bill_by_job_master(id) as pan_used_for_bill')
+            , DB::raw('get_nitric_returned_for_bill_by_job_master(id) as nitric_for_bill')
             , DB::raw('ploss*quantity as total_ploss')
             , DB::raw('cust_mv*quantity as total_cust_mv')
+            , DB::raw('product_mv*quantity as total_product_mv')
+            , 'job_masters.quantity'
         )
             ->wherein('id',$input['job_ids'])->get();
-        $data['job_master']=$job_master;
+        $data['job_details_for_bill']=$job_master;
         return response()->json(['success' => 1, 'data' => $data], 200, [], JSON_NUMERIC_CHECK);
     }
 
