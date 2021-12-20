@@ -33,7 +33,7 @@ export class JobReportComponent implements OnInit {
   public searchTerm: string;
   filter = new FormControl('');
   page: number;
-  pageSize: number;
+  pageSize = 10;
   p = 1;
 
   jobSummaryForBill: { gold_send: JobTask, gold_return: JobTask, pan_send: JobTask, pan_return: JobTask, nitric_return: JobTask, dal_send: JobTask, dal_return: JobTask, bronze_send: JobTask,job_master: any, bill_gold_total:number};

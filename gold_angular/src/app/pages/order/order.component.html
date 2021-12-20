@@ -309,8 +309,8 @@
               <td class="text-left">{{item.order_number }}</td>
               <td  class="text-left">{{item.customer_name | uppercase}}</td>
               <td class="text-center">{{item.agent_short_name | uppercase}}</td>
-              <td class="text-center">{{item.date_of_order | date : 'd/M/yyyy' }}</td>
-              <td class="text-center">{{item.date_of_delivery | date : 'd/M/yyyy'}}</td>
+              <td class="text-center">{{item.date_of_order}}</td>
+              <td class="text-center">{{item.date_of_delivery}}</td>
               <td class="text-center">
                 <button mat-icon-button color="primary" aria-label="Edit Product" (click)="showOrderDetailsList(item)" *ngIf="editableItemIndex != indexOfElement">
                   <mat-icon>description</mat-icon>

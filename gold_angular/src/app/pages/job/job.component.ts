@@ -15,6 +15,7 @@ import {ProductService} from '../../services/product.service';
 import {Material} from '../../models/material.model';
 import Swal from "sweetalert2";
 import {ActivatedRoute} from "@angular/router";
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-job',
@@ -38,13 +39,14 @@ export class JobComponent implements OnInit {
 
   new_job_date = new Date();
   job_date_format = formatDate(this.new_job_date , 'dd/MM/yyyy', 'en');
-
+  isProduction = environment.production;
   public searchTerm: string;
   filter = new FormControl('');
   page: number;
   pageSize: number;
   p = 1;
   private selectedOrderNumber: string;
+  showDeveloperDiv= true;
 
   constructor(private activatedRoute: ActivatedRoute
               ,private productService: ProductService
