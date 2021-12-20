@@ -157,6 +157,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     //order_master
     Route::get('/orderMasters', [OrderMasterController::class,'index']);
+    Route::get('/orderMasters/jobAble', [OrderMasterController::class,'getJobAbleOrderMaster']);
+
     Route::get('/orderDetails/OrderMaster/{id}', [OrderDetailController::class,'getOrderDetailsByOrderMasterId']);
     Route::patch('/orders', [OrderMasterController::class,'updateOrder']);
     Route::patch('/orderMaster', [OrderMasterController::class,'updateMaster']);

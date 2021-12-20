@@ -36,7 +36,7 @@
                               </div>
                           </form>
                           <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end" fxLayoutGap="10px" fxLayoutGap.xs="0" >
-                            <button mat-button (click)="onSubmit()" mat-stroked-button [disabled]="!jobDetailsForm.valid">Save</button>
+                            <button mat-button (click)="saveToJob()" mat-stroked-button [disabled]="!jobDetailsForm.valid">Save</button>
                             <button mat-button (click)="onCancel()" mat-stroked-button>Cancel</button>
                           </div>
                        </div>
@@ -172,7 +172,7 @@
   </div>
   <div fxLayout="column" fxFlex="25" class="mr-1" style="background-color: #dddddd">
     <pre>
-
+        orderMasterData = {{orderMasterData | json}}
     </pre>
   </div>
   <div fxLayout="column" fxFlex="25" class="mr-1" style="background-color: #d9dd9b">

@@ -56,6 +56,7 @@ export class JobService {
       id : new FormControl(null),
       date : new FormControl({value: job_date_format, disabled: true}, [Validators.required]),
       karigarh_id : new FormControl(null, [Validators.required]),
+      product_id : new FormControl(null, [Validators.required]),
       gross_weight : new FormControl(null, [Validators.required]),
       order_details_id : new FormControl(null, [Validators.required]),
       model_number : new FormControl({value: null, disabled: true}, [Validators.required]),

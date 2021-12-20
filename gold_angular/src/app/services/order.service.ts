@@ -115,7 +115,7 @@ export class OrderService {
     forkJoin({
       requestAgents:  this.http.get<{success: number , data: any[]}>(GlobalVariable.BASE_API_URL + '/agents'),
       requestOrderMaterials:  this.http.get<{success: number , data: any[]}>(GlobalVariable.BASE_API_URL + '/orderMaterials'),
-      requestOrders:  this.http.get<{success: number , data: any[]}>(GlobalVariable.BASE_API_URL + '/orderMasters'),
+      requestOrders:  this.http.get<{success: number , data: any[]}>(GlobalVariable.BASE_API_URL + '/orderMasters/jobAble'),
       // tslint:disable-next-line:variable-name
     }).subscribe(({requestAgents, requestOrderMaterials, requestOrders}) => {
       this.agentData = requestAgents.data;
@@ -133,7 +133,7 @@ export class OrderService {
     return forkJoin({
       agents:  this.http.get<any>(GlobalVariable.BASE_API_URL + '/agents'),
       orderMaterials:  this.http.get<any>(GlobalVariable.BASE_API_URL + '/orderMaterials'),
-      orderMasters:  this.http.get<any>(GlobalVariable.BASE_API_URL + '/orderMasters')
+      orderMasters:  this.http.get<any>(GlobalVariable.BASE_API_URL + '/orderMasters/jobAble')
     }).pipe(catchError(this._serverError), tap(((response: any) => {
       this.agentData=response.agents.data;
       this.materialData = response.orderMaterials.data;

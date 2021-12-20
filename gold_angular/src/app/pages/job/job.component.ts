@@ -123,6 +123,7 @@ export class JobComponent implements OnInit {
     this.jobMasterForm.patchValue({
       model_number: details.model_number,
       order_details_id: details.id,
+      product_id: details.product_id,
       material_name: this.materialList[index].material_name,
       cust_mv: details.cust_mv,
       product_mv: details.product_mv,
@@ -137,7 +138,7 @@ export class JobComponent implements OnInit {
     // this.jobMasterForm.value.date = this.pipe.transform(this.jobMasterForm.value.date, 'yyyy-MM-dd');
   }
 
-  onSubmit() {
+  saveToJob() {
     if(this.jobMasterForm.value.karigarh_id) {
       this.confirmationDialogService.confirm('Please confirm..', 'Do you really want to send order to job ?')
         .then((confirmed) => {

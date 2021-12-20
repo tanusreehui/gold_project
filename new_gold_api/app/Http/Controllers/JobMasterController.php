@@ -61,6 +61,7 @@ class JobMasterController extends Controller
             .$customVoucher->accounting_year;
         $jobMaster->job_number=$voucherNumber;
         $jobMaster->date=$inputJobMaster->date;
+        $jobMaster->product_id=$inputJobMaster->product_id;
         $jobMaster->karigarh_id=$inputJobMaster->karigarh_id;
         $jobMaster->order_details_id=$inputJobMaster->order_details_id;
 //                $jobMaster->gross_weight=$inputJobMaster->gross_weight;

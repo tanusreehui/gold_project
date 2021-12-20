@@ -38,6 +38,27 @@ class OrderMasterController extends Controller
             ->get();
         return response()->json(['success'=>1,'data'=>OrderResource::collection($data)], 200,[],JSON_NUMERIC_CHECK);
     }
+    public function getJobAbleOrderMaster(){
+        $data=OrderMaster::select('order_masters.id'
+            ,'order_masters.person_id'
+            ,'order_masters.date_of_order'
+            ,'order_masters.date_of_delivery'
+            ,'order_masters.order_number'
+            ,'order_details.cust_mv'
+            ,'order_details.product_mv'
+            ,'customer.discount'
+            ,DB::raw('customer.user_name as customer_name')
+            ,DB::raw('customer.id as customer_id')
+            ,DB::raw('agent.id as agent_id')
+            ,DB::raw('agent.user_name as agent_name'))
+            ->join('order_details', 'order_details.order_master_id', '=', 'order_masters.id')
+            ->join('people as customer', 'customer.id', '=', 'order_masters.person_id')
+            ->join('people as agent', 'agent.id', '=', 'order_masters.agent_id')
+            ->distinct()
+            ->where('order_details.status_id','=',40)
+            ->get();
+        return response()->json(['success'=>1,'data'=>OrderResource::collection($data)], 200,[],JSON_NUMERIC_CHECK);
+    }
     public function getFullOrderByOrderMasterId($id){
         $orderMaster=OrderMaster::select('order_masters.id'
             ,'order_masters.person_id'
