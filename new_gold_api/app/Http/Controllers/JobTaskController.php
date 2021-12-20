@@ -52,6 +52,7 @@ class JobTaskController extends Controller
             ->get();
 
         return response()->json(['success'=>1,'data'=>JobResource::collection($data)], 200,[],JSON_NUMERIC_CHECK);
+   
 
     }
 

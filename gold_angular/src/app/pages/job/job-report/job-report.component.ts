@@ -29,21 +29,22 @@ export class JobReportComponent implements OnInit {
   showDeveloperDiv=true;
   isProduction = environment.production;
   savedJobsList: JobMaster[];
-  finishedJobsList: JobMaster[];
+  finishedJobList: JobMaster[];
   public searchTerm: string;
   filter = new FormControl('');
   page: number;
   pageSize = 10;
   p = 1;
 
-  jobSummaryForBill: { gold_send: JobTask, gold_return: JobTask, pan_send: JobTask, pan_return: JobTask, nitric_return: JobTask, dal_send: JobTask, dal_return: JobTask, bronze_send: JobTask,job_master: any, bill_gold_total:number};
+  jobSummaryForBill: { gold_send: JobTask, gold_return: JobTask, pan_send: JobTask, pan_return: JobTask, nitric_return: JobTask, dal_send: JobTask, dal_return: JobTask, bronze_send: JobTask,job_master: JobMaster, bill_gold_total:number};
   showDetail = true;
+  isFinishedJobs = true;
 
   constructor(private route: ActivatedRoute, private jobService: JobService) {
     this.route.data.subscribe((response: any) => {
       console.log(response.jobReport.allJobs);
       this.savedJobsList = response.jobReport.allJobs.savedJobs.data;
-      this.finishedJobsList = response.jobReport.allJobs.finishedJobs.data;
+      this.finishedJobList = response.jobReport.allJobs.finishedJobs.data;
     });
   }
 

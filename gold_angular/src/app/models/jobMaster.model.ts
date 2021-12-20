@@ -8,8 +8,12 @@ export class JobMaster{
   date_of_delivery?: string;
   gross_weight: number;
   karigarh_id: number;
+  karigarh?: any;
+  product?: any;
+  status_type?: any;
   approx_gold?: number;
   p_loss?: number;
+  ploss?: number;
   size?: string;
   price?: number;
   return_quantity?: number;

@@ -16,4 +16,8 @@ class JobMaster extends Model
     {
         return $this->belongsTo('App\Models\StatusType','status_id');
     }
+    public function product()
+    {
+        return $this->belongsTo('App\Models\Product','product_id');
+    }
 }
