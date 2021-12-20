@@ -257,6 +257,64 @@
         <!--        End of Bronze-->
 
 
+
+        </tbody>
+      </table>
+      <hr>
+      <table class="table table-striped">
+        <thead>
+
+        </thead>
+        <tbody>
+          <tr>
+            <td>Gold Used in Job</td>
+            <td class="text-right">
+              {{(jobSummaryForBill.gold_send.bill_total + jobSummaryForBill.gold_return.bill_total) | number: '1.3'}}
+            </td>
+          </tr>
+          <tr>
+            <td>Add: Pan Used in Job</td>
+            <td class="text-right">
+              {{(jobSummaryForBill.pan_send.bill_total + jobSummaryForBill.pan_return.bill_total) | number: '1.3'}}
+            </td>
+          </tr>
+          <tr>
+            <td>Less: Nitric Return in Job</td>
+            <td class="text-right">
+              {{(jobSummaryForBill.nitric_return.bill_total) | number: '1.3'}}
+            </td>
+          </tr>
+          <tr>
+            <th>Actual Gold</th>
+            <th class="text-right">
+              {{((jobSummaryForBill.gold_send.bill_total + jobSummaryForBill.gold_return.bill_total)+ (jobSummaryForBill.pan_send.bill_total + jobSummaryForBill.pan_return.bill_total)+(jobSummaryForBill.nitric_return.bill_total)) | number: '1.3'}}
+            </th>
+          </tr>
+          <tr>
+            <td>
+              Add: Ploss {{(jobSummaryForBill.job_master.ploss)}} X {{(jobSummaryForBill.job_master.quantity)}}
+            </td>
+            <td class="text-right">
+              {{(jobSummaryForBill.job_master.ploss) * (jobSummaryForBill.job_master.quantity) | number: '1.3'}}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              Add: MV ({{(jobSummaryForBill.job_master.product_mv) | number: '1.3'}} + {{(jobSummaryForBill.job_master.cust_mv) | number: '1.3'}}) X {{(jobSummaryForBill.job_master.quantity)}}
+            </td>
+            <td class="text-right">
+              {{((jobSummaryForBill.job_master.product_mv) + (jobSummaryForBill.job_master.cust_mv) )* (jobSummaryForBill.job_master.quantity) | number: '1.3'}}
+            </td>
+          </tr>
+
+          <tr>
+            <th>
+              Total Billed Gold
+            </th>
+            <th class="text-right">
+              {{jobSummaryForBill.bill_gold_total | number: '1.3'}}
+            </th>
+          </tr>
         </tbody>
       </table>
     </div>

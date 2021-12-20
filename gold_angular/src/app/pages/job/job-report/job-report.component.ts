@@ -36,7 +36,7 @@ export class JobReportComponent implements OnInit {
   pageSize: number;
   p = 1;
 
-  jobSummaryForBill: { gold_send: JobTask, gold_return: JobTask, pan_send: JobTask, pan_return: JobTask, nitric_return: JobTask, dal_send: JobTask, dal_return: JobTask, bronze_send: JobTask};
+  jobSummaryForBill: { gold_send: JobTask, gold_return: JobTask, pan_send: JobTask, pan_return: JobTask, nitric_return: JobTask, dal_send: JobTask, dal_return: JobTask, bronze_send: JobTask,job_master: any, bill_gold_total:number};
   showDetail = true;
 
   constructor(private route: ActivatedRoute, private jobService: JobService) {
