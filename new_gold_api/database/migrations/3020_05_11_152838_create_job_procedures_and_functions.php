@@ -184,6 +184,42 @@ class CreateJobProceduresAndFunctions extends Migration
                                 RETURN temp_total_pan_used_for_bill;
                             END;'
         );
+        DB::unprepared('DROP FUNCTION IF EXISTS get_nitric_returned_for_bill_by_job_master;
+                                CREATE FUNCTION `get_nitric_returned_for_bill_by_job_master`(`param_job_master_id` INT) RETURNS double
+                                    DETERMINISTIC
+                                BEGIN
+                            DECLARE temp_total_nitric_return_for_bill double;
+                            select sum(material_quantity*(select bill_percentage from materials where id=job_details.material_id)) into temp_total_nitric_return_for_bill from job_details where job_master_id=1 and job_task_id in (7);
+                            IF temp_total_nitric_return_for_bill IS NULL THEN
+                                RETURN 0;
+                            END IF;
+                                RETURN temp_total_nitric_return_for_bill;
+                            END;'
+        );
+        DB::unprepared('FUNCTION IF EXISTS get_customer_mv_total_by_job_master;
+                                CREATE FUNCTION `get_customer_mv_total_by_job_master`(`param_job_master_id` INT) RETURNS double
+                                    DETERMINISTIC
+                                BEGIN
+                            DECLARE total_mv double;
+                            select cust_mv*quantity into total_mv FROM job_masters where id=param_job_master_id;
+                            IF total_mv IS NULL THEN
+                                RETURN 0;
+                            END IF;
+                                RETURN round(total_mv,3);
+                            END;'
+        );
+        DB::unprepared('FUNCTION IF EXISTS get_product_mv_total_by_job_master;
+                                CREATE FUNCTION `get_product_mv_total_by_job_master`(`param_job_master_id` INT) RETURNS double
+                                    DETERMINISTIC
+                                BEGIN
+                            DECLARE total_mv double;
+                            select product_mv*quantity into total_mv FROM job_masters where id=param_job_master_id;
+                            IF total_mv IS NULL THEN
+                                RETURN 0;
+                            END IF;
+                                RETURN round(total_mv,3);
+                            END;'
+        );
 
 
 

@@ -221,7 +221,7 @@ export class OrderComponent implements OnInit {
           }
           this.orderMaster = this.orderMasterForm.value;
           if (this.editableItemIndex === -1){
-            this.orderDetails.unshift(this.orderDetailsForm.value);
+            this.orderDetails.push(this.orderDetailsForm.value);
           }else{
             this.orderDetails[this.editableItemIndex] = this.orderDetailsForm.value;
           }

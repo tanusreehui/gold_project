@@ -27,13 +27,13 @@ class JobDetailForBillResource extends JsonResource
     {
         return [
                 'job_number'=>$this->job_number,
-				'gold_used_for_bill'=> $this->gold_used_for_bill,
-				'dal_used'=> $this->dal_used,
-				'pan_used_for_bill'=> $this->pan_used_for_bill,
-				'nitric_for_bill'=> $this->nitric_for_bill,
-				'total_ploss'=> $this->total_ploss,
-				'total_cust_mv'=> $this->total_cust_mv,
-				'total_product_mv'=> $this->total_product_mv,
+				'gold_used_for_bill'=> round($this->gold_used_for_bill,3),
+				'dal_used'=> round($this->dal_used,3),
+				'pan_used_for_bill'=> round($this->pan_used_for_bill,3),
+				'nitric_for_bill'=> round($this->nitric_for_bill,3),
+				'total_ploss'=> round($this->total_ploss,3),
+				'total_cust_mv'=> round($this->total_cust_mv,3),
+				'total_product_mv'=> round($this->total_product_mv,3),
 				'quantity'=> $this->quantity,
         ];
     }
