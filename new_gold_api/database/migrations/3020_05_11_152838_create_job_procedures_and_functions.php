@@ -196,7 +196,7 @@ class CreateJobProceduresAndFunctions extends Migration
                                 RETURN temp_total_nitric_return_for_bill;
                             END;'
         );
-        DB::unprepared('FUNCTION IF EXISTS get_customer_mv_total_by_job_master;
+        DB::unprepared('DROP FUNCTION IF EXISTS get_customer_mv_total_by_job_master;
                                 CREATE FUNCTION `get_customer_mv_total_by_job_master`(`param_job_master_id` INT) RETURNS double
                                     DETERMINISTIC
                                 BEGIN
@@ -208,7 +208,7 @@ class CreateJobProceduresAndFunctions extends Migration
                                 RETURN round(total_mv,3);
                             END;'
         );
-        DB::unprepared('FUNCTION IF EXISTS get_product_mv_total_by_job_master;
+        DB::unprepared('DROP FUNCTION IF EXISTS get_product_mv_total_by_job_master;
                                 CREATE FUNCTION `get_product_mv_total_by_job_master`(`param_job_master_id` INT) RETURNS double
                                     DETERMINISTIC
                                 BEGIN
