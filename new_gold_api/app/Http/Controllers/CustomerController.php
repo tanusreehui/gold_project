@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\CustomerResource;
+use App\Http\Resources\ProformaInvoiceResource;
 use App\Models\BillDetail;
 use App\Models\CustomVoucher;
 use App\Models\Material;
@@ -374,8 +375,8 @@ class CustomerController extends Controller
             , 'job_masters.quantity'
         )
             ->wherein('id',$input['job_ids'])->get();
-        $data['job_details_for_bill']=$job_master;
-        return response()->json(['success' => 1, 'data' => $data], 200, [], JSON_NUMERIC_CHECK);
+        $data['job_details']=$job_master;
+        return response()->json(['success' => 1, 'data' =>new ProformaInvoiceResource($data)], 200, [], JSON_NUMERIC_CHECK);
     }
 
 

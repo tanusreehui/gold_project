@@ -20,4 +20,8 @@ class JobMaster extends Model
     {
         return $this->belongsTo('App\Models\Product','product_id');
     }
+    public function order_detail()
+    {
+        return $this->belongsTo('App\Models\OrderDetail','order_details_id');
+    }
 }
