@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Models\JobMaster;
+use App\Models\Material;
 use App\Models\Product;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -15,6 +17,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed total_cust_mv
  * @property mixed total_product_mv
  * @property mixed quantity
+ * @property mixed id
  */
 class JobDetailForBillResource extends JsonResource
 {
@@ -27,6 +30,8 @@ class JobDetailForBillResource extends JsonResource
     public function toArray($request)
     {
         return [
+                'job_master_id'=>$this->id,
+                'material'=>Material::find(JobMaster::find($this->id)->job_details->where('job_task_id','=',1)->first()->material_id),
                 'job_number'=>$this->job_number,
                 'product'=>new ProductResource(Product::find($this->product_id)),
 				'gold_used_for_bill'=> round($this->gold_used_for_bill,3),

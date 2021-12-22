@@ -364,7 +364,8 @@ class CustomerController extends Controller
         $customer=Person::findOrFail($orderMaster->person_id);
         $data['customer']=$customer;
         $job_master = JobMaster::select(
-             'job_number'
+             'id'
+             ,'job_number'
              ,'product_id'
             , DB::raw('get_gold_used_for_bill_by_job_master(id) as gold_used_for_bill')
             , DB::raw('get_dal_used_by_job_master(id) as dal_used')
@@ -374,6 +375,8 @@ class CustomerController extends Controller
             , DB::raw('cust_mv*quantity as total_cust_mv')
             , DB::raw('product_mv*quantity as total_product_mv')
             , 'job_masters.quantity'
+
+
         )
             ->wherein('id',$input['job_ids'])->get();
         $data['job_details']=$job_master;

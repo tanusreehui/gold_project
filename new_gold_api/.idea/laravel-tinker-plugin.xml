@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="laravelTinkerProject">
-    <option name="lastCode" value="&lt;?php&#10;//Tinker away!&#10;use App\Models\Person;&#10;&#10;Person::create(['user_name'=&gt;'Angana Jewellers', 'billing_name'=&gt;'M/s Angana Jewellers', 'mobile1'=&gt;'9831397484', 'mobile2'=&gt;'546546464', 'user_type_id'=&gt;10, 'customer_category_id'=&gt;1, 'city'=&gt;'Shyamnagar', 'pin'=&gt;'0']);&#10;&#10;" />
+    <option name="lastCode" value="&lt;?php&#10;//Tinker away!&#10;use App\Models\JobMaster as JM;&#10;//JM::find(2)-&gt;job_details-&gt;where('job_task_id','=',1)-&gt;first()-&gt;material_id;&#10;JM::find(2)-&gt;test;&#10;&#10;" />
   </component>
 </project>

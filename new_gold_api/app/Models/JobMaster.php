@@ -28,4 +28,5 @@ class JobMaster extends Model
         return $this->hasMany(JobDetail::class, 'job_master_id');
     }
 
+
 }
