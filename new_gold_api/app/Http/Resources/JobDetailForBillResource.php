@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Product;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
@@ -27,6 +28,7 @@ class JobDetailForBillResource extends JsonResource
     {
         return [
                 'job_number'=>$this->job_number,
+                'product'=>new ProductResource(Product::find($this->product_id)),
 				'gold_used_for_bill'=> round($this->gold_used_for_bill,3),
 				'dal_used'=> round($this->dal_used,3),
 				'pan_used_for_bill'=> round($this->pan_used_for_bill,3),

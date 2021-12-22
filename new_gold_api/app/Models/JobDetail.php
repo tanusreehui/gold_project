@@ -26,6 +26,10 @@ class JobDetail extends Model
     {
         return changeDateFormUTCtoLocal($this->attributes['updated_at']);
     }
+    public function material()
+    {
+        return $this->belongsTo('App\Models\Material','material_id');
+    }
 
 
 

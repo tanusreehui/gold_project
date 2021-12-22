@@ -365,6 +365,7 @@ class CustomerController extends Controller
         $data['customer']=$customer;
         $job_master = JobMaster::select(
              'job_number'
+             ,'product_id'
             , DB::raw('get_gold_used_for_bill_by_job_master(id) as gold_used_for_bill')
             , DB::raw('get_dal_used_by_job_master(id) as dal_used')
             , DB::raw('get_pan_used_for_bill_by_job_master(id) as pan_used_for_bill')

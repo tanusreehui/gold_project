@@ -24,4 +24,8 @@ class JobMaster extends Model
     {
         return $this->belongsTo('App\Models\OrderDetail','order_details_id');
     }
+    public function job_details(){
+        return $this->hasMany(JobDetail::class, 'job_master_id');
+    }
+
 }
