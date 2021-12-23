@@ -31,15 +31,8 @@ export class JobDetailResolver implements Resolve<any> {
     const e = this.jobTaskService.fetchBadges(route.params.id);
     const f = this.jobTaskService.fetchAllMaterials();
     const g = this.jobTaskService.getAllTransactions(route.params.id);
-
-    // let c= this.orderService.getAll();
-    // let savedJobList= this.jobTaskService.getSavedJobList();
-    // let d= this.billService.getAll();
-    // let b= observable(2);
-    // let c= observable(3);
     const join = forkJoin(b, c, d, e,f,g).pipe(map((allResponses) => {
       return {
-        // jobTask: allResponses[0],
         karigarhs: allResponses[0],
         currentJob: allResponses[1],
         JobSummarisation: allResponses[2],
@@ -48,19 +41,6 @@ export class JobDetailResolver implements Resolve<any> {
         allJobTransactions: allResponses[5]
       };
     }));
-
     return join;
-   // return forkJoin(a,b,c);
-    // return of(true);
-
-
-
   }
-
-  // resolve(route: ActivatedRouteSnapshot,state: RouterStateSnapshot,): Observable<any> {
-  //   let a= this.jobTaskService.getAll();
-  //   let b= this.jobService.getAll();
-  //   let data = {A: a, B: b};
-  //   return of(data);
-  // }
 }
