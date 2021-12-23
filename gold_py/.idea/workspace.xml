@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="72e1fe54-6961-44c6-acad-de97458c5683" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../new_gold_api/app/Http/Controllers/JobMasterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/../new_gold_api/app/Http/Controllers/JobMasterController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../new_gold_api/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/../new_gold_api/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +71,8 @@
       <workItem from="1639211727243" duration="18928000" />
       <workItem from="1639294287191" duration="119000" />
       <workItem from="1639320157877" duration="3156000" />
-      <workItem from="1639499820996" duration="3047000" />
+      <workItem from="1639499820996" duration="3820000" />
+      <workItem from="1640271955510" duration="3727000" />
     </task>
     <servers />
   </component>

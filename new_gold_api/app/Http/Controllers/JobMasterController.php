@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\JobMasterResource;
+use App\Http\Resources\TagResource;
 use App\Models\JobMaster;
 use App\Models\Material;
 use Illuminate\Http\Request;
@@ -14,9 +15,31 @@ use App\Models\CustomVoucher;
 
 class JobMasterController extends Controller
 {
-    public function getJobs($id){
-        $data = JobMaster::select()->where('job_number',$id)->first();
-        return response()->json(['success'=>1,'data'=> $data], 200);
+    public function getTagData($id){
+        $job_master = JobMaster::select(
+             'id'
+             ,'job_number'
+             ,'product_id'
+            , DB::raw('get_gold_used_for_bill_by_job_master(id) as gold_used_for_bill')
+            , DB::raw('get_dal_used_by_job_master(id) as dal_used')
+            , DB::raw('get_pan_used_for_bill_by_job_master(id) as pan_used_for_bill')
+            , DB::raw('get_nitric_returned_for_bill_by_job_master(id) as nitric_for_bill')
+            , DB::raw('ploss*quantity as total_ploss')
+            , DB::raw('cust_mv*quantity as total_cust_mv')
+            , DB::raw('product_mv*quantity as total_product_mv')
+            , 'job_masters.quantity'
+            , 'job_masters.gross_weight'
+            , 'job_masters.price'
+
+        )
+            // ->join('products','job_masters.order_details_id','order_details.id')
+            ->whereJobNumber($id)
+            ->whereStatusId(100)
+            ->first();
+        // $data['job_details']=$job_master;
+        // return response()->json(['success' => 1, 'data' =>$job_master], 200, [], JSON_NUMERIC_CHECK);
+        return response()->json(['success' => 1, 'data' =>new TagResource($job_master)], 200, [], JSON_NUMERIC_CHECK);
+
     }
 
 
