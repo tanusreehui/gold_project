@@ -36,6 +36,18 @@ export class BillService {
   billedJobListSub = new Subject<FinishedJobs[]>();
   getTotalGoldQuantitySub =  new Subject<any>();
   FGWt: any ;
+  billableCustomers: any[];
+  billableCustomerSubject =  new Subject<any>();
+
+  constructor(private http: HttpClient) {
+
+  }
+  fetchBillableCustomers(){
+    return this.http.get<any>(GlobalVariable.BASE_API_URL + '/bill/billable/customers').pipe(catchError(this._serverError),tap(response => {
+      this.billableCustomers = response.data;
+      this.billableCustomerSubject.next([...this.billableCustomers]);
+    }));
+  }
 
   getFinishedJobsSubUpdateListener(){
     return this.finishedJobsSub.asObservable();
@@ -72,24 +84,11 @@ export class BillService {
   }
 
 
-  constructor(private http: HttpClient) {
-    // this.http.get(GlobalVariable.BASE_API_URL + '/finishedJobsCustomers')
-    //   .subscribe((response: {success: number, data: FinishedJobs[]}) => {
-    //     const {data} = response;
-    //     this.finshedJobs = data;
-    //     this.finishedJobsSub.next([...this.finshedJobs]);
-    //   });
-    //
-    // this.http.get(GlobalVariable.BASE_API_URL + '/completedBillCustomers')
-    //   .subscribe((response: {success: number, data: FinishedJobs[]}) => {
-    //     const {data} = response;
-    //     this.completedBill = data;
-    //     this.completedBillDataSub.next([...this.completedBill]);
-    //   });
 
 
 
-  }
+
+
   getAll(): Observable<any> {
     return forkJoin({
       finishedJobs: this.http.get<any>(GlobalVariable.BASE_API_URL + '/finishedJobsCustomers'),

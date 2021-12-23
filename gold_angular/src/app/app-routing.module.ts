@@ -49,6 +49,7 @@ import {DalSubmitResolver} from "./resolver/job/dal-submit.resolver";
 import {BronzeSubmitResolver} from './resolver/job/bronze-submit-resolver.service';
 import {JobReportComponent} from "./pages/job/job-report/job-report.component";
 import {JobReportResolver} from "./resolver/job/job-report.resolver";
+import {BillResolver} from "./resolver/bill.resolver";
 
 
 const routes: Routes = [
@@ -94,7 +95,7 @@ const routes: Routes = [
       // {path: 'albums', component: ArtistAlbumListComponent},
     ]
   },
-  {path: 'bill', canActivate : [AuthGuardService], component: BillComponent},
+  {path: 'bill', canActivate : [AuthGuardService], component: BillComponent, resolve: {bill: BillResolver}},
   {path: 'bill_order_details/:id', canActivate:  [AuthGuardService], component: BillOrderDetailsComponent,
     children: [
       {path: 'bill_jobMaster_details/:id', component: BillJobMasterDetailsComponent}
