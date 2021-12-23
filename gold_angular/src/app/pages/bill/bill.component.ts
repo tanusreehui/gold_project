@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {BillService} from "../../services/bill.service";
-import {FinishedJobs} from "../../models/finishedJobs";
-import {Material} from "../../models/material.model";
-import {OrderDetail} from "../../models/orderDetail.model";
-import {JobService} from "../../services/job.service";
-import {JobMaster} from "../../models/jobMaster.model";
-import {FormControl} from "@angular/forms";
+import {BillService} from '../../services/bill.service';
+import {FinishedJobs} from '../../models/finishedJobs';
+import {OrderDetail} from '../../models/orderDetail.model';
+import {JobService} from '../../services/job.service';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-bill',

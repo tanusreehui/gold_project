@@ -45,8 +45,8 @@ class DatabaseSeeder extends Seeder
         StatusType::create(['id'=>1, 'name'=>'Started']);
         StatusType::create(['id'=>40, 'name'=>'Not Started']);
         StatusType::create(['id'=>100, 'name'=>'Finished']);
-//        StatusType::create(['id'=>101, 'name'=>'Bill Created']);
-        StatusType::create(['id'=>102, 'name'=>'Stock Created']);
+        StatusType::create(['id'=>200, 'name'=>'Stock Created']);
+        StatusType::create(['id'=>300, 'name'=>'Bill Created']);
 
 
         //bill_adjustments  table data

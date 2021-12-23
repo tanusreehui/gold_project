@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BillController;
 use App\Http\Controllers\JobDetailController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -186,6 +187,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post('/fetchingDetails', [CustomerController::class,'getDetails']);
 
     Route::get('/orders/billable/customer/{id}', [CustomerController::class,'getBillableOrdersByCustomerId']);
+    Route::get('/bill/billable/customers', [BillController::class,'getBillableCustomers']);
 
 
 
