@@ -230,6 +230,11 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post('/resetPassword',[UserController::class,'resetPassword']);
     Route::post('/uploadPicture',[UserController::class,'uploadPicture']);
 
+
+    Route::get('/job/jobTag/{jobNumber}',[JobMasterController::class,'getJobTag']);
+
+
+
 });
 
 Route::group(array('prefix' => 'dev'), function() {

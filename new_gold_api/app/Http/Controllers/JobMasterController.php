@@ -495,4 +495,9 @@ class JobMasterController extends Controller
         return response()->json(['success'=>1,'data'=>$results], 200,[],JSON_NUMERIC_CHECK);
     }
 
+    public function getJobTag($jobNumber){
+        $result=generateJobTag($jobNumber);
+        return response()->json(['success'=>9,'data'=>$result], 200,[],JSON_NUMERIC_CHECK);
+    }
+
 }

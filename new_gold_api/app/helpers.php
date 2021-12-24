@@ -81,6 +81,37 @@ if (! function_exists('changeDateFormUTCtoLocal')) {
     }
 }
 
+if (! function_exists('generateJobTag')) {
+    function generateJobTag($jobNumber) {
+        $arr = explode('-',$jobNumber);
+        $yearCodes=array('2122'=>'A',
+            '2223'=>'B',
+            '2324'=>'C',
+            '2425'=>'D',
+            '2526'=>'E',
+            '2627'=>'F',
+            '2728'=>'G',
+            '2829'=>'H',
+            '2930'=>'I',
+            '3031'=>'J',
+            '3132'=>'K',
+            '3233'=>'A',
+            '3334'=>'B',
+            '3435'=>'C',
+            '3536'=>'D',
+            '3637'=>'E',
+            '3738'=>'F',
+            '3839'=>'G',
+            '3940'=>'H',
+            '4041'=>'I',
+            '4142'=>'J',
+            '4243'=>'K',
+            );
+        $jobMiddle = str_pad((int)$arr[1], 4, '0', STR_PAD_LEFT);
+        return $yearCodes[$arr[2]].$jobMiddle;
+    }
+}
+
 
 
 
