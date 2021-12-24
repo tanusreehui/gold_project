@@ -16,6 +16,7 @@ class CreateJobMastersTable extends Migration
         Schema::create('job_masters', function (Blueprint $table) {
             $table->id();
             $table->string('job_number')->nullable(false);
+            $table->string('tag',10)->nullable(false);
 
             $table->date('date')->nullable(false);
 
