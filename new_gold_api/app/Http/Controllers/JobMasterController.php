@@ -82,7 +82,9 @@ class JobMasterController extends Controller
             .str_pad($customVoucher->last_counter,5,'0',STR_PAD_LEFT)
             .$customVoucher->delimiter
             .$customVoucher->accounting_year;
+        $tag=generateJobTag($voucherNumber);
         $jobMaster->job_number=$voucherNumber;
+        $jobMaster->tag=$tag;
         $jobMaster->date=$inputJobMaster->date;
         $jobMaster->product_id=$inputJobMaster->product_id;
         $jobMaster->karigarh_id=$inputJobMaster->karigarh_id;
@@ -493,6 +495,11 @@ class JobMasterController extends Controller
         $results['bill_fine_total'] = $bill_gold_total * $results['material']['gold']/100;
 
         return response()->json(['success'=>1,'data'=>$results], 200,[],JSON_NUMERIC_CHECK);
+    }
+
+    public function getJobTag($jobNumber){
+        $result=generateJobTag($jobNumber);
+        return response()->json(['success'=>9,'data'=>$result], 200,[],JSON_NUMERIC_CHECK);
     }
 
 }

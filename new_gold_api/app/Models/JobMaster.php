@@ -8,6 +8,32 @@ use Illuminate\Database\Eloquent\Model;
 class JobMaster extends Model
 {
     use HasFactory;
+
+    /**
+     * @var mixed|string
+     */
+    private $job_number;
+    /**
+     * @var mixed|string
+     */
+    private $tag;
+    /**
+     * @var mixed
+     */
+    private $date;
+    /**
+     * @var mixed
+     */
+    private $product_id;
+    /**
+     * @var mixed
+     */
+    private $karigarh_id;
+    /**
+     * @var mixed
+     */
+    private $order_details_id;
+
     public function karigarh()
     {
         return $this->belongsTo('App\Models\Person','karigarh_id');
