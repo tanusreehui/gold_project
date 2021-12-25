@@ -1,0 +1,17 @@
+
+
+
+to create virtual environment
+python -m venv .venv
+
+
+To generate a requirements file, go into your original virtualenv, and run:
+pip freeze > requirements.txt
+
+activate your new virtualenv, and run:
+pip install -r requirements.txt
+
+
+read how to use django
+https://docs.djangoproject.com/en/3.2/intro/tutorial02/
+https://djangobook.com/mdj2-django-structure/

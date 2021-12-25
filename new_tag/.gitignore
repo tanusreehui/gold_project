@@ -2,8 +2,8 @@
 
 
 start_app.bat
-.venv
-/.venv
+venv
+/venv
 # IDEs and editors
 /.idea
 .project
