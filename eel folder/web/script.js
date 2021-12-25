@@ -23,4 +23,10 @@
           $('#request-output').text(jsonobj.modelNumber);
       })
     });
+
+    $("#test-bat").click(function() { 
+      eel.runBatch()(function(){
+       console.log('running batch');
+      })
+    });
 });

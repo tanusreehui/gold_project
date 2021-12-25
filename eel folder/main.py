@@ -1,5 +1,6 @@
 import eel
 import requests
+import os
 from random import randint
   
 eel.init("web")  
@@ -26,6 +27,9 @@ def fetchTagDetails(jojobNumberbId):
         jobDetails = response.json().get('data')
         print(jobDetails)
     return jobDetails;
+@eel.expose
+def runBatch():
+    os.system('test.bat')
   
 # Start the index.html file
 eel.start("index.html")
