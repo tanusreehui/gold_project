@@ -20,6 +20,9 @@ def create_text_file(data):
     # os.system('print_tag.bat')
 
 def create_tag_data(data):
+    gui.total = str(float(gui.price) * float(gui.quantity))
+    data.total = gui.total
+
     filedata_0f = "N\n"
     filedata_0f += "R110,0\n"
     filedata_0f += "q831\n"
@@ -57,6 +60,7 @@ def varInitialization(data):
     gui.goldWeight = str(data['goldWeight'])
     gui.grossWeight = str(data['grossWeight'])
     gui.price = str(data['price'])
+    gui.total = float(gui.price) * float(gui.quantity)
 
 
 def getJobs(data):
@@ -65,9 +69,6 @@ def getJobs(data):
     if response.status_code == 200:
         jobMasterData = response.json().get('data')
         gui.result = jobMasterData
-
-        gui.total = 0
-
 
         varInitialization(jobMasterData)
         # gui.jobMasterData = str(jobMasterData['date'])
@@ -81,6 +82,8 @@ def getJobs(data):
     else:
         messagebox.showerror("showerror", "Error")
 
+# def find(gui, *args):
+#     getJobs('JOB-00001-2122')
 
 gui = Gui(
     ['Enter Job Number: ', '__a__', ['Find'], ['Quit']],
@@ -95,8 +98,27 @@ gui = Gui(
     ['Total: ', 'total', _, _],
 )
 
+# with gui.quantity:
+#     gui.result = 0
+
+# gui.events(
+#     [_, _, find, _],
+#     [_, _, _, _],
+#     [_, _, _, recalc],
+#     [_, _, _, _],
+#     [_, _, _, _],
+#     [_, _, _, _],
+#     [_, _, _, _],
+#     [_, _, _, _],
+#     [_, _, _, _],
+#     [_, _, _, _],
+# )
+#
+# gui.run()
+
 while True:
     name, event = gui.get()
+
 
     if name == 'Quit':
         break
@@ -114,6 +136,9 @@ while True:
 
     if name == 'Create':
         create_tag_data(gui)
+
+    if name is None:
+        break;
 
 # with gui.Calculate:
 #     gui.result = float(gui.a) + float(gui.b)
