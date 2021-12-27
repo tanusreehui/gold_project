@@ -238,7 +238,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 });
 
 Route::group(array('prefix' => 'dev'), function() {
-    Route::get('/getEmployees',[UserController::class,'getEmployees']);
+    Route::get('/savedJobs', [JobTaskController::class,'getSavedJobsForTag']);
     Route::get('/job/tag/jobMaster/{id}', [JobMasterController::class,'getTagData']);
     Route::get('/testJobs', [User::class,'getJobs']);
 });

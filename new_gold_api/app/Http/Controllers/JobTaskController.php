@@ -14,14 +14,38 @@ use Illuminate\Support\Facades\DB;
 
 class JobTaskController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    public function getSavedJobsForTag()
     {
-        //
+
+        $data=JobMaster::select('people.user_name'
+            ,'job_masters.id','job_masters.date'
+            ,'job_masters.status_id'
+            ,'job_masters.job_number'
+            ,'job_masters.order_details_id'
+            ,'job_masters.karigarh_id'
+            ,'job_masters.date'
+            ,'order_details.quantity'
+            ,'order_details.size'
+            ,'order_details.material_id'
+            ,'order_details.product_id'
+            ,'order_details.p_loss'
+            ,'products.model_number'
+            ,'order_masters.order_number'
+            ,'order_masters.date_of_delivery'
+            ,'materials.material_name'
+            ,'products.model_number')
+            ->join('order_details','job_masters.order_details_id','order_details.id')
+            ->join('materials','order_details.material_id','materials.id')
+            ->join('order_masters','order_details.order_master_id','=','order_masters.id')
+            ->join('people','people.id','=','order_masters.person_id')
+            ->join('products','order_details.product_id','=','products.id')
+            ->where('job_masters.status_id','=',100)
+            ->orderBy('job_masters.updated_at')
+            ->get();
+
+        return response()->json(['success'=>1,'data'=>JobResource::collection($data)], 200,[],JSON_NUMERIC_CHECK);
+
     }
     public function getSavedJobs()
     {

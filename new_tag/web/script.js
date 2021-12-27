@@ -23,4 +23,18 @@
           $('#request-output').text(jsonobj.modelNumber);
       })
     });
+
+
+    $('body').on('click', '#test', function() {
+        eel.fillTable()(function(data){
+          $("#test-output").html(data);
+        })
+    });
+
+
+    // $("#test").click(function(){
+    //   eel.fillTable()(function(data){
+    //       $("#test-output").html(data);
+    //   })
+    // });
 });

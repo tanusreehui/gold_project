@@ -3,7 +3,10 @@
 
 start_app.bat
 venv
+.venv
+/.venv
 /venv
+/web/node_modules
 # IDEs and editors
 /.idea
 .project
