@@ -32,6 +32,7 @@ def fillTable():
     response = requests.get("http://127.0.0.1/gold_project/new_gold_api/public/api/dev/savedJobs")
     if response.status_code==200:
         saveJobDetails = response.json().get('data')
+        print(saveJobDetails)
         x='<table class= "table"><thead> <tr><th>Job Number</th><th>Date</th><th>Quantity</th><th>Size</th></tr>  </thead>  <tbody>'
         for i in saveJobDetails:
             # print(i)
