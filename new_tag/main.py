@@ -1,23 +1,9 @@
 import eel
 import requests
-from random import randint
+import json
+
   
 eel.init("web")  
-  
-# Exposing the random_python function to javascript
-@eel.expose    
-def random_python():
-    print("Random function running")
-    return randint(1,100)
-
-# using the eel.expose command  
-@eel.expose  
-# defining the function for addition of two numbers  
-def add(data_1, data_2):  
-    int1 = int(data_1)  
-    int2 = int(data_2)  
-    output = int1 + int2  
-    return output  
 
 @eel.expose
 def fetchTagDetails(jojobNumberbId):
@@ -29,10 +15,12 @@ def fetchTagDetails(jojobNumberbId):
 
 @eel.expose
 def fillTable():
+    f = open('project_note.json')
+    # a dictionary
+    data = json.load(f)
     response = requests.get("http://127.0.0.1/gold_project/new_gold_api/public/api/dev/savedJobs")
     if response.status_code==200:
         saveJobDetails = response.json().get('data')
-        print(saveJobDetails)
         x='<table class= "table"><thead> <tr><th>Job Number</th><th>Date</th><th>Quantity</th><th>Size</th></tr>  </thead>  <tbody>'
         for i in saveJobDetails:
             # print(i)
