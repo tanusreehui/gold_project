@@ -18,9 +18,9 @@
     });
 
     $('body').on('click', '.finished-job', function() {
-      eel.fetchTagDetails($(this.id))(function(requestData){
-        var jsonobj = requestData;
-          $('#tag-detail').html(jsonobj.modelNumber);
+      var x = this.id;
+      eel.fetchTagDetails(x)(function(requestData){
+          $('#tag-detail').html(requestData);
       })
     });
   // ***************************************************************************
