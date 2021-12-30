@@ -2,7 +2,43 @@ import eel
 import requests
 import json
 
-  
+
+class HTML_div:
+    div_content=''
+    id=''
+    div_class=''
+    def __intit__(self,content,id='',div_class=''):
+        self.div_content += content
+    def append(self,content):
+        self.div_content +=content 
+    def generate(self):
+        return '<div type="button" id="%s" class="btn btn-secondary %s">%s</div>' % (self.id,self.div_class,self.div_content)    
+class HTML_td:
+    content=''
+    id=''
+    div_classes=list()
+    def __intit__(self,td_content,id='',div_class=''):
+        self.content=td_content
+        self.id=id
+        if div_class!='':
+            self.classes.append(div_class)
+    def append_class(self,new_class):
+        self.div_classes.append(new_class)
+    def generate(self):
+        all_classes = ' '.join(self.div_classes)     
+        return '<td id="%s" class="%s">%s</td>' % (self.id,all_classes,self.content)
+    @staticmethod
+    def get_td(td_content,id='',div_class=''):
+        return '<td id="%s" class="%s">%s</td>' % (id,div_class,td_content)
+            
+class HTML_table:
+    rows = list()
+    def appen_row(self,row_content):
+        pass 
+    def generate(self):
+        return '<div type="button" id="%s" class="btn btn-secondary %s">%s</div>' % (self.id,self.div_class,self.div_content)     
+        
+
 eel.init("web")  
 
 def add_tags(tag, word):
@@ -46,10 +82,10 @@ def fillTable():
         for i in saveJobDetails:
             x += '<tr>'
             x += add_tags('td',str(i['job_number']))
-            x += add_td(str(i['date']))
-            x += add_td(str(i['quantity']))
-            x += add_td(str(i['size']))
-            x += add_td(add_button('Select',i['job_number'],'finished-job'))
+            x += HTML_td.get_td(str(i['date']))
+            x += HTML_td.get_td(str(i['quantity']))
+            x += HTML_td.get_td(str(i['size']))
+            x += HTML_td.get_td(add_button('Select',i['job_number'],'finished-job'))
             x += '</tr>'
         x+= '<tbody></table>'
     return x
