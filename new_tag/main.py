@@ -53,6 +53,8 @@ class HTML_td:
 class HTML_table:
     classes=list()
     tbody_rows = list()
+    thead_rows = list()
+    
     def __init__(self,id='',classes=''):
         self.id=id
         if classes!='':
@@ -63,11 +65,14 @@ class HTML_table:
         
     def appen_row(self,row_content):
         self.tbody_rows.append(row_content)
+    def appen_header_row(self,row_content):
+        self.thead_rows.append(row_content)    
     def generate(self):
         temp_classes = ' '.join(self.classes)
-        table_head = '<thead></thead>'
-        temp_rows= ' '.join(self.tbody_rows)
-        table_body = '<tbody>%s</tbody>' % (temp_rows) 
+        temp_thead_rows= ' '.join(self.thead_rows)
+        temp_tbody_rows= ' '.join(self.tbody_rows)
+        table_head = '<thead>%s</thead>' % (temp_thead_rows)
+        table_body = '<tbody>%s</tbody>' % (temp_tbody_rows) 
         return '<table class="%s" >%s %s </table>' % (temp_classes,table_head, table_body)    
         
 
@@ -113,6 +118,14 @@ def fillTable():
         saveJobDetails = response.json().get('data')       
         x='<table class= "table"><thead> <tr><th>Job Number</th><th>Date</th><th>Quantity</th><th>Size</th></tr>  </thead>  <tbody>'
         myTable = HTML_table('finished_job','table')
+        row = HTML_row()
+        row.append_td(HTML_td.get_td('Job'))
+        row.append_td(HTML_td.get_td('Date'))
+        row.append_td(HTML_td.get_td('Qty'))
+        row.append_td(HTML_td.get_td('Size'))
+        myTable.appen_header_row(row.generate());
+        row.refresh()
+        
         for i in saveJobDetails:
             row=HTML_row()
             row.append_td(HTML_td.get_td(str(i['job_number'])))
