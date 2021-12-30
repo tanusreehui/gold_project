@@ -36,7 +36,7 @@ class HTML_td:
     content=''
     id=''
     div_classes=list()
-    def __intit__(self,td_content,id='',div_class=''):
+    def __init__(self,td_content,id='',div_class=''):
         self.content=td_content
         self.id=id
         if div_class!='':
@@ -51,11 +51,24 @@ class HTML_td:
         return '<td id="%s" class="%s">%s</td>' % (id,div_class,td_content)
             
 class HTML_table:
-    rows = list()
+    classes=list()
+    tbody_rows = list()
+    def __init__(self,id='',classes=''):
+        self.id=id
+        if classes!='':
+            self.classes.append(classes)
+            
+    def append_class(self,new_class):
+        self.classes.append(new_class)
+        
     def appen_row(self,row_content):
-        pass 
+        self.tbody_rows.append(row_content)
     def generate(self):
-        return '<div type="button" id="%s" class="btn btn-secondary %s">%s</div>' % (self.id,self.div_class,self.div_content)     
+        temp_classes = ' '.join(self.classes)
+        table_head = '<thead></thead>'
+        temp_rows= ' '.join(self.tbody_rows)
+        table_body = '<tbody>%s</tbody>' % (temp_rows) 
+        return '<table class="%s" >%s %s </table>' % (temp_classes,table_head, table_body)    
         
 
 
@@ -99,6 +112,7 @@ def fillTable():
     if response.status_code==200:
         saveJobDetails = response.json().get('data')       
         x='<table class= "table"><thead> <tr><th>Job Number</th><th>Date</th><th>Quantity</th><th>Size</th></tr>  </thead>  <tbody>'
+        myTable = HTML_table('finished_job','table')
         for i in saveJobDetails:
             row=HTML_row()
             row.append_td(HTML_td.get_td(str(i['job_number'])))
@@ -106,7 +120,8 @@ def fillTable():
             row.append_td(HTML_td.get_td(str(i['quantity'])))
             row.append_td(HTML_td.get_td(str(i['size'])))
             row.append_td(HTML_td.get_td(add_button('Select',i['job_number'],'finished-job')))
-
+            myTable.appen_row(row.generate())
+            
 
 
             # x += '<tr>'
@@ -119,7 +134,8 @@ def fillTable():
             x += row.generate()
             row.refresh()
         x+= '<tbody></table>'
-    return x
+    y = myTable.generate()
+    return y
   
 # Start the index.html file
 eel.start("index.html")
