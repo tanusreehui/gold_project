@@ -88,10 +88,10 @@ def fetchTagDetails(jojobNumberbId):
 
 @eel.expose
 def fillTable():
-    f = open('project_note.json')
+    f = open('project.json')
     # a dictionary
     data = json.load(f)
-    response = requests.get("http://127.0.0.1/gold_project/new_gold_api/public/api/dev/savedJobs")
+    response = requests.get("%s/gold_project/new_gold_api/public/api/dev/savedJobs" %  (data['ip_address']))
     if response.status_code==200:
         saveJobDetails = response.json().get('data')       
         myTable = html.Table('finished_job','table')
