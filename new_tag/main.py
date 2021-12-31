@@ -1,3 +1,4 @@
+import hui_html as html
 import eel
 import requests
 import json
@@ -50,30 +51,7 @@ class HTML_td:
     def get_td(td_content,id='',div_class=''):
         return '<td id="%s" class="%s">%s</td>' % (id,div_class,td_content)
             
-class HTML_table:
-    classes=list()
-    tbody_rows = list()
-    thead_rows = list()
-    
-    def __init__(self,id='',classes=''):
-        self.id=id
-        if classes!='':
-            self.classes.append(classes)
-            
-    def append_class(self,new_class):
-        self.classes.append(new_class)
-        
-    def appen_row(self,row_content):
-        self.tbody_rows.append(row_content)
-    def appen_header_row(self,row_content):
-        self.thead_rows.append(row_content)    
-    def generate(self):
-        temp_classes = ' '.join(self.classes)
-        temp_thead_rows= ' '.join(self.thead_rows)
-        temp_tbody_rows= ' '.join(self.tbody_rows)
-        table_head = '<thead>%s</thead>' % (temp_thead_rows)
-        table_body = '<tbody>%s</tbody>' % (temp_tbody_rows) 
-        return '<table class="%s" >%s %s </table>' % (temp_classes,table_head, table_body)    
+  
         
 
 
@@ -116,8 +94,7 @@ def fillTable():
     response = requests.get("http://127.0.0.1/gold_project/new_gold_api/public/api/dev/savedJobs")
     if response.status_code==200:
         saveJobDetails = response.json().get('data')       
-        x='<table class= "table"><thead> <tr><th>Job Number</th><th>Date</th><th>Quantity</th><th>Size</th></tr>  </thead>  <tbody>'
-        myTable = HTML_table('finished_job','table')
+        myTable = html.Table('finished_job','table')
         row = HTML_row()
         row.append_td(HTML_td.get_td('Job'))
         row.append_td(HTML_td.get_td('Date'))
@@ -134,19 +111,7 @@ def fillTable():
             row.append_td(HTML_td.get_td(str(i['size'])))
             row.append_td(HTML_td.get_td(add_button('Select',i['job_number'],'finished-job')))
             myTable.appen_row(row.generate())
-            
-
-
-            # x += '<tr>'
-            # x += add_tags('td',str(i['job_number']))
-            # x += HTML_td.get_td(str(i['date']))
-            # x += HTML_td.get_td(str(i['quantity']))
-            # x += HTML_td.get_td(str(i['size']))
-            # x += HTML_td.get_td(add_button('Select',i['job_number'],'finished-job'))
-            # x += '</tr>'
-            x += row.generate()
             row.refresh()
-        x+= '<tbody></table>'
     y = myTable.generate()
     return y
   
