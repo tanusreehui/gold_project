@@ -1,6 +1,6 @@
 <div fxLayout.xs="column"   fxLayout="row" fxLayoutAlign="space-between stretch" fxFlexFill id="create-bill-div" >
-  <div *ngIf="finshedJobs.length == 0" style="text-align: center; align-items: center"><h1>Nothing to show...</h1></div>
-  <div  fxFlex="100" *ngIf="finshedJobs.length > 0"  >
+  <div *ngIf="billableCustomers.length == 0" style="text-align: center; align-items: center"><h1>Nothing to show...</h1></div>
+  <div  fxFlex="100" *ngIf="billableCustomers.length > 0"  >
     <h1 class="text-center"> Billable Customers </h1>
     <div  fxLayout fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="30px" fxLayoutGap.xs="0">
 
@@ -17,17 +17,17 @@
       <tr>
         <th>SL No.</th>
         <th>Customer Name</th>
-        <th>Check Order Details</th>
-
+        <th>Number of Orders</th>
       </tr>
       </thead>
       <tbody>
-      <tr  *ngFor="let data of finshedJobs| filter : searchTerm | paginate: { itemsPerPage: pageSize, currentPage: p } let indexOfelement = index " >
+      <tr  *ngFor="let data of billableCustomers| filter : searchTerm | paginate: { itemsPerPage: pageSize, currentPage: p } let indexOfelement = index " >
         <td>{{indexOfelement+1}}</td>
-        <td >{{data.user_name | uppercase}}</td>
+        <td >{{data.customer_name | uppercase}}</td>
+        <td >{{data.no_of_orders}}</td>
         <td>
           <button  mat-icon-button color="primary" aria-label="Open Details" style ="text-align: center" [routerLink] = "['/bill_order_details',data.id]">
-            <mat-icon>forward</mat-icon>
+            <mat-icon>open_in_new</mat-icon>
           </button>
         </td>
       </tr>
@@ -52,4 +52,38 @@
     </div>
   </div>
 </div>
+
+
+<!--To enable developer div in development-->
+<div fxLayout.xs="column" fxLayout="row" fxLayoutAlign="space-between stretch"  *ngIf="!isProduction">
+  <mat-slide-toggle [(ngModel)]="showDeveloperDiv">Slide Toggle Checked: {{showDeveloperDiv}}</mat-slide-toggle>
+</div>
+
+<!--This is developer div-->
+<div fxLayout.xs="column" fxLayout="row" fxLayoutAlign="space-between stretch"  id="developer-div" *ngIf="showDeveloperDiv && !isProduction">
+  <div fxLayout="column" fxFlex="25" class="mr-1" style="background-color: #dddddd">
+    <pre>
+      billableCustomers = {{billableCustomers | json}}
+    </pre>
+  </div>
+  <div fxLayout="column" fxFlex="25" class="mr-1" style="background-color: #d9dd9b">
+    <pre>
+
+    </pre>
+  </div>
+  <div fxLayout="column" fxFlex="25" class="mr-1" style="background-color: #dddddd">
+    <pre>
+
+    </pre>
+  </div>
+  <div fxLayout="column" fxFlex="25" class="mr-1" style="background-color: #d9dd9b">
+    <pre>
+
+    </pre>
+  </div>
+</div>
+
+
+
+
 

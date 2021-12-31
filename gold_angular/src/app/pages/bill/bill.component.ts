@@ -4,6 +4,8 @@ import {FinishedJobs} from '../../models/finishedJobs';
 import {OrderDetail} from '../../models/orderDetail.model';
 import {JobService} from '../../services/job.service';
 import {FormControl} from '@angular/forms';
+import {environment} from '../../../environments/environment';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-bill',
@@ -14,15 +16,19 @@ export class BillComponent implements OnInit {
   public searchTerm: string;
   finshedJobs: FinishedJobs[] = [];
   orderDetails: OrderDetail[];
+  isProduction = environment.production;
 
   filter = new FormControl('');
-  page: number;
-  pageSize: number;
+  page = 1;
+  pageSize = 15;
   p = 1;
+  showDeveloperDiv: true;
+  billableCustomers: any;
 
-  constructor(private  billService: BillService , private  jobService: JobService) {
-    this.page = 1;
-    this.pageSize = 15;
+  constructor(private route: ActivatedRoute, private  billService: BillService , private  jobService: JobService) {
+    this.route.data.subscribe((response: any) => {
+      this.billableCustomers = response.bill.billableCustomers.data;
+    });
   }
 
   ngOnInit(): void {
