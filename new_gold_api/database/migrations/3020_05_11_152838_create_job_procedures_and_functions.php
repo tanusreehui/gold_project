@@ -220,6 +220,26 @@ class CreateJobProceduresAndFunctions extends Migration
                                 RETURN round(total_mv,3);
                             END;'
         );
+        DB::unprepared('
+                            DROP FUNCTION IF EXISTS get_finished_job_count_by_order_master_id;
+                            CREATE FUNCTION `get_finished_job_count_by_order_master_id`(`param_order_master_id` INT) RETURNS int
+                                DETERMINISTIC
+                            BEGIN
+
+                              DECLARE temp_finished_jobs double;
+            
+                              select count(*) into temp_finished_jobs  from job_masters
+                              inner join order_details ON order_details.id = job_masters.order_details_id
+                              inner join order_masters ON order_masters.id = order_details.order_master_id
+                              where job_masters.status_id=100 and  order_masters.id=param_order_master_id;
+            
+                              IF temp_finished_jobs IS NULL THEN
+                                  RETURN 0;
+                              END IF;
+                              RETURN temp_finished_jobs;
+                           END;
+
+        ');
 
 
 

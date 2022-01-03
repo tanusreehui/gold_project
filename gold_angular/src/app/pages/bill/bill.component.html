@@ -26,7 +26,7 @@
         <td >{{data.customer_name | uppercase}}</td>
         <td >{{data.no_of_orders}}</td>
         <td>
-          <button  mat-icon-button color="primary" aria-label="Open Details" style ="text-align: center" [routerLink] = "['/bill_order_details',data.id]">
+          <button  mat-icon-button color="primary" aria-label="Open Details" style ="text-align: center" [routerLink] = "['/billableOrder',data.id]">
             <mat-icon>open_in_new</mat-icon>
           </button>
         </td>

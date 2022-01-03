@@ -76,6 +76,7 @@ import { BilledJobListComponent } from './pages/completed-bill/billed-job-list/b
 import { ChatComponent } from './pages/chat/chat.component';
 import { PasswordResetComponent } from './pages/password-reset/password-reset.component';
 import { JobReportComponent } from './pages/job/job-report/job-report.component';
+import { BillableOrderComponent } from './pages/bill/billable-order/billable-order.component';
 
 
 
@@ -133,6 +134,7 @@ import { JobReportComponent } from './pages/job/job-report/job-report.component'
     ChatComponent,
     PasswordResetComponent,
     JobReportComponent,
+    BillableOrderComponent,
 
 
   ],
