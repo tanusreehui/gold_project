@@ -39,4 +39,9 @@ class OrderMaster extends Model
      * @var mixed
      */
     private $discount_percentage;
+
+    public function agent()
+    {
+        return $this->belongsTo('App\Models\Person','agent_id');
+    }
 }

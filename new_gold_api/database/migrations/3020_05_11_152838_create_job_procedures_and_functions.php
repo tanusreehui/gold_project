@@ -227,17 +227,73 @@ class CreateJobProceduresAndFunctions extends Migration
                             BEGIN
 
                               DECLARE temp_finished_jobs double;
-            
+
                               select count(*) into temp_finished_jobs  from job_masters
                               inner join order_details ON order_details.id = job_masters.order_details_id
                               inner join order_masters ON order_masters.id = order_details.order_master_id
                               where job_masters.status_id=100 and  order_masters.id=param_order_master_id;
-            
+
                               IF temp_finished_jobs IS NULL THEN
                                   RETURN 0;
                               END IF;
                               RETURN temp_finished_jobs;
                            END;
+
+        ');
+        DB::unprepared('
+            DROP FUNCTION IF EXISTS get_order_count_by_order_master_id;
+            CREATE FUNCTION `get_order_count_by_order_master_id`(`param_order_master_id` INT) RETURNS int
+            DETERMINISTIC
+            BEGIN
+
+                  DECLARE temp_order_count double;
+
+                  select count(*) into temp_order_count  from order_masters
+                  inner join order_details ON order_details.order_master_id = order_masters.id
+                  where order_masters.id=param_order_master_id;
+
+                  IF temp_order_count IS NULL THEN
+                      RETURN 0;
+                  END IF;
+                  RETURN temp_order_count;
+            END;
+        ');
+        DB::unprepared('
+            DROP FUNCTION IF EXISTS get_work_in_progress_job_count_by_order_master_id;
+            CREATE FUNCTION `get_work_in_progress_job_count_by_order_master_id`(`param_order_master_id` INT) RETURNS int
+            DETERMINISTIC
+            BEGIN
+
+                  DECLARE temp_wip_jobs double;
+
+                  select count(*) into temp_wip_jobs  from job_masters
+                  inner join order_details ON order_details.id = job_masters.order_details_id
+                  inner join order_masters ON order_masters.id = order_details.order_master_id
+                  where job_masters.status_id=1 and  order_masters.id=param_order_master_id;
+
+                  IF temp_wip_jobs IS NULL THEN
+                      RETURN 0;
+                  END IF;
+                  RETURN temp_wip_jobs;
+            END;
+
+        ');
+        DB::unprepared('
+            DROP FUNCTION IF EXISTS get_non_started_order_count_by_order_master_id;
+            CREATE FUNCTION get_non_started_order_count_by_order_master_id(param_order_master_id INT) RETURNS int
+            DETERMINISTIC
+            BEGIN
+
+                  DECLARE temp_non_started_order double;
+
+                  select count(*) into temp_non_started_order  from order_masters
+                  inner join order_details ON order_details.order_master_id = order_masters.id
+                  where order_details.status_id=40 and  order_masters.id=param_order_master_id;
+                  IF temp_non_started_order IS NULL THEN
+                      RETURN 0;
+                  END IF;
+                  RETURN temp_non_started_order;
+            END;
 
         ');
 
