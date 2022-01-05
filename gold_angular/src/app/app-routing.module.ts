@@ -119,7 +119,7 @@ const routes: Routes = [
   {path: 'chat', canActivate: [AuthGuardService], component: ChatComponent },
   {path: 'passwordReset', canActivate: [AuthGuardService], component: PasswordResetComponent },
   {path: 'jobReport', canActivate: [AuthGuardService], component: JobReportComponent, resolve: {jobReport: JobReportResolver}},
-  {path: 'billableOrder/:id', canActivate: [AuthGuardService], component: BillableOrderComponent,  resolve: {billableOrders: BillableOrderResolver}},
+  {path: 'billableOrder/:id', canActivate: [AuthGuardService], component: BillableOrderComponent,  resolve: {billableOrdersResolver: BillableOrderResolver}},
 
 ];
 

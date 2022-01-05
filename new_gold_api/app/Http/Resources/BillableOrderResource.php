@@ -33,8 +33,8 @@ class BillableOrderResource extends JsonResource
             'agent' => new AgentResource(Person::find($this->agent_id)),
 			'orderCount' => $this->order_count,
 			"finishedOrderCount"=> $this->finished_order_count,
-			'WIPCount' => $this->wip_count,
-			'nonStartedOrder_count' => $this->non_started_order_count
+			'wipCount' => $this->wip_count,
+			'nonStartedOrderCount' => $this->non_started_order_count
         ];
     }
 }

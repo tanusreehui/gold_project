@@ -20,8 +20,8 @@ class AgentResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'agent_id' => $this->id,
-            'agent_name' => $this->user_name,
+            'agentId' => $this->id,
+            'agentName' => $this->user_name,
             'mobile'=>$this->mobile1
         ];
     }

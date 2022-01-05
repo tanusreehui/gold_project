@@ -48,7 +48,10 @@ export class BillService {
       this.billableCustomerSubject.next([...this.billableCustomers]);
     }));
   }
-
+  fetchBillableOrdersByCustomerID(customerId){
+    // tslint:disable-next-line:max-line-length
+    return this.http.get<any>(GlobalVariable.BASE_API_URL + '/bill/billable/orders/customer/' + customerId).pipe(catchError(this._serverError));
+  }
   getFinishedJobsSubUpdateListener(){
     return this.finishedJobsSub.asObservable();
   }
