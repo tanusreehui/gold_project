@@ -51,6 +51,7 @@ import {JobReportComponent} from './pages/job/job-report/job-report.component';
 import {JobReportResolver} from './resolver/job/job-report.resolver';
 import {BillResolver} from './resolver/bill.resolver';
 import {BillableOrderComponent} from './pages/bill/billable-order/billable-order.component';
+import {BillableOrderResolver} from "./resolver/billable-order.resolver";
 
 
 const routes: Routes = [
@@ -118,7 +119,7 @@ const routes: Routes = [
   {path: 'chat', canActivate: [AuthGuardService], component: ChatComponent },
   {path: 'passwordReset', canActivate: [AuthGuardService], component: PasswordResetComponent },
   {path: 'jobReport', canActivate: [AuthGuardService], component: JobReportComponent, resolve: {jobReport: JobReportResolver}},
-  {path: 'billableOrder/:id', canActivate: [AuthGuardService], component: BillableOrderComponent},
+  {path: 'billableOrder/:id', canActivate: [AuthGuardService], component: BillableOrderComponent,  resolve: {billableOrders: BillableOrderResolver}},
 
 ];
 

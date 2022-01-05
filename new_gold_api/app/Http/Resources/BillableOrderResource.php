@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\Person;
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
@@ -27,7 +28,7 @@ class BillableOrderResource extends JsonResource
     {
         return [
             'orderMasterId' => $this->id,
-			'createdAt' => $this->created_at,
+			'createdAt' => Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at)->format('d/m/Y'),
 			'orderNumber' => $this->order_number,
             'agent' => new AgentResource(Person::find($this->agent_id)),
 			'orderCount' => $this->order_count,
