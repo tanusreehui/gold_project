@@ -18,7 +18,7 @@
         <td>{{data.user_name | uppercase}}</td>
         <td >{{data.order_number}}</td>
         <td>
-          <button  mat-icon-button color="primary" aria-label="Open Details" style="text-align: center" [routerLink]="['./bill_jobMaster_details',data.id]" (click)="disablePage()">
+          <button  mat-icon-button color="primary" aria-label="Open Details" style="text-align: center" [routerLink]="['./completed_bill_details',data.id]" (click)="disablePage()">
             <mat-icon>forward</mat-icon>
           </button>
         </td>

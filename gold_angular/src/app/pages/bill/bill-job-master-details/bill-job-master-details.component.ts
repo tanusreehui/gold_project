@@ -5,8 +5,7 @@ import {OrderDetail} from '../../../models/orderDetail.model';
 import {JobMaster} from '../../../models/jobMaster.model';
 import {BillMaster} from '../../../models/billMaster.model';
 import {BillDetail} from '../../../models/billDetail.model';
-import {toNumbers} from '@angular/compiler-cli/src/diagnostics/typescript_version';
-import {toInteger} from '@ng-bootstrap/ng-bootstrap/util/util';
+
 import {FinishedJobs} from '../../../models/finishedJobs';
 // import {Location} from '@angular/common';
 import toWords from 'number-to-words/src/toWords.js';

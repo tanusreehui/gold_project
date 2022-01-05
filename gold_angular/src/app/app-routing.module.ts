@@ -100,7 +100,7 @@ const routes: Routes = [
   {path: 'bill', canActivate : [AuthGuardService], component: BillComponent, resolve: {bill: BillResolver}},
   {path: 'bill_order_details/:id', canActivate:  [AuthGuardService], component: BillOrderDetailsComponent,
     children: [
-      {path: 'bill_jobMaster_details/:id', component: BillJobMasterDetailsComponent}
+      {path: 'billJobMasterDetails/:id', component: BillJobMasterDetailsComponent}
     ],
   },
   // {path: 'bill_jobMaster_details/:id',canActivate : [AuthGuardService], component: BillJobMasterDetailsComponent},
@@ -119,7 +119,11 @@ const routes: Routes = [
   {path: 'chat', canActivate: [AuthGuardService], component: ChatComponent },
   {path: 'passwordReset', canActivate: [AuthGuardService], component: PasswordResetComponent },
   {path: 'jobReport', canActivate: [AuthGuardService], component: JobReportComponent, resolve: {jobReport: JobReportResolver}},
-  {path: 'billableOrder/:id', canActivate: [AuthGuardService], component: BillableOrderComponent,  resolve: {billableOrdersResolver: BillableOrderResolver}},
+  {path: 'billableOrder/:id', canActivate: [AuthGuardService], component: BillableOrderComponent,  resolve: {billableOrdersResolver: BillableOrderResolver},
+    children: [
+      {path: 'billJobMasterDetails/:id', component: BillJobMasterDetailsComponent}
+    ],
+  },
 
 ];
 
