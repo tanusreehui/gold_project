@@ -39,7 +39,15 @@ class OrderMaster extends Model
      * @var mixed
      */
     private $discount_percentage;
+    public function getCreatedAtAttribute($value)
+    {
+        return changeDateFormUTCtoLocal($this->attributes['created_at']);
+    }
 
+    public function getUpdatedAtAttribute($value)
+    {
+        return changeDateFormUTCtoLocal($this->attributes['updated_at']);
+    }
     public function agent()
     {
         return $this->belongsTo('App\Models\Person','agent_id');

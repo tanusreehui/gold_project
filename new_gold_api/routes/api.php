@@ -188,6 +188,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     Route::get('/orders/billable/customer/{id}', [CustomerController::class,'getBillableOrdersByCustomerId']);
     Route::get('/bill/billable/customers', [BillController::class,'getBillableCustomers']);
+    Route::get('/bill/billable/orders/customer/{id}', [BillController::class,'getOrdersByCustomerId']);
 
 
 

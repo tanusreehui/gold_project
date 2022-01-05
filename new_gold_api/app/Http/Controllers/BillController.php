@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\BillableOrderResource;
 use App\Models\JobDetail;
 use App\Models\JobMaster;
 use App\Models\OrderDetail;
@@ -20,5 +21,19 @@ class BillController extends ApiController
                         ->groupBy('people.user_name')
                         ->whereIn('order_masters.id',$orderMasterIds)->get();
         return $this->successResponse($order_details);
+    }
+    public function getOrdersByCustomerId($id){
+        $result = OrderMaster::select('order_masters.id'
+                                        ,'created_at'
+                                        ,'order_masters.order_number'
+                                        ,'order_masters.agent_id'
+                                        ,DB::raw('get_order_count_by_order_master_id(order_masters.id) as order_count')
+                                        ,DB::raw('get_finished_job_count_by_order_master_id(order_masters.id) as finished_order_count')
+                                        ,DB::raw('get_work_in_progress_job_count_by_order_master_id(order_masters.id) as wip_count')
+                                        ,DB::raw('get_non_started_order_count_by_order_master_id(order_masters.id) as non_started_order_count')
+                                        )
+            ->wherePersonId($id)
+            ->get();
+        return $this->successResponse(BillableOrderResource::collection($result));
     }
 }
