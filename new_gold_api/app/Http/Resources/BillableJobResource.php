@@ -48,6 +48,7 @@ class BillableJobResource extends JsonResource
             'karigarh'=> new KarigarhResource($this->karigarh),
             'OrderDetailsId'=> $this->order_details_id,
             'statusId'=> $this->status_id,
+            'isBillable' => $this->status_id==100,
             'grossWeight'=> $this->gross_weight,
             'isBillCreated'=> $this->bill_created,
             'customerMV'=> $this->cust_mv,

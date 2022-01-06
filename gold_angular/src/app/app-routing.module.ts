@@ -53,6 +53,7 @@ import {BillResolver} from './resolver/bill.resolver';
 import {BillableOrderComponent} from './pages/bill/billable-order/billable-order.component';
 import {BillableOrderResolver} from "./resolver/billable-order.resolver";
 import {BillJobMasterResolver} from "./resolver/bill-job-master.resolver";
+import {BillableJobSelectionComponent} from './pages/bill/billable-job-selection/billable-job-selection.component';
 
 
 const routes: Routes = [
@@ -122,9 +123,9 @@ const routes: Routes = [
   {path: 'jobReport', canActivate: [AuthGuardService], component: JobReportComponent, resolve: {jobReport: JobReportResolver}},
   {path: 'billableOrder/:id', canActivate: [AuthGuardService], component: BillableOrderComponent,  resolve: {billableOrdersResolver: BillableOrderResolver},
     children: [
-      {path: 'billJobMasterDetails/:id'
-        , component: BillJobMasterDetailsComponent
-        , resolve: {billJbMasterResolver: BillJobMasterResolver}
+      {path: 'billableJobSelection/:id'
+        , component: BillableJobSelectionComponent
+        , resolve: {billJobMasterResolver: BillJobMasterResolver}
       }
     ],
   },
