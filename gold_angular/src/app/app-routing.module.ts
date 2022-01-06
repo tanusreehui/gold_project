@@ -52,6 +52,7 @@ import {JobReportResolver} from './resolver/job/job-report.resolver';
 import {BillResolver} from './resolver/bill.resolver';
 import {BillableOrderComponent} from './pages/bill/billable-order/billable-order.component';
 import {BillableOrderResolver} from "./resolver/billable-order.resolver";
+import {BillJobMasterResolver} from "./resolver/bill-job-master.resolver";
 
 
 const routes: Routes = [
@@ -121,7 +122,10 @@ const routes: Routes = [
   {path: 'jobReport', canActivate: [AuthGuardService], component: JobReportComponent, resolve: {jobReport: JobReportResolver}},
   {path: 'billableOrder/:id', canActivate: [AuthGuardService], component: BillableOrderComponent,  resolve: {billableOrdersResolver: BillableOrderResolver},
     children: [
-      {path: 'billJobMasterDetails/:id', component: BillJobMasterDetailsComponent}
+      {path: 'billJobMasterDetails/:id'
+        , component: BillJobMasterDetailsComponent
+        , resolve: {billJbMasterResolver: BillJobMasterResolver}
+      }
     ],
   },
 
