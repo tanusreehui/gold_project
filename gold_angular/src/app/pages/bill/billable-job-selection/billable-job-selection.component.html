@@ -2,6 +2,15 @@
   <div class="card-body">
     <table class="table table-striped">
       <thead>
+        <tr>
+          <td>Job</td>
+          <td>Date</td>
+          <td>Model</td>
+          <td>Karigarh</td>
+          <th>Status</th>
+          <td>Quanity</td>
+          <td>Select</td>
+        </tr>
       </thead>
       <tbody>
         <tr *ngFor="let data of jobList">
@@ -9,11 +18,78 @@
           <td>{{data.jobDate}}</td>
           <td>{{data.product.model_number}}</td>
           <td>{{data.karigarh.karigarh_name}}</td>
-          <td>
-            <input class="form-check-input" type="checkbox" [disabled]="true" value="">
+          <td>{{data.status.name}}</td>
+          <td>{{data.quantity}}</td>
+          <td class="text-center">
+            <input class="form-check-input" type="checkbox" [disabled]="!data.isBillable" (change)="data.isSelected = !data.isSelected"   [checked]="data.isSelected">
           </td>
         </tr>
       </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="6">
+            <button type="button" [disabled]="getSelectedJobCount()==0"  class="btn btn-primary btn-lg" (click)="showBill()">View Bill</button>
+          </td>
+        </tr>
+      </tfoot>
     </table>
+    <hr>
+    <div id="proformaInvoice">
+      <table class="table table-condensed">
+        <thead class="borderless">
+          <tr>
+            <td colspan="10" class="text-center">{{settingsInfo.company.name}}</td>
+          </tr>
+          <tr>
+            <td colspan="10" class="text-center">{{settingsInfo.company.slogan}}</td>
+          </tr>
+          <tr>
+            <td colspan="10" class="text-center">
+              {{settingsInfo.company.address.address1}},
+              {{settingsInfo.company.address.address2}},
+              , PO - {{settingsInfo.company.address.po}}
+              , City - {{settingsInfo.company.address.city}}
+              , PIN - {{settingsInfo.company.address.pin}}
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+              <th>SL.</th>
+              <th>Tag</th>
+              <th>Model</th>
+              <th>Size</th>
+              <th>Weight</th>
+              <th>Guinea</th>
+              <th>Fine</th>
+              <th>Qty</th>
+              <th>LC</th>
+              <th>Amount</th>
+            </tr>
+            <tr *ngFor="let data of proformaInvoice.job_details; let indexOfelement = index">
+                <td>{{indexOfelement+1}}</td>
+                <td>{{data.tag}}</td>
+                <td>{{data.product.model_number}}</td>
+                <td>{{data.size}}</td>
+                <td>{{data.gross_weight}}</td>
+                <td>{{data.guinea_gold}}</td>
+                <td>{{data.fine_gold}}</td>
+                <td>{{data.quantity}}</td>
+                <td>{{data.price}}</td>
+                <td>{{data.gross_lc}}</td>
+            </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="5">Total</td>
+            <td colspan="1">{{totalGunieaGold}}</td>
+            <td colspan="1">{{fineGold}}</td>
+            <td colspan="1">{{quantity}}</td>
+            <td colspan="1"></td>
+            <td colspan="1">{{totalLC}}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
   </div>
 </div>

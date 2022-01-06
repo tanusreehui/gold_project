@@ -15,4 +15,7 @@ export class OrderBillService {
   fetchBillableJobs(orderMasterId: number){
     return this.http.get<any>(GlobalVariable.BASE_API_URL + '/bill/jobs/' + orderMasterId);
   }
+  fetchProformaInvoice(orderMasterId: number, jobIds: any[]){
+    return this.http.post(GlobalVariable.BASE_API_URL + '/proformaInvoice/orderMaster/' + orderMasterId,{"job_ids": jobIds});
+  }
 }

@@ -1,5 +1,5 @@
-<div class="d-flex justify-content-center">
-  <div class="p-2 bd-highlight">
+<div class="d-flex  justify-content-center">
+  <div class="p-2 col-5 bd-highlight">
     <div class="card" style="">
       <div>
         <button type="button" class="btn btn-warning" [routerLink]="['/bill']"><mat-icon> call_missed</mat-icon> Back</button>
@@ -39,9 +39,8 @@
                 <td class="text-right">{{data.wipCount}}</td>
                 <td class="text-right">{{data.nonStartedOrderCount}}</td>
                 <td class="text-right">
-                  <a [routerLink]="['./billableJobSelection',data.orderMasterId]">  <mat-icon>label</mat-icon>  </a>
+                  <a *ngIf="data.finishedOrderCount>0" [routerLink]="['./billableJobSelection',data.orderMasterId]">  <mat-icon>label</mat-icon>  </a>
                 </td>
-
               </tr>
               </tbody>
             </table>
@@ -67,10 +66,10 @@
       </div>
     </div>
   </div>
-  <div class="p-2 bd-highlight">
+  <div class="p-2 col-7 bd-highlight">
     <router-outlet></router-outlet>
   </div>
-  <div class="p-2 bd-highlight">Flex item 3</div>
+
 </div>
 
 

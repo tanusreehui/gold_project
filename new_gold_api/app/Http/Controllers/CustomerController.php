@@ -360,13 +360,20 @@ class CustomerController extends Controller
     public function getProformaInvoice($id, Request $request){
         $input = ($request->json()->all());
         $orderMaster=OrderMaster::findOrFail($id);
+
+
+
         $data['order_master']=$orderMaster;
         $customer=Person::findOrFail($orderMaster->person_id);
         $data['customer']=$customer;
+
+
         $job_master = JobMaster::select(
              'id'
              ,'job_number'
              ,'product_id'
+             ,'tag'
+             ,'gross_weight'
             , DB::raw('get_gold_used_for_bill_by_job_master(id) as gold_used_for_bill')
             , DB::raw('get_dal_used_by_job_master(id) as dal_used')
             , DB::raw('get_pan_used_for_bill_by_job_master(id) as pan_used_for_bill')
@@ -375,10 +382,8 @@ class CustomerController extends Controller
             , DB::raw('cust_mv*quantity as total_cust_mv')
             , DB::raw('product_mv*quantity as total_product_mv')
             , 'job_masters.quantity'
+        )->wherein('id',$input['job_ids'])->get();
 
-
-        )
-            ->wherein('id',$input['job_ids'])->get();
         $data['job_details']=$job_master;
         return response()->json(['success' => 1, 'data' =>new ProformaInvoiceResource($data)], 200, [], JSON_NUMERIC_CHECK);
     }

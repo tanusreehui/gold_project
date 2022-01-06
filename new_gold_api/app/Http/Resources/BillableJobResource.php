@@ -48,6 +48,7 @@ class BillableJobResource extends JsonResource
             'karigarh'=> new KarigarhResource($this->karigarh),
             'OrderDetailsId'=> $this->order_details_id,
             'statusId'=> $this->status_id,
+            'status' => $this->status_type,
             'isBillable' => $this->status_id==100,
             'grossWeight'=> $this->gross_weight,
             'isBillCreated'=> $this->bill_created,
@@ -56,6 +57,7 @@ class BillableJobResource extends JsonResource
             'ploss'=> $this->ploss,
             'quantity'=> $this->quantity,
 			'price'=> $this->price,
+            'isSelected' => $this->status_id==100,
 			'createdAt'=> $this->created_at,
 			'updatedAt'=> $this->updated_at
         ];
