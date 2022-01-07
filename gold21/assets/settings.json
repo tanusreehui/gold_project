@@ -1,4 +1,16 @@
 {
+  "company": {
+    "name": "Srikrishna Bangle Jewellery Workshop",
+    "slogan": "সোনার পাত বসান ব্রোঞ্জ চুরি",
+    "address": {
+      "address1": "Sewli",
+      "address2": "Baro Kanthaliya",
+      "po": "Sewli Telenipara",
+      "city": "Barrackpore",
+      "dist": "North 24 Parganas",
+      "pin": "Kol-121"
+    }
+  },
   "mv":0.222,
   "showDiscountEdit": false
 }

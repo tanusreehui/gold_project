@@ -22,6 +22,7 @@ class AgentResource extends JsonResource
         return [
             'agentId' => $this->id,
             'agentName' => $this->user_name,
+            'short_name' => get_short_name($this->user_name),
             'mobile'=>$this->mobile1
         ];
     }

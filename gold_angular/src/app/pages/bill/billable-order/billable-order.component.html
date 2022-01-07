@@ -14,26 +14,26 @@
             <mat-form-field class="example-full-width">
               <input matInput placeholder="Items per page" [(ngModel)]="pageSize" name="PageSize" type="text">
             </mat-form-field>
-            <table class="table" id="my-table">
+            <table class="table table-responsive" id="my-table">
               <thead>
               <tr>
-                <th class="text-center">SL No.</th>
-                <th class="text-center">Date</th>
-                <th class="text-center">Order Number</th>
+                <th class="text-center">SL</th>
+<!--                <th class="text-center">Date</th>-->
+                <th class="text-center">Ord no</th>
                 <th class="text-center">Agent</th>
-                <th class="text-center">No. of Orders</th>
-                <th class="text-center">Finished</th>
+                <th class="text-center">Ord Count</th>
+                <th class="text-center">FN</th>
                 <th class="text-center">WIP</th>
-                <th class="text-center">Not Started</th>
+                <th class="text-center">NS</th>
                 <th class="text-center">Action</th>
               </tr>
               </thead>
               <tbody>
               <tr  *ngFor="let data of orders | filter : searchTerm | paginate: { itemsPerPage: pageSize, currentPage: p } let indexOfelement = index;">
                 <td class="text-right">{{indexOfelement+1}}</td>
-                <td class="text-right">{{data.createdAt}}</td>
+<!--                <td class="text-right">{{data.createdAt}}</td>-->
                 <td class="text-right">{{data.orderNumber}}</td>
-                <td class="text-right">{{data.agent.agentName}}</td>
+                <td class="text-right">{{data.agent.short_name}}</td>
                 <td class="text-right">{{data.orderCount}}</td>
                 <td class="text-right">{{data.finishedOrderCount}}</td>
                 <td class="text-right">{{data.wipCount}}</td>

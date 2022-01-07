@@ -26,7 +26,7 @@ export class BillableJobSelectionComponent implements OnInit {
     this.route.data.subscribe((response: any) => {
       this.jobList = response.billJobMasterResolver.billableJobs.data;
     });
-    this.http.get('assets/settings.json').subscribe((data: any) => {
+    this.orderBillService.fetchSettings().subscribe((data: any) => {
       this.settingsInfo = data;
       this.showDiscountEdit = this.settingsInfo.showDiscountEdit;
     });
@@ -46,6 +46,7 @@ export class BillableJobSelectionComponent implements OnInit {
       this.totalGunieaGold = this.proformaInvoice.job_details.reduce(function(accumulator, currentValue) {
         return accumulator + currentValue.guinea_gold;
       }, 0);
+      // tslint:disable-next-line:only-arrow-functions
       this.fineGold = this.proformaInvoice.job_details.reduce(function(accumulator, currentValue) {
         return accumulator + currentValue.fine_gold;
       }, 0);

@@ -4,7 +4,7 @@
       <thead>
         <tr>
           <td>Job</td>
-          <td>Date</td>
+<!--          <td>Date</td>-->
           <td>Model</td>
           <td>Karigarh</td>
           <th>Status</th>
@@ -15,7 +15,7 @@
       <tbody>
         <tr *ngFor="let data of jobList">
           <td>{{data.jobNumber}}</td>
-          <td>{{data.jobDate}}</td>
+<!--          <td>{{data.jobDate}}</td>-->
           <td>{{data.product.model_number}}</td>
           <td>{{data.karigarh.karigarh_name}}</td>
           <td>{{data.status.name}}</td>
@@ -35,7 +35,7 @@
     </table>
     <hr>
     <div id="proformaInvoice">
-      <table class="table table-condensed">
+      <table class="table table-condensed" *ngIf="proformaInvoice.job_details && settingsInfo">
         <thead class="borderless">
           <tr>
             <td colspan="10" class="text-center">{{settingsInfo.company.name}}</td>
@@ -71,22 +71,22 @@
                 <td>{{data.tag}}</td>
                 <td>{{data.product.model_number}}</td>
                 <td>{{data.size}}</td>
-                <td>{{data.gross_weight}}</td>
-                <td>{{data.guinea_gold}}</td>
-                <td>{{data.fine_gold}}</td>
-                <td>{{data.quantity}}</td>
-                <td>{{data.price}}</td>
-                <td>{{data.gross_lc}}</td>
+                <td class="text-right">{{data.gross_weight}}</td>
+                <td class="text-right">{{data.guinea_gold}}</td>
+                <td class="text-right">{{data.fine_gold}}</td>
+                <td class="text-right">{{data.quantity}}</td>
+                <td class="text-right">{{data.price | currency:"&#8377;"}}</td>
+                <td class="text-right">{{data.gross_lc}}</td>
             </tr>
         </tbody>
         <tfoot>
           <tr>
             <td colspan="5">Total</td>
-            <td colspan="1">{{totalGunieaGold}}</td>
-            <td colspan="1">{{fineGold}}</td>
-            <td colspan="1">{{quantity}}</td>
+            <td class="text-right" colspan="1">{{totalGunieaGold.toFixed(3)}}</td>
+            <td class="text-right" colspan="1">{{fineGold.toFixed(3)}}</td>
+            <td class='text-right' colspan="1">{{quantity}}</td>
             <td colspan="1"></td>
-            <td colspan="1">{{totalLC}}</td>
+            <td class="text-right" colspan="1">{{totalLC | currency:"&#8377;"}}</td>
           </tr>
         </tfoot>
       </table>
