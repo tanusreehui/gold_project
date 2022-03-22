@@ -51,8 +51,8 @@ import {JobReportComponent} from './pages/job/job-report/job-report.component';
 import {JobReportResolver} from './resolver/job/job-report.resolver';
 import {BillResolver} from './resolver/bill.resolver';
 import {BillableOrderComponent} from './pages/bill/billable-order/billable-order.component';
-import {BillableOrderResolver} from "./resolver/billable-order.resolver";
-import {BillJobMasterResolver} from "./resolver/bill-job-master.resolver";
+import {BillableOrderResolver} from './resolver/billable-order.resolver';
+import {BillJobMasterResolver} from './resolver/bill-job-master.resolver';
 import {BillableJobSelectionComponent} from './pages/bill/billable-job-selection/billable-job-selection.component';
 
 
