@@ -165,7 +165,7 @@ class CreateJobProceduresAndFunctions extends Migration
                                 DETERMINISTIC
                             BEGIN
                             DECLARE temp_total_gold_used double;
-                            select sum(material_quantity*(select bill_percentage from materials where id=job_details.material_id)) into temp_total_gold_used from job_details where job_master_id=1 and job_task_id in (1,2);
+                            select sum(material_quantity*(select bill_percentage from materials where id=job_details.material_id)) into temp_total_gold_used from job_details where job_master_id=param_job_master_id and job_task_id in (1,2);
                             IF temp_total_gold_used IS NULL THEN
                                 RETURN 0;
                             END IF;
