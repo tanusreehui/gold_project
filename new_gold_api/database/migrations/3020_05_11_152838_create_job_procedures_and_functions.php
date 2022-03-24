@@ -177,7 +177,7 @@ class CreateJobProceduresAndFunctions extends Migration
                                     DETERMINISTIC
                                 BEGIN
                             DECLARE temp_total_pan_used_for_bill double;
-                            select sum(material_quantity*(select bill_percentage from materials where id=job_details.material_id)) into temp_total_pan_used_for_bill from job_details where job_master_id=1 and job_task_id in (5,6);
+                            select sum(material_quantity*(select bill_percentage from materials where id=job_details.material_id)) into temp_total_pan_used_for_bill from job_details where job_master_id=param_job_master_id and job_task_id in (5,6);
                             IF temp_total_pan_used_for_bill IS NULL THEN
                                 RETURN 0;
                             END IF;
@@ -189,7 +189,7 @@ class CreateJobProceduresAndFunctions extends Migration
                                     DETERMINISTIC
                                 BEGIN
                             DECLARE temp_total_nitric_return_for_bill double;
-                            select sum(material_quantity*(select bill_percentage from materials where id=job_details.material_id)) into temp_total_nitric_return_for_bill from job_details where job_master_id=1 and job_task_id in (7);
+                            select sum(material_quantity*(select bill_percentage from materials where id=job_details.material_id)) into temp_total_nitric_return_for_bill from job_details where job_master_id=param_job_master_id and job_task_id in (7);
                             IF temp_total_nitric_return_for_bill IS NULL THEN
                                 RETURN 0;
                             END IF;
