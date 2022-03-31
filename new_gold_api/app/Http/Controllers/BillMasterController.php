@@ -12,18 +12,18 @@ use Illuminate\Http\Request;
 use Illuminate\Queue\Jobs\Job;
 use Illuminate\Support\Facades\DB;
 
-class BillMasterController extends Controller
+class BillMasterController extends ApiController
 {
 
     public function saveBillMaster(Request $request)
     {
-
+        $result = array();
         $newData = ($request->json()->all());
         $master = $newData['master'];
         $details = $newData['details'];
         $data['master']=$master;
         $data['details']=$details;
-        return response()->json(['success' => 1, 'data' => $data], 200, [], JSON_NUMERIC_CHECK);
+
 
 
         DB::beginTransaction();
@@ -43,7 +43,7 @@ class BillMasterController extends Controller
         } else {
             $customVoucher = new CustomVoucher();
             $customVoucher->voucher_name = "bill";
-//            $customVoucher->accounting_year=$inputOrderMaster->accounting_year;
+            // $customVoucher->accounting_year=$inputOrderMaster->accounting_year;
             $customVoucher->accounting_year = $accounting_year;
             $customVoucher->last_counter = 1;
             $customVoucher->delimiter = '-';
@@ -52,53 +52,56 @@ class BillMasterController extends Controller
         }
 
         try {
-            $result = new BillMaster();
-            $result->bill_number = $customVoucher->prefix
+            $billMaster = new BillMaster();
+            $billMaster->bill_number = $customVoucher->prefix
                 . $customVoucher->delimiter
                 . str_pad($customVoucher->last_counter, 5, '0', STR_PAD_LEFT)
                 . $customVoucher->delimiter
                 . $customVoucher->accounting_year;
-            $result->bill_date = $master['billDate'];
-            $result->customer_id = $master['customerId'];
-            if (array_key_exists('order_master_id', $master)) {
-                $result->order_master_id = $master['order_master_id'];
+            $billMaster->bill_date = $master['billDate'];
+            $billMaster->customer_id = $master['customerId'];
+            if (array_key_exists('orderMasterId', $master)) {
+                $billMaster->order_master_id = $master['orderMasterId'];
             }
 //            else{
 //                $result->order_master_id = 0;
 //            }
-            $result->agent_id = $master['agent_id'];
-            $result->discount = $master['discount'];
-            $result->save();
+            $billMaster->agent_id = $master['agentId'];
+            $billMaster->discount = $master['discount'];
+            $billMaster->save();
+            $result['bill_master'] =$billMaster;
+//            return $this->successResponse($result);
 
-            if ($result) {
-                foreach ($details as $newDetails) {
+            if ($billMaster) {
+                $orderDetailResult=array();
+                foreach ($details as $detail) {
                     $newResult = new BillDetail();
-                    $newResult->bill_master_id = $result->id;
+                    $newResult->bill_master_id = $billMaster->id;
 
 //                    $newResult->order_master_id = $master->order_master_id;
 //                    $newResult->order_master_id = $newData['order_master_id'];
-                    if (array_key_exists("tag", $newDetails)) {
-                        $newResult->tag = $newDetails['tag'];
+                    if (array_key_exists("tag", $detail)) {
+                        $newResult->tag = $detail['tag'];
 //                        $newResult->rate = $newDetails['amount'];
 
                     } else {
-                        $newResult->job_master_id = $newDetails['id'];
+                        $newResult->job_master_id = $detail['jobMasterId'];
 
                     }
-                    $newResult->model_number = $newDetails['model_number'];
-                    $newResult->size = $newDetails['size'];
-                    $newResult->gross_weight = $newDetails['gross_weight'];
-                    $newResult->material_id = $newDetails['material_id'];
-                    $newResult->ginnie = $newDetails['total'];
-                    $newResult->rate = $newDetails['price'];
-                    $newResult->pure_gold = $newDetails['pure_gold'];
-                    $newResult->quantity = $newDetails['quantity'];
+                    $newResult->model_number = $detail['modelNumber'];
+                    $newResult->size = $detail['size'];
+                    $newResult->gross_weight = $detail['grossWeight'];
+                    $newResult->material_id = $detail['materialId'];
+                    $newResult->ginnie = $detail['totalGinne'];
+                    $newResult->rate = $detail['lcRate'];
+                    $newResult->pure_gold = $detail['pureGold'];
+                    $newResult->quantity = $detail['quantity'];
 //                    $newResult->LC = $newDetails['cost'];
-                    $newResult->mv = $newDetails['mv'];
+                    $newResult->mv = $detail['mv'];
                     $newResult->save();
-                    if ($newResult && array_key_exists('tag', $newDetails)) {
+                    if ($newResult && array_key_exists('tag', $detail)) {
                         $stock = new Stock();
-                        $stock = Stock::find($newDetails['id']);
+                        $stock = Stock::find($detail['id']);
                         $stock->in_stock = 0;
                         $stock->update();
 //                        return response()->json(['stock'=>$stock],200,[],JSON_NUMERIC_CHECK);
@@ -114,16 +117,18 @@ class BillMasterController extends Controller
                             $orderDetails->update();
                         }
                     }
+                    $orderDetailResult[]=$newResult;
                 }
-
+                $result['order_details'] = $orderDetailResult;
             }
+
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json(['Success' => 1, 'Exception' => $e], 401);
         }
 
-        return response()->json(['success' => 1, 'data' => $result], 200, [], JSON_NUMERIC_CHECK);
+        return $this->successResponse($result);
     }
 
 
