@@ -27,7 +27,7 @@ class CreateBillDetailsTable extends Migration
 
             $table->string('tag')->nullable(true);
 
-            $table->string('model_number')->nullable(false);
+//            $table->string('model_number')->nullable(false);
             $table->string('size')->nullable(false);
             $table->double('gross_weight')->nullable(false);
             $table->integer('material_id')->nullable(false);

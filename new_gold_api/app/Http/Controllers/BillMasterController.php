@@ -88,7 +88,7 @@ class BillMasterController extends ApiController
                         $newResult->job_master_id = $detail['jobMasterId'];
 
                     }
-                    $newResult->model_number = $detail['modelNumber'];
+//                    $newResult->model_number = $detail['modelNumber'];
                     $newResult->size = $detail['size'];
                     $newResult->gross_weight = $detail['grossWeight'];
                     $newResult->material_id = $detail['materialId'];
