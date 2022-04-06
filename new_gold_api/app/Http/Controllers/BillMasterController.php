@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\BillResource;
 use App\Models\BillDetail;
 use App\Models\BillMaster;
 use App\Models\CustomVoucher;
@@ -119,7 +120,7 @@ class BillMasterController extends ApiController
                     }
                     $orderDetailResult[]=$newResult;
                 }
-                $result['order_details'] = $orderDetailResult;
+                $result['bill_details'] = $orderDetailResult;
             }
 
             DB::commit();
@@ -128,7 +129,7 @@ class BillMasterController extends ApiController
             return response()->json(['Success' => 1, 'Exception' => $e], 401);
         }
 
-        return $this->successResponse($result);
+        return $this->successResponse(new BillResource($result));
     }
 
 
