@@ -82,7 +82,7 @@ export class BillableJobSelectionComponent implements OnInit {
     this.billMaster.discount = this.proformaInvoice.order_master.discount_percentage;
 
     // tslint:disable-next-line:prefer-const only-arrow-functions
-    let result = this.proformaInvoice.job_details.map(function(a) {return a.tag;});
+    let result = this.proformaInvoice.job_details.map(function(a) {return {jobMasterId: a.job_master_id}; });
     console.log(result);
   }
 }
