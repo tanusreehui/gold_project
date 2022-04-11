@@ -16,7 +16,15 @@ class BillMaster extends Model
         return $this->belongsTo('App\Models\People;','customer_id');
 
     }
+    public function getCreatedAtAttribute($value): string
+    {
+        return changeDateFormUTCtoLocal($this->attributes['created_at']);
+    }
 
+    public function getUpdatedAtAttribute($value): string
+    {
+        return changeDateFormUTCtoLocal($this->attributes['updated_at']);
+    }
     public function getBills(){
         return $this->hasMany('App\Models\BillMaster;','bill_master_id');
     }

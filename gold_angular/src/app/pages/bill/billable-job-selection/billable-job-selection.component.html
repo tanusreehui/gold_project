@@ -34,8 +34,8 @@
       </tfoot>
     </table>
     <hr>
-    <div id="proformaInvoice">
-      <table class="table table-condensed" *ngIf="proformaInvoice.job_details && settingsInfo">
+    <div id="proformaInvoice" *ngIf="proformaInvoice.job_details && settingsInfo">
+      <table class="table table-condensed">
         <thead class="borderless">
           <tr>
             <td colspan="10" class="text-center">{{settingsInfo.company.name}}</td>
@@ -90,6 +90,21 @@
           </tr>
         </tfoot>
       </table>
+      <button type="button" class="btn btn-primary btn-lg" (click)="createBill()">Generate Bill</button>
     </div>
   </div>
+</div>
+
+<div *ngIf="true" class="d-flex flex-row bd-highlight mb-3">
+  <div class="card">
+    <pre>
+      proformaInvoice = {{proformaInvoice | json}}
+    </pre>
+  </div>
+  <div class="card">
+    <pre>
+      billMaster = {{billMaster | json}}
+    </pre>
+  </div>
+
 </div>

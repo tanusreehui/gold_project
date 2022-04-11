@@ -79,7 +79,6 @@ export class JobComponent implements OnInit {
     });
     this.orderService.getOrderUpdateListener().subscribe((responseProducts: OrderMaster[]) => {
       this.orderMasterData = responseProducts;
-      console.log('orderMasterData', this.orderMasterData);
     });
     this.productService.getProductUpdateListener()
       .subscribe((responseProducts: Product[]) => {
