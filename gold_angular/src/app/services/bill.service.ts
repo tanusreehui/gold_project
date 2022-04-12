@@ -131,6 +131,7 @@ export class BillService {
   getDetails(data){
     return this.http.get<ProductResponseData>(GlobalVariable.BASE_API_URL + '/orders/billable/customer/'+ data)
       .subscribe((response: {success: number, data: OrderDetail[]})  => {
+        // tslint:disable-next-line:no-shadowed-variable
         const {data} = response;
         this.orderDetails = data;
         this.orderDetailsSub.next([...this.orderDetails]);
@@ -148,12 +149,10 @@ export class BillService {
   }
 
   getFinishedJobData(orderMasterID){
-    console.log("data is ",orderMasterID);
     return this.http.get<ProductResponseData>(GlobalVariable.BASE_API_URL + '/getFinishedJobData/orderMaster/'+ orderMasterID)
       .subscribe((response: {success: number, data: JobMaster[]})  => {
         const {data} = response;
         this.finishedJobData = data;
-        console.log('this is finished job data', this.finishedJobData);
         this.finishedJobDataSub.next([...this.finishedJobData]);
       });
   }
@@ -214,8 +213,8 @@ export class BillService {
       })));
   }
 
-  saveBillMaster(billMasterData, billDetailsData){
-    return this.http.post<{ success: number, data: BillMaster }>( GlobalVariable.BASE_API_URL + '/saveBillMaster' , {master : billMasterData, details: billDetailsData })
+  saveBillMaster(bill){
+    return this.http.post<{ success: number, data: BillMaster }>( GlobalVariable.BASE_API_URL + '/saveBillMaster' , bill)
       .pipe(catchError(this._serverError), tap(((response: {success: number, data: BillMaster}) => {
 
         // if(response.data){
