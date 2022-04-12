@@ -12,6 +12,7 @@ import {formatDate} from '@angular/common';
 export class BillableJobSelectionComponent implements OnInit {
   billMaster: {billDate?: any, customerId?: number, orderMasterId?: number, agentId?: number, discount?: number} = {};
   billDetails: any[] = [];
+  bill: {master?: any, details?: any} = {};
   jobList: any = [];
   orderMasterId: number;
   proformaInvoice: any = [];
@@ -82,7 +83,21 @@ export class BillableJobSelectionComponent implements OnInit {
     this.billMaster.discount = this.proformaInvoice.order_master.discount_percentage;
 
     // tslint:disable-next-line:prefer-const only-arrow-functions
-    let result = this.proformaInvoice.job_details.map(function(a) {return {jobMasterId: a.job_master_id}; });
-    console.log(result);
+    this.billDetails = this.proformaInvoice.job_details.map(function(a) {
+      return {
+        jobMasterId: a.job_master_id,
+        size: a.size,
+        grossWeight: a.gross_weight,
+        materialId: a.material.id,
+        totalGinne: a.guinea_gold,
+        lcRate: a.price,
+        pureGold: a.fine_gold,
+        quantity: a.quantity,
+        mv: 0
+      };
+    });
+    this.bill.master = this.billMaster;
+    this.bill.details = this.billDetails;
+
   }
 }
