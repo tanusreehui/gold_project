@@ -12,8 +12,8 @@ import toWords from 'number-to-words/src/toWords.js';
 import {StockService} from '../../../services/stock.service';
 import {AgentService} from '../../../services/agent.service';
 import {JobService} from '../../../services/job.service';
-import Swal from "sweetalert2";
-import {HttpClient} from "@angular/common/http";
+import Swal from 'sweetalert2';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-bill-job-master-details',
@@ -130,6 +130,7 @@ export class BillJobMasterDetailsComponent implements OnInit {
         karigarhId: this.billDetailsData[0].karigarh_id,
         customerId: this.billDetailsData[0].customer_id,
         agent_id: this.billDetailsData[0].agent_id,
+        // tslint:disable-next-line:radix
         billDate: x.getFullYear() + '-' + parseInt(String(x.getMonth() + 1)) + '-' + x.getDate(),
         // discount: (this.billDetailsData[0].discount / 100) * this.originalCost
         discount: (this.billDetailsData[0].discount_percentage / 100) * this.originalCost
@@ -185,7 +186,7 @@ export class BillJobMasterDetailsComponent implements OnInit {
         //     discount: (this.billDetailsData[0].discount / 100) * this.totalCost
         //   };
         // }
-        this.billService.saveBillMaster(this.billMasterData, this.billDetailsData).subscribe((response) => {
+        this.billService.saveBillMaster(this.billMasterData).subscribe((response) => {
           this.billMasterData = {
             order_master_id: this.billDetailsData[0].order_master_id,
             orderNumber: this.billDetailsData[0].order_number,

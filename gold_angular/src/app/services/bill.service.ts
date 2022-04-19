@@ -1,31 +1,31 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {FinishedJobs} from "../models/finishedJobs";
-import {GlobalVariable} from "../shared/global";
-import {Karigarh} from "../models/karigarh.model";
-import {forkJoin, Observable, Subject, throwError} from "rxjs";
-import {Product} from "../models/product.model";
-import {ProductResponseData} from "./product.service";
-import {OrderDetail} from "../models/orderDetail.model";
+import {HttpClient} from '@angular/common/http';
+import {FinishedJobs} from '../models/finishedJobs';
+import {GlobalVariable} from '../shared/global';
+import {Karigarh} from '../models/karigarh.model';
+import {forkJoin, Observable, Subject, throwError} from 'rxjs';
+import {Product} from '../models/product.model';
+import {ProductResponseData} from './product.service';
+import {OrderDetail} from '../models/orderDetail.model';
 import {JobMaster} from '../models/jobMaster.model';
-import {catchError, tap} from "rxjs/operators";
-import {JobResponseData} from "./job.service";
-import {BillDetail} from "../models/billDetail.model";
-import {BillMaster} from "../models/billMaster.model";
+import {catchError, tap} from 'rxjs/operators';
+import {JobResponseData} from './job.service';
+import {BillDetail} from '../models/billDetail.model';
+import {BillMaster} from '../models/billMaster.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BillService {
 
-  finshedJobs : FinishedJobs[] = [];
-  completedBill : FinishedJobs[] = [];
-  billedJobs : FinishedJobs[] = [];
-  orderDetails : OrderDetail[] = [];
-  completedBillOrderDetails : OrderDetail[] = [];
-  finishedJobData : JobMaster[];
-  finishedBillData : JobMaster[];
-  showCompletedBillsData : BillDetail[];
+  finshedJobs: FinishedJobs[] = [];
+  completedBill: FinishedJobs[] = [];
+  billedJobs: FinishedJobs[] = [];
+  orderDetails: OrderDetail[] = [];
+  completedBillOrderDetails: OrderDetail[] = [];
+  finishedJobData: JobMaster[];
+  finishedBillData: JobMaster[];
+  showCompletedBillsData: BillDetail[];
   private finishedJobsSub = new Subject<FinishedJobs[]>();
   private orderDetailsSub = new Subject<OrderDetail[]>();
   private completedBillOrderDetailsSub = new Subject<OrderDetail[]>();
@@ -43,7 +43,8 @@ export class BillService {
 
   }
   fetchBillableCustomers(){
-    return this.http.get<any>(GlobalVariable.BASE_API_URL + '/bill/billable/customers').pipe(catchError(this._serverError),tap(response => {
+    // tslint:disable-next-line:max-line-length
+    return this.http.get<any>(GlobalVariable.BASE_API_URL + '/bill/billable/customers').pipe(catchError(this._serverError), tap(response => {
       this.billableCustomers = response.data;
       this.billableCustomerSubject.next([...this.billableCustomers]);
     }));
@@ -129,7 +130,7 @@ export class BillService {
   }
 
   getDetails(data){
-    return this.http.get<ProductResponseData>(GlobalVariable.BASE_API_URL + '/orders/billable/customer/'+ data)
+    return this.http.get<ProductResponseData>(GlobalVariable.BASE_API_URL + '/orders/billable/customer/' + data)
       .subscribe((response: {success: number, data: OrderDetail[]})  => {
         // tslint:disable-next-line:no-shadowed-variable
         const {data} = response;
@@ -149,7 +150,7 @@ export class BillService {
   }
 
   getFinishedJobData(orderMasterID){
-    return this.http.get<ProductResponseData>(GlobalVariable.BASE_API_URL + '/getFinishedJobData/orderMaster/'+ orderMasterID)
+    return this.http.get<ProductResponseData>(GlobalVariable.BASE_API_URL + '/getFinishedJobData/orderMaster/' + orderMasterID)
       .subscribe((response: {success: number, data: JobMaster[]})  => {
         const {data} = response;
         this.finishedJobData = data;
@@ -208,7 +209,7 @@ export class BillService {
 
 
   getGoldQuantity(data){
-    return this.http.get<{ success: number, data: BillDetail }>( GlobalVariable.BASE_API_URL + '/getGoldquantity/' + data,{})
+    return this.http.get<{ success: number, data: BillDetail }>( GlobalVariable.BASE_API_URL + '/getGoldquantity/' + data, {})
       .pipe(catchError(this._serverError), tap(((response: {success: number, data: BillDetail}) => {
       })));
   }
@@ -217,11 +218,6 @@ export class BillService {
     return this.http.post<{ success: number, data: BillMaster }>( GlobalVariable.BASE_API_URL + '/saveBillMaster' , bill)
       .pipe(catchError(this._serverError), tap(((response: {success: number, data: BillMaster}) => {
 
-        // if(response.data){
-        //   this.completedBill.unshift(response.data);
-        //
-        //
-        // }
       })));
   }
   getStockGoldQuantity(data){

@@ -3,6 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {OrderBillService} from '../../../services/order-bill.service';
 import {HttpClient} from '@angular/common/http';
 import {formatDate} from '@angular/common';
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-billable-job-selection',
@@ -98,6 +99,24 @@ export class BillableJobSelectionComponent implements OnInit {
     });
     this.bill.master = this.billMaster;
     this.bill.details = this.billDetails;
+    Swal.fire({
+      title: 'Do you want to generate the bill?',
+      text: 'Bill  will be generated',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, generate it!',
+      cancelButtonText: 'No, cancel it'
+    }).then((result) => {
+      this.orderBillService.saveBillMaster({master: this.bill.master, details: this.bill.details}).subscribe((response) => {
+        console.log(response);
 
+      }, error => {
+        Swal.fire(
+          'Error',
+          'Bill Generation Error',
+          'error'
+        );
+      });
+    });
   }
 }

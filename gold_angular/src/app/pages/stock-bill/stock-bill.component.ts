@@ -378,7 +378,7 @@ export class StockBillComponent implements OnInit {
         billDate: this.selectedCustomerData.bill_date,
       };
 
-      this.billService.saveBillMaster(this.billMasterData, this.billDetailsData).subscribe((response) => {
+      this.billService.saveBillMaster(this.billMasterData).subscribe((response) => {
         if (response.data){
           Swal.fire({
             title: 'Saved',
