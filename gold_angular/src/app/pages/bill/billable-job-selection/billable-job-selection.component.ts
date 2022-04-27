@@ -3,7 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {OrderBillService} from '../../../services/order-bill.service';
 import {HttpClient} from '@angular/common/http';
 import {formatDate} from '@angular/common';
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-billable-job-selection',
@@ -109,6 +109,11 @@ export class BillableJobSelectionComponent implements OnInit {
     }).then((result) => {
       this.orderBillService.saveBillMaster({master: this.bill.master, details: this.bill.details}).subscribe((response) => {
         console.log(response);
+        Swal.fire(
+          'Success',
+           'Bill Generated',
+          'success'
+        );
 
       }, error => {
         Swal.fire(

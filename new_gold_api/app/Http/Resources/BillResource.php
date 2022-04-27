@@ -16,6 +16,8 @@ class BillResource extends JsonResource
     {
         return [
             'bill_master'=>new BillMasterResource($this['bill_master']),
+//            'bill_details'=>$this['bill_details']
+            'bill_details'=>BillDetailResource::collection($this['bill_details'])
 //            'customer'=>new CustomerResource($this['customer']),
 //            'job_details'=>JobDetailForBillResource::collection($this['job_details'])
         ];
