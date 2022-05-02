@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./billable-job-selection.component.scss']
 })
 export class BillableJobSelectionComponent implements OnInit {
+  printableBill: {billMaster?: any, billDetails?: any[]};
   billMaster: {billDate?: any, customerId?: number, orderMasterId?: number, agentId?: number, discount?: number} = {};
   billDetails: any[] = [];
   bill: {master?: any, details?: any} = {};
@@ -40,9 +41,6 @@ export class BillableJobSelectionComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onCheckChange(event: any) {
-    console.log(event.target.checked);
-  }
 
   showBill() {
     const selectedJobs = this.jobList.filter((el) => el.isSelected).map((el) => el.jobId);
@@ -107,8 +105,10 @@ export class BillableJobSelectionComponent implements OnInit {
       confirmButtonText: 'Yes, generate it!',
       cancelButtonText: 'No, cancel it'
     }).then((result) => {
-      this.orderBillService.saveBillMaster({master: this.bill.master, details: this.bill.details}).subscribe((response) => {
-        console.log(response);
+      // tslint:disable-next-line:max-line-length
+      this.orderBillService.saveBillMaster({master: this.bill.master, details: this.bill.details}).subscribe((response: {success: boolean, message: string, data: any}) => {
+        this.printableBill = response.data;
+        this.proformaInvoice = [];
         Swal.fire(
           'Success',
            'Bill Generated',

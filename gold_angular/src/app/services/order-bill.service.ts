@@ -23,8 +23,8 @@ export class OrderBillService {
     return this.http.get('assets/settings.json');
   }
   saveBillMaster(bill){
-    return this.http.post<{ success: number, data: BillMaster }>( GlobalVariable.BASE_API_URL + '/saveBillMaster' , bill)
-      .pipe(catchError(this.errorService.serverError), tap(((response: {success: number, data: BillMaster}) => {
+    return this.http.post<{ success: boolean, message: string, data: any }>( GlobalVariable.BASE_API_URL + '/saveBillMaster' , bill)
+      .pipe(catchError(this.errorService.serverError), tap(((response: {success: boolean, message: string, data: any}) => {
 
       })));
   }
