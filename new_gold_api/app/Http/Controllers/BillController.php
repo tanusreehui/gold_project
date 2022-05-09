@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\BillableJobResource;
 use App\Http\Resources\BillableOrderResource;
 use App\Http\Resources\JobResource;
+use App\Models\BillMaster;
 use App\Models\JobDetail;
 use App\Models\JobMaster;
 use App\Models\OrderDetail;
@@ -42,5 +43,9 @@ class BillController extends ApiController
         $order_details = OrderDetail::whereOrderMasterId($orderMasterId)->pluck('id');
         $jobs = JobMaster::whereIn('order_details_Id',$order_details)->get();
         return $this->successResponse(BillableJobResource::collection($jobs));
+    }
+    public function getBillById($billMasterId){
+        $billMaster = BillMaster::get();
+        return $this->successResponse($billMaster);
     }
 }

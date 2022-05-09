@@ -235,6 +235,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
     Route::get('/job/jobTag/{jobNumber}',[JobMasterController::class,'getJobTag']);
 
+    Route::get('/bills/{billMasterId}',[BillController::class,'getBillById']);
+
 
 
 });
