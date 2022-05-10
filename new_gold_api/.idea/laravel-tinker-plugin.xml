@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="laravelTinkerProject">
-    <option name="lastCode" value="&lt;?php&#10;//Tinker away!&#10;use App\Models\OrderMaster as OM;&#10;//JM::find(2)-&gt;job_details-&gt;where('job_task_id','=',1)-&gt;first()-&gt;material_id;&#10;OM::find(1)-&gt;agent;&#10;&#10;" />
+    <option name="lastCode" value="&lt;?php&#10;//Tinker away!&#10;use App\Models\BillMaster as BM;&#10;use App\Models\Person;&#10;//JM::find(2)-&gt;job_details-&gt;where('job_task_id','=',1)-&gt;first()-&gt;material_id;&#10;BM::find(91)-&gt;customer;&#10;&#10;" />
   </component>
 </project>

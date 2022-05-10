@@ -45,7 +45,7 @@ class BillController extends ApiController
         return $this->successResponse(BillableJobResource::collection($jobs));
     }
     public function getBillById($billMasterId){
-        $billMaster = BillMaster::get();
+        $billMaster = BillMaster::find($billMasterId)->with('customer')->first();
         return $this->successResponse($billMaster);
     }
 }

@@ -12,9 +12,8 @@ class BillMaster extends Model
      */
     private $order_master_id;
 
-    public function getCustomer(){
-        return $this->belongsTo('App\Models\People;','customer_id');
-
+    public function customer(){
+        return $this->belongsTo('App\Models\Person','customer_id');
     }
     public function getCreatedAtAttribute($value): string
     {
